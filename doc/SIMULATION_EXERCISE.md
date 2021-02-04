@@ -10,7 +10,7 @@ Kathleen Chen (kc387)
 
 ### High Level Design Ideas
 - Cell class that updates itself based on its value and its neighbors
-- 
+- Simulation class that keeps track of rules
 
 ### CRC Card Classes
 
