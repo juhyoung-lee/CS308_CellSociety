@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>CompSci308_2021Spring</groupId>
+<artifactId>cellsociety_team11</artifactId>
+<version>master-SNAPSHOT</version>
+<packaging>jar</packaging>
+
+<properties>
+    <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
+</properties>
+
+<build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+        <!-- external data files -->
+        <resource>
+            <directory>data</directory>
+        </resource>
+        <!-- internal resource files also need to be included, but not directly -->
+        <resource>
+            <directory>src</directory>
+        </resource>
+    </resources>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+            <configuration>
+                <encoding>iso-8859-1</encoding>
+                <includes>
+                    <include>src/**/*.java</include>
+                </includes>
+                <source>15</source>
+                <target>15</target>
+                <compilerArgs>
+                    <arg>--enable-preview</arg>
+                </compilerArgs>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>3.1.1</version>
+            <dependencies>
+                <dependency>
+                    <groupId>com.puppycrawl.tools</groupId>
+                    <artifactId>checkstyle</artifactId>
+                    <version>8.40</version>
+                </dependency>
+            </dependencies>
+            <configuration>
+                <configLocation>google_checks.xml</configLocation>
+                <encoding>UTF-8</encoding>
+                <consoleOutput>true</consoleOutput>
+                <linkXRef>false</linkXRef>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>validate</id>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>check</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+</project>
