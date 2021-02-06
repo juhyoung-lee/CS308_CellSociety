@@ -1,6 +1,10 @@
 # Cell Society Design Plan
-### Team Number
-### Names
+### Team Number 11
+### Names:
+- Kathleen Chen
+- Jessica Yang
+- Juhyoung Lee
+- Kenneth Moore
 
 #### Examples
 
@@ -24,7 +28,7 @@ This section describes the problem your team is trying to solve by writing this 
 This section serves as a map of your design for other programmers to gain a general understanding of how and why the program was divided up, and how the individual parts work together to provide the desired functionality. As such, it should describe specific components you intend to create, their purpose with regards to the program's functionality, and how they collaborate with each other. It should also include a picture of how the components are related (these pictures can be hand drawn and scanned in CRC cards, created with a standard drawing program or on a white board, or screen shots from a UML design program). To keep these classes as flexible as possible, your team must describe two different implementations (i.e., data structures, file formats, etc.) and then design your method signatures so they do not reveal the specifics of either implementation option. This section should discuss specific classes, methods, and data structures, but not individual lines of code.  
 
 **Picture**  
-yEET.jpg
+![This is cool, too bad you can't see it](cellsocietyuml.jpg "An alternate design")
 
 **Implementation**
 1. neighbors are stored as arraylist
