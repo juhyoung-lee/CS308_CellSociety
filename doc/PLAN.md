@@ -30,6 +30,7 @@ This section serves as a map of your design for other programmers to gain a gene
 **Picture**  
 ![This is cool, too bad you can't see it](cellsocietyuml.jpg "An alternate design")
 
+
 **Implementation**
 1. neighbors are stored as arraylist
 2. neighbors are stored as linked list
@@ -154,7 +155,7 @@ public class Game{
 This section describes how the user will interact with your program (keep it very simple to start). Describe the overall appearance of program's user interface components and how users interact with these components (especially those specific to your program, i.e., means of input other than menus or toolbars). Include one or more pictures of the user interface (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a dummy program that serves as a exemplar). Also describe any erroneous situations that are reported to the user (i.e., bad input data, empty data, etc.). This section should go into as much detail as necessary to cover all your team wants to say.
 
 **Picture**  
-yEET.jpg
+![blah](cellsociety_gui.jpg)
 
 **Buttons**
 - play
