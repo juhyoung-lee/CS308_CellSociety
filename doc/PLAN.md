@@ -7,8 +7,6 @@
 - Kenneth Moore
 
 ## Introduction
-This section describes the problem your team is trying to solve by writing this program, the primary design goals of the project (i.e., where is it most flexible), and the primary architecture of the design (i.e., what is closed and what is open). This section should discuss the program at a high-level (i.e., without referencing specific classes, data structures, or code).
-
 We want to create platform for cell automata that can be adapted to any specific variety. We want to
 ensure that the majority of the program can run the same between different simulations, and changing
 only specific implementations of the rules to differentiate between them. This means that the game
@@ -337,12 +335,13 @@ track of its neighbors. The reasoning for this possibility is the ability to sep
   in one location, but we also aren't sure of what other specific responsibilities it should have, 
   if any.
 ## Team Responsibilities
-This section describes the program components each team member plans to take primary and secondary responsibility for and a high-level plan of how the team will complete the program.
+We want to have the Game of Life implemented by Wednesday/Thursday, then implement more complex 
+simulations, checking how generalizable the program is between simulations. 
 
- * Jessica
+ * Jessica: working on Cell and GameOfLifeCell
 
- * Kenny
+ * Kenny: working on CellAutomata and XML parsing for cell automata information
 
- * Juhyoung
+ * Juhyoung: working on Grid and XML parsing for cell information
 
- * Kathleen
+ * Kathleen: working on Game, with running the simulation and JavaFX
