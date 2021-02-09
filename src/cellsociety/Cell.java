@@ -1,7 +1,5 @@
 package cellsociety;
 
-import java.util.ArrayList;
-
 /**
  * Purpose: Represents a cell within the cell automata simulation.
  * Assumptions: TODO
@@ -13,8 +11,8 @@ import java.util.ArrayList;
 public abstract class Cell {
 
   private final int myIndex;
-  private int myState;
-  private int nextState;
+  protected int myState;
+  protected int nextState;
 
   /**
    * Purpose: Constructor for Cell class.
