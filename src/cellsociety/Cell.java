@@ -1,28 +1,50 @@
 package cellsociety;
 
+import java.util.ArrayList;
+
 /**
- * Purpose: Represents a cell within the cell automota simulation.
+ * Purpose: Represents a cell within the cell automata simulation.
  * Assumptions: TODO
  * Dependencies: TODO
  * Example of use: TODO
  *
  * @author Juhyoung Lee, Jessica Yang
  */
-public class Cell {
+public abstract class Cell {
 
-  private final int index;
-  private int state;
+  private final int myIndex;
+  private int myState;
+  private int nextState;
 
   /**
-   * Purpose: Constructor for Cell class. Assumptions: TODO
+   * Purpose: Constructor for Cell class.
+   * Assumptions: TODO
    * Parameters: int index, int state.
    * Exceptions: TODO
    * Returns: Cell object.
    */
   public Cell(int index, int state) {
-    this.index = index;
-    this.state = state;
+    myIndex = index;
+    myState = state;
   }
+
+  /**
+   * Purpose: Determine new state to update to.
+   * Assumptions: TODO
+   * Parameters: int[] neighborStates.
+   * Exceptions: TODO
+   * Returns: TODO
+   */
+  public abstract void prepareNewState(int[] neighborStates);
+
+  /**
+   * Purpose: Update current cell state.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: String object.
+   */
+  public abstract String updateState();
 
   /**
    * Purpose: Returns state of the cell.
@@ -32,7 +54,7 @@ public class Cell {
    * Returns: int state.
    */
   public int getState() {
-    return state;
+    return myState;
   }
 
   /**
@@ -43,6 +65,6 @@ public class Cell {
    * Returns: int index.
    */
   public int getIndex() {
-    return index;
+    return myIndex;
   }
 }
