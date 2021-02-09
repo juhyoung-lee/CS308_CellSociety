@@ -1,18 +1,70 @@
 package cellsociety;
 
-public class Cell {
-    private int index;
-    private int state;
-    public Cell(int index, int state) {
-        this.index = index;
-        this.state = state;
-    }
+import java.util.ArrayList;
 
-    public int getState() {
-        return state;
-    }
+/**
+ * Purpose: Represents a cell within the cell automata simulation.
+ * Assumptions: TODO
+ * Dependencies: TODO
+ * Example of use: TODO
+ *
+ * @author Juhyoung Lee, Jessica Yang
+ */
+public abstract class Cell {
 
-    public int getIndex() {
-        return index;
-    }
+  private final int myIndex;
+  private int myState;
+  private int nextState;
+
+  /**
+   * Purpose: Constructor for Cell class.
+   * Assumptions: TODO
+   * Parameters: int index, int state.
+   * Exceptions: TODO
+   * Returns: Cell object.
+   */
+  public Cell(int index, int state) {
+    myIndex = index;
+    myState = state;
+  }
+
+  /**
+   * Purpose: Determine new state to update to.
+   * Assumptions: TODO
+   * Parameters: int[] neighborStates.
+   * Exceptions: TODO
+   * Returns: TODO
+   */
+  public abstract void prepareNewState(int[] neighborStates);
+
+  /**
+   * Purpose: Update current cell state.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: String object.
+   */
+  public abstract String updateState();
+
+  /**
+   * Purpose: Returns state of the cell.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int state.
+   */
+  public int getState() {
+    return myState;
+  }
+
+  /**
+   * Purpose: Returns index of the cell.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int index.
+   */
+  public int getIndex() {
+    return myIndex;
+  }
 }
