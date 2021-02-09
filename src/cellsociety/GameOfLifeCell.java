@@ -30,6 +30,8 @@ public class GameOfLifeCell extends Cell {
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
    * Returns: TODO
+   *
+   * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
   public void prepareNewState(int[] neighborStates) {
     int live = 0;
@@ -50,13 +52,14 @@ public class GameOfLifeCell extends Cell {
   }
 
   /**
-   * Purpose: Update current cell state.
+   * Purpose: Update current cell state, and return value for other methods to use.
    * Assumptions: TODO
    * Parameters: None.
    * Exceptions: None.
-   * Returns: String object.
+   * Returns: int object.
    */
-  public String updateState() {
-
+  public int updateState() {
+    myState = nextState;
+    return myState;
   }
 }
