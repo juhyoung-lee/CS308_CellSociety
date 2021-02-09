@@ -13,18 +13,18 @@ import javafx.stage.Stage;
  */
 
 public class Main extends Application {
-    private ScreenControl sc = new ScreenControl();
+  private ScreenControl sc = new ScreenControl();
 
-    public static void main(String[] args){
-        launch(args);
-    }
+  public static void main(String[] args){
+    launch(args);
+  }
 
-    /**
-     * Start the program by initializing the game
-     * @param stage
-     */
-    @Override
-    public void start(Stage stage) {
-        sc.initialize(stage);
-    }
+  /**
+   * Start the program by initializing the game
+   * @param stage
+  */
+  @Override
+  public void start(Stage stage) {
+    sc.initialize(stage);
+  }
 }

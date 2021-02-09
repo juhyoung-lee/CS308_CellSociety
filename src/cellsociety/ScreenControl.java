@@ -14,7 +14,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import javafx.util.Duration;
 
 /**
@@ -35,18 +34,18 @@ public class ScreenControl {
 
   public static final String PLAY_IMAGE = "PlayButton.gif";
   public static final String PAUSE_IMAGE = "PauseButton.gif";
+  public static final String STEP_IMAGE = "StepButton.gif";
   public static final int BUTTON_SIZE = 15;
 
   public static final String GAME_TITLE = "Conway's Game of Life";
 
   private Group myRoot;
-  private Scene myScene;
   private Text titleText;
 
   public void initialize(Stage stage) {
     myRoot = new Group();
-    myScene = new Scene(myRoot, X_SIZE, Y_SIZE, BACKGROUND);
-    stage.setScene(myScene);
+    Scene scene = new Scene(myRoot, X_SIZE, Y_SIZE, BACKGROUND);
+    stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
     /**
@@ -61,6 +60,7 @@ public class ScreenControl {
     setGameTitleText();
     createPlayButton();
     createPauseButton();
+    createStepButton();
   }
 
   private void myImage(String icon, String text, double x, double y) {
@@ -74,8 +74,15 @@ public class ScreenControl {
     myRoot.getChildren().add(button);
   }
 
+  private void createStepButton() {
+    int x = X_SIZE * 4 / 5;
+    int y = Y_SIZE / 12 + 460;
+    String pause = "Step";
+    myImage(STEP_IMAGE, pause, x, y);
+  }
+
   private void createPauseButton() {
-    int x = X_SIZE / 2 - 35;
+    int x = X_SIZE / 2 - 32;
     int y = Y_SIZE / 12 + 460;
     String pause = "Pause";
     myImage(PAUSE_IMAGE, pause, x, y);
@@ -88,7 +95,7 @@ public class ScreenControl {
     myImage(PLAY_IMAGE, play, x, y);
   }
 
-    private void setGameTitleText() {
+  private void setGameTitleText() {
     titleText = new Text(0, 30, GAME_TITLE);
     Font font = new Font(30);
     titleText.setFont(font);
