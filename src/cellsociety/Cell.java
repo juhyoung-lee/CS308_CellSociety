@@ -42,7 +42,7 @@ public abstract class Cell {
    * Exceptions: None.
    * Returns: String object.
    */
-  public abstract String updateState();
+  public abstract int updateState();
 
   /**
    * Purpose: Returns state of the cell.
