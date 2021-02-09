@@ -35,6 +35,8 @@ public class ScreenControl {
   public static final String PLAY_IMAGE = "PlayButton.gif";
   public static final String PAUSE_IMAGE = "PauseButton.gif";
   public static final String STEP_IMAGE = "StepButton.gif";
+  public static final String SPEED_UP_IMAGE = "SpeedUpButton.gif";
+  public static final String SLOW_DOWN_IMAGE = "SlowDownButton.gif";
   public static final int BUTTON_SIZE = 15;
 
   public static final String GAME_TITLE = "Conway's Game of Life";
@@ -58,9 +60,15 @@ public class ScreenControl {
     framePlaceholder.setY(Y_SIZE / 12);
     myRoot.getChildren().add(framePlaceholder);
     setGameTitleText();
+    createButtons();
+  }
+
+  private void createButtons() {
     createPlayButton();
     createPauseButton();
     createStepButton();
+    createSpeedUpButton();
+    createSlowDownButton();
   }
 
   private void myImage(String icon, String text, double x, double y) {
@@ -72,6 +80,20 @@ public class ScreenControl {
     button.setLayoutX(x);
     button.setLayoutY(y);
     myRoot.getChildren().add(button);
+  }
+
+  private void createSlowDownButton() {
+    int x = X_SIZE * 2 / 9;
+    int y = Y_SIZE / 12 + 500;
+    String pause = "Slow Down";
+    myImage(SLOW_DOWN_IMAGE, pause, x, y);
+  }
+
+  private void createSpeedUpButton() {
+    int x = X_SIZE *  3 / 5;
+    int y = Y_SIZE / 12 + 500;
+    String pause = "Speed up";
+    myImage(SPEED_UP_IMAGE, pause, x, y);
   }
 
   private void createStepButton() {
