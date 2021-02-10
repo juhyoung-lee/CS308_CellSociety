@@ -12,6 +12,7 @@ public abstract class Cell {
 
   protected int myState;
   protected int nextState;
+  public static final int NO_MOVEMENT = -1;
 
   /**
    * Purpose: Constructor for Cell class.
@@ -29,9 +30,9 @@ public abstract class Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: TODO
+   * Returns: int type. Describes what needs to be moved, if any.
    */
-  public abstract void prepareNewState(int[] neighborStates);
+  public abstract int prepareNewState(int[] neighborStates);
 
   /**
    * Purpose: Update current cell state, and return value for other methods to use.

@@ -30,10 +30,10 @@ public class PercolationCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: TODO
+   * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/PercolationCA.pdf
    */
-  public void prepareNewState(int[] neighborStates) {
+  public int prepareNewState(int[] neighborStates) {
     if (myState == OPEN) {
       for (int state : neighborStates) {
         if (state == PERCOLATED) {
@@ -42,5 +42,7 @@ public class PercolationCell extends Cell {
         }
       }
     }
+
+    return NO_MOVEMENT;
   }
 }

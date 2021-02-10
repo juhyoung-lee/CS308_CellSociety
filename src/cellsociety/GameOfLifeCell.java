@@ -29,10 +29,10 @@ public class GameOfLifeCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: TODO
+   * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
-  public void prepareNewState(int[] neighborStates) {
+  public int prepareNewState(int[] neighborStates) {
     int live = 0;
 
     for (int state : neighborStates) {
@@ -48,5 +48,7 @@ public class GameOfLifeCell extends Cell {
     } else {
       nextState = DEAD;
     }
+
+    return NO_MOVEMENT;
   }
 }
