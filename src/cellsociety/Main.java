@@ -29,7 +29,7 @@ public class Main extends Application {
   @Override
   public void start(Stage stage) {
     int rows = 15;
-    int cols = 20;
+    int cols = 15;
     ArrayList<Integer> cell = new ArrayList<Integer>(rows * cols);
     Random rand = new Random();
     for (int i = 1; i <= rows * cols; i++) {

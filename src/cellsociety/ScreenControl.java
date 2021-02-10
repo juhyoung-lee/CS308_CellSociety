@@ -1,21 +1,17 @@
 package cellsociety;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import java.util.ArrayList;
 
 /**
  * Purpose: Creates screen display that user interacts with.
@@ -48,6 +44,10 @@ public class ScreenControl {
   private Group myRoot;
   private Text titleText;
 
+  /**
+   * Initialize the scene and add buttons and text.
+   ** @param stage
+   */
   public void initialize(Stage stage) {
     myRoot = new Group();
     Scene scene = new Scene(myRoot, X_SIZE, Y_SIZE, BACKGROUND);
@@ -122,9 +122,9 @@ public class ScreenControl {
 
   /**
    * Creates display of Grid for viewer to see.
-   * @param rows
-   * @param cols
-   * @param cells
+   ** @param rows
+   ** @param cols
+   ** @param cells
    */
   public void createGrid(int rows, int cols, ArrayList<Integer> cells) {
     int xsize = GRID_SIZE / cols;
@@ -135,13 +135,11 @@ public class ScreenControl {
         myRoot.getChildren().add(block);
         if (cells.get(j + i * cols) == 0) {
           block.setFill(Color.WHITE);
-        block.setStroke(Color.BLACK);
-      }
-        else if (cells.get(j + i * cols) == 1) {
+          block.setStroke(Color.BLACK);
+        } else if (cells.get(j + i * cols) == 1) {
           block.setFill(Color.MEDIUMBLUE);
           block.setStroke(Color.BLACK);
-        }
-        else {
+        } else {
           block.setFill(Color.DEEPPINK);
           block.setStroke(Color.BLACK);
         }
