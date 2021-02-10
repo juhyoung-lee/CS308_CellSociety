@@ -51,8 +51,10 @@ public class SegregationCell extends Cell {
     double similar = (double) sameState / nonEmpty;
 
     if (similar >= myThreshold) {
+      nextState = myState;
       return NO_MOVEMENT;
     } else {
+      nextState = EMPTY;
       return myState;
     }
   }

@@ -34,6 +34,8 @@ public class PercolationCell extends Cell {
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/PercolationCA.pdf
    */
   public int prepareNewState(int[] neighborStates) {
+    nextState = myState;
+    
     if (myState == OPEN) {
       for (int state : neighborStates) {
         if (state == PERCOLATED) {
