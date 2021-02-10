@@ -4,14 +4,18 @@ Cell Society
 This project implements a cellular automata simulator.
 
 Names:
+- Kathleen Chen
+- Jessica Yang 
+- Juhyoung Lee
+- Kenneth Moore
 
 ### Timeline
 
-Start Date: 
+Start Date: 2/6
 
 Finish Date: 
 
-Hours Spent:
+Hours Spent: 3 + 2 + 4 = 9
 
 ### Primary Roles
 
