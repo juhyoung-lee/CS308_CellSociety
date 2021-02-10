@@ -3,7 +3,7 @@ package cellsociety;
 /**
  * Purpose: Represents a cell for the Game of Life simulation. Extends the Cell class.
  * Assumptions: TODO
- * Depedencies: TODO
+ * Dependencies: TODO
  * Example of use: TODO
  *
  * @author Jessica Yang
@@ -20,8 +20,8 @@ public class GameOfLifeCell extends Cell {
    * Exceptions: TODO
    * Returns: GameOfLifeCell object.
    */
-  public GameOfLifeCell(int index, int state) {
-    super(index, state);
+  public GameOfLifeCell(int state) {
+    super(state);
   }
 
   /**
@@ -30,7 +30,6 @@ public class GameOfLifeCell extends Cell {
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
    * Returns: TODO
-   *
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
   public void prepareNewState(int[] neighborStates) {

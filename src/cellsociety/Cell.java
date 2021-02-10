@@ -10,19 +10,17 @@ package cellsociety;
  */
 public abstract class Cell {
 
-  private final int myIndex;
   protected int myState;
   protected int nextState;
 
   /**
    * Purpose: Constructor for Cell class.
    * Assumptions: TODO
-   * Parameters: int index, int state.
+   * Parameters: int state.
    * Exceptions: TODO
    * Returns: Cell object.
    */
-  public Cell(int index, int state) {
-    myIndex = index;
+  public Cell(int state) {
     myState = state;
   }
 
@@ -53,16 +51,5 @@ public abstract class Cell {
    */
   public int getState() {
     return myState;
-  }
-
-  /**
-   * Purpose: Returns index of the cell.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int index.
-   */
-  public int getIndex() {
-    return myIndex;
   }
 }
