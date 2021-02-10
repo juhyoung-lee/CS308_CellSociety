@@ -100,7 +100,7 @@ public class Grid {
             .getTextContent();
         int cellState = Integer
             .parseInt((cell.getElementsByTagName(XML_CELL_STATE)).item(0).getTextContent());
-        this.grid.put(new Cell(cellIndex, cellState), cellNeighbors);
+        this.grid.put(new GameOfLifeCell(cellIndex, cellState), cellNeighbors);
       }
     }
   }
