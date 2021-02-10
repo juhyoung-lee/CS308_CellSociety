@@ -78,7 +78,7 @@ public class Grid {
 
   private void getGridConfigFromDoc(Document doc) {
     Node node = doc.getElementsByTagName(XML_GRID_PARAMETERS).item(0);
-    if (node.getNodeType() == Node.ELEMENT_NODE) {
+    /*if (node.getNodeType() == Node.ELEMENT_NODE) {
       Element gridParameters = (Element) node;
       String xmlWidth = gridParameters.getElementsByTagName(XML_GRID_WIDTH).item(0)
           .getTextContent();
@@ -86,7 +86,7 @@ public class Grid {
           .getTextContent();
       this.width = Integer.parseInt(xmlWidth);
       this.height = Integer.parseInt(xmlHeight);
-    }
+    }*/
   }
 
   private void fillGridFromDoc(Document doc) {
@@ -100,7 +100,7 @@ public class Grid {
             .getTextContent();
         int cellState = Integer
             .parseInt((cell.getElementsByTagName(XML_CELL_STATE)).item(0).getTextContent());
-        this.grid.put(new Cell(cellIndex, cellState), cellNeighbors);
+        //this.grid.put(new Cell(cellIndex, cellState), cellNeighbors);
       }
     }
   }

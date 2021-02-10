@@ -19,6 +19,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
-        game.initialize(stage);
+        Configure c = new Configure();
+        //game.initialize(stage);
     }
 }
