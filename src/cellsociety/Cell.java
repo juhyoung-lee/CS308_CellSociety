@@ -34,13 +34,16 @@ public abstract class Cell {
   public abstract void prepareNewState(int[] neighborStates);
 
   /**
-   * Purpose: Update current cell state.
+   * Purpose: Update current cell state, and return value for other methods to use.
    * Assumptions: TODO
    * Parameters: None.
    * Exceptions: None.
-   * Returns: String object.
+   * Returns: int object.
    */
-  public abstract int updateState();
+  public int updateState() {
+    myState = nextState;
+    return myState;
+  }
 
   /**
    * Purpose: Returns state of the cell.

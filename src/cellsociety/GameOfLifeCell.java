@@ -49,16 +49,4 @@ public class GameOfLifeCell extends Cell {
       nextState = DEAD;
     }
   }
-
-  /**
-   * Purpose: Update current cell state, and return value for other methods to use.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int object.
-   */
-  public int updateState() {
-    myState = nextState;
-    return myState;
-  }
 }
