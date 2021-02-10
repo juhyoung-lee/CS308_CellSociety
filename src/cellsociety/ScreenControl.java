@@ -15,9 +15,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.util.ArrayList;
 
 /**
- * Purpose: Creates screen display that user interacts with
+ * Purpose: Creates screen display that user interacts with.
  * Assumptions: TODO
  * Dependencies: TODO
  * Example of use: TODO
@@ -31,6 +32,9 @@ public class ScreenControl {
   public static final int X_SIZE = 500;
   public static final int Y_SIZE = 600;
   public static final Paint BACKGROUND = Color.AZURE;
+  public static final int GRID_SIZE = 450;
+  public static final int GRID_X = (X_SIZE / 2) - (GRID_SIZE / 2);
+  public static final int GRID_Y = Y_SIZE / 12;
 
   public static final String PLAY_IMAGE = "PlayButton.gif";
   public static final String PAUSE_IMAGE = "PauseButton.gif";
@@ -50,15 +54,6 @@ public class ScreenControl {
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
-    /**
-     * temporary place holder for grid cells
-    */
-    Rectangle framePlaceholder = new Rectangle();
-    framePlaceholder.setWidth(450);
-    framePlaceholder.setHeight(450);
-    framePlaceholder.setX(X_SIZE / 2 - (framePlaceholder.getWidth() / 2));
-    framePlaceholder.setY(Y_SIZE / 12);
-    myRoot.getChildren().add(framePlaceholder);
     setGameTitleText();
     createButtons();
   }
@@ -123,5 +118,34 @@ public class ScreenControl {
     titleText.setFont(font);
     titleText.setX(X_SIZE / 2 - (titleText.getLayoutBounds().getWidth() / 2));
     myRoot.getChildren().add(titleText);
+  }
+
+  /**
+   * Creates display of Grid for viewer to see.
+   * @param rows
+   * @param cols
+   * @param cells
+   */
+  public void createGrid(int rows, int cols, ArrayList<Integer> cells) {
+    int xsize = GRID_SIZE / cols;
+    int ysize = GRID_SIZE / rows;
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        Rectangle block = new Rectangle(GRID_X + j * xsize, GRID_Y + i * ysize, xsize, ysize);
+        myRoot.getChildren().add(block);
+        if (cells.get(j + i * cols) == 0) {
+          block.setFill(Color.WHITE);
+        block.setStroke(Color.BLACK);
+      }
+        else if (cells.get(j + i * cols) == 1) {
+          block.setFill(Color.MEDIUMBLUE);
+          block.setStroke(Color.BLACK);
+        }
+        else {
+          block.setFill(Color.DEEPPINK);
+          block.setStroke(Color.BLACK);
+        }
+      }
+    }
   }
 }

@@ -3,6 +3,9 @@ package cellsociety;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Purpose: Initialize the screen
  * Assumptions: TODO
@@ -25,6 +28,14 @@ public class Main extends Application {
   */
   @Override
   public void start(Stage stage) {
+    int rows = 15;
+    int cols = 20;
+    ArrayList<Integer> cell = new ArrayList<Integer>(rows * cols);
+    Random rand = new Random();
+    for (int i = 1; i <= rows * cols; i++) {
+      cell.add(rand.nextInt(3));
+    }
     sc.initialize(stage);
+    sc.createGrid(rows, cols, cell);
   }
 }
