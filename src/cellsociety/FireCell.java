@@ -1,6 +1,5 @@
 package cellsociety;
 
-import java.awt.Paint;
 import java.util.Random;
 
 /**
@@ -37,7 +36,7 @@ public class FireCell extends Cell {
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
    * Returns: int type. Describes what needs to be moved, if any.
-   * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/PercolationCA.pdf
+   * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/shiflet-fire/
    */
   public int prepareNewState(int[] neighborStates) {
     boolean burningNeighbor = false;
@@ -59,7 +58,7 @@ public class FireCell extends Cell {
         nextState = TREE;
       }
     }
-    
+
     return NO_MOVEMENT;
   }
 }

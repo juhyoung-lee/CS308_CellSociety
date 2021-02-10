@@ -23,7 +23,7 @@ public class WaTorCell extends Cell {
   /**
    * Purpose: Constructor for WaTorCell class.
    * Assumptions: TODO
-   * Parameters: int state.
+   * Parameters: int state, int breedFish, int breedShark, int energyGain, int energyLoss.
    * Exceptions: TODO
    * Returns: WaTorCell object.
    */
