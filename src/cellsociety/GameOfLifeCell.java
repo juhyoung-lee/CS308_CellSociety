@@ -14,9 +14,9 @@ public class GameOfLifeCell extends Cell {
   public static final int DEAD = 0;
 
   /**
-   * Purpose: Construct for GameOfLifeCell class.
+   * Purpose: Constructor for GameOfLifeCell class.
    * Assumptions: TODO
-   * Parameters: int index, int state.
+   * Parameters: int state.
    * Exceptions: TODO
    * Returns: GameOfLifeCell object.
    */
