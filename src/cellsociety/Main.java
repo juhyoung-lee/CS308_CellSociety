@@ -1,5 +1,6 @@
 package cellsociety;
 
+import java.io.File;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -25,6 +26,7 @@ public class Main extends Application {
   */
   @Override
   public void start(Stage stage) {
-    sc.initialize(stage);
+      Configure c = new Configure();
+      //sc.initialize(stage);
   }
 }

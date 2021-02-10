@@ -1,5 +1,6 @@
 package cellsociety;
 
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -41,15 +42,27 @@ public class XMLParser {
    */
   public Game getGame (File dataFile) throws XMLException {
     Element root = getRootElement(dataFile);
-    if (! isValidFile(root, Game.DATA_TYPE)) {
-      throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
-    }
+//    if (! isValidFile(root, Game.DATA_TYPE)) {
+//      throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
+//    }
     // read data associated with the fields given by the object
-    Map<String, String> results = new HashMap<>();
-    for (String field : Game.DATA_FIELDS) {
-      results.put(field, getTextValue(root, field));
+    ArrayList<String> infoResults = new ArrayList<>();
+    for (String field : Game.INFORMATION_FIELDS) {
+      infoResults.add(getTextValue(root, field));
     }
-    return new Game(results);
+
+    ArrayList<Integer> gridResults = new ArrayList<>();
+    for (String field : Game.GRID_FIELDS) {
+      gridResults.add(Integer.parseInt(getTextValue(root, field)));
+    }
+
+    NodeList cellRows = root.getElementsByTagName("cellRow");
+    ArrayList<Integer> parameterResults = new ArrayList<>();
+    for (String field : Game.GRID_FIELDS) {
+      gridResults.add(Integer.parseInt(getTextValue(root, field)));
+    }
+
+    return new Game(infoResults, gridResults);
   }
 
   // get root element of an XML file
@@ -64,16 +77,16 @@ public class XMLParser {
     }
   }
 
-  // returns if this is a valid XML file for the specified object type
-  private boolean isValidFile (Element root, String type) {
-    return getAttribute(root, TYPE_ATTRIBUTE).equals(type);
-  }
-
-  // get value of Element's attribute
-  private String getAttribute (Element e, String attributeName) {
-    return e.getAttribute(attributeName);
-  }
-
+//  // returns if this is a valid XML file for the specified object type
+//  private boolean isValidFile (Element root, String type) {
+//    return getAttribute(root, TYPE_ATTRIBUTE).equals(type);
+//  }
+//
+//  // get value of Element's attribute
+//  private String getAttribute (Element e, String attributeName) {
+//    return e.getAttribute(attributeName);
+//  }
+//
   // get value of Element's text
   private String getTextValue (Element e, String tagName) {
     NodeList nodeList = e.getElementsByTagName(tagName);

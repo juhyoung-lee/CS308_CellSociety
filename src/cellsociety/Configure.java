@@ -31,30 +31,45 @@ public class Configure {
   }
 
   private void readXML() {
-    try {
-      File inputFile = new File(CONFIGURATION_FILE);
-      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-      DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
-      Document doc = docBuilder.parse(inputFile);
-      doc.getDocumentElement().normalize();
-
-      Node information = doc.getElementsByTagName(XML_INFORMATION).item(0);
-
-
-
-      //for getting sizes
-      Node node = doc.getElementsByTagName(XML_GRID_PARAMETERS).item(0);
-      if (node.getNodeType() == Node.ELEMENT_NODE) {
-        Element gridParameters = (Element) node;
-        String xmlWidth = gridParameters.getElementsByTagName(XML_GRID_WIDTH).item(0)
-            .getTextContent();
-        String xmlHeight = gridParameters.getElementsByTagName(XML_GRID_HEIGHT).item(0)
-            .getTextContent();
-        this.width = Integer.parseInt(xmlWidth);
-        this.height = Integer.parseInt(xmlHeight);
+    File dataFile = new File(CONFIGURATION_FILE);
+    while (dataFile != null) {
+      try {
+        Game g = new XMLParser("media").getGame(dataFile);
+        System.out.println("Success");
+        System.out.println(g);
+      } catch (XMLException e) {
+        // handle error of unexpected file format
+        System.out.println("Error");
       }
-    } catch (Exception e) {
-      e.printStackTrace();
     }
   }
+
+
 }
+
+
+//try {
+//    File inputFile = new File(CONFIGURATION_FILE);
+//    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+//    DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+//    Document doc = docBuilder.parse(inputFile);
+//    doc.getDocumentElement().normalize();
+//
+//    Node information = doc.getElementsByTagName(XML_INFORMATION).item(0);
+//
+//
+//
+//    //for getting sizes
+//    Node node = doc.getElementsByTagName(XML_GRID_PARAMETERS).item(0);
+//    if (node.getNodeType() == Node.ELEMENT_NODE) {
+//      Element gridParameters = (Element) node;
+//      String xmlWidth = gridParameters.getElementsByTagName(XML_GRID_WIDTH).item(0)
+//          .getTextContent();
+//      String xmlHeight = gridParameters.getElementsByTagName(XML_GRID_HEIGHT).item(0)
+//          .getTextContent();
+//      this.width = Integer.parseInt(xmlWidth);
+//      this.height = Integer.parseInt(xmlHeight);
+//    }
+//  } catch (Exception e) {
+//    e.printStackTrace();
+//  }
