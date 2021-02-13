@@ -1,6 +1,10 @@
 package cellsociety;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -43,6 +47,7 @@ public class ScreenControl {
 
   private Group myRoot;
   private Text titleText;
+  private ArrayList<Rectangle> myBlocks;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -129,9 +134,11 @@ public class ScreenControl {
   public void createGrid(int rows, int cols, ArrayList<Integer> cells) {
     int xsize = GRID_SIZE / cols;
     int ysize = GRID_SIZE / rows;
+    myBlocks = new ArrayList<>();
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         Rectangle block = new Rectangle(GRID_X + j * xsize, GRID_Y + i * ysize, xsize, ysize);
+        myBlocks.add(block);
         myRoot.getChildren().add(block);
         if (cells.get(j + i * cols) == 0) {
           block.setFill(Color.WHITE);
@@ -143,6 +150,22 @@ public class ScreenControl {
           block.setFill(Color.DEEPPINK);
           block.setStroke(Color.BLACK);
         }
+      }
+    }
+  }
+
+  public void updateCell(ArrayList<Integer> cells){
+    for(int i = 0; i < cells.size(); i ++){
+      Rectangle block = myBlocks.get(i);
+      if (cells.get(i) == 0) {
+        block.setFill(Color.WHITE);
+        block.setStroke(Color.BLACK);
+      } else if (cells.get(i) == 1) {
+        block.setFill(Color.MEDIUMBLUE);
+        block.setStroke(Color.BLACK);
+      } else {
+        block.setFill(Color.DEEPPINK);
+        block.setStroke(Color.BLACK);
       }
     }
   }
