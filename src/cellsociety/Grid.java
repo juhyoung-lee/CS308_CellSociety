@@ -147,13 +147,14 @@ public class Grid {
   // used by setupGrid()
   private Cell chooseCell(int state) {
     // TODO: buff up for variations
-    // variations will have to accept parameters hmMMMM
+    HashMap<String,Integer> input = new HashMap<>();
+    input.put("state", state);
     return switch (this.gameType) {
-      case "Conway's Game of Life" -> new GameOfLifeCell(state);
-      case "Percolation" -> new PercolationCell(0);
-      case "Fire" -> new FireCell(0, 0);
-      case "Segregation" -> new SegregationCell(0, 0);
-      case "WaTor" -> new WaTorCell(0, 0, 0, 0, 0);
+      case "Conway's Game of Life" -> new GameOfLifeCell(input);
+      case "Percolation" -> new PercolationCell(input);
+      case "Fire" -> new FireCell(input);
+      case "Segregation" -> new SegregationCell(input);
+      case "WaTor" -> new WaTorCell(input);
       default -> null;
     };
   }
