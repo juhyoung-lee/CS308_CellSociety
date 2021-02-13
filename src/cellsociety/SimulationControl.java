@@ -1,5 +1,6 @@
 package cellsociety;
 
+import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -31,7 +32,13 @@ public class SimulationControl {
 
   public static final String GAME_TITLE = "Conway's Game of Life";
 
-  public void initialize(Stage stage) {
+  private ScreenControl mySC;
 
+  public void initialize(Stage stage) {
+    mySC = new ScreenControl();
+    Scene scene = mySC.getScene();
+    stage.setScene(scene);
+    stage.setTitle(TITLE);
+    stage.show();
   }
 }

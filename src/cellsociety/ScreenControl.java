@@ -1,21 +1,15 @@
 package cellsociety;
 
 import java.util.ArrayList;
-import java.util.Random;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  * Purpose: Creates screen display that user interacts with.
@@ -38,6 +32,7 @@ public class ScreenControl {
   private Button stepButton;
   private int sX;
   private int sY;
+  private Scene myScene;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -46,7 +41,7 @@ public class ScreenControl {
     myRoot = new Group();
     sX = SimulationControl.X_SIZE;
     sY = SimulationControl.Y_SIZE;
-    Scene scene = new Scene(myRoot, sX, sY, SimulationControl.BACKGROUND);
+    myScene = new Scene(myRoot, sX, sY, SimulationControl.BACKGROUND);
     myBlocks = new ArrayList<>();
     setGameTitleText();
     createButtons();
@@ -162,6 +157,10 @@ public class ScreenControl {
     }
   }
 
+  /**
+   *
+   ** @param cells
+   */
   public void updateCell(ArrayList<Integer> cells) {
     for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
@@ -176,9 +175,16 @@ public class ScreenControl {
     }
   }
 
+  /**
+   *
+   */
   public void clearGrid() {
     myRoot.getChildren().clear();
     createButtons();
     setGameTitleText();
+  }
+
+  public Scene getScene() {
+    return myScene;
   }
 }
