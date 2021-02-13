@@ -22,8 +22,8 @@ public class GameOfLifeCell extends Cell {
    * Exceptions: TODO
    * Returns: GameOfLifeCell object.
    */
-  public GameOfLifeCell(int state) {
-    super(state);
+  public GameOfLifeCell(HashMap<String, Integer> config) {
+    super(config);
   }
 
   /**

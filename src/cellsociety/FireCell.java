@@ -21,14 +21,14 @@ public class FireCell extends Cell {
 
   /**
    * Purpose: Constructor for FireCell class.
-   * Assumptions: TODO
-   * Parameters: int state, double prob.
+   * Assumptions: HashMap will contain the key "prob".
+   * Parameters: HashMap config.
    * Exceptions: TODO
    * Returns: FireCell object.
    */
-  public FireCell(int state, double prob) {
-    super(state);
-    catchThreshold = prob;
+  public FireCell(HashMap<String, Integer> config) {
+    super(config);
+    catchThreshold = config.get("prob");
   }
 
   /**
