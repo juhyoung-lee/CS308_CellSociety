@@ -48,6 +48,11 @@ public class ScreenControl {
   private Group myRoot;
   private Text titleText;
   private ArrayList<Rectangle> myBlocks;
+  private Button slowButton;
+  private Button fastButton;
+  private Button startButton;
+  private Button pauseButton;
+  private Button stepButton;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -56,6 +61,7 @@ public class ScreenControl {
   public void initialize(Stage stage) {
     myRoot = new Group();
     Scene scene = new Scene(myRoot, X_SIZE, Y_SIZE, BACKGROUND);
+    myBlocks = new ArrayList<>();
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
@@ -71,7 +77,7 @@ public class ScreenControl {
     createSlowDownButton();
   }
 
-  private void myImage(String icon, String text, double x, double y) {
+  private Button myImage(String icon, String text, double x, double y) {
     Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(icon));
     ImageView playImage = new ImageView(image);
     playImage.setFitWidth(BUTTON_SIZE);
@@ -80,41 +86,70 @@ public class ScreenControl {
     button.setLayoutX(x);
     button.setLayoutY(y);
     myRoot.getChildren().add(button);
+    return button;
   }
 
   private void createSlowDownButton() {
     int x = X_SIZE * 2 / 9;
     int y = Y_SIZE / 12 + 500;
     String pause = "Slow Down";
-    myImage(SLOW_DOWN_IMAGE, pause, x, y);
+    slowButton = myImage(SLOW_DOWN_IMAGE, pause, x, y);
+    slowButton.setOnAction(event -> slowDown());
+  }
+
+  private void slowDown() {
   }
 
   private void createSpeedUpButton() {
     int x = X_SIZE *  3 / 5;
     int y = Y_SIZE / 12 + 500;
     String pause = "Speed up";
-    myImage(SPEED_UP_IMAGE, pause, x, y);
+    fastButton = myImage(SPEED_UP_IMAGE, pause, x, y);
+    fastButton.setOnAction(event -> speedUp());
+  }
+
+  private void speedUp() {
   }
 
   private void createStepButton() {
     int x = X_SIZE * 4 / 5;
     int y = Y_SIZE / 12 + 460;
     String pause = "Step";
-    myImage(STEP_IMAGE, pause, x, y);
+    stepButton = myImage(STEP_IMAGE, pause, x, y);
+    stepButton.setOnAction(event -> step());
+  }
+
+  private void step() {
+    int rows = 15;
+    int cols = 15;
+    ArrayList<Integer> cell = new ArrayList<Integer>(rows * cols);
+    Random rand = new Random();
+    for (int i = 1; i <= rows * cols; i++) {
+      cell.add(rand.nextInt(3));
+    }
+    updateCell(cell);
   }
 
   private void createPauseButton() {
     int x = X_SIZE / 2 - 32;
     int y = Y_SIZE / 12 + 460;
     String pause = "Pause";
-    myImage(PAUSE_IMAGE, pause, x, y);
+    pauseButton = myImage(PAUSE_IMAGE, pause, x, y);
+    pauseButton.setOnAction(event -> stop());
+  }
+
+  private void stop() {
   }
 
   private void createPlayButton() {
     int x = X_SIZE / 12;
     int y = Y_SIZE / 12 + 460;
     String play = "Play";
-    myImage(PLAY_IMAGE, play, x, y);
+    startButton = myImage(PLAY_IMAGE, play, x, y);
+    startButton.setOnAction(event -> start());
+  }
+
+  private void start() {
   }
 
   private void setGameTitleText() {
@@ -132,41 +167,43 @@ public class ScreenControl {
    ** @param cells
    */
   public void createGrid(int rows, int cols, ArrayList<Integer> cells) {
+    myRoot.getChildren().remove(myBlocks);
     int xsize = GRID_SIZE / cols;
     int ysize = GRID_SIZE / rows;
-    myBlocks = new ArrayList<>();
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         Rectangle block = new Rectangle(GRID_X + j * xsize, GRID_Y + i * ysize, xsize, ysize);
         myBlocks.add(block);
+        block.setStroke(Color.BLACK);
         myRoot.getChildren().add(block);
         if (cells.get(j + i * cols) == 0) {
           block.setFill(Color.WHITE);
-          block.setStroke(Color.BLACK);
         } else if (cells.get(j + i * cols) == 1) {
           block.setFill(Color.MEDIUMBLUE);
-          block.setStroke(Color.BLACK);
         } else {
           block.setFill(Color.DEEPPINK);
-          block.setStroke(Color.BLACK);
         }
       }
     }
   }
 
-  public void updateCell(ArrayList<Integer> cells){
-    for(int i = 0; i < cells.size(); i ++){
+  public void updateCell(ArrayList<Integer> cells) {
+    for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
+      block.setStroke(Color.BLACK);
       if (cells.get(i) == 0) {
         block.setFill(Color.WHITE);
-        block.setStroke(Color.BLACK);
       } else if (cells.get(i) == 1) {
         block.setFill(Color.MEDIUMBLUE);
-        block.setStroke(Color.BLACK);
       } else {
         block.setFill(Color.DEEPPINK);
-        block.setStroke(Color.BLACK);
       }
     }
+  }
+
+  public void clearGrid(){
+    myRoot.getChildren().clear();
+    createButtons();
+    setGameTitleText();
   }
 }
