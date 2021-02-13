@@ -19,12 +19,12 @@ public class PercolationCell extends Cell {
   /**
    * Purpose: Constructor for PercolationCell class.
    * Assumptions: TODO
-   * Parameters: int state.
+   * Parameters: HashMap config.
    * Exceptions: TODO
    * Returns: PercolationCell object.
    */
-  public PercolationCell(int state) {
-    super(state);
+  public PercolationCell(HashMap<String, Integer> config) {
+    super(config);
   }
 
   /**

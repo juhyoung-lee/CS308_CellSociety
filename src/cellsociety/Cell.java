@@ -20,12 +20,12 @@ public abstract class Cell {
   /**
    * Purpose: Constructor for Cell class.
    * Assumptions: TODO
-   * Parameters: int state.
+   * Parameters: HashMap config.
    * Exceptions: TODO
    * Returns: Cell object.
    */
-  public Cell(int state) {
-    myState = state;
+  public Cell(HashMap<String, Integer> config) {
+    myState = config.get("state");
   }
 
   /**

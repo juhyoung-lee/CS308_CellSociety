@@ -25,17 +25,17 @@ public class WaTorCell extends Cell {
 
   /**
    * Purpose: Constructor for WaTorCell class.
-   * Assumptions: TODO
-   * Parameters: int state, int breedFish, int breedShark, int energyGain, int energyLoss.
+   * Assumptions: config will include keys "breedFish", "breedShark", "energyGain", and "energyLoss"
+   * Parameters: HashMap config.
    * Exceptions: TODO
    * Returns: WaTorCell object.
    */
-  public WaTorCell(int state, int breedFish, int breedShark, int energyGain, int energyLoss) {
-    super(state);
-    breedTimeFish = breedFish;
-    breedEnergyShark = breedShark;
-    this.energyGain = energyGain;
-    this.energyLoss = energyLoss;
+  public WaTorCell(HashMap<String, Integer> config) {
+    super(config);
+    breedTimeFish = config.get("breedFish");
+    breedEnergyShark = config.get("breedShark");
+    energyGain = config.get("energyGain");
+    energyLoss = config.get("energyLoss");
     reset();
   }
 
