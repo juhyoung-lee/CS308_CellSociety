@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.util.HashMap;
+
 /**
  * Purpose: Represents a cell for the Game of Life simulation. Extends the Cell class.
  * Assumptions: TODO
@@ -32,14 +34,8 @@ public class GameOfLifeCell extends Cell {
    * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
-  public int prepareNewState(int[] neighborStates) {
-    int live = 0;
-
-    for (int state : neighborStates) {
-      if (state == ALIVE) {
-        live++;
-      }
-    }
+  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
+    int live = calculateLive(neighborStates);
 
     if (myState == ALIVE && (live == 2 || live == 3)) {
       nextState = ALIVE;
@@ -49,6 +45,20 @@ public class GameOfLifeCell extends Cell {
       nextState = DEAD;
     }
 
-    return NO_MOVEMENT;
+    updateStateField(NO_MOVEMENT);
+    return moveState;
+  }
+
+  /** Calculates number live cells in neighbors. */
+  private int calculateLive(int[] neighborStates) {
+    int live = 0;
+
+    for (int state : neighborStates) {
+      if (state == ALIVE) {
+        live++;
+      }
+    }
+
+    return live;
   }
 }

@@ -29,8 +29,8 @@ public class CellAutomata {
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
 
-            fillGridConfigFromDoc(doc);
-            fillGridFromDoc(doc);
+//            fillGridConfigFromDoc(doc);
+//            fillGridFromDoc(doc);
         } catch (Exception e) {
             e.printStackTrace();
         }
