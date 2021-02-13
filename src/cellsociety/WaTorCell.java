@@ -109,6 +109,8 @@ public class WaTorCell extends Cell {
     } else {
       received = true;
     }
+
+    nextState = incomingState;
     breedTime = newInfo.get("breedTime");
     breedEnergy = newInfo.get("breedEnergy");
     return received;
