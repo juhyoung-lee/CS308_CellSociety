@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.util.HashMap;
+
 /**
  * Purpose: Represents a cell within the cell automata simulation.
  * Assumptions: TODO
@@ -10,9 +12,10 @@ package cellsociety;
  */
 public abstract class Cell {
 
+  public static final int NO_MOVEMENT = -1;
+  protected HashMap<String, Integer> moveState = new HashMap<>();
   protected int myState;
   protected int nextState;
-  public static final int NO_MOVEMENT = -1;
 
   /**
    * Purpose: Constructor for Cell class.
@@ -32,7 +35,18 @@ public abstract class Cell {
    * Exceptions: TODO
    * Returns: int type. Describes what needs to be moved, if any.
    */
-  public abstract int prepareNewState(int[] neighborStates);
+  public abstract HashMap<String, Integer> prepareNewState(int[] neighborStates);
+
+  /**
+   * Purpose: Updates state field in moveState.
+   * Assumptions: TODO
+   * Parameters: int state.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  protected void updateStateField(int state) {
+    moveState.put("state", state);
+  }
 
   /**
    * Purpose: Update current cell state, and return value for other methods to use.
@@ -43,7 +57,19 @@ public abstract class Cell {
    */
   public int updateState() {
     myState = nextState;
+    nextState = -1;
     return myState;
+  }
+
+  /**
+   * Purpose: Accepts HashMap information with new state information. Will default to return false.
+   * Assumptions: Grid should never call this method.
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: boolean type.
+   */
+  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+    return false;
   }
 
   /**

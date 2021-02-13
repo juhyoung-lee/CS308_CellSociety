@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.util.HashMap;
+
 /**
  * Purpose: Represents a cell for the Wa-Tor simulation. Extends the Cell class.
  * Assumptions: TODO
@@ -19,6 +21,7 @@ public class WaTorCell extends Cell {
   private final int energyLoss;
   private int breedTime;
   private int breedEnergy;
+
 
   /**
    * Purpose: Constructor for WaTorCell class.
@@ -50,30 +53,32 @@ public class WaTorCell extends Cell {
    * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://beltoforion.de/en/wator/
    */
-  public int prepareNewState(int[] neighborStates) {
+  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
     if (myState == FISH) {
-      return fishPrepareState();
+      fishPrepareState();
     } else if (myState == SHARK) {
-      return sharkPrepareState();
+      sharkPrepareState();
     } else {
-      return NO_MOVEMENT;
+      updateStateField(NO_MOVEMENT);
     }
+    return moveState;
   }
 
-  private int fishPrepareState() {
+  private void fishPrepareState() {
     if (breedTime < breedTimeFish) {
       setToWater();
     } else {
       nextState = FISH;
       breedTime++;
     }
-    return FISH;
+    updateNewStateParam();
+    updateStateField(FISH);
   }
 
-  private int sharkPrepareState() {
+  private void sharkPrepareState() {
     if (breedEnergy <= 0) {
       setToWater();
-      return NO_MOVEMENT;
+      updateStateField(NO_MOVEMENT);
     } else {
       if (breedEnergy < breedEnergyShark) {
         setToWater();
@@ -81,8 +86,43 @@ public class WaTorCell extends Cell {
         nextState = SHARK;
         breedEnergy -= energyLoss;
       }
-      return SHARK;
+      updateStateField(SHARK);
     }
+    updateNewStateParam();
+  }
+
+  /**
+   * Purpose: Accepts HashMap information with new state information.
+   * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  @Override
+  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+    int incomingState = newInfo.get("state");
+    boolean received;
+
+    if (nextState == SHARK) {
+      return false;
+    } else if (nextState == FISH) {
+      received = fishReceiveUpdate(incomingState);
+    } else {
+      received = true;
+    }
+
+    nextState = incomingState;
+    breedTime = newInfo.get("breedTime");
+    breedEnergy = newInfo.get("breedEnergy");
+    return received;
+  }
+
+  private boolean fishReceiveUpdate(int newState) {
+    if (newState == SHARK) {
+      ateFish();
+      return true;
+    }
+    return false;
   }
 
   /** Sets cell up to be water. */
@@ -91,14 +131,14 @@ public class WaTorCell extends Cell {
     reset();
   }
 
-  /**
-   * Purpose: Adjusts breedEnergy upon SHARK cell moving into a FISH cell.
-   * Assumptions: Called by Grid class upon 'movement checking'.
-   * Parameters: TODO
-   * Exceptions: TODO
-   * Returns: TODO
-   */
-  public void ateFish() {
+  /** Updates moveState HashMap. */
+  private void updateNewStateParam() {
+    moveState.put("breedTime", breedTime);
+    moveState.put("breedEnergy", breedEnergy);
+  }
+
+  /** Adjusts breedEnergy upon SHARK cell moving into a FISH cell. */
+  private void ateFish() {
     if (myState == SHARK) {
       breedEnergy += energyGain;
     }
