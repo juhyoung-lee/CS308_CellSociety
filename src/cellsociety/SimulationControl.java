@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 /**
  * Purpose: Creates simulation and runs step function.
  * Assumptions: TODO
@@ -33,6 +35,7 @@ public class SimulationControl {
   public static final String GAME_TITLE = "Conway's Game of Life";
 
   private ScreenControl mySC;
+  private Grid myGrid;
 
   public void initialize(Stage stage) {
     mySC = new ScreenControl();
@@ -40,5 +43,14 @@ public class SimulationControl {
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
+
+    ArrayList<String> cArrange = new ArrayList<>();
+    cArrange.add("01001");
+    cArrange.add("01101");
+    cArrange.add("01101");
+    cArrange.add("01001");
+    cArrange.add("01011");
+    myGrid = new Grid(GAME_TITLE, cArrange);
+    mySC.createGrid(5, 5, myGrid.viewGrid());
   }
 }

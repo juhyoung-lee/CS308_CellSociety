@@ -14,8 +14,8 @@ import javafx.scene.text.Text;
 /**
  * Purpose: Creates screen display that user interacts with.
  * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Dependencies: Depends on the grid array passed in to create a grid
+ * Example of use: mySC = new ScreenControl() mySC.createGrid(row, col, Grid.viewGrid()) mySC.clearGrid()
  *
  * @author Kathleen Chen
  */
@@ -158,10 +158,10 @@ public class ScreenControl {
   }
 
   /**
-   *
+   * Updates the grid based on new cell information passed in.
    ** @param cells
    */
-  public void updateCell(ArrayList<Integer> cells) {
+  public void updateGrid(ArrayList<Integer> cells) {
     for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
       block.setStroke(Color.BLACK);
@@ -176,7 +176,7 @@ public class ScreenControl {
   }
 
   /**
-   *
+   * Clears the grid.
    */
   public void clearGrid() {
     myRoot.getChildren().clear();
