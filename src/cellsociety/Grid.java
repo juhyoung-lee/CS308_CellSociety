@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 /**
  * Keeps track of Cells in a Grid.
+ *
  * @author juhyoung
  *
  * <p>Stores and updates Cells Instantiates Cell objects from XML input Updates cell statuses using
@@ -34,12 +35,12 @@ public class Grid {
     this.neighborCount = 8;
     setupGrid(cellArrangement);
     setupNeighbors(cellArrangement);
-    printGrid();
   }
 
   /**
    * Loads updates for cells and then updates.
-   * TODO: buff up for variations
+   *
+   * <p>TODO: buff up for variations
    */
   public void updateCells() {
     for (int i = 0; i < grid.size(); i++) {
@@ -64,6 +65,14 @@ public class Grid {
     return cellStates;
   }
 
+  /**
+   * Returns grid size
+   * @return [width, height]
+   */
+  public int[] getDimensions() {
+    return new int[]{this.width, this.height};
+  }
+
   private int[] pullNeighborStates(int index) {
     // TODO: return type will be hashmap
     Cell currentCell = this.grid.get(index);
@@ -71,7 +80,7 @@ public class Grid {
     int[] neighborIndexes = this.neighbors.get(currentCell);
     int[] neighborStates = new int[neighborIndexes.length];
 
-    for (int i = 0; i < neighborIndexes.length; i++){
+    for (int i = 0; i < neighborIndexes.length; i++) {
       neighborCell = this.grid.get(neighborIndexes[i]);
       neighborStates[i] = neighborCell.getState();
     }
@@ -89,7 +98,7 @@ public class Grid {
     }
   }
 
-  private void setupNeighbors(ArrayList<String> cellArrangement){
+  private void setupNeighbors(ArrayList<String> cellArrangement) {
     this.neighbors = new HashMap<>();
     for (int i = 0; i < grid.size(); i++) {
       this.neighbors.put(this.grid.get(i), pullNeighborIndexes(i));
@@ -101,13 +110,14 @@ public class Grid {
     // TODO: how to make dynamic?
     // AHH UGLY CODE
     int[] variance = switch (this.neighborCount) {
-      case 8 -> new int[]{-1 - this.width, -1 * this.width, 1 - this.width, -1, 1, -1 + this.width, this.width, 1 + this.width};
+      case 8 -> new int[]{-1 - this.width, -1 * this.width, 1 - this.width, -1, 1, -1 + this.width,
+          this.width, 1 + this.width};
       case 4 -> new int[]{-1 * this.width, -1, 1, this.width};
       default -> new int[]{};
     };
     ArrayList<Integer> possibleIndexes = new ArrayList<>();
     for (int i : variance) {
-      possibleIndexes.add(variance[i] + index);
+      possibleIndexes.add(i + index);
     }
     ArrayList<Integer> validIndexes = removeInvalidIndexes(index, possibleIndexes);
     return convertIntArrayList(validIndexes);
@@ -123,17 +133,20 @@ public class Grid {
   }
 
   // used by pullNeighborIndexes()
-  private ArrayList<Integer> removeInvalidIndexes(int centerIndex, ArrayList<Integer> possibleIndexes) {
+  private ArrayList<Integer> removeInvalidIndexes(int centerIndex,
+      ArrayList<Integer> possibleIndexes) {
+    // ugly method
+    ArrayList<Integer> validIndexes = new ArrayList<>(possibleIndexes);
     for (int i : possibleIndexes) {
       if (i < 0 || i >= this.width * this.height) {
-        possibleIndexes.remove(i);
+        validIndexes.remove((Integer) i);
       }
       // checks if incrementing center index by 1 changed rows
       // ie first/last row in index
-      if (i + 1 == centerIndex || i - 1 == centerIndex){
-       if (i / this.width != centerIndex / this.width){
-         possibleIndexes.remove(i);
-       }
+      if (i + 1 == centerIndex || i - 1 == centerIndex) {
+        if (i / this.width != centerIndex / this.width) {
+          validIndexes.remove((Integer) i);
+        }
       }
     }
     return possibleIndexes;
@@ -144,7 +157,7 @@ public class Grid {
     // TODO: buff up for variations
     // variations will have to accept parameters hmMMMM
     return switch (this.gameType) {
-      case "Conway's Game of Life" -> new GameOfLifeCell(0);
+      case "Conway's Game of Life" -> new GameOfLifeCell(state);
       case "Percolation" -> new PercolationCell(0);
       case "Fire" -> new FireCell(0, 0);
       case "Segregation" -> new SegregationCell(0, 0);
@@ -155,14 +168,23 @@ public class Grid {
 
   // For testing.
   private void printGrid() {
-    for (Cell cell : this.neighbors.keySet()) {
-       System.out.print(cell.getState());
-      // figure out when to enter
+    int rowCounter = 0;
+    for (Cell cell : this.grid) {
+      if (rowCounter == this.width) {
+        System.out.println();
+        rowCounter = 0;
+      }
+      System.out.print(cell.getState());
+      rowCounter++;
     }
   }
 
   public static void main(String[] args) {
-    Grid myGrid = new Grid("Conway's Game of Life", new ArrayList<>());
+    ArrayList<String> input = new ArrayList<>();
+    input.add("010");
+    input.add("101");
+    input.add("010");
+    Grid myGrid = new Grid("Conway's Game of Life", input);
     myGrid.printGrid();
   }
 }
