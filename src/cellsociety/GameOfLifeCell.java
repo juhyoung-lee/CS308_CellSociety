@@ -35,13 +35,7 @@ public class GameOfLifeCell extends Cell {
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
   public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
-    int live = 0;
-
-    for (int state : neighborStates) {
-      if (state == ALIVE) {
-        live++;
-      }
-    }
+    int live = calculateLive(neighborStates);
 
     if (myState == ALIVE && (live == 2 || live == 3)) {
       nextState = ALIVE;
@@ -53,5 +47,28 @@ public class GameOfLifeCell extends Cell {
 
     updateStateField(NO_MOVEMENT);
     return moveState;
+  }
+
+  /** Calculates number live cells in neighbors. */
+  private int calculateLive(int[] neighborStates) {
+    int live = 0;
+
+    for (int state : neighborStates) {
+      if (state == ALIVE) {
+        live++;
+      }
+    }
+
+    return live;
+  }
+
+  /**
+   * Purpose: Accepts HashMap information with new state information.
+   * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  public void receiveUpdate(HashMap<String, Integer> newInfo) {
   }
 }

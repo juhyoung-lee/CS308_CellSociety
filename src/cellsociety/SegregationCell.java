@@ -66,4 +66,15 @@ public class SegregationCell extends Cell {
 
     return (double) sameState / nonEmpty;
   }
+
+  /**
+   * Purpose: Accepts HashMap information with new state information.
+   * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  public void receiveUpdate(HashMap<String, Integer> newInfo) {
+    nextState = newInfo.get("state");
+  }
 }

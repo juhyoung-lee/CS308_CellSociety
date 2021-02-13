@@ -91,6 +91,19 @@ public class WaTorCell extends Cell {
     updateNewStateParam();
   }
 
+  /**
+   * Purpose: Accepts HashMap information with new state information.
+   * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  public void receiveUpdate(HashMap<String, Integer> newInfo) {
+    nextState = newInfo.get("state");
+    breedTime = newInfo.get("breedTime");
+    breedEnergy = newInfo.get("breedEnergy");
+  }
+
   /** Sets cell up to be water. */
   private void setToWater() {
     nextState = WATER;

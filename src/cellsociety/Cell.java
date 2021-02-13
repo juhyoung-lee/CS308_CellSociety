@@ -62,12 +62,12 @@ public abstract class Cell {
 
   /**
    * Purpose: Accepts HashMap information with new state information.
-   * Assumptions: TODO
+   * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
    * Parameters: HashMap object.
    * Exceptions: TODO
    * Returns: None.
    */
-  public abstract void recieveUpdate(HashMap<String, Integer> newInfo);
+  public abstract void receiveUpdate(HashMap<String, Integer> newInfo);
 
   /**
    * Purpose: Returns state of the cell.
