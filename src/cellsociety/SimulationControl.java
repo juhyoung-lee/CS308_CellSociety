@@ -3,6 +3,7 @@ package cellsociety;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -66,15 +67,23 @@ public class SimulationControl {
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
-    //pause();
+    animation.play();
+    pause();
   }
 
+/*  private void handleKeyRelease(KeyCode code) {
+    switch (code) {
+      case SPACE -> pause();
+    }
+  }*/
+
   private void step() {
+    System.out.println("update");
     myGrid.updateCells();
     mySC.updateGrid(myGrid.viewGrid());
   }
 
-/*  public void pause() {
+  public void pause() {
     if (paused) {
       animation.play();
       paused = false;
@@ -82,13 +91,13 @@ public class SimulationControl {
       animation.pause();
       paused = true;
     }
-  }*/
+  }
 
   public void stop() {
-    animation.stop();
+    pause();
   }
 
   public void start() {
-    animation.play();
+    pause();
   }
 }
