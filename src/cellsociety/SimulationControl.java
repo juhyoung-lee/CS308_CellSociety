@@ -66,7 +66,6 @@ public class SimulationControl {
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
-    animation.play();
     //pause();
   }
 
@@ -84,4 +83,12 @@ public class SimulationControl {
       paused = true;
     }
   }*/
+
+  public void stop() {
+    animation.stop();
+  }
+
+  public void start() {
+    animation.play();
+  }
 }

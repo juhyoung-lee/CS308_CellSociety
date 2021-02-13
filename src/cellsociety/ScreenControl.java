@@ -107,10 +107,7 @@ public class ScreenControl {
     int y = sY / 12 + 460;
     String pause = "Pause";
     pauseButton = myImage(SimulationControl.PAUSE_IMAGE, pause, x, y);
-    pauseButton.setOnAction(event -> stop());
-  }
-
-  private void stop() {
+    pauseButton.setOnAction(event -> sim.stop());
   }
 
   private void createPlayButton() {
@@ -118,10 +115,7 @@ public class ScreenControl {
     int y = sY / 12 + 460;
     String play = "Play";
     startButton = myImage(SimulationControl.PLAY_IMAGE, play, x, y);
-    startButton.setOnAction(event -> start());
-  }
-
-  private void start() {
+    startButton.setOnAction(event -> sim.start());
   }
 
   private void setGameTitleText() {
