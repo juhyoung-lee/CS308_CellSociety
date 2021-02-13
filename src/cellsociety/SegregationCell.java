@@ -38,14 +38,18 @@ public class SegregationCell extends Cell {
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/mccown-schelling-model-segregation/
    */
   public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
-    double similar = calculateSimilarity(neighborStates);
-
-    if (similar >= myThreshold) {
-      nextState = myState;
+    if (myState == EMPTY) {
       updateStateField(NO_MOVEMENT);
     } else {
-      nextState = EMPTY;
-      updateStateField(myState);
+      double similar = calculateSimilarity(neighborStates);
+
+      if (similar >= myThreshold) {
+        nextState = myState;
+        updateStateField(NO_MOVEMENT);
+      } else {
+        nextState = EMPTY;
+        updateStateField(myState);
+      }
     }
 
     return moveState;
@@ -65,5 +69,22 @@ public class SegregationCell extends Cell {
     }
 
     return (double) sameState / nonEmpty;
+  }
+
+  /**
+   * Purpose: Accepts HashMap information with new state information. Will default to return false.
+   * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: boolean type.
+   */
+  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+    int incomingState = newInfo.get("state");
+    if (nextState != EMPTY) {
+      return false;
+    } else {
+      nextState = incomingState;
+      return true;
+    }
   }
 }
