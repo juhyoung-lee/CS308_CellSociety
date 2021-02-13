@@ -1,5 +1,6 @@
 package cellsociety;
 
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -38,7 +39,7 @@ public class FireCell extends Cell {
    * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/shiflet-fire/
    */
-  public int prepareNewState(int[] neighborStates) {
+  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
     boolean burningNeighbor = false;
     double probFire = randFire.nextDouble();
 
@@ -59,6 +60,7 @@ public class FireCell extends Cell {
       }
     }
 
-    return NO_MOVEMENT;
+    updateStateField(NO_MOVEMENT);
+    return moveState;
   }
 }

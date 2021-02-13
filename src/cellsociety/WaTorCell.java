@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.util.HashMap;
+
 /**
  * Purpose: Represents a cell for the Wa-Tor simulation. Extends the Cell class.
  * Assumptions: TODO
@@ -19,6 +21,7 @@ public class WaTorCell extends Cell {
   private final int energyLoss;
   private int breedTime;
   private int breedEnergy;
+
 
   /**
    * Purpose: Constructor for WaTorCell class.
@@ -50,30 +53,32 @@ public class WaTorCell extends Cell {
    * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://beltoforion.de/en/wator/
    */
-  public int prepareNewState(int[] neighborStates) {
+  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
     if (myState == FISH) {
-      return fishPrepareState();
+      fishPrepareState();
     } else if (myState == SHARK) {
-      return sharkPrepareState();
+      sharkPrepareState();
     } else {
-      return NO_MOVEMENT;
+      updateStateField(NO_MOVEMENT);
     }
+    return moveState;
   }
 
-  private int fishPrepareState() {
+  private void fishPrepareState() {
     if (breedTime < breedTimeFish) {
       setToWater();
     } else {
       nextState = FISH;
       breedTime++;
     }
-    return FISH;
+    updateNewStateParam();
+    updateStateField(FISH);
   }
 
-  private int sharkPrepareState() {
+  private void sharkPrepareState() {
     if (breedEnergy <= 0) {
       setToWater();
-      return NO_MOVEMENT;
+      updateStateField(NO_MOVEMENT);
     } else {
       if (breedEnergy < breedEnergyShark) {
         setToWater();
@@ -81,14 +86,21 @@ public class WaTorCell extends Cell {
         nextState = SHARK;
         breedEnergy -= energyLoss;
       }
-      return SHARK;
+      updateStateField(SHARK);
     }
+    updateNewStateParam();
   }
 
   /** Sets cell up to be water. */
   private void setToWater() {
     nextState = WATER;
     reset();
+  }
+
+  /** Updates moveState HashMap. */
+  private void updateNewStateParam() {
+    moveState.put("breedTime", breedTime);
+    moveState.put("breedEnergy", breedEnergy);
   }
 
   /**
@@ -103,4 +115,6 @@ public class WaTorCell extends Cell {
       breedEnergy += energyGain;
     }
   }
+
+
 }

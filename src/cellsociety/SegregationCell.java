@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.util.HashMap;
+
 /**
  * Purpose: Represents a cell for the Segregation simulation. Extends the Cell class.
  * Assumptions: TODO
@@ -35,7 +37,21 @@ public class SegregationCell extends Cell {
    * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/mccown-schelling-model-segregation/
    */
-  public int prepareNewState(int[] neighborStates) {
+  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
+    double similar = calculateSimilarity(neighborStates);
+
+    if (similar >= myThreshold) {
+      nextState = myState;
+      updateStateField(NO_MOVEMENT);
+    } else {
+      nextState = EMPTY;
+      updateStateField(myState);
+    }
+
+    return moveState;
+  }
+
+  private double calculateSimilarity(int[] neighborStates) {
     int nonEmpty = 0;
     int sameState = 0;
 
@@ -48,14 +64,6 @@ public class SegregationCell extends Cell {
       }
     }
 
-    double similar = (double) sameState / nonEmpty;
-
-    if (similar >= myThreshold) {
-      nextState = myState;
-      return NO_MOVEMENT;
-    } else {
-      nextState = EMPTY;
-      return myState;
-    }
+    return (double) sameState / nonEmpty;
   }
 }

@@ -13,9 +13,9 @@ import java.util.HashMap;
 public abstract class Cell {
 
   public static final int NO_MOVEMENT = -1;
+  protected HashMap<String, Integer> moveState = new HashMap<>();
   protected int myState;
   protected int nextState;
-  protected HashMap<String, Integer> passedInfo;
 
   /**
    * Purpose: Constructor for Cell class.
@@ -26,7 +26,6 @@ public abstract class Cell {
    */
   public Cell(int state) {
     myState = state;
-    passedInfo.put("myNewState", myState);
   }
 
   /**
@@ -36,7 +35,18 @@ public abstract class Cell {
    * Exceptions: TODO
    * Returns: int type. Describes what needs to be moved, if any.
    */
-  public abstract int prepareNewState(int[] neighborStates);
+  public abstract HashMap<String, Integer> prepareNewState(int[] neighborStates);
+
+  /**
+   * Purpose: Updates state field in moveState.
+   * Assumptions: TODO
+   * Parameters: int state.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  protected void updateStateField(int state) {
+    moveState.put("state", state);
+  }
 
   /**
    * Purpose: Update current cell state, and return value for other methods to use.
@@ -49,6 +59,15 @@ public abstract class Cell {
     myState = nextState;
     return myState;
   }
+
+  /**
+   * Purpose: Accepts HashMap information with new state information.
+   * Assumptions: TODO
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  public abstract void recieveUpdate(HashMap<String, Integer> newInfo);
 
   /**
    * Purpose: Returns state of the cell.
