@@ -98,11 +98,28 @@ public class WaTorCell extends Cell {
    * Exceptions: TODO
    * Returns: None.
    */
-  @Override
-  public void receiveUpdate(HashMap<String, Integer> newInfo) {
-    super.receiveUpdate(newInfo);
+  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+    int incomingState = newInfo.get("state");
+    boolean received;
+
+    if (nextState == SHARK) {
+      return false;
+    } else if (nextState == FISH) {
+      received = fishReceiveUpdate(incomingState);
+    } else {
+      received = true;
+    }
     breedTime = newInfo.get("breedTime");
     breedEnergy = newInfo.get("breedEnergy");
+    return received;
+  }
+
+  private boolean fishReceiveUpdate(int newState) {
+    if (newState == SHARK) {
+      ateFish();
+      return true;
+    }
+    return false;
   }
 
   /** Sets cell up to be water. */
@@ -117,18 +134,10 @@ public class WaTorCell extends Cell {
     moveState.put("breedEnergy", breedEnergy);
   }
 
-  /**
-   * Purpose: Adjusts breedEnergy upon SHARK cell moving into a FISH cell.
-   * Assumptions: Called by Grid class upon 'movement checking'.
-   * Parameters: TODO
-   * Exceptions: TODO
-   * Returns: TODO
-   */
-  public void ateFish() {
+  /** Adjusts breedEnergy upon SHARK cell moving into a FISH cell. */
+  private void ateFish() {
     if (myState == SHARK) {
       breedEnergy += energyGain;
     }
   }
-
-
 }
