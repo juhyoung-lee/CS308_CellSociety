@@ -78,26 +78,18 @@ public class SimulationControl {
   }*/
 
   private void step() {
-    System.out.println("update");
-    myGrid.updateCells();
-    mySC.updateGrid(myGrid.viewGrid());
-  }
-
-  public void pause() {
-    if (paused) {
-      animation.play();
-      paused = false;
-    } else {
-      animation.pause();
-      paused = true;
+    while(paused == false) {
+        System.out.println("update");
+        myGrid.updateCells();
+        mySC.updateGrid(myGrid.viewGrid());
     }
   }
 
   public void stop() {
-    pause();
+    paused = true;
   }
 
   public void start() {
-    pause();
+    paused = false;
   }
 }
