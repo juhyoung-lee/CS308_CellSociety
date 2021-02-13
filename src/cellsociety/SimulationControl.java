@@ -71,18 +71,10 @@ public class SimulationControl {
     animation.play();
   }
 
-/*  private void handleKeyRelease(KeyCode code) {
-    switch (code) {
-      case SPACE -> pause();
-    }
-  }*/
-
   private void step() {
-    while(paused == false) {
-        System.out.println("update");
-        myGrid.updateCells();
-        mySC.updateGrid(myGrid.viewGrid());
-    }
+    System.out.println("update");
+    myGrid.updateCells();
+    mySC.updateGrid(myGrid.viewGrid());
   }
 
   public void stop() {
