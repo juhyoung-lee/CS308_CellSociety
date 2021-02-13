@@ -1,9 +1,15 @@
 package cellsociety;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.util.ArrayList;
 
 /**
  * Purpose: Creates simulation and runs step function.
@@ -33,6 +39,11 @@ public class SimulationControl {
   public static final String GAME_TITLE = "Conway's Game of Life";
 
   private ScreenControl mySC;
+  private Grid myGrid;
+  private int framecount;
+  private double delay;
+  private Timeline animation;
+  private boolean paused = false;
 
   public void initialize(Stage stage) {
     mySC = new ScreenControl();
@@ -40,5 +51,53 @@ public class SimulationControl {
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
+    framecount = 1;
+    delay = 1.0 / framecount;
+
+    ArrayList<String> cArrange = new ArrayList<>();
+    cArrange.add("000000");
+    cArrange.add("011000");
+    cArrange.add("011000");
+    cArrange.add("000110");
+    cArrange.add("000110");
+    cArrange.add("000000");
+    myGrid = new Grid(GAME_TITLE, cArrange);
+    mySC.createGrid(myGrid.getDimensions()[0], myGrid.getDimensions()[1], myGrid.viewGrid());
+
+    KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
+    animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+    animation.play();
+  }
+
+/*  private void handleKeyRelease(KeyCode code) {
+    switch (code) {
+      case SPACE -> pause();
+    }
+  }*/
+
+  private void step() {
+    System.out.println("update");
+    myGrid.updateCells();
+    mySC.updateGrid(myGrid.viewGrid());
+  }
+
+  public void pause() {
+    if (paused) {
+      animation.play();
+      paused = false;
+    } else {
+      animation.pause();
+      paused = true;
+    }
+  }
+
+  public void stop() {
+    pause();
+  }
+
+  public void start() {
+    pause();
   }
 }

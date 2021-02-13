@@ -14,8 +14,8 @@ import javafx.scene.text.Text;
 /**
  * Purpose: Creates screen display that user interacts with.
  * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Dependencies: Depends on the grid array passed in to create a grid
+ * Example of use: mySC = new ScreenControl() mySC.createGrid(row, col, Grid.viewGrid()) mySC.clearGrid()
  *
  * @author Kathleen Chen
  */
@@ -33,6 +33,7 @@ public class ScreenControl {
   private int sX;
   private int sY;
   private Scene myScene;
+  private SimulationControl sim;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -45,6 +46,7 @@ public class ScreenControl {
     myBlocks = new ArrayList<>();
     setGameTitleText();
     createButtons();
+    sim = new SimulationControl();
   }
 
   private void createButtons() {
@@ -105,10 +107,7 @@ public class ScreenControl {
     int y = sY / 12 + 460;
     String pause = "Pause";
     pauseButton = myImage(SimulationControl.PAUSE_IMAGE, pause, x, y);
-    pauseButton.setOnAction(event -> stop());
-  }
-
-  private void stop() {
+    pauseButton.setOnAction(event -> sim.stop());
   }
 
   private void createPlayButton() {
@@ -116,10 +115,7 @@ public class ScreenControl {
     int y = sY / 12 + 460;
     String play = "Play";
     startButton = myImage(SimulationControl.PLAY_IMAGE, play, x, y);
-    startButton.setOnAction(event -> start());
-  }
-
-  private void start() {
+    startButton.setOnAction(event -> sim.start());
   }
 
   private void setGameTitleText() {
@@ -158,10 +154,10 @@ public class ScreenControl {
   }
 
   /**
-   *
+   * Updates the grid based on new cell information passed in.
    ** @param cells
    */
-  public void updateCell(ArrayList<Integer> cells) {
+  public void updateGrid(ArrayList<Integer> cells) {
     for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
       block.setStroke(Color.BLACK);
@@ -176,7 +172,7 @@ public class ScreenControl {
   }
 
   /**
-   *
+   * Clears the grid.
    */
   public void clearGrid() {
     myRoot.getChildren().clear();
