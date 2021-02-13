@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.util.HashMap;
+
 /**
  * Purpose: Represents a cell within the cell automata simulation.
  * Assumptions: TODO
@@ -10,9 +12,10 @@ package cellsociety;
  */
 public abstract class Cell {
 
+  public static final int NO_MOVEMENT = -1;
   protected int myState;
   protected int nextState;
-  public static final int NO_MOVEMENT = -1;
+  protected HashMap<String, Integer> passedInfo;
 
   /**
    * Purpose: Constructor for Cell class.
@@ -23,6 +26,7 @@ public abstract class Cell {
    */
   public Cell(int state) {
     myState = state;
+    passedInfo.put("myNewState", myState);
   }
 
   /**
