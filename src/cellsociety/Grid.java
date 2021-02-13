@@ -1,24 +1,17 @@
 package cellsociety;
 
-import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-//@author juhyoung
 
 /**
  * Keeps track of Cells in a Grid.
+ * @author juhyoung
  *
  * <p>Stores and updates Cells Instantiates Cell objects from XML input Updates cell statuses using
  * neighboring cell information
  *
- * <p>Assumes proper XML input configuration.XML TODO: example here!!
+ * <p>Assumes neighborCount is in XML
  *
  * <p>Depends on java.util, java.io, javax.xml, org.w3c.dom, and cell society.Cell
  *
@@ -26,121 +19,150 @@ import org.w3c.dom.NodeList;
  */
 public class Grid {
 
-  private static final String CONFIGURATION_FILE = "data/configuration.XML";
-  private static final String XML_CELL_NAME = "name";
-  private static final String XML_CELL_STATE = "state";
-  private static final String XML_CELL_NEIGHBORS = "neighbors";
-  private static final String XML_GRID_PARAMETERS = "grid";
-  private static final String XML_GRID_WIDTH = "width";
-  private static final String XML_GRID_HEIGHT = "height";
+  private HashMap<Cell, int[]> neighbors;
+  private ArrayList<Cell> grid;
+  private final String gameType;
+  private final int height;
+  private final int width;
+  private final int neighborCount;
 
-  private HashMap<Cell, String> grid;
-  private int width;
-  private int height;
-
-  /**
-   * Constructor.
-   */
-  public Grid() {
-    grid = new HashMap<>();
-    readTextInput();
-    // readXml();
+  public Grid(String gameType, ArrayList<String> cellArrangement) {
+    this.gameType = gameType;
+    this.height = cellArrangement.size();
+    this.width = cellArrangement.get(0).length();
+    // TODO: MAKE NEIGHBOR COUNT DYNAMIC
+    this.neighborCount = 8;
+    setupGrid(cellArrangement);
+    setupNeighbors(cellArrangement);
     printGrid();
   }
 
   /**
    * Loads updates for cells and then updates.
+   * TODO: buff up for variations
    */
   public void updateCells() {
+    for (int i = 0; i < grid.size(); i++) {
+      int[] neighborStates = pullNeighborStates(i);
+      grid.get(i).prepareNewState(neighborStates);
+    }
+    for (Cell cell : grid) {
+      cell.updateState();
+    }
   }
 
   /**
-   * Reads in XML.
+   * Returns states of cells for printing/viewing.
    *
-   * <p>code adapted from https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
-   *
-   * <p>TODO:consider putting checks for faulty XML file
+   * @return array list of cell states
    */
-  private void readXml() {
-    try {
-      File inputFile = new File(CONFIGURATION_FILE);
-      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-      DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
-      Document doc = docBuilder.parse(inputFile);
-      doc.getDocumentElement().normalize();
-
-      getGridConfigFromDoc(doc);
-      fillGridFromDoc(doc);
-    } catch (Exception e) {
-      e.printStackTrace();
+  public ArrayList<Integer> viewGrid() {
+    ArrayList<Integer> cellStates = new ArrayList<>();
+    for (Cell cell : this.grid) {
+      cellStates.add(cell.getState());
     }
+    return cellStates;
   }
 
-  private void getGridConfigFromDoc(Document doc) {
-    Node node = doc.getElementsByTagName(XML_GRID_PARAMETERS).item(0);
-    if (node.getNodeType() == Node.ELEMENT_NODE) {
-      Element gridParameters = (Element) node;
-      String xmlWidth = gridParameters.getElementsByTagName(XML_GRID_WIDTH).item(0)
-          .getTextContent();
-      String xmlHeight = gridParameters.getElementsByTagName(XML_GRID_HEIGHT).item(0)
-          .getTextContent();
-      this.width = Integer.parseInt(xmlWidth);
-      this.height = Integer.parseInt(xmlHeight);
+  private int[] pullNeighborStates(int index) {
+    // TODO: return type will be hashmap
+    Cell currentCell = this.grid.get(index);
+    Cell neighborCell;
+    int[] neighborIndexes = this.neighbors.get(currentCell);
+    int[] neighborStates = new int[neighborIndexes.length];
+
+    for (int i = 0; i < neighborIndexes.length; i++){
+      neighborCell = this.grid.get(neighborIndexes[i]);
+      neighborStates[i] = neighborCell.getState();
     }
+    return neighborStates;
   }
 
-  private void fillGridFromDoc(Document doc) {
-    NodeList cells = doc.getElementsByTagName("cell");
-    for (int i = 0; i < cells.getLength(); i++) {
-      Node node = cells.item(i);
-      if (node.getNodeType() == Node.ELEMENT_NODE) {
-        Element cell = (Element) node;
-        int cellIndex = Integer.parseInt(cell.getAttribute(XML_CELL_NAME));
-        String cellNeighbors = cell.getElementsByTagName(XML_CELL_NEIGHBORS).item(0)
-            .getTextContent();
-        int cellState = Integer
-            .parseInt((cell.getElementsByTagName(XML_CELL_STATE)).item(0).getTextContent());
-        this.grid.put(new GameOfLifeCell(cellIndex, cellState), cellNeighbors);
+  private void setupGrid(ArrayList<String> cellArrangement) {
+    this.grid = new ArrayList<>();
+    for (String s : cellArrangement) {
+      String[] row = s.split("");
+      for (String state : row) {
+        Cell cell = chooseCell(Integer.parseInt(state));
+        this.grid.add(cell);
       }
     }
   }
 
-  /**
-   * For testing.
-   *
-   * <p>TODO: implement
-   */
-  private void readTextInput() {
-    Scanner in = new Scanner(System.in);
-    System.out.println("Are you playing Conway's Game of Life? (Answer y)\n");
-    if (!in.nextLine().equals("y")) {
-      System.out.println("Goodbye\n");
-      return;
+  private void setupNeighbors(ArrayList<String> cellArrangement){
+    this.neighbors = new HashMap<>();
+    for (int i = 0; i < grid.size(); i++) {
+      this.neighbors.put(this.grid.get(i), pullNeighborIndexes(i));
     }
-    System.out.println("Enter grid width as an integer: ");
-    this.width = in.nextInt();
-    System.out.println("Enter grid height as an integer: ");
-    this.height = in.nextInt();
-
-
   }
 
-  /**
-   * For testing.
-   *
-   * <p>TODO: implement Cell class TODO: ADD ROW/COLUMN COUNT CONSIDERATION TO PRINTING
-   * TODO: test find XML file on other computers/OS
-   */
+  // used by setupNeighbors()
+  private int[] pullNeighborIndexes(int index) {
+    // TODO: how to make dynamic?
+    // AHH UGLY CODE
+    int[] variance = switch (this.neighborCount) {
+      case 8 -> new int[]{-1 - this.width, -1 * this.width, 1 - this.width, -1, 1, -1 + this.width, this.width, 1 + this.width};
+      case 4 -> new int[]{-1 * this.width, -1, 1, this.width};
+      default -> new int[]{};
+    };
+    ArrayList<Integer> possibleIndexes = new ArrayList<>();
+    for (int i : variance) {
+      possibleIndexes.add(variance[i] + index);
+    }
+    ArrayList<Integer> validIndexes = removeInvalidIndexes(index, possibleIndexes);
+    return convertIntArrayList(validIndexes);
+  }
+
+  // used by pullNeighborIndexes()
+  private int[] convertIntArrayList(ArrayList<Integer> validIndexes) {
+    int[] neighbors = new int[validIndexes.size()];
+    for (int i = 0; i < neighbors.length; i++) {
+      neighbors[i] = validIndexes.get(i);
+    }
+    return neighbors;
+  }
+
+  // used by pullNeighborIndexes()
+  private ArrayList<Integer> removeInvalidIndexes(int centerIndex, ArrayList<Integer> possibleIndexes) {
+    for (int i : possibleIndexes) {
+      if (i < 0 || i >= this.width * this.height) {
+        possibleIndexes.remove(i);
+      }
+      // checks if incrementing center index by 1 changed rows
+      // ie first/last row in index
+      if (i + 1 == centerIndex || i - 1 == centerIndex){
+       if (i / this.width != centerIndex / this.width){
+         possibleIndexes.remove(i);
+       }
+      }
+    }
+    return possibleIndexes;
+  }
+
+  // used by setupGrid()
+  private Cell chooseCell(int state) {
+    // TODO: buff up for variations
+    // variations will have to accept parameters hmMMMM
+    return switch (this.gameType) {
+      case "Conway's Game of Life" -> new GameOfLifeCell(0);
+      case "Percolation" -> new PercolationCell(0);
+      case "Fire" -> new FireCell(0, 0);
+      case "Segregation" -> new SegregationCell(0, 0);
+      case "WaTor" -> new WaTorCell(0, 0, 0, 0, 0);
+      default -> null;
+    };
+  }
+
+  // For testing.
   private void printGrid() {
-    System.out.println("Grid Information\nWidth: " + this.width + "\nHeight: " + this.height);
-    for (Cell cell : this.grid.keySet()) {
-      // System.out.println(cell.getState());
-      System.out.println("Cell: " + cell.getIndex() + " and " + this.grid.get(cell));
+    for (Cell cell : this.neighbors.keySet()) {
+       System.out.print(cell.getState());
+      // figure out when to enter
     }
   }
 
   public static void main(String[] args) {
-    Grid myGrid = new Grid();
+    Grid myGrid = new Grid("Conway's Game of Life", new ArrayList<>());
     myGrid.printGrid();
   }
 }
