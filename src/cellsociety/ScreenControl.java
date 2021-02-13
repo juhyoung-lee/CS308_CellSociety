@@ -33,6 +33,7 @@ public class ScreenControl {
   private int sX;
   private int sY;
   private Scene myScene;
+  private SimulationControl sim;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -45,6 +46,7 @@ public class ScreenControl {
     myBlocks = new ArrayList<>();
     setGameTitleText();
     createButtons();
+    sim = new SimulationControl();
   }
 
   private void createButtons() {

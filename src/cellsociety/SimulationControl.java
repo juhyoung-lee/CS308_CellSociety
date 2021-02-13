@@ -1,9 +1,12 @@
 package cellsociety;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -36,6 +39,10 @@ public class SimulationControl {
 
   private ScreenControl mySC;
   private Grid myGrid;
+  private int framecount;
+  private double delay;
+  private Timeline animation;
+  private boolean paused = false;
 
   public void initialize(Stage stage) {
     mySC = new ScreenControl();
@@ -43,6 +50,8 @@ public class SimulationControl {
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
+    framecount = 60;
+    delay = 1.0 / framecount;
 
     ArrayList<String> cArrange = new ArrayList<>();
     cArrange.add("01001");
@@ -52,5 +61,27 @@ public class SimulationControl {
     cArrange.add("01011");
     myGrid = new Grid(GAME_TITLE, cArrange);
     mySC.createGrid(myGrid.getDimensions()[0], myGrid.getDimensions()[1], myGrid.viewGrid());
+
+    KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
+    animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+    animation.play();
+    //pause();
   }
+
+  private void step() {
+    myGrid.updateCells();
+    mySC.updateGrid(myGrid.viewGrid());
+  }
+
+/*  public void pause() {
+    if (paused) {
+      animation.play();
+      paused = false;
+    } else {
+      animation.pause();
+      paused = true;
+    }
+  }*/
 }
