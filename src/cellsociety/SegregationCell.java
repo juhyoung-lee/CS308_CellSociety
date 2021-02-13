@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.util.HashMap;
+
 /**
  * Purpose: Represents a cell for the Segregation simulation. Extends the Cell class.
  * Assumptions: TODO
@@ -35,7 +37,25 @@ public class SegregationCell extends Cell {
    * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/mccown-schelling-model-segregation/
    */
-  public int prepareNewState(int[] neighborStates) {
+  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
+    if (myState == EMPTY) {
+      updateStateField(NO_MOVEMENT);
+    } else {
+      double similar = calculateSimilarity(neighborStates);
+
+      if (similar >= myThreshold) {
+        nextState = myState;
+        updateStateField(NO_MOVEMENT);
+      } else {
+        nextState = EMPTY;
+        updateStateField(myState);
+      }
+    }
+
+    return moveState;
+  }
+
+  private double calculateSimilarity(int[] neighborStates) {
     int nonEmpty = 0;
     int sameState = 0;
 
@@ -48,14 +68,24 @@ public class SegregationCell extends Cell {
       }
     }
 
-    double similar = (double) sameState / nonEmpty;
+    return (double) sameState / nonEmpty;
+  }
 
-    if (similar >= myThreshold) {
-      nextState = myState;
-      return NO_MOVEMENT;
+  /**
+   * Purpose: Accepts HashMap information with new state information. Will default to return false.
+   * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: boolean type.
+   */
+  @Override
+  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+    int incomingState = newInfo.get("state");
+    if (nextState != EMPTY) {
+      return false;
     } else {
-      nextState = EMPTY;
-      return myState;
+      nextState = incomingState;
+      return true;
     }
   }
 }
