@@ -98,6 +98,7 @@ public class WaTorCell extends Cell {
    * Exceptions: TODO
    * Returns: None.
    */
+  @Override
   public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
     int incomingState = newInfo.get("state");
     boolean received;

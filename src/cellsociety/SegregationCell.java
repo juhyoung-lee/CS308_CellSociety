@@ -78,6 +78,7 @@ public class SegregationCell extends Cell {
    * Exceptions: TODO
    * Returns: boolean type.
    */
+  @Override
   public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
     int incomingState = newInfo.get("state");
     if (nextState != EMPTY) {
