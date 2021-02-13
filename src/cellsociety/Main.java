@@ -16,26 +16,18 @@ import java.util.Random;
  */
 
 public class Main extends Application {
-  private ScreenControl sc = new ScreenControl();
+  private SimulationControl sim = new SimulationControl();
 
   public static void main(String[] args){
     launch(args);
   }
 
   /**
-   * Start the program by initializing the game
-   * @param stage
+   * Start the program by initializing the simulation.
+   ** @param stage
   */
   @Override
   public void start(Stage stage) {
-    int rows = 15;
-    int cols = 15;
-    ArrayList<Integer> cell = new ArrayList<Integer>(rows * cols);
-    Random rand = new Random();
-    for (int i = 1; i <= rows * cols; i++) {
-      cell.add(rand.nextInt(3));
-    }
-    sc.initialize(stage);
-    sc.createGrid(rows, cols, cell);
+    sim.initialize(stage);
   }
 }
