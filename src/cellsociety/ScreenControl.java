@@ -1,23 +1,18 @@
 package cellsociety;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
- * Purpose: Creates screen display that user interacts with
+ * Purpose: Creates screen display that user interacts with.
  * Assumptions: TODO
  * Dependencies: TODO
  * Example of use: TODO
@@ -27,38 +22,27 @@ import javafx.util.Duration;
 
 
 public class ScreenControl {
-  public static final String TITLE = "Cell Society";
-  public static final int X_SIZE = 500;
-  public static final int Y_SIZE = 600;
-  public static final Paint BACKGROUND = Color.AZURE;
-
-  public static final String PLAY_IMAGE = "PlayButton.gif";
-  public static final String PAUSE_IMAGE = "PauseButton.gif";
-  public static final String STEP_IMAGE = "StepButton.gif";
-  public static final String SPEED_UP_IMAGE = "SpeedUpButton.gif";
-  public static final String SLOW_DOWN_IMAGE = "SlowDownButton.gif";
-  public static final int BUTTON_SIZE = 15;
-
-  public static final String GAME_TITLE = "Conway's Game of Life";
-
   private Group myRoot;
   private Text titleText;
+  private ArrayList<Rectangle> myBlocks;
+  private Button slowButton;
+  private Button fastButton;
+  private Button startButton;
+  private Button pauseButton;
+  private Button stepButton;
+  private int sX;
+  private int sY;
+  private Scene myScene;
 
-  public void initialize(Stage stage) {
+  /**
+   * Initialize the scene and add buttons and text.
+   */
+  public ScreenControl() {
     myRoot = new Group();
-    Scene scene = new Scene(myRoot, X_SIZE, Y_SIZE, BACKGROUND);
-    stage.setScene(scene);
-    stage.setTitle(TITLE);
-    stage.show();
-    /**
-     * temporary place holder for grid cells
-    */
-    Rectangle framePlaceholder = new Rectangle();
-    framePlaceholder.setWidth(450);
-    framePlaceholder.setHeight(450);
-    framePlaceholder.setX(X_SIZE / 2 - (framePlaceholder.getWidth() / 2));
-    framePlaceholder.setY(Y_SIZE / 12);
-    myRoot.getChildren().add(framePlaceholder);
+    sX = SimulationControl.X_SIZE;
+    sY = SimulationControl.Y_SIZE;
+    myScene = new Scene(myRoot, sX, sY, SimulationControl.BACKGROUND);
+    myBlocks = new ArrayList<>();
     setGameTitleText();
     createButtons();
   }
@@ -71,57 +55,136 @@ public class ScreenControl {
     createSlowDownButton();
   }
 
-  private void myImage(String icon, String text, double x, double y) {
+  private Button myImage(String icon, String text, double x, double y) {
     Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(icon));
     ImageView playImage = new ImageView(image);
-    playImage.setFitWidth(BUTTON_SIZE);
-    playImage.setFitHeight(BUTTON_SIZE);
+    playImage.setFitWidth(SimulationControl.BUTTON_SIZE);
+    playImage.setFitHeight(SimulationControl.BUTTON_SIZE);
     Button button = new Button(text, playImage);
     button.setLayoutX(x);
     button.setLayoutY(y);
     myRoot.getChildren().add(button);
+    return button;
   }
 
   private void createSlowDownButton() {
-    int x = X_SIZE * 2 / 9;
-    int y = Y_SIZE / 12 + 500;
+    int x = sX * 2 / 9;
+    int y = sY / 12 + 500;
     String pause = "Slow Down";
-    myImage(SLOW_DOWN_IMAGE, pause, x, y);
+    slowButton = myImage(SimulationControl.SLOW_DOWN_IMAGE, pause, x, y);
+    slowButton.setOnAction(event -> slowDown());
+  }
+
+  private void slowDown() {
   }
 
   private void createSpeedUpButton() {
-    int x = X_SIZE *  3 / 5;
-    int y = Y_SIZE / 12 + 500;
+    int x = sX *  3 / 5;
+    int y = sY / 12 + 500;
     String pause = "Speed up";
-    myImage(SPEED_UP_IMAGE, pause, x, y);
+    fastButton = myImage(SimulationControl.SPEED_UP_IMAGE, pause, x, y);
+    fastButton.setOnAction(event -> speedUp());
+  }
+
+  private void speedUp() {
   }
 
   private void createStepButton() {
-    int x = X_SIZE * 4 / 5;
-    int y = Y_SIZE / 12 + 460;
+    int x = sX * 4 / 5;
+    int y = sY / 12 + 460;
     String pause = "Step";
-    myImage(STEP_IMAGE, pause, x, y);
+    stepButton = myImage(SimulationControl.STEP_IMAGE, pause, x, y);
+    stepButton.setOnAction(event -> step());
+  }
+
+  private void step() {
   }
 
   private void createPauseButton() {
-    int x = X_SIZE / 2 - 32;
-    int y = Y_SIZE / 12 + 460;
+    int x = sX / 2 - 32;
+    int y = sY / 12 + 460;
     String pause = "Pause";
-    myImage(PAUSE_IMAGE, pause, x, y);
+    pauseButton = myImage(SimulationControl.PAUSE_IMAGE, pause, x, y);
+    pauseButton.setOnAction(event -> stop());
+  }
+
+  private void stop() {
   }
 
   private void createPlayButton() {
-    int x = X_SIZE / 12;
-    int y = Y_SIZE / 12 + 460;
+    int x = sX / 12;
+    int y = sY / 12 + 460;
     String play = "Play";
-    myImage(PLAY_IMAGE, play, x, y);
+    startButton = myImage(SimulationControl.PLAY_IMAGE, play, x, y);
+    startButton.setOnAction(event -> start());
+  }
+
+  private void start() {
   }
 
   private void setGameTitleText() {
-    titleText = new Text(0, 30, GAME_TITLE);
+    titleText = new Text(0, 30, SimulationControl.GAME_TITLE);
     Font font = new Font(30);
     titleText.setFont(font);
-    titleText.setX(X_SIZE / 2 - (titleText.getLayoutBounds().getWidth() / 2));
+    titleText.setX(sX / 2 - (titleText.getLayoutBounds().getWidth() / 2));
     myRoot.getChildren().add(titleText);
+  }
+
+  /**
+   * Creates display of Grid for viewer to see.
+   ** @param rows
+   ** @param cols
+   ** @param cells
+   */
+  public void createGrid(int rows, int cols, ArrayList<Integer> cells) {
+    myRoot.getChildren().remove(myBlocks);
+    int xsize = SimulationControl.GRID_SIZE / cols;
+    int ysize = SimulationControl.GRID_SIZE / rows;
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        Rectangle block = new Rectangle(SimulationControl.GRID_X + j * xsize, SimulationControl.GRID_Y + i * ysize, xsize, ysize);
+        myBlocks.add(block);
+        block.setStroke(Color.BLACK);
+        myRoot.getChildren().add(block);
+        if (cells.get(j + i * cols) == 0) {
+          block.setFill(Color.WHITE);
+        } else if (cells.get(j + i * cols) == 1) {
+          block.setFill(Color.MEDIUMBLUE);
+        } else {
+          block.setFill(Color.DEEPPINK);
+        }
+      }
+    }
+  }
+
+  /**
+   *
+   ** @param cells
+   */
+  public void updateCell(ArrayList<Integer> cells) {
+    for (int i = 0; i < cells.size(); i++) {
+      Rectangle block = myBlocks.get(i);
+      block.setStroke(Color.BLACK);
+      if (cells.get(i) == 0) {
+        block.setFill(Color.WHITE);
+      } else if (cells.get(i) == 1) {
+        block.setFill(Color.MEDIUMBLUE);
+      } else {
+        block.setFill(Color.DEEPPINK);
+      }
+    }
+  }
+
+  /**
+   *
+   */
+  public void clearGrid() {
+    myRoot.getChildren().clear();
+    createButtons();
+    setGameTitleText();
+  }
+
+  public Scene getScene() {
+    return myScene;
   }
 }
