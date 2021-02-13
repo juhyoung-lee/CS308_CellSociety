@@ -67,7 +67,9 @@ public abstract class Cell {
    * Exceptions: TODO
    * Returns: None.
    */
-  public abstract void receiveUpdate(HashMap<String, Integer> newInfo);
+  public void receiveUpdate(HashMap<String, Integer> newInfo) {
+    nextState = newInfo.get("state");
+  }
 
   /**
    * Purpose: Returns state of the cell.

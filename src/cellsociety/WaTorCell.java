@@ -98,8 +98,9 @@ public class WaTorCell extends Cell {
    * Exceptions: TODO
    * Returns: None.
    */
+  @Override
   public void receiveUpdate(HashMap<String, Integer> newInfo) {
-    nextState = newInfo.get("state");
+    super.receiveUpdate(newInfo);
     breedTime = newInfo.get("breedTime");
     breedEnergy = newInfo.get("breedEnergy");
   }
