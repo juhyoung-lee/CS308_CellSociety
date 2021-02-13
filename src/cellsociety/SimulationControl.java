@@ -51,15 +51,16 @@ public class SimulationControl {
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
-    framecount = 60;
+    framecount = 1;
     delay = 1.0 / framecount;
 
     ArrayList<String> cArrange = new ArrayList<>();
-    cArrange.add("01001");
-    cArrange.add("01101");
-    cArrange.add("01101");
-    cArrange.add("01001");
-    cArrange.add("01011");
+    cArrange.add("000000");
+    cArrange.add("011000");
+    cArrange.add("011000");
+    cArrange.add("000110");
+    cArrange.add("000110");
+    cArrange.add("000000");
     myGrid = new Grid(GAME_TITLE, cArrange);
     mySC.createGrid(myGrid.getDimensions()[0], myGrid.getDimensions()[1], myGrid.viewGrid());
 
@@ -68,7 +69,6 @@ public class SimulationControl {
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
-    pause();
   }
 
 /*  private void handleKeyRelease(KeyCode code) {
