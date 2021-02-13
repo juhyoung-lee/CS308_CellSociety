@@ -3,6 +3,9 @@ package cellsociety;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Purpose: Initialize the screen
  * Assumptions: TODO
@@ -13,18 +16,18 @@ import javafx.stage.Stage;
  */
 
 public class Main extends Application {
-  private ScreenControl sc = new ScreenControl();
+  private SimulationControl sim = new SimulationControl();
 
   public static void main(String[] args){
     launch(args);
   }
 
   /**
-   * Start the program by initializing the game
-   * @param stage
+   * Start the program by initializing the simulation.
+   ** @param stage
   */
   @Override
   public void start(Stage stage) {
-    sc.initialize(stage);
+    sim.initialize(stage);
   }
 }
