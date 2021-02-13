@@ -166,3 +166,6 @@ public class Grid {
     myGrid.printGrid();
   }
 }
+
+// next step: work with kenny to accept xml parameters
+// update to match jessica hashmap state
