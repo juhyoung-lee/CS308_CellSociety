@@ -10,19 +10,18 @@ package cellsociety;
  */
 public abstract class Cell {
 
-  private final int myIndex;
   protected int myState;
   protected int nextState;
+  public static final int NO_MOVEMENT = -1;
 
   /**
    * Purpose: Constructor for Cell class.
    * Assumptions: TODO
-   * Parameters: int index, int state.
+   * Parameters: int state.
    * Exceptions: TODO
    * Returns: Cell object.
    */
-  public Cell(int index, int state) {
-    myIndex = index;
+  public Cell(int state) {
     myState = state;
   }
 
@@ -31,18 +30,21 @@ public abstract class Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: TODO
+   * Returns: int type. Describes what needs to be moved, if any.
    */
-  public abstract void prepareNewState(int[] neighborStates);
+  public abstract int prepareNewState(int[] neighborStates);
 
   /**
-   * Purpose: Update current cell state.
+   * Purpose: Update current cell state, and return value for other methods to use.
    * Assumptions: TODO
    * Parameters: None.
    * Exceptions: None.
-   * Returns: String object.
+   * Returns: int object.
    */
-  public abstract int updateState();
+  public int updateState() {
+    myState = nextState;
+    return myState;
+  }
 
   /**
    * Purpose: Returns state of the cell.
@@ -53,16 +55,5 @@ public abstract class Cell {
    */
   public int getState() {
     return myState;
-  }
-
-  /**
-   * Purpose: Returns index of the cell.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int index.
-   */
-  public int getIndex() {
-    return myIndex;
   }
 }

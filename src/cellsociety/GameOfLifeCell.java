@@ -3,7 +3,7 @@ package cellsociety;
 /**
  * Purpose: Represents a cell for the Game of Life simulation. Extends the Cell class.
  * Assumptions: TODO
- * Depedencies: TODO
+ * Dependencies: TODO
  * Example of use: TODO
  *
  * @author Jessica Yang
@@ -14,14 +14,14 @@ public class GameOfLifeCell extends Cell {
   public static final int DEAD = 0;
 
   /**
-   * Purpose: Construct for GameOfLifeCell class.
+   * Purpose: Constructor for GameOfLifeCell class.
    * Assumptions: TODO
-   * Parameters: int index, int state.
+   * Parameters: int state.
    * Exceptions: TODO
    * Returns: GameOfLifeCell object.
    */
-  public GameOfLifeCell(int index, int state) {
-    super(index, state);
+  public GameOfLifeCell(int state) {
+    super(state);
   }
 
   /**
@@ -29,11 +29,10 @@ public class GameOfLifeCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: TODO
-   *
+   * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
-  public void prepareNewState(int[] neighborStates) {
+  public int prepareNewState(int[] neighborStates) {
     int live = 0;
 
     for (int state : neighborStates) {
@@ -49,17 +48,7 @@ public class GameOfLifeCell extends Cell {
     } else {
       nextState = DEAD;
     }
-  }
 
-  /**
-   * Purpose: Update current cell state, and return value for other methods to use.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int object.
-   */
-  public int updateState() {
-    myState = nextState;
-    return myState;
+    return NO_MOVEMENT;
   }
 }
