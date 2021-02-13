@@ -51,6 +51,6 @@ public class SimulationControl {
     cArrange.add("01001");
     cArrange.add("01011");
     myGrid = new Grid(GAME_TITLE, cArrange);
-    mySC.createGrid(5, 5, myGrid.viewGrid());
+    mySC.createGrid(myGrid.getDimensions()[0], myGrid.getDimensions()[1], myGrid.viewGrid());
   }
 }
