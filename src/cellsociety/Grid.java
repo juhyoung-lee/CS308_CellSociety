@@ -6,17 +6,11 @@ import java.util.HashMap;
 
 /**
  * Keeps track of Cells in a Grid.
- *
  * @author juhyoung
- *
- * <p>Stores and updates Cells Instantiates Cell objects from XML input Updates cell statuses using
- * neighboring cell information
- *
- * <p>Assumes neighborCount is in XML
- *
- * <p>Depends on java.util, java.io, javax.xml, org.w3c.dom, and cell society.Cell
- *
- * <p>Example Usage Grid myGrid = new Grid() myGrid.updateCells() visualize(myGrid.getGrid())
+ * Stores and updates Cells Instantiates Cell objects from XML input Updates cell statuses using neighboring cell information
+ * Assumes neighborCount is in XML
+ * Depends on java.util, java.io, javax.xml, org.w3c.dom, and cell society.Cell
+ * Example Usage Grid myGrid = new Grid() myGrid.updateCells() visualize(myGrid.getGrid())
  */
 public class Grid {
 
@@ -38,9 +32,8 @@ public class Grid {
   }
 
   /**
-   * Loads updates for cells and then updates.
-   *
-   * <p>TODO: buff up for variations
+   * Purpose: Loads updates for cells and then updates.
+   * TODO: buff up for variations
    */
   public void updateCells() {
     for (int i = 0; i < grid.size(); i++) {
@@ -53,8 +46,7 @@ public class Grid {
   }
 
   /**
-   * Returns states of cells for printing/viewing.
-   *
+   * Purpose: Returns states of cells for printing/viewing.
    * @return array list of cell states
    */
   public ArrayList<Integer> viewGrid() {
@@ -66,7 +58,7 @@ public class Grid {
   }
 
   /**
-   * Returns grid size
+   * Purpose: Returns grid size
    * @return [width, height]
    */
   public int[] getDimensions() {
@@ -149,7 +141,7 @@ public class Grid {
         }
       }
     }
-    return possibleIndexes;
+    return validIndexes;
   }
 
   // used by setupGrid()
@@ -181,11 +173,29 @@ public class Grid {
 
   public static void main(String[] args) {
     ArrayList<String> input = new ArrayList<>();
-    input.add("010");
-    input.add("101");
-    input.add("010");
+    input.add("00000");
+    input.add("01110");
+    input.add("00000");
     Grid myGrid = new Grid("Conway's Game of Life", input);
-    myGrid.printGrid();
+
+    /**
+     * prints neighbors
+    for (int i = 0; i < myGrid.grid.size(); i++) {
+      System.out.print("Cell "+i+": ");
+      int[] array = myGrid.neighbors.get(myGrid.grid.get(i));
+      for (int j : array) {
+        System.out.print(j);
+      }
+      System.out.println();
+    }
+     **/
+
+    for(int i = 0; i < 5; i++){
+      System.out.println("\n" + "Step " + i);
+      myGrid.printGrid();
+      System.out.println();
+      myGrid.updateCells();
+    }
   }
 }
 
