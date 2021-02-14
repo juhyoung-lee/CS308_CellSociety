@@ -40,12 +40,11 @@ public class SimulationControl {
 
   private static ScreenControl mySC;
   private static Grid myGrid;
-  private int framecount;
+  private int framecount = 1;
   private double delay;
   private static Timeline animation;
 
   public void initialize(Stage stage) {
-    framecount = 1;
     delay = 1.0 / framecount;
     KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
     animation = new Timeline();
@@ -85,8 +84,12 @@ public class SimulationControl {
     mySC.updateGrid(myGrid.viewGrid());
   }
 
-  public Timeline getAnimation() {
-    return animation;
+  public void pause() {
+    animation.stop();
+  }
+
+  public void start() {
+    animation.play();
   }
 
   public void next() {
