@@ -42,17 +42,22 @@ public class SimulationControl {
   private Grid myGrid;
   private int framecount;
   private double delay;
-  private Timeline animation;
-  private boolean paused = false;
+  private static Timeline animation;
+  private boolean paused = true;
 
   public void initialize(Stage stage) {
+    framecount = 1;
+    delay = 1.0 / framecount;
+    KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
+    animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+
     mySC = new ScreenControl();
     Scene scene = mySC.getScene();
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
-    framecount = 1;
-    delay = 1.0 / framecount;
 
     ArrayList<String> cArrange = new ArrayList<>();
     cArrange.add("000000");
@@ -63,25 +68,14 @@ public class SimulationControl {
     cArrange.add("000000");
     myGrid = new Grid(GAME_TITLE, cArrange);
     mySC.createGrid(myGrid.getDimensions()[0], myGrid.getDimensions()[1], myGrid.viewGrid());
-
-    KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
-    animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(frame);
-    animation.play();
   }
 
   private void step() {
-    System.out.println("update");
     myGrid.updateCells();
     mySC.updateGrid(myGrid.viewGrid());
   }
 
-  public void stop() {
-    paused = true;
-  }
-
-  public void start() {
-    paused = false;
+  public Timeline getAnimation() {
+    return animation;
   }
 }
