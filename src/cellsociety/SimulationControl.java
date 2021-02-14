@@ -38,12 +38,11 @@ public class SimulationControl {
 
   public static final String GAME_TITLE = "Conway's Game of Life";
 
-  private ScreenControl mySC;
-  private Grid myGrid;
+  private static ScreenControl mySC;
+  private static Grid myGrid;
   private int framecount;
   private double delay;
   private static Timeline animation;
-  private boolean paused = true;
 
   public void initialize(Stage stage) {
     framecount = 1;
@@ -60,12 +59,23 @@ public class SimulationControl {
     stage.show();
 
     ArrayList<String> cArrange = new ArrayList<>();
-    cArrange.add("000000");
-    cArrange.add("011000");
-    cArrange.add("011000");
-    cArrange.add("000110");
-    cArrange.add("000110");
-    cArrange.add("000000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00001110001110000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00100001010000100");
+    cArrange.add("00100001010000100");
+    cArrange.add("00100001010000100");
+    cArrange.add("00001110001110000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00001110001110000");
+    cArrange.add("00100001010000100");
+    cArrange.add("00100001010000100");
+    cArrange.add("00100001010000100");
+    cArrange.add("00000000000000000");
+    cArrange.add("00001110001110000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00000000000000000");
     myGrid = new Grid(GAME_TITLE, cArrange);
     mySC.createGrid(myGrid.getDimensions()[0], myGrid.getDimensions()[1], myGrid.viewGrid());
   }
@@ -77,5 +87,36 @@ public class SimulationControl {
 
   public Timeline getAnimation() {
     return animation;
+  }
+
+  public void next() {
+    animation.stop();
+    myGrid.updateCells();
+    mySC.updateGrid(myGrid.viewGrid());
+  }
+
+  public void fast() {
+    animation.stop();
+    framecount += 1;
+    if (framecount < 0) {
+      framecount = 1;
+    }
+    animation.setRate(framecount);
+    System.out.println(animation.getRate());
+    animation.play();
+  }
+
+  public void slow() {
+    animation.stop();
+    framecount -= 1;
+    if (framecount > 0) {
+      animation.setRate(framecount);
+    } else if (framecount == 0 || framecount == -1) {
+      animation.setRate(0.8);
+    } else {
+      animation.setRate(1.0 / (framecount * -1));
+    }
+    System.out.println(animation.getRate());
+    animation.play();
   }
 }

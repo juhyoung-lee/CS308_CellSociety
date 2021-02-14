@@ -74,10 +74,7 @@ public class ScreenControl {
     int y = sY / 12 + 500;
     String pause = "Slow Down";
     slowButton = myImage(SimulationControl.SLOW_DOWN_IMAGE, pause, x, y);
-    slowButton.setOnAction(event -> slowDown());
-  }
-
-  private void slowDown() {
+    slowButton.setOnAction(event -> sim.slow());
   }
 
   private void createSpeedUpButton() {
@@ -85,10 +82,7 @@ public class ScreenControl {
     int y = sY / 12 + 500;
     String pause = "Speed up";
     fastButton = myImage(SimulationControl.SPEED_UP_IMAGE, pause, x, y);
-    fastButton.setOnAction(event -> speedUp());
-  }
-
-  private void speedUp() {
+    fastButton.setOnAction(event -> sim.fast());
   }
 
   private void createStepButton() {
@@ -96,10 +90,7 @@ public class ScreenControl {
     int y = sY / 12 + 460;
     String pause = "Step";
     stepButton = myImage(SimulationControl.STEP_IMAGE, pause, x, y);
-    stepButton.setOnAction(event -> step());
-  }
-
-  private void step() {
+    stepButton.setOnAction(event -> sim.next());
   }
 
   private void createPauseButton() {
