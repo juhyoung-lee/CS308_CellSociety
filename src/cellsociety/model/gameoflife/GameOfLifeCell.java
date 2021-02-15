@@ -35,7 +35,7 @@ public class GameOfLifeCell extends Cell {
    * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
-  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
+  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
     int live = calculateLive(neighborStates);
 
     if (myState == ALIVE && (live == 2 || live == 3)) {
@@ -46,7 +46,7 @@ public class GameOfLifeCell extends Cell {
       nextState = DEAD;
     }
 
-    updateStateField(NO_MOVEMENT);
+    updateMoveStateField(NO_MOVEMENT);
     return moveState;
   }
 

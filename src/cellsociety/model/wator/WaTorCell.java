@@ -35,50 +35,52 @@ public class WaTorCell extends Cell {
     sharkBreedThreshold = config.get("sharkBreedThreshold");
     energyGain = config.get("energyGain");
     energyLoss = config.get("energyLoss");
-    resetMyState();
+    resetState();
   }
 
   /**
    * Returns settings back to default.
    */
-  private void resetMyState() {
+  private void resetState() {
     breedFishTime = 0;
     breedSharkEnergy = sharkBreedThreshold / 2;
   }
 
   /**
-   * Purpose: Determine new state to update to. Assumptions: TODO Parameters: int[] neighborStates.
-   * Exceptions: TODO Returns: int type. Describes what needs to be moved, if any. Rules taken from
+   * Purpose: Determine new state to update to.
+   * Assumptions: TODO Parameters: int[] neighborStates.
+   * Exceptions: TODO
+   * Returns: int type. Describes what needs to be moved, if any. Rules taken from
    * https://beltoforion.de/en/wator/
    */
-  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
+  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
     if (myState == FISH) {
-      fishPrepareState();
+      fishPrepareNextState();
     } else if (myState == SHARK) {
-      sharkPrepareState();
+      sharkPrepareNextState();
     } else {
       nextState = WATER;
-      updateStateField(NO_MOVEMENT);
+      updateMoveStateField(NO_MOVEMENT);
     }
     return moveState;
   }
 
-  private void fishPrepareState() {
+  private void fishPrepareNextState() {
     breedFishTime++;
     updateMoveStateParam();
     if (breedFishTime < fishBreedThreshold) {
       setToWater();
     } else {
       nextState = FISH;
-      resetMyState();
+      resetState();
     }
-    updateStateField(FISH);
+    updateMoveStateField(FISH);
   }
 
-  private void sharkPrepareState() {
+  private void sharkPrepareNextState() {
     if (breedSharkEnergy <= 0) {
       setToWater();
-      updateStateField(NO_MOVEMENT);
+      updateMoveStateField(NO_MOVEMENT);
     } else {
       breedSharkEnergy -= energyLoss;
       updateMoveStateParam();
@@ -86,9 +88,9 @@ public class WaTorCell extends Cell {
         setToWater();
       } else {
         nextState = SHARK;
-        resetMyState();
+        resetState();
       }
-      updateStateField(SHARK);
+      updateMoveStateField(SHARK);
     }
   }
 
@@ -121,7 +123,7 @@ public class WaTorCell extends Cell {
    */
   private void setToWater() {
     nextState = WATER;
-    resetMyState();
+    resetState();
   }
 
   /**
