@@ -36,6 +36,15 @@ public class Game {
         gridValues.get(0), gridValues.get(1), paramValues, cellValues);
   }
 
+  public ArrayList<String> getCellRows(){
+    return myCellRows;
+  }
+
+  public int getWidth(){return myWidth;}
+  public int getHeight(){return myHeight;}
+  public String getTitle(){return myTitle;}
+  public String getType(){return myType;}
+
   public String toString() {
     return "Type: " + myType + ", Title: " + myTitle + ", Author: " + myAuthor + ", Descr: "
         + myDescription + "\n" +
