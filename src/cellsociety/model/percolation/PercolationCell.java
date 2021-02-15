@@ -13,9 +13,9 @@ import java.util.HashMap;
  */
 public class PercolationCell extends Cell {
 
-  public static final int OPEN = 0;
-  public static final int PERCOLATED = 1;
-  public static final int BLOCKED = 2;
+  public static final int OPEN = 1;
+  public static final int PERCOLATED = 2;
+  public static final int BLOCKED = 0;
 
   /**
    * Purpose: Constructor for PercolationCell class.
