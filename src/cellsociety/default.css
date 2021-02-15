@@ -1,8 +1,8 @@
 .root {
-    -fx-font-size: 10pt;
-    -fx-font-family: "Futura";
-    -fx-base: honeydew;
-    -fx-background: darkslateblue;
+  -fx-font-size: 10pt;
+  -fx-font-family: "Futura";
+  -fx-base: honeydew;
+  -fx-background: darkslateblue;
 }
 
 .GameofLife-0 {
@@ -59,4 +59,14 @@
 
 .Wator-2 {
   -fx-fill: lightslategray;
+}
+
+.title {
+  -fx-fill: aliceblue;
+}
+
+.button {
+  -fx-border-radius: 20;
+  -fx-background-radius: 15;
+  -fx-padding: 8;
 }
