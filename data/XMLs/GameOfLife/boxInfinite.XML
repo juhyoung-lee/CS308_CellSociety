@@ -1,0 +1,38 @@
+<root>
+  <information>
+    <type>Conway's Game of Life</type>
+    <title>Pulsar</title>
+    <author>wiki</author>
+    <description>The Pulsar</description>
+  </information>
+  <paramconfig>
+  </paramconfig>
+  <grid>
+    <width>27</width>
+    <height>22</height>
+  </grid>
+  <cellConfig>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000001110100000000000</cellRow>
+    <cellRow>000000000001000000000000000</cellRow>
+    <cellRow>000000000000001100000000000</cellRow>
+    <cellRow>000000000000110100000000000</cellRow>
+    <cellRow>000000000001010100000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000</cellRow>
+  </cellConfig>
+</root>
