@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.configuration;
 
 import java.io.File;
 

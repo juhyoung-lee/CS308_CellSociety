@@ -1,5 +1,7 @@
 package cellsociety;
 
+import cellsociety.configuration.Configure;
+import cellsociety.configuration.Game;
 import cellsociety.model.Grid;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
  */
 
 public class SimulationControl {
-  public static final String DATA_FILE="data/XMLs/pulsar.XML";
+  public static final String DATA_FILE="data/XMLs/GameofLife/Pulsar.XML";
 
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
