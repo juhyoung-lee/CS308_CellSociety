@@ -183,7 +183,7 @@ public abstract class Grid {
    * @param index center cell position
    * @return states of neighboring cells
    */
-  private int[] pullNeighborStates(int index) {
+  protected int[] pullNeighborStates(int index) {
     Cell currentCell = this.grid.get(index);
     Cell neighborCell;
     int[] neighborIndexes = this.neighbors.get(currentCell);
