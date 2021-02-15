@@ -1,0 +1,22 @@
+<root>
+  <information>
+    <type>Conway's Game of Life</type>
+    <title>Loaf</title>
+    <author>wiki</author>
+    <description>Loaf should not change at all</description>
+  </information>
+  <paramconfig>
+  </paramconfig>
+  <grid>
+    <width>6</width>
+    <height>6</height>
+  </grid>
+  <cellConfig>
+    <cellRow>000000</cellRow>
+    <cellRow>001100</cellRow>
+    <cellRow>010010</cellRow>
+    <cellRow>001010</cellRow>
+    <cellRow>000100</cellRow>
+    <cellRow>000000</cellRow>
+  </cellConfig>
+</root>

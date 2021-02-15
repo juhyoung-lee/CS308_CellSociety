@@ -1,0 +1,27 @@
+<root>
+  <information>
+    <type>Percolation</type>
+    <title>first try</title>
+    <author>Kenny</author>
+    <description>lets see if this works?</description>
+  </information>
+  <paramconfig>
+    <parameter>0.5</parameter>
+  </paramconfig>
+  <grid>
+    <width>10</width>
+    <height>10</height>
+  </grid>
+  <cellConfig>
+    <cellRow>2222222222</cellRow>
+    <cellRow>0001000000</cellRow>
+    <cellRow>0001000000</cellRow>
+    <cellRow>0001001100</cellRow>
+    <cellRow>0001111100</cellRow>
+    <cellRow>0000001000</cellRow>
+    <cellRow>0000001000</cellRow>
+    <cellRow>0001111000</cellRow>
+    <cellRow>0011110000</cellRow>
+    <cellRow>0001000000</cellRow>
+  </cellConfig>
+</root>
