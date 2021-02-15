@@ -122,12 +122,16 @@ public abstract class Grid {
 
   /**
    * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
-   * neighboring indexes. Ex: (-1 * this.width, -1, 1, this.width)
+   * neighboring indexes.
+   * Assumptions: counts surrounding eight cells as neighbors. Grid is a square tesselation.
    *
    * @param index center index
    * @return values for computing neighboring indexes
    */
-  protected abstract int[] neighborVariances(int index);
+  protected int[] neighborVariances(int index) {
+    int width = getDimensions()[0];
+    return new int[]{-1 - width, -1 * width, 1 - width, -1, 1, -1 + width, width, 1 + width};
+  }
 
   /**
    * Used by pullNeighborIndexes(). Turns an Integer ArrayList into int[] for viewing.
