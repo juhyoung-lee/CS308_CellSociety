@@ -1,6 +1,8 @@
 package cellsociety.configuration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -8,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -54,12 +57,25 @@ public class XMLParser {
       gridResults.add(Integer.parseInt(getTextValue(root, field)));
     }
 
-    NodeList parameters = root.getElementsByTagName("parameter");
-    ArrayList<Integer> parameterResults = new ArrayList<>();
-    for (int i = 0; i < parameters.getLength(); i++) {
-      Node temp = parameters.item(i);
-      parameterResults.add(Integer.parseInt(temp.getTextContent()));
-    }
+//    NodeList parameters = root.getElementsByTagName("parameter");
+//    ArrayList<Integer> parameterResults = new ArrayList<>();
+//    for (int i = 0; i < parameters.getLength(); i++) {
+//      Node temp = parameters.item(i);
+//      parameterResults.add(Integer.parseInt(temp.getTextContent()));
+//    }
+
+    HashMap<String, Integer> parameterMap = new HashMap<>();
+    try {
+      NodeList nList = DOCUMENT_BUILDER.parse(dataFile).getElementsByTagName("paramconfig");
+      Node node = nList.item(0);
+      NodeList list = node.getChildNodes();
+      for (int i = 0; i < list.getLength(); i++) {
+        Node n = list.item(i);
+        if (n.getNodeType() == Node.ELEMENT_NODE) {
+          parameterMap.put(n.getNodeName(), Integer.parseInt(n.getTextContent()));
+        }
+      }
+    } catch (Exception e) { }//TODO work on exception
 
     NodeList cellRows = root.getElementsByTagName("cellRow");
     ArrayList<String> cellResults = new ArrayList<>();
@@ -68,7 +84,7 @@ public class XMLParser {
       cellResults.add(temp.getTextContent());
     }
 
-    return new Game(infoResults, gridResults, parameterResults, cellResults);
+    return new Game(infoResults, gridResults, parameterMap, cellResults);
   }
 
   // get root element of an XML file
