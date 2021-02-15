@@ -1,0 +1,29 @@
+<root>
+  <information>
+    <type>Segregation</type>
+    <title>first try</title>
+    <author>Kenny</author>
+    <description>lets see if this works?</description>
+  </information>
+  <paramconfig>
+    <threshold>50</threshold>
+    <width>10</width>
+    <height>10</height>
+  </paramconfig>
+  <grid>
+    <width>10</width>
+    <height>10</height>
+  </grid>
+  <cellConfig>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0001001000</cellRow>
+    <cellRow>2222222222</cellRow>
+    <cellRow>0011020000</cellRow>
+    <cellRow>0000020000</cellRow>
+    <cellRow>0000121000</cellRow>
+    <cellRow>0011111000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>1000000000</cellRow>
+    <cellRow>0000000101</cellRow>
+  </cellConfig>
+</root>
