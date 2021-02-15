@@ -1,9 +1,11 @@
 package cellsociety;
 
+import java.util.HashMap;
+
 /**
  * Purpose: Represents a cell for the Game of Life simulation. Extends the Cell class.
  * Assumptions: TODO
- * Depedencies: TODO
+ * Dependencies: TODO
  * Example of use: TODO
  *
  * @author Jessica Yang
@@ -14,14 +16,14 @@ public class GameOfLifeCell extends Cell {
   public static final int DEAD = 0;
 
   /**
-   * Purpose: Construct for GameOfLifeCell class.
+   * Purpose: Constructor for GameOfLifeCell class.
    * Assumptions: TODO
-   * Parameters: int index, int state.
+   * Parameters: int state.
    * Exceptions: TODO
    * Returns: GameOfLifeCell object.
    */
-  public GameOfLifeCell(int index, int state) {
-    super(index, state);
+  public GameOfLifeCell(HashMap<String, Integer> config) {
+    super(config);
   }
 
   /**
@@ -29,18 +31,11 @@ public class GameOfLifeCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: TODO
-   *
+   * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
-  public void prepareNewState(int[] neighborStates) {
-    int live = 0;
-
-    for (int state : neighborStates) {
-      if (state == ALIVE) {
-        live++;
-      }
-    }
+  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
+    int live = calculateLive(neighborStates);
 
     if (myState == ALIVE && (live == 2 || live == 3)) {
       nextState = ALIVE;
@@ -49,17 +44,21 @@ public class GameOfLifeCell extends Cell {
     } else {
       nextState = DEAD;
     }
+
+    updateStateField(NO_MOVEMENT);
+    return moveState;
   }
 
-  /**
-   * Purpose: Update current cell state, and return value for other methods to use.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int object.
-   */
-  public int updateState() {
-    myState = nextState;
-    return myState;
+  /** Calculates number live cells in neighbors. */
+  private int calculateLive(int[] neighborStates) {
+    int live = 0;
+
+    for (int state : neighborStates) {
+      if (state == ALIVE) {
+        live++;
+      }
+    }
+
+    return live;
   }
 }

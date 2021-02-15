@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.util.HashMap;
+
 /**
  * Purpose: Represents a cell within the cell automata simulation.
  * Assumptions: TODO
@@ -10,20 +12,20 @@ package cellsociety;
  */
 public abstract class Cell {
 
-  private final int myIndex;
+  public static final int NO_MOVEMENT = -1;
+  protected HashMap<String, Integer> moveState = new HashMap<>();
   protected int myState;
   protected int nextState;
 
   /**
    * Purpose: Constructor for Cell class.
    * Assumptions: TODO
-   * Parameters: int index, int state.
+   * Parameters: HashMap config.
    * Exceptions: TODO
    * Returns: Cell object.
    */
-  public Cell(int index, int state) {
-    myIndex = index;
-    myState = state;
+  public Cell(HashMap<String, Integer> config) {
+    myState = config.get("state");
   }
 
   /**
@@ -31,18 +33,44 @@ public abstract class Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: TODO
+   * Returns: int type. Describes what needs to be moved, if any.
    */
-  public abstract void prepareNewState(int[] neighborStates);
+  public abstract HashMap<String, Integer> prepareNewState(int[] neighborStates);
 
   /**
-   * Purpose: Update current cell state.
+   * Purpose: Updates state field in moveState.
+   * Assumptions: TODO
+   * Parameters: int state.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  protected void updateStateField(int state) {
+    moveState.put("state", state);
+  }
+
+  /**
+   * Purpose: Update current cell state, and return value for other methods to use.
    * Assumptions: TODO
    * Parameters: None.
    * Exceptions: None.
-   * Returns: String object.
+   * Returns: int object.
    */
-  public abstract int updateState();
+  public int updateState() {
+    myState = nextState;
+    nextState = -1;
+    return myState;
+  }
+
+  /**
+   * Purpose: Accepts HashMap information with new state information. Will default to return false.
+   * Assumptions: Grid should never call this method.
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: boolean type.
+   */
+  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+    return false;
+  }
 
   /**
    * Purpose: Returns state of the cell.
@@ -53,16 +81,5 @@ public abstract class Cell {
    */
   public int getState() {
     return myState;
-  }
-
-  /**
-   * Purpose: Returns index of the cell.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int index.
-   */
-  public int getIndex() {
-    return myIndex;
   }
 }
