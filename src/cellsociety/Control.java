@@ -3,6 +3,7 @@ package cellsociety;
 import cellsociety.configuration.Configure;
 import cellsociety.configuration.Game;
 import cellsociety.model.Grid;
+import cellsociety.model.fire.FireGrid;
 import cellsociety.model.gameoflife.GameOfLifeGrid;
 import cellsociety.model.percolation.PercolationGrid;
 import cellsociety.model.segregation.SegregationGrid;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
  */
 
 public class Control {
-  public static final String DATA_FILE="data/XMLs/GameOfLife/pulsar.XML";
+  public static final String DATA_FILE="data/XMLs/fire/first.XML";
 
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
@@ -65,7 +66,7 @@ public class Control {
     myGrid = switch (type) {
       case "Game of Life" -> new GameOfLifeGrid(cells, params);
       case "Percolation" -> new PercolationGrid(cells, params);
-      //case "Fire" -> new FireGrid(cells, params);
+      case "Fire" -> new FireGrid(cells, params);
       //case "Segregation" -> new SegregationGrid(cells, params);
       //case "WaTor" -> new WaTorGrid(cells, params);
       default -> null;

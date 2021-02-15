@@ -6,7 +6,7 @@
     <description>lets see if this works?</description>
   </information>
   <paramconfig>
-    <prob>0.5</prob>
+    <prob>0</prob>
     <width>10</width>
     <height>10</height>
   </paramconfig>
