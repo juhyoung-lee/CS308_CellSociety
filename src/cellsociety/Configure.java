@@ -15,11 +15,9 @@ public class Configure {
     while (dataFile != null) {
       try {
         return new XMLParser("media").getGame(dataFile);
-      } catch (XMLException e) {
-        // handle error of unexpected file format
-        System.out.println("Error");
-      }
+      } catch (XMLException e) { }
     }
+    return null;
   }
 }
 
