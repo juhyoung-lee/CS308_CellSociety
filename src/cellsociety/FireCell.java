@@ -28,7 +28,7 @@ public class FireCell extends Cell {
    */
   public FireCell(HashMap<String, Integer> config) {
     super(config);
-    catchThreshold = config.get(parameterString.getString("prob"));
+    catchThreshold = config.get("prob");
   }
 
   /**

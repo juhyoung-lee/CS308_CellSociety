@@ -26,7 +26,7 @@ public class SegregationCell extends Cell {
    */
   public SegregationCell(HashMap<String, Integer> config) {
     super(config);
-    myThreshold = config.get(parameterString.getString("threshold"));
+    myThreshold = config.get("threshold");
   }
 
   /**

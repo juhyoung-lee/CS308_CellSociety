@@ -1,7 +1,6 @@
 package cellsociety;
 
 import java.util.HashMap;
-import java.util.ResourceBundle;
 
 /**
  * Purpose: Represents a cell within the cell automata simulation.
@@ -17,7 +16,6 @@ public abstract class Cell {
   protected HashMap<String, Integer> moveState = new HashMap<>();
   protected int myState;
   protected int nextState;
-  protected ResourceBundle parameterString;
 
   /**
    * Purpose: Constructor for Cell class.
@@ -27,8 +25,7 @@ public abstract class Cell {
    * Returns: Cell object.
    */
   public Cell(HashMap<String, Integer> config) {
-    parameterString = ResourceBundle.getBundle("cellsociety.Parameters");
-    myState = config.get(parameterString.getString("CellState"));
+    myState = config.get("state");
   }
 
   /**
