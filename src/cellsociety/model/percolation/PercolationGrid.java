@@ -41,6 +41,6 @@ public class PercolationGrid extends Grid {
   protected int[] neighborVariances(int index) {
     int width = getDimensions()[0];
     // percolation only looks at cells above and next
-    return new int[]{-1 - width, -1 * width, 1 - width, -1, 1};
+    return new int[]{-1 * width, -1, 1};
   }
 }
