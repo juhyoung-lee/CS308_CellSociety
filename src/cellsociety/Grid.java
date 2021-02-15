@@ -12,28 +12,25 @@ import java.util.HashMap;
  * Depends on java.util, java.io, javax.xml, org.w3c.dom, and cell society.Cell
  * Example Usage Grid myGrid = new Grid() myGrid.updateCells() visualize(myGrid.getGrid())
  */
-public class Grid {
+public abstract class Grid {
 
   private HashMap<Cell, int[]> neighbors;
   private ArrayList<Cell> grid;
   private final String gameType;
   private final int height;
   private final int width;
-  private final int neighborCount;
 
   public Grid(String gameType, ArrayList<String> cellArrangement) {
     this.gameType = gameType;
     this.height = cellArrangement.size();
     this.width = cellArrangement.get(0).length();
-    // TODO: MAKE NEIGHBOR COUNT DYNAMIC
-    this.neighborCount = 8;
     setupGrid(cellArrangement);
     setupNeighbors(cellArrangement);
   }
 
   /**
    * Purpose: Loads updates for cells and then updates.
-   * TODO: buff up for variations
+   * TODO: implement downstream
    */
   public void updateCells() {
     for (int i = 0; i < grid.size(); i++) {
@@ -65,20 +62,7 @@ public class Grid {
     return new int[]{this.width, this.height};
   }
 
-  private int[] pullNeighborStates(int index) {
-    // TODO: return type will be hashmap
-    Cell currentCell = this.grid.get(index);
-    Cell neighborCell;
-    int[] neighborIndexes = this.neighbors.get(currentCell);
-    int[] neighborStates = new int[neighborIndexes.length];
-
-    for (int i = 0; i < neighborIndexes.length; i++) {
-      neighborCell = this.grid.get(neighborIndexes[i]);
-      neighborStates[i] = neighborCell.getState();
-    }
-    return neighborStates;
-  }
-
+  // used by constructor
   private void setupGrid(ArrayList<String> cellArrangement) {
     this.grid = new ArrayList<>();
     for (String s : cellArrangement) {
@@ -90,6 +74,7 @@ public class Grid {
     }
   }
 
+  // used by constructor
   private void setupNeighbors(ArrayList<String> cellArrangement) {
     this.neighbors = new HashMap<>();
     for (int i = 0; i < grid.size(); i++) {
@@ -97,16 +82,16 @@ public class Grid {
     }
   }
 
+  // used by setupGrid()
+  // TODO: implement downstream
+  private Cell chooseCell(int state) {
+    return null;
+  }
+
   // used by setupNeighbors()
+  // TODO: implement downstream
   private int[] pullNeighborIndexes(int index) {
-    // TODO: how to make dynamic?
-    // AHH UGLY CODE
-    int[] variance = switch (this.neighborCount) {
-      case 8 -> new int[]{-1 - this.width, -1 * this.width, 1 - this.width, -1, 1, -1 + this.width,
-          this.width, 1 + this.width};
-      case 4 -> new int[]{-1 * this.width, -1, 1, this.width};
-      default -> new int[]{};
-    };
+    int[] variance = new int[]{};
     ArrayList<Integer> possibleIndexes = new ArrayList<>();
     for (int i : variance) {
       possibleIndexes.add(i + index);
@@ -125,6 +110,7 @@ public class Grid {
   }
 
   // used by pullNeighborIndexes()
+  // TODO: implement downstream
   private ArrayList<Integer> removeInvalidIndexes(int centerIndex,
       ArrayList<Integer> possibleIndexes) {
     // ugly method
@@ -144,23 +130,25 @@ public class Grid {
     return validIndexes;
   }
 
-  // used by setupGrid()
-  private Cell chooseCell(int state) {
-    // TODO: buff up for variations
-    HashMap<String,Integer> input = new HashMap<>();
-    input.put("state", state);
-    return switch (this.gameType) {
-      case "Conway's Game of Life" -> new GameOfLifeCell(input);
-      case "Percolation" -> new PercolationCell(input);
-      case "Fire" -> new FireCell(input);
-      case "Segregation" -> new SegregationCell(input);
-      case "WaTor" -> new WaTorCell(input);
-      default -> null;
-    };
+  // used by updateCells()
+  private int[] pullNeighborStates(int index) {
+    // TODO: return type will be hashmap
+    Cell currentCell = this.grid.get(index);
+    Cell neighborCell;
+    int[] neighborIndexes = this.neighbors.get(currentCell);
+    int[] neighborStates = new int[neighborIndexes.length];
+
+    for (int i = 0; i < neighborIndexes.length; i++) {
+      neighborCell = this.grid.get(neighborIndexes[i]);
+      neighborStates[i] = neighborCell.getState();
+    }
+    return neighborStates;
   }
 
-  // For testing.
-  private void printGrid() {
+  /**
+   * For testing.
+   */
+  public void printGrid() {
     int rowCounter = 0;
     for (Cell cell : this.grid) {
       if (rowCounter == this.width) {
@@ -171,34 +159,4 @@ public class Grid {
       rowCounter++;
     }
   }
-
-  public static void main(String[] args) {
-    ArrayList<String> input = new ArrayList<>();
-    input.add("00000");
-    input.add("01110");
-    input.add("00000");
-    Grid myGrid = new Grid("Conway's Game of Life", input);
-
-    /**
-     * prints neighbors
-    for (int i = 0; i < myGrid.grid.size(); i++) {
-      System.out.print("Cell "+i+": ");
-      int[] array = myGrid.neighbors.get(myGrid.grid.get(i));
-      for (int j : array) {
-        System.out.print(j);
-      }
-      System.out.println();
-    }
-     **/
-
-    for(int i = 0; i < 5; i++){
-      System.out.println("\n" + "Step " + i);
-      myGrid.printGrid();
-      System.out.println();
-      myGrid.updateCells();
-    }
-  }
 }
-
-// next step: work with kenny to accept xml parameters
-// update to match jessica hashmap state
