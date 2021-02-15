@@ -13,9 +13,9 @@ import java.util.HashMap;
  */
 public class WaTorCell extends Cell {
 
-  public static final int FISH = 0;
-  public static final int SHARK = 1;
-  public static final int WATER = 2;
+  public static final int FISH = 1;
+  public static final int SHARK = 2;
+  public static final int WATER = 0;
   private final int breedTimeFish;
   private final int breedEnergyShark;
   private final int energyGain;
