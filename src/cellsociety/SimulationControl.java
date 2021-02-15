@@ -1,9 +1,9 @@
 package cellsociety;
 
+import cellsociety.model.Grid;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -21,8 +21,7 @@ import java.util.ArrayList;
  */
 
 public class SimulationControl {
-  public static final String DATA_FILE="data/XMLs/GameOfLife/boxInfinite.XML";
-  public static final String GAME_TITLE="To Delete";//to delete
+  public static final String DATA_FILE="data/XMLs/pulsar.XML";
 
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
@@ -32,6 +31,7 @@ public class SimulationControl {
   public static final int GRID_X = (X_SIZE / 2) - (GRID_SIZE / 2);
   public static final int GRID_Y = Y_SIZE / 12;
 
+  public static final String STYLESHEET = "cellsociety/default.css";
   public static final String PLAY_IMAGE = "PlayButton.gif";
   public static final String PAUSE_IMAGE = "PauseButton.gif";
   public static final String STEP_IMAGE = "StepButton.gif";
@@ -40,11 +40,11 @@ public class SimulationControl {
   public static final int BUTTON_SIZE = 15;
 
 
-  private static ScreenControl mySC;
-  private static Grid myGrid;
+  private ScreenControl mySC;
+  private Grid myGrid;
   private int framecount = 1;
   private double delay;
-  private static Timeline animation;
+  private Timeline animation;
 
   public void initialize(Stage stage) {
     delay = 1.0 / framecount;
@@ -56,7 +56,8 @@ public class SimulationControl {
     Configure config = new Configure(DATA_FILE);
     Game game = config.getGame();
 
-    mySC = new ScreenControl();
+    String title = game.getTitle();
+    mySC = new ScreenControl(this, title);
     Scene scene = mySC.getScene();
     stage.setScene(scene);
     stage.setTitle(TITLE);

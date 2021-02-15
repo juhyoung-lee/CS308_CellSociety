@@ -1,5 +1,6 @@
-package cellsociety;
+package cellsociety.model.fire;
 
+import cellsociety.model.Cell;
 import java.util.HashMap;
 import java.util.Random;
 

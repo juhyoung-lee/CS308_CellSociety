@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -22,7 +23,7 @@ import javafx.scene.text.Text;
 
 
 public class ScreenControl {
-  private Group myRoot;
+  private Pane myRoot;
   private Text titleText;
   private ArrayList<Rectangle> myBlocks;
   private Button slowButton;
@@ -34,19 +35,22 @@ public class ScreenControl {
   private int sY;
   private Scene myScene;
   private SimulationControl sim;
+  private String myTitle;
 
   /**
    * Initialize the scene and add buttons and text.
    */
-  public ScreenControl() {
-    myRoot = new Group();
+  public ScreenControl(SimulationControl simulationControl, String title) {
+    myRoot = new Pane();
     sX = SimulationControl.X_SIZE;
     sY = SimulationControl.Y_SIZE;
-    myScene = new Scene(myRoot, sX, sY, SimulationControl.BACKGROUND);
+    myTitle = title;
+    myScene = new Scene(myRoot, sX, sY);
+    myScene.getStylesheets().add(SimulationControl.STYLESHEET);
     myBlocks = new ArrayList<>();
     setGameTitleText();
     createButtons();
-    sim = new SimulationControl();
+    sim = simulationControl;
   }
 
   private void createButtons() {
@@ -110,7 +114,7 @@ public class ScreenControl {
   }
 
   private void setGameTitleText() {
-    titleText = new Text(0, 30, SimulationControl.GAME_TITLE);
+    titleText = new Text(0, 30, myTitle);
     Font font = new Font(30);
     titleText.setFont(font);
     titleText.setX(sX / 2 - (titleText.getLayoutBounds().getWidth() / 2));

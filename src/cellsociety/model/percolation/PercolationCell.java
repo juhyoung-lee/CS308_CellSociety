@@ -1,5 +1,6 @@
-package cellsociety;
+package cellsociety.model.percolation;
 
+import cellsociety.model.Cell;
 import java.util.HashMap;
 
 /**
