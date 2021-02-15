@@ -14,22 +14,22 @@ import java.util.Random;
  */
 public class FireCell extends Cell {
 
-  public static final int TREE = 1;
-  public static final int BURNING = 2;
-  public static final int EMPTY = 0;
+  public static final int TREE = 0;
+  public static final int BURNING = 1;
+  public static final int EMPTY = 2;
   private final Random randFire = new Random();
   private final double catchThreshold;
 
   /**
    * Purpose: Constructor for FireCell class.
-   * Assumptions: HashMap will contain the key "prob".
+   * Assumptions: HashMap will contain the key "prob" with an integer value.
    * Parameters: HashMap config.
    * Exceptions: TODO
    * Returns: FireCell object.
    */
   public FireCell(HashMap<String, Integer> config) {
     super(config);
-    catchThreshold = config.get("prob");
+    catchThreshold = (double) config.get("prob") / 100;
   }
 
   /**
