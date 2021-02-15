@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.configuration;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,15 +13,15 @@
     <height>10</height>
   </grid>
   <cellConfig>
-    <cellRow>0010000000</cellRow>
-    <cellRow>1010000000</cellRow>
-    <cellRow>0110000000</cellRow>
     <cellRow>0000000000</cellRow>
+    <cellRow>0001001000</cellRow>
+    <cellRow>2222222222</cellRow>
+    <cellRow>0011020000</cellRow>
+    <cellRow>0000020000</cellRow>
+    <cellRow>0000121000</cellRow>
+    <cellRow>0011111000</cellRow>
     <cellRow>0000000000</cellRow>
-    <cellRow>0000000000</cellRow>
-    <cellRow>0000000000</cellRow>
-    <cellRow>0000000000</cellRow>
-    <cellRow>0000000000</cellRow>
-    <cellRow>0000000000</cellRow>
+    <cellRow>1000000000</cellRow>
+    <cellRow>0000000101</cellRow>
   </cellConfig>
 </root>
