@@ -3,11 +3,15 @@ package cellsociety.model.segregation;
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SegregationGrid extends Grid {
 
-  private HashMap<String,Integer>[] issues;
+  private HashMap<String, Integer>[] issues;
 
   /**
    * Constructor.
@@ -18,12 +22,12 @@ public class SegregationGrid extends Grid {
   public SegregationGrid(ArrayList<String> cellArrangement,
       HashMap<String, Integer> parameters) {
     super(cellArrangement, parameters);
-    issues = new HashMap[grid.size()];
+    issues = new HashMap[super.grid.size()];
   }
 
   /**
-   * Used by super.setupGrid(). Creates cell object matching Grid type.
-   * Assumptions: Parameters contains XML information and cell state
+   * Used by super.setupGrid(). Creates cell object matching Grid type. Assumptions: Parameters
+   * contains XML information and cell state
    *
    * @param parameters cell state and game parameters from XML
    * @return appropriate cell object
@@ -39,7 +43,24 @@ public class SegregationGrid extends Grid {
   @Override
   public void updateCells() {
     clearIssues();
+    prepareUpdates();
+    handleIssues();
+    pushCellUpdates();
+  }
 
+  /**
+   * Sets issues to null
+   */
+  private void clearIssues() {
+    for (int i = 0; i < issues.length; i++) {
+      issues[i] = null;
+    }
+  }
+
+  /**
+   * Prepares cell updates and stores issues if they arise
+   */
+  private void prepareUpdates() {
     for (int i = 0; i < grid.size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
       HashMap<String, Integer> movement = grid.get(i).prepareNewState(neighborStates);
@@ -47,17 +68,43 @@ public class SegregationGrid extends Grid {
         issues[i] = movement;
       }
     }
+  }
 
-
-
-    for (Cell cell : grid) {
-      cell.updateState();
+  /**
+   *
+   */
+  private void handleIssues() {
+    for (int i = 0; i < issues.length; i++) {
+      if (issues[i] != null) {
+        moveCell(i);
+      }
     }
   }
 
-  private void clearIssues() {
+  private void moveCell(int index) {
+    ArrayList<Integer> places = new ArrayList<>();
     for (int i = 0; i < issues.length; i++) {
-      issues[i] = null;
+      if (i == index) {
+        continue;
+      }
+      places.add(i);
+    }
+    Collections.shuffle(places);
+
+    HashMap state = issues[index];
+    while (places.size() != 0) {
+      Integer cell = places.get(places.size()-1);
+      if (super.grid.get(cell).receiveUpdate(state)) {
+        return;
+      }
+      places.remove(places.size()-1);
+    }
+    super.grid.get(index).receiveUpdate(state);
+  }
+
+  private void pushCellUpdates() {
+    for (Cell cell : grid) {
+      cell.updateState();
     }
   }
 }
