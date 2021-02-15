@@ -28,7 +28,7 @@ public abstract class Grid {
 
   /**
    * Loads updates for cells and then updates. If cells move or information beyond state needs to
-   * be passed between cells, this method will need to handle that before pushPreparedUpdates().
+   * be passed between cells, this method will need to handle that before cell.updateState().
    * Assumptions: No movement of cells.
    */
   public void updateCells() {
@@ -38,7 +38,9 @@ public abstract class Grid {
     }
     // if prepareNewState returns issue, it'll have to be added to an array field
     // and handled here
-    pushPreparedCellUpdates();
+    for (Cell cell : grid) {
+      cell.updateState();
+    }
   }
 
   /**
@@ -172,15 +174,6 @@ public abstract class Grid {
       }
     }
     return validIndexes;
-  }
-
-  /**
-   * Used by updateCells(). Runs updateState() on all cells.
-   */
-  private void pushPreparedCellUpdates() {
-    for (Cell cell : grid) {
-      cell.updateState();
-    }
   }
 
   /**
