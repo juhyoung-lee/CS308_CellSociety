@@ -6,6 +6,8 @@
     <description>The Pulsar</description>
   </information>
   <paramconfig>
+    <width>17</width>
+    <height>17</height>
   </paramconfig>
   <grid>
     <width>17</width>

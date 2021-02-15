@@ -27,7 +27,7 @@ import java.util.ArrayList;
  */
 
 public class Control {
-  public static final String DATA_FILE="data/XMLs/Percolation/first.XML";
+  public static final String DATA_FILE="data/XMLs/GameOfLife/pulsar.XML";
 
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
@@ -106,7 +106,6 @@ public class Control {
       framecount = 1;
     }
     animation.setRate(framecount);
-    System.out.println(animation.getRate());
     animation.play();
   }
 
@@ -120,7 +119,6 @@ public class Control {
     } else {
       animation.setRate(1.0 / (framecount * -1));
     }
-    System.out.println(animation.getRate());
     animation.play();
   }
 }

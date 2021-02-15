@@ -6,7 +6,9 @@
     <description>lets see if this works?</description>
   </information>
   <paramconfig>
-    <parameter>0.5</parameter>
+    <prob>0.5</prob>
+    <width>10</width>
+    <height>10</height>
   </paramconfig>
   <grid>
     <width>10</width>
