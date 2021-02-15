@@ -1,11 +1,7 @@
 package cellsociety;
 
-import java.io.File;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Purpose: Initialize the screen
@@ -17,7 +13,7 @@ import java.util.Random;
  */
 
 public class Main extends Application {
-  private SimulationControl sim = new SimulationControl();
+  private Control sim = new Control();
 
   public static void main(String[] args){
     launch(args);

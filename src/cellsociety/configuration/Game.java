@@ -45,6 +45,9 @@ public class Game {
   public int getHeight(){return myHeight;}
   public String getTitle(){return myTitle;}
   public String getType(){return myType;}
+  public HashMap<String, Integer> getParameters() {
+    return myParameters;
+  }
 
   public String toString() {
     return "Type: " + myType + ", Title: " + myTitle + ", Author: " + myAuthor + ", Descr: "
