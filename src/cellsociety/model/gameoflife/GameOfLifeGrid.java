@@ -29,17 +29,4 @@ public class GameOfLifeGrid extends Grid {
   protected Cell chooseCell(HashMap<String, Integer> parameters) {
     return new GameOfLifeCell(parameters);
   }
-
-  /**
-   * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
-   * neighboring indexes. Ex: (-1 * this.width, -1, 1, this.width)
-   *
-   * @param index center index
-   * @return values for computing neighboring indexes
-   */
-  @Override
-  protected int[] neighborVariances(int index) {
-    int width = getDimensions()[0];
-    return new int[]{-1 - width, -1 * width, 1 - width, -1, 1, -1 + width, width, 1 + width};
-  }
 }
