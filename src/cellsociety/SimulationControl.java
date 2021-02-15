@@ -38,66 +38,88 @@ public class SimulationControl {
 
   public static final String GAME_TITLE = "Conway's Game of Life";
 
-  private ScreenControl mySC;
-  private Grid myGrid;
-  private int framecount;
+  private static ScreenControl mySC;
+  private static Grid myGrid;
+  private int framecount = 1;
   private double delay;
-  private Timeline animation;
-  private boolean paused = false;
+  private static Timeline animation;
 
   public void initialize(Stage stage) {
+    delay = 1.0 / framecount;
+    KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
+    animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+
     mySC = new ScreenControl();
     Scene scene = mySC.getScene();
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
-    framecount = 1;
-    delay = 1.0 / framecount;
 
     ArrayList<String> cArrange = new ArrayList<>();
-    cArrange.add("000000");
-    cArrange.add("011000");
-    cArrange.add("011000");
-    cArrange.add("000110");
-    cArrange.add("000110");
-    cArrange.add("000000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00001110001110000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00100001010000100");
+    cArrange.add("00100001010000100");
+    cArrange.add("00100001010000100");
+    cArrange.add("00001110001110000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00001110001110000");
+    cArrange.add("00100001010000100");
+    cArrange.add("00100001010000100");
+    cArrange.add("00100001010000100");
+    cArrange.add("00000000000000000");
+    cArrange.add("00001110001110000");
+    cArrange.add("00000000000000000");
+    cArrange.add("00000000000000000");
     myGrid = new Grid(GAME_TITLE, cArrange);
     mySC.createGrid(myGrid.getDimensions()[0], myGrid.getDimensions()[1], myGrid.viewGrid());
-
-    KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
-    animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(frame);
-    animation.play();
   }
 
-/*  private void handleKeyRelease(KeyCode code) {
-    switch (code) {
-      case SPACE -> pause();
-    }
-  }*/
-
   private void step() {
-    System.out.println("update");
     myGrid.updateCells();
     mySC.updateGrid(myGrid.viewGrid());
   }
 
   public void pause() {
-    if (paused) {
-      animation.play();
-      paused = false;
-    } else {
-      animation.pause();
-      paused = true;
-    }
-  }
-
-  public void stop() {
-    pause();
+    animation.stop();
   }
 
   public void start() {
-    pause();
+    animation.play();
+  }
+
+  public void next() {
+    animation.stop();
+    myGrid.updateCells();
+    mySC.updateGrid(myGrid.viewGrid());
+  }
+
+  public void fast() {
+    animation.stop();
+    framecount += 1;
+    if (framecount < 0) {
+      framecount = 1;
+    }
+    animation.setRate(framecount);
+    System.out.println(animation.getRate());
+    animation.play();
+  }
+
+  public void slow() {
+    animation.stop();
+    framecount -= 1;
+    if (framecount > 0) {
+      animation.setRate(framecount);
+    } else if (framecount == 0 || framecount == -1) {
+      animation.setRate(0.8);
+    } else {
+      animation.setRate(1.0 / (framecount * -1));
+    }
+    System.out.println(animation.getRate());
+    animation.play();
   }
 }
