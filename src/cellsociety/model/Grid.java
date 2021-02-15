@@ -1,6 +1,10 @@
-package cellsociety;
+package cellsociety.model;
 
-import java.lang.reflect.Array;
+import cellsociety.model.fire.FireCell;
+import cellsociety.model.gameoflife.GameOfLifeCell;
+import cellsociety.model.percolation.PercolationCell;
+import cellsociety.model.segregation.SegregationCell;
+import cellsociety.model.wator.WaTorCell;
 import java.util.ArrayList;
 import java.util.HashMap;
 

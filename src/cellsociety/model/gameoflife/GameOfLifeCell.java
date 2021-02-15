@@ -1,5 +1,6 @@
-package cellsociety;
+package cellsociety.model.gameoflife;
 
+import cellsociety.model.Cell;
 import java.util.HashMap;
 
 /**
@@ -18,7 +19,7 @@ public class GameOfLifeCell extends Cell {
   /**
    * Purpose: Constructor for GameOfLifeCell class.
    * Assumptions: TODO
-   * Parameters: int state.
+   * Parameters: HashMap config.
    * Exceptions: TODO
    * Returns: GameOfLifeCell object.
    */
