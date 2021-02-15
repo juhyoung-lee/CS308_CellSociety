@@ -1,0 +1,20 @@
+<root>
+  <information>
+    <type>Game of Life</type>
+    <title>Glider</title>
+    <author>Richard Guy</author>
+    <description>Example of gliders</description>
+  </information>
+  <paramconfig>
+    <parameter>3</parameter>
+    <parameter>2</parameter>
+  </paramconfig>
+  <grid>
+    <width>500</width>
+    <height>400</height>
+  </grid>
+  <cellConfig>
+    <cellRow>01010101</cellRow>
+    <cellRow>10101010</cellRow>
+  </cellConfig>
+</root>
