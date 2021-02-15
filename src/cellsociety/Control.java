@@ -3,6 +3,11 @@ package cellsociety;
 import cellsociety.configuration.Configure;
 import cellsociety.configuration.Game;
 import cellsociety.model.Grid;
+import cellsociety.model.fire.FireGrid;
+import cellsociety.model.gameoflife.GameOfLifeGrid;
+import cellsociety.model.percolation.PercolationGrid;
+import cellsociety.model.segregation.SegregationGrid;
+import java.util.HashMap;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -22,8 +27,8 @@ import java.util.ArrayList;
  * @author Kathleen Chen
  */
 
-public class SimulationControl {
-  public static final String DATA_FILE="data/XMLs/GameofLife/Pulsar.XML";
+public class Control {
+  public static final String DATA_FILE="data/XMLs/fire/first.XML";
 
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
@@ -53,17 +58,26 @@ public class SimulationControl {
 
     String title = game.getTitle();
     String type = game.getType();
-    if (type.equals("Conway's Game of Life")) {
+    ArrayList<String> cells = game.getCellRows();
+    HashMap<String, Integer> params = game.getParameters();
+    if (type.equals("Game of Life")) {
       type = "Game of Life";
     }
+    myGrid = switch (type) {
+      case "Game of Life" -> new GameOfLifeGrid(cells, params);
+      case "Percolation" -> new PercolationGrid(cells, params);
+      case "Fire" -> new FireGrid(cells, params);
+      //case "Segregation" -> new SegregationGrid(cells, params);
+      //case "WaTor" -> new WaTorGrid(cells, params);
+      default -> null;
+    };
+
     mySC = new ScreenControl(this, title, type);
     Scene scene = mySC.getScene();
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
 
-    ArrayList<String> cArrange = game.getCellRows();
-    myGrid = new Grid(game.getType(), cArrange);
     mySC.createGrid(game.getHeight(), game.getWidth(), myGrid.viewGrid());
   }
 
@@ -93,7 +107,6 @@ public class SimulationControl {
       framecount = 1;
     }
     animation.setRate(framecount);
-    System.out.println(animation.getRate());
     animation.play();
   }
 
@@ -107,7 +120,6 @@ public class SimulationControl {
     } else {
       animation.setRate(1.0 / (framecount * -1));
     }
-    System.out.println(animation.getRate());
     animation.play();
   }
 }
