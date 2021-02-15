@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class SegregationGrid extends Grid {
 
-  private ArrayList<HashMap<String,Integer>> issue;
+  private HashMap<String,Integer>[] issues;
 
   /**
    * Constructor.
@@ -18,7 +18,7 @@ public class SegregationGrid extends Grid {
   public SegregationGrid(ArrayList<String> cellArrangement,
       HashMap<String, Integer> parameters) {
     super(cellArrangement, parameters);
-    //issues = new int[super.grid.size()];
+    issues = new HashMap[grid.size()];
   }
 
   /**
@@ -38,20 +38,26 @@ public class SegregationGrid extends Grid {
    */
   @Override
   public void updateCells() {
-//    for (int i = 0; i < issues.length; i++) {
-//      issues[i] = -1;
-//    }
-//
-//    for (int i = 0; i < grid.size(); i++) {
-//      int[] neighborStates = pullNeighborStates(i);
-//      HashMap<String, Integer> movement = grid.get(i).prepareNewState(neighborStates);
-//      if (movement.get("state") != -1) {
-//        issues[i] = movement;
-//      }
-//    }
-//
-//    for (Cell cell : grid) {
-//      cell.updateState();
-//    }
+    clearIssues();
+
+    for (int i = 0; i < grid.size(); i++) {
+      int[] neighborStates = pullNeighborStates(i);
+      HashMap<String, Integer> movement = grid.get(i).prepareNewState(neighborStates);
+      if (movement.get("state") != -1) {
+        issues[i] = movement;
+      }
+    }
+
+
+
+    for (Cell cell : grid) {
+      cell.updateState();
+    }
+  }
+
+  private void clearIssues() {
+    for (int i = 0; i < issues.length; i++) {
+      issues[i] = null;
+    }
   }
 }
