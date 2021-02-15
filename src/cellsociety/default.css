@@ -6,9 +6,33 @@
 }
 
 .GameofLife-0 {
-    -fx-fill: aliceblue;
+  -fx-fill: aliceblue;
 }
 
 .GameofLife-1 {
-    -fx-fill: darkblue;
+  -fx-fill: mediumseagreen;
+}
+
+.Percolation-0 {
+  -fx-fill: black;
+}
+
+.Percolation-1 {
+  -fx-fill: aliceblue;
+}
+
+.Percolation-2 {
+  -fx-fill: darkturquoise;
+}
+
+.Segregation-0 {
+  -fx-fill: aliceblue;
+}
+
+.Segregation-1 {
+  -fx-fill: deeppink;
+}
+
+.Segregation-2 {
+  -fx-fill: dodgerblue;
 }
