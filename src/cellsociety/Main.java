@@ -26,7 +26,6 @@ public class Main extends Application {
   */
   @Override
   public void start(Stage stage) {
-      Configure c = new Configure();
-      //sc.initialize(stage);
+      sc.initialize(stage);
   }
 }

@@ -5,12 +5,16 @@
     <author>Richard Guy</author>
     <description>Example of gliders</description>
   </information>
-  <parameters></parameters>
+  <paramconfig>
+    <parameter>3</parameter>
+    <parameter>2</parameter>
+  </paramconfig>
   <grid>
     <width>500</width>
     <height>400</height>
   </grid>
-  <cellconfig>
-
-  </cellconfig>
+  <cellConfig>
+    <cellRow>01010101</cellRow>
+    <cellRow>10101010</cellRow>
+  </cellConfig>
 </root>
