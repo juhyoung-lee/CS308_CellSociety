@@ -21,6 +21,9 @@ import java.util.ArrayList;
  */
 
 public class SimulationControl {
+  public static final String DATA_FILE="data/XMLs/pulsar.XML";
+  public static final String GAME_TITLE="To Delete";//to delete
+
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
   public static final int Y_SIZE = 600;
@@ -36,7 +39,6 @@ public class SimulationControl {
   public static final String SLOW_DOWN_IMAGE = "SlowDownButton.gif";
   public static final int BUTTON_SIZE = 15;
 
-  public static final String GAME_TITLE = "Conway's Game of Life";
 
   private static ScreenControl mySC;
   private static Grid myGrid;
@@ -51,32 +53,18 @@ public class SimulationControl {
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
 
+    Configure config = new Configure(DATA_FILE);
+    Game game = config.getGame();
+
     mySC = new ScreenControl();
     Scene scene = mySC.getScene();
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
 
-    ArrayList<String> cArrange = new ArrayList<>();
-    cArrange.add("00000000000000000");
-    cArrange.add("00000000000000000");
-    cArrange.add("00001110001110000");
-    cArrange.add("00000000000000000");
-    cArrange.add("00100001010000100");
-    cArrange.add("00100001010000100");
-    cArrange.add("00100001010000100");
-    cArrange.add("00001110001110000");
-    cArrange.add("00000000000000000");
-    cArrange.add("00001110001110000");
-    cArrange.add("00100001010000100");
-    cArrange.add("00100001010000100");
-    cArrange.add("00100001010000100");
-    cArrange.add("00000000000000000");
-    cArrange.add("00001110001110000");
-    cArrange.add("00000000000000000");
-    cArrange.add("00000000000000000");
-    myGrid = new Grid(GAME_TITLE, cArrange);
-    mySC.createGrid(myGrid.getDimensions()[0], myGrid.getDimensions()[1], myGrid.viewGrid());
+    ArrayList<String> cArrange = game.getCellRows();
+    myGrid = new Grid(game.getType(), cArrange);
+    mySC.createGrid(game.getHeight(), game.getWidth(), myGrid.viewGrid());
   }
 
   private void step() {
