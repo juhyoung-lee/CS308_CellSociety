@@ -132,19 +132,14 @@ public class ScreenControl {
     myRoot.getChildren().remove(myBlocks);
     int xsize = SimulationControl.GRID_SIZE / cols;
     int ysize = SimulationControl.GRID_SIZE / rows;
+    myType = myType.replaceAll("\\s", "");
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         Rectangle block = new Rectangle(SimulationControl.GRID_X + j * xsize, SimulationControl.GRID_Y + i * ysize, xsize, ysize);
         myBlocks.add(block);
         block.setStroke(Color.BLACK);
         myRoot.getChildren().add(block);
-        if (cells.get(j + i * cols) == 0) {
-          block.setFill(Color.WHITE);
-        } else if (cells.get(j + i * cols) == 1) {
-          block.setFill(Color.MEDIUMBLUE);
-        } else {
-          block.setFill(Color.DEEPPINK);
-        }
+        block.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
       }
     }
   }
@@ -156,14 +151,8 @@ public class ScreenControl {
   public void updateGrid(ArrayList<Integer> cells) {
     for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
-      block.setStroke(Color.BLACK);
-      if (cells.get(i) == 0) {
-        block.setFill(Color.WHITE);
-      } else if (cells.get(i) == 1) {
-        block.setFill(Color.MEDIUMBLUE);
-      } else {
-        block.setFill(Color.DEEPPINK);
-      }
+      block.getStyleClass().clear();
+      block.getStyleClass().add(myType + "-" + cells.get(i));
     }
   }
 
@@ -176,6 +165,10 @@ public class ScreenControl {
     setGameTitleText();
   }
 
+  /**
+   * Returns the Scene.
+   ** @return Scene
+   */
   public Scene getScene() {
     return myScene;
   }

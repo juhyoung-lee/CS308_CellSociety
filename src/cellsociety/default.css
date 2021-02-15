@@ -4,3 +4,11 @@
     -fx-base: honeydew;
     -fx-background: darkslateblue;
 }
+
+.GameofLife-0 {
+    -fx-fill: aliceblue;
+}
+
+.GameofLife-1 {
+    -fx-fill: darkblue;
+}

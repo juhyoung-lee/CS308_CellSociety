@@ -58,6 +58,9 @@ public class SimulationControl {
 
     String title = game.getTitle();
     String type = game.getType();
+    if (type.equals("Conway's Game of Life")) {
+      type = "Game of Life";
+    }
     mySC = new ScreenControl(this, title, type);
     Scene scene = mySC.getScene();
     stage.setScene(scene);
