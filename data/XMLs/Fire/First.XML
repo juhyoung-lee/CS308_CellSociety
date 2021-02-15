@@ -1,11 +1,12 @@
 <root>
   <information>
     <type>Fire</type>
-    <title>Glider</title>
-    <author>wiki</author>
-    <description>Loaf should not change at all</description>
+    <title>first try</title>
+    <author>Kenny</author>
+    <description>lets see if this works?</description>
   </information>
   <paramconfig>
+    <parameter>0.5</parameter>
   </paramconfig>
   <grid>
     <width>10</width>
