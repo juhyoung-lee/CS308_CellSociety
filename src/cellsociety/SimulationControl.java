@@ -1,9 +1,9 @@
 package cellsociety;
 
+import cellsociety.model.Grid;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
