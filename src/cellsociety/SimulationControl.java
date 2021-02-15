@@ -34,13 +34,6 @@ public class SimulationControl {
   public static final int GRID_Y = Y_SIZE / 12;
 
   public static final String STYLESHEET = "cellsociety/default.css";
-  public static final String PLAY_IMAGE = "PlayButton.gif";
-  public static final String PAUSE_IMAGE = "PauseButton.gif";
-  public static final String STEP_IMAGE = "StepButton.gif";
-  public static final String SPEED_UP_IMAGE = "SpeedUpButton.gif";
-  public static final String SLOW_DOWN_IMAGE = "SlowDownButton.gif";
-  public static final int BUTTON_SIZE = 15;
-
 
   private ScreenControl mySC;
   private Grid myGrid;
