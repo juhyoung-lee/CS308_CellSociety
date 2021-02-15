@@ -40,6 +40,7 @@ public class SegregationCell extends Cell {
    */
   public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
     if (myState == EMPTY) {
+      nextState = EMPTY;
       updateStateField(NO_MOVEMENT);
     } else {
       double similar = calculateSimilarity(neighborStates);
