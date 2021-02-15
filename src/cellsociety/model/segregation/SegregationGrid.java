@@ -93,10 +93,11 @@ public class SegregationGrid extends Grid {
 
     HashMap state = issues[index];
     while (places.size() != 0) {
-      Integer cell = places.get(0);
+      Integer cell = places.get(places.size()-1);
       if (super.grid.get(cell).receiveUpdate(state)) {
         return;
       }
+      places.remove(places.size()-1);
     }
     super.grid.get(index).receiveUpdate(state);
   }
