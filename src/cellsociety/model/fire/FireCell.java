@@ -14,9 +14,9 @@ import java.util.Random;
  */
 public class FireCell extends Cell {
 
-  public static final int TREE = 1;
-  public static final int BURNING = 2;
-  public static final int EMPTY = 0;
+  public static final int TREE = 0;
+  public static final int BURNING = 1;
+  public static final int EMPTY = 2;
   private final Random randFire = new Random();
   private final double catchThreshold;
 
