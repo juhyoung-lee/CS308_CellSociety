@@ -20,14 +20,14 @@ public class SegregationCell extends Cell {
 
   /**
    * Purpose: Constructor for SegregationCell class.
-   * Assumptions: config will include the key "threshold".
+   * Assumptions: config will include the key "threshold", with an integer value.
    * Parameters: HashMap config.
    * Exceptions: TODO
    * Returns: SegregationCell object.
    */
   public SegregationCell(HashMap<String, Integer> config) {
     super(config);
-    myThreshold = config.get("threshold");
+    myThreshold = (double) config.get("threshold") / 100;
   }
 
   /**
