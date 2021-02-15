@@ -16,12 +16,12 @@ public class WaTorCell extends Cell {
   public static final int FISH = 1;
   public static final int SHARK = 2;
   public static final int WATER = 0;
-  private final int breedTimeFish;
-  private final int breedEnergyShark;
+  private final int fishBreedThreshold;
+  private final int sharkBreedThreshold;
   private final int energyGain;
   private final int energyLoss;
-  private int breedTime;
-  private int breedEnergy;
+  private int breedFishTime;
+  private int breedSharkEnergy;
 
 
   /**
@@ -33,8 +33,8 @@ public class WaTorCell extends Cell {
    */
   public WaTorCell(HashMap<String, Integer> config) {
     super(config);
-    breedTimeFish = config.get("breedFish");
-    breedEnergyShark = config.get("breedShark");
+    fishBreedThreshold = config.get("fishBreedThreshold");
+    sharkBreedThreshold = config.get("sharkBreedThreshold");
     energyGain = config.get("energyGain");
     energyLoss = config.get("energyLoss");
     reset();
@@ -42,8 +42,8 @@ public class WaTorCell extends Cell {
 
   /** Returns settings back to default. */
   private void reset() {
-    breedTime = 0;
-    breedEnergy = breedEnergyShark;
+    breedFishTime = 0;
+    breedSharkEnergy = sharkBreedThreshold /2;
   }
 
   /**
@@ -60,32 +60,34 @@ public class WaTorCell extends Cell {
     } else if (myState == SHARK) {
       sharkPrepareState();
     } else {
+      nextState = WATER;
       updateStateField(NO_MOVEMENT);
     }
     return moveState;
   }
 
   private void fishPrepareState() {
-    if (breedTime < breedTimeFish) {
+    breedFishTime++;
+    if (breedFishTime < fishBreedThreshold) {
       setToWater();
     } else {
       nextState = FISH;
-      breedTime++;
+      breedFishTime =0;
     }
     updateNewStateParam();
     updateStateField(FISH);
   }
 
   private void sharkPrepareState() {
-    if (breedEnergy <= 0) {
+    if (breedSharkEnergy <= 0) {
       setToWater();
       updateStateField(NO_MOVEMENT);
     } else {
-      if (breedEnergy < breedEnergyShark) {
+      breedSharkEnergy -= energyLoss;
+      if (breedSharkEnergy < sharkBreedThreshold) {
         setToWater();
       } else {
         nextState = SHARK;
-        breedEnergy -= energyLoss;
       }
       updateStateField(SHARK);
     }
@@ -113,8 +115,8 @@ public class WaTorCell extends Cell {
     }
 
     nextState = incomingState;
-    breedTime = newInfo.get("breedTime");
-    breedEnergy = newInfo.get("breedEnergy");
+    breedFishTime = newInfo.get("breedTime");
+    breedSharkEnergy = newInfo.get("breedEnergy");
     return received;
   }
 
@@ -134,14 +136,14 @@ public class WaTorCell extends Cell {
 
   /** Updates moveState HashMap. */
   private void updateNewStateParam() {
-    moveState.put("breedTime", breedTime);
-    moveState.put("breedEnergy", breedEnergy);
+    moveState.put("breedTime", breedFishTime);
+    moveState.put("breedEnergy", breedSharkEnergy);
   }
 
   /** Adjusts breedEnergy upon SHARK cell moving into a FISH cell. */
   private void ateFish() {
     if (myState == SHARK) {
-      breedEnergy += energyGain;
+      breedSharkEnergy += energyGain;
     }
   }
 }

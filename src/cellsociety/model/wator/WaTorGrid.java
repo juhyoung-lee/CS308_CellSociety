@@ -19,6 +19,7 @@ public class WaTorGrid extends Grid {
   public WaTorGrid(ArrayList<String> cellArrangement,
       HashMap<String, Integer> parameters) {
     super(cellArrangement, parameters);
+    issues = new HashMap[super.grid.size()];
   }
 
   /**
