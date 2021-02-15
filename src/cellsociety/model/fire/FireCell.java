@@ -22,14 +22,14 @@ public class FireCell extends Cell {
 
   /**
    * Purpose: Constructor for FireCell class.
-   * Assumptions: HashMap will contain the key "prob".
+   * Assumptions: HashMap will contain the key "prob" with an integer value.
    * Parameters: HashMap config.
    * Exceptions: TODO
    * Returns: FireCell object.
    */
   public FireCell(HashMap<String, Integer> config) {
     super(config);
-    catchThreshold = config.get("prob");
+    catchThreshold = (double) config.get("prob") / 100;
   }
 
   /**
