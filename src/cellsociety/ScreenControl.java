@@ -61,6 +61,7 @@ public class ScreenControl {
     createStepButton();
     createSpeedUpButton();
     createSlowDownButton();
+    createUploadButton();
   }
 
   private Button myImage(String text, double x, double y) {
@@ -70,6 +71,13 @@ public class ScreenControl {
     myRoot.getChildren().add(button);
     button.getStyleClass().add("button");
     return button;
+  }
+
+  private void createUploadButton() {
+    int x = sX - 100;
+    int y = 5;
+    slowButton = myImage(myResources.getString("UploadButton"), x, y);
+    slowButton.setOnAction(event -> sim.slow());
   }
 
   private void createSlowDownButton() {
