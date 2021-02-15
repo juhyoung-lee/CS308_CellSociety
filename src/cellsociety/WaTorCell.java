@@ -32,10 +32,10 @@ public class WaTorCell extends Cell {
    */
   public WaTorCell(HashMap<String, Integer> config) {
     super(config);
-    breedTimeFish = config.get("breedFish");
-    breedEnergyShark = config.get("breedShark");
-    energyGain = config.get("energyGain");
-    energyLoss = config.get("energyLoss");
+    breedTimeFish = config.get(parameterString.getString("breedFish"));
+    breedEnergyShark = config.get(parameterString.getString("breedShark"));
+    energyGain = config.get(parameterString.getString("energyGain"));
+    energyLoss = config.get(parameterString.getString("energyLoss"));
     reset();
   }
 
