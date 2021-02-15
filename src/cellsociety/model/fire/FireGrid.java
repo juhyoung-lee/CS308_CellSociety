@@ -1,11 +1,11 @@
-package cellsociety.model.percolation;
+package cellsociety.model.fire;
 
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PercolationGrid extends Grid {
+public class FireGrid extends Grid {
 
   /**
    * Constructor.
@@ -13,7 +13,7 @@ public class PercolationGrid extends Grid {
    * @param cellArrangement cell grid from XML
    * @param parameters      game settings from XML
    */
-  public PercolationGrid(ArrayList<String> cellArrangement,
+  public FireGrid(ArrayList<String> cellArrangement,
       HashMap<String, Integer> parameters) {
     super(cellArrangement, parameters);
   }
@@ -27,20 +27,13 @@ public class PercolationGrid extends Grid {
    */
   @Override
   protected Cell chooseCell(HashMap<String, Integer> parameters) {
-    return new PercolationCell(parameters);
+    return new FireCell(parameters);
   }
 
-  /**
-   * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
-   * neighboring indexes. Ex: (-1 * this.width, -1, 1, this.width)
-   *
-   * @param index center index
-   * @return values for computing neighboring indexes
-   */
   @Override
   protected int[] neighborVariances(int index) {
     int width = getDimensions()[0];
     // percolation only looks at cells above and next
-    return new int[]{-1 * width, -1, 1};
+    return new int[]{-1 * width, -1, 1, width};
   }
 }
