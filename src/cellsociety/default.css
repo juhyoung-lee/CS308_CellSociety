@@ -36,3 +36,27 @@
 .Segregation-2 {
   -fx-fill: dodgerblue;
 }
+
+.Fire-0 {
+  -fx-fill: limegreen;
+}
+
+.Fire-1 {
+  -fx-fill: firebrick;
+}
+
+.Fire-2 {
+  -fx-fill: aliceblue;
+}
+
+.Wator-0 {
+  -fx-fill: blue;
+}
+
+.Wator-1 {
+  -fx-fill: lightsalmon;
+}
+
+.Wator-2 {
+  -fx-fill: lightslategray;
+}
