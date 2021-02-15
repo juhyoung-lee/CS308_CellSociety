@@ -1,11 +1,13 @@
 <root>
   <information>
-    <type>Conway's Game of Life</type>
+    <type>Game of Life</type>
     <title>Pulsar</title>
     <author>wiki</author>
     <description>The Pulsar</description>
   </information>
   <paramconfig>
+    <width>17</width>
+    <height>17</height>
   </paramconfig>
   <grid>
     <width>17</width>

@@ -6,8 +6,8 @@
     <description>Example of gliders</description>
   </information>
   <paramconfig>
-    <parameter>3</parameter>
-    <parameter>2</parameter>
+    <parameter1>3</parameter1>
+    <parameter2>2</parameter2>
   </paramconfig>
   <grid>
     <width>500</width>

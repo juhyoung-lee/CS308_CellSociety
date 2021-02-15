@@ -33,22 +33,22 @@ public class ScreenControl {
   private int sX;
   private int sY;
   private Scene myScene;
-  private SimulationControl sim;
+  private Control sim;
   private String myTitle;
   private String myType;
   private ResourceBundle myResources;
   /**
    * Initialize the scene and add buttons and text.
    */
-  public ScreenControl(SimulationControl simulationControl, String title, String type) {
+  public ScreenControl(Control simulationControl, String title, String type) {
     myRoot = new Pane();
-    sX = SimulationControl.X_SIZE;
-    sY = SimulationControl.Y_SIZE;
+    sX = Control.X_SIZE;
+    sY = Control.Y_SIZE;
     myTitle = title;
     myType = type;
     myResources = ResourceBundle.getBundle("cellsociety.Visual");
     myScene = new Scene(myRoot, sX, sY);
-    myScene.getStylesheets().add(SimulationControl.STYLESHEET);
+    myScene.getStylesheets().add(Control.STYLESHEET);
     myBlocks = new ArrayList<>();
     setGameTitleText();
     createButtons();
@@ -123,12 +123,12 @@ public class ScreenControl {
    */
   public void createGrid(int rows, int cols, ArrayList<Integer> cells) {
     myRoot.getChildren().remove(myBlocks);
-    int xsize = SimulationControl.GRID_SIZE / cols;
-    int ysize = SimulationControl.GRID_SIZE / rows;
+    int xsize = Control.GRID_SIZE / cols;
+    int ysize = Control.GRID_SIZE / rows;
     myType = myType.replaceAll("\\s", "");
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
-        Rectangle block = new Rectangle(SimulationControl.GRID_X + j * xsize, SimulationControl.GRID_Y + i * ysize, xsize, ysize);
+        Rectangle block = new Rectangle(Control.GRID_X + j * xsize, Control.GRID_Y + i * ysize, xsize, ysize);
         myBlocks.add(block);
         block.setStroke(Color.BLACK);
         myRoot.getChildren().add(block);
