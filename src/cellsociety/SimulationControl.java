@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 
 public class SimulationControl {
-  public static final String DATA_FILE="data/XMLs/pulsar.XML";
+  public static final String DATA_FILE="data/XMLs/GameOfLife/boxInfinite.XML";
   public static final String GAME_TITLE="To Delete";//to delete
 
   public static final String TITLE = "Cell Society";
