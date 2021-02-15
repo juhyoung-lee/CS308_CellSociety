@@ -57,7 +57,8 @@ public class SimulationControl {
     Game game = config.getGame();
 
     String title = game.getTitle();
-    mySC = new ScreenControl(this, title);
+    String type = game.getType();
+    mySC = new ScreenControl(this, title, type);
     Scene scene = mySC.getScene();
     stage.setScene(scene);
     stage.setTitle(TITLE);

@@ -36,15 +36,16 @@ public class ScreenControl {
   private Scene myScene;
   private SimulationControl sim;
   private String myTitle;
-
+  private String myType;
   /**
    * Initialize the scene and add buttons and text.
    */
-  public ScreenControl(SimulationControl simulationControl, String title) {
+  public ScreenControl(SimulationControl simulationControl, String title, String type) {
     myRoot = new Pane();
     sX = SimulationControl.X_SIZE;
     sY = SimulationControl.Y_SIZE;
     myTitle = title;
+    myType = type;
     myScene = new Scene(myRoot, sX, sY);
     myScene.getStylesheets().add(SimulationControl.STYLESHEET);
     myBlocks = new ArrayList<>();
@@ -114,7 +115,7 @@ public class ScreenControl {
   }
 
   private void setGameTitleText() {
-    titleText = new Text(0, 30, myTitle);
+    titleText = new Text(0, 30, myType + ": " + myTitle);
     Font font = new Font(30);
     titleText.setFont(font);
     titleText.setX(sX / 2 - (titleText.getLayoutBounds().getWidth() / 2));
