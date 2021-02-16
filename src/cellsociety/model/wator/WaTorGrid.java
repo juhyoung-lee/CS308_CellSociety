@@ -19,6 +19,7 @@ public class WaTorGrid extends Grid {
   public WaTorGrid(ArrayList<String> cellArrangement,
       HashMap<String, Integer> parameters) {
     super(cellArrangement, parameters);
+    issues = new HashMap[super.grid.size()];
   }
 
   /**
@@ -59,7 +60,7 @@ public class WaTorGrid extends Grid {
   private void prepareUpdates() {
     for (int i = 0; i < grid.size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
-      HashMap<String, Integer> movement = grid.get(i).prepareNewState(neighborStates);
+      HashMap<String, Integer> movement = grid.get(i).prepareNextState(neighborStates);
       if (movement.get("state") != -1) {
         issues[i] = movement;
       }

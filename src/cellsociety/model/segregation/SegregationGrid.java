@@ -3,11 +3,8 @@ package cellsociety.model.segregation;
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 public class SegregationGrid extends Grid {
 
@@ -63,7 +60,7 @@ public class SegregationGrid extends Grid {
   private void prepareUpdates() {
     for (int i = 0; i < grid.size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
-      HashMap<String, Integer> movement = grid.get(i).prepareNewState(neighborStates);
+      HashMap<String, Integer> movement = grid.get(i).prepareNextState(neighborStates);
       if (movement.get("state") != -1) {
         issues[i] = movement;
       }

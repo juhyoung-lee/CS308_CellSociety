@@ -1,0 +1,32 @@
+<root>
+  <information>
+    <type>WaTor</type>
+    <title>first try</title>
+    <author>Kenny</author>
+    <description>lets see if this works?</description>
+  </information>
+  <paramconfig>
+    <fishBreedThreshold>3</fishBreedThreshold>
+    <sharkBreedThreshold>10</sharkBreedThreshold>
+    <energyGain>2</energyGain>
+    <energyLoss>1</energyLoss>
+    <width>10</width>
+    <height>10</height>
+  </paramconfig>
+  <grid>
+    <width>10</width>
+    <height>10</height>
+  </grid>
+  <cellConfig>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000022000</cellRow>
+    <cellRow>0000120000</cellRow>
+    <cellRow>0000111000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0002000000</cellRow>
+    <cellRow>0000000000</cellRow>
+  </cellConfig>
+</root>
