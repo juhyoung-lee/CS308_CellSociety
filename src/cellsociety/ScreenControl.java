@@ -30,6 +30,7 @@ public class ScreenControl {
   private Button startButton;
   private Button pauseButton;
   private Button stepButton;
+  private Button uploadButton;
   private int sX;
   private int sY;
   private Scene myScene;
@@ -56,63 +57,27 @@ public class ScreenControl {
   }
 
   private void createButtons() {
-    createPlayButton();
-    createPauseButton();
-    createStepButton();
-    createSpeedUpButton();
-    createSlowDownButton();
-    createUploadButton();
+    startButton = buttonCreation(myResources.getString("PlayButton"), sX / 12, sY / 12 + 460);
+    startButton.setOnAction(event -> sim.start());
+    pauseButton = buttonCreation(myResources.getString("PauseButton"), sX / 2 - 32, sY / 12 + 460);
+    pauseButton.setOnAction(event -> sim.pause());
+    stepButton = buttonCreation(myResources.getString("StepButton"), sX * 4 / 5, sY / 12 + 460);
+    stepButton.setOnAction(event -> sim.next());
+    fastButton = buttonCreation(myResources.getString("SpeedUpButton"), sX *  3 / 5, sY / 12 + 500);
+    fastButton.setOnAction(event -> sim.fast());
+    slowButton = buttonCreation(myResources.getString("SlowDownButton"), sX * 2 / 9, sY / 12 + 500);
+    slowButton.setOnAction(event -> sim.slow());
+    uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 100, 5);
+    uploadButton.setOnAction(event -> sim.slow());
   }
 
-  private Button myImage(String text, double x, double y) {
+  private Button buttonCreation(String text, double x, double y) {
     Button button = new Button(text);
     button.setLayoutX(x);
     button.setLayoutY(y);
     myRoot.getChildren().add(button);
     button.getStyleClass().add("button");
     return button;
-  }
-
-  private void createUploadButton() {
-    int x = sX - 100;
-    int y = 5;
-    slowButton = myImage(myResources.getString("UploadButton"), x, y);
-    slowButton.setOnAction(event -> sim.slow());
-  }
-
-  private void createSlowDownButton() {
-    int x = sX * 2 / 9;
-    int y = sY / 12 + 500;
-    slowButton = myImage(myResources.getString("SlowDownButton"), x, y);
-    slowButton.setOnAction(event -> sim.slow());
-  }
-
-  private void createSpeedUpButton() {
-    int x = sX *  3 / 5;
-    int y = sY / 12 + 500;
-    fastButton = myImage(myResources.getString("SpeedUpButton"), x, y);
-    fastButton.setOnAction(event -> sim.fast());
-  }
-
-  private void createStepButton() {
-    int x = sX * 4 / 5;
-    int y = sY / 12 + 460;
-    stepButton = myImage(myResources.getString("StepButton"), x, y);
-    stepButton.setOnAction(event -> sim.next());
-  }
-
-  private void createPauseButton() {
-    int x = sX / 2 - 32;
-    int y = sY / 12 + 460;
-    pauseButton = myImage(myResources.getString("PauseButton"), x, y);
-    pauseButton.setOnAction(event -> sim.pause());
-  }
-
-  private void createPlayButton() {
-    int x = sX / 12;
-    int y = sY / 12 + 460;
-    startButton = myImage(myResources.getString("PlayButton"), x, y);
-    startButton.setOnAction(event -> sim.start());
   }
 
   private void setGameTitleText() {
