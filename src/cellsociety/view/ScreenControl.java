@@ -1,8 +1,9 @@
-package cellsociety;
+package cellsociety.view;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import cellsociety.Control;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -47,7 +48,7 @@ public class ScreenControl {
     sY = Control.Y_SIZE;
     myTitle = title;
     myType = type;
-    myResources = ResourceBundle.getBundle("cellsociety.Visual");
+    myResources = ResourceBundle.getBundle("cellsociety.view.resources.Visual");
     myScene = new Scene(myRoot, sX, sY);
     myScene.getStylesheets().add(Control.STYLESHEET);
     myBlocks = new ArrayList<>();
