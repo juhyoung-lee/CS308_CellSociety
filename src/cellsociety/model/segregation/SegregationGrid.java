@@ -31,6 +31,7 @@ public class SegregationGrid extends Grid {
     return new SegregationCell(parameters);
   }
 
+  // TODO: extract methods
   protected void moveCell(int index) {
     ArrayList<Integer> places = new ArrayList<>();
     for (int i = 0; i < getGrid().size(); i++) {

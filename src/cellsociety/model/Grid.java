@@ -280,4 +280,5 @@ public abstract class Grid {
    */
   protected void moveCell(int index) {}
 
+  // TODO: extract methods. only variation so far is in which neighbors are considered.
 }

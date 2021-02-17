@@ -31,7 +31,7 @@ public class WaTorGrid extends Grid {
     return new WaTorCell(parameters);
   }
 
-  // TODO: update arraylist to queue.
+  // TODO: extract methods
   protected void moveCell(int index) {
     Cell center = getGrid().get(index);
     int[] neighbors = getNeighbors(center);
