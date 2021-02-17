@@ -2,7 +2,6 @@ package cellsociety.configuration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -10,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -44,27 +42,45 @@ public class XMLParser {
   /**
    * Get data contained in this XML file as an object
    */
-  public Game getGame(File dataFile) throws XMLException {
+  public Simulation getSimulation(File dataFile) throws XMLException {
     Element root = getRootElement(dataFile);
 
-    ArrayList<String> infoResults = new ArrayList<>();
-    for (String field : Game.INFORMATION_FIELDS) {
-      infoResults.add(getTextValue(root, field));
+    ArrayList<String> infoResults = getInfo(root);
+    HashMap<String, Integer> parameterMap = makeParameterMap(root, dataFile);
+    ArrayList<String> cellResults = getCells(root);
+
+    return new Simulation(infoResults, parameterMap, cellResults);
+  }
+
+  private HashMap<String, Integer> makeParameterMap(Element root, File dataFile) {
+    HashMap<String, Integer> parameterMap = getParameters(dataFile);
+    HashMap<String, Integer> dimensionMap = getDimensions(root);
+    parameterMap.putAll(dimensionMap);
+    return parameterMap;
+  }
+
+  private ArrayList<String> getCells(Element root) {
+    ArrayList<String> returned = new ArrayList<>();
+    NodeList cellRows = root.getElementsByTagName("cellRow");
+    for (int i = 0; i < cellRows.getLength(); i++) {
+      Node temp = cellRows.item(i);
+      returned.add(temp.getTextContent());
     }
+    return returned;
+  }
 
-    ArrayList<Integer> gridResults = new ArrayList<>();
-    for (String field : Game.GRID_FIELDS) {
-      gridResults.add(Integer.parseInt(getTextValue(root, field)));
+  private HashMap<String, Integer> getDimensions(Element root) {
+    HashMap<String, Integer> returned = new HashMap<>();
+    for (String field : Simulation.GRID_FIELDS) {
+      returned.put(field, Integer.parseInt(getTextValue(root, field)));
     }
+    return returned;
+  }
 
-//    NodeList parameters = root.getElementsByTagName("parameter");
-//    ArrayList<Integer> parameterResults = new ArrayList<>();
-//    for (int i = 0; i < parameters.getLength(); i++) {
-//      Node temp = parameters.item(i);
-//      parameterResults.add(Integer.parseInt(temp.getTextContent()));
-//    }
 
-    HashMap<String, Integer> parameterMap = new HashMap<>();
+
+  private HashMap<String, Integer> getParameters(File dataFile) {
+    HashMap<String, Integer> returned = new HashMap<>();
     try {
       NodeList nList = DOCUMENT_BUILDER.parse(dataFile).getElementsByTagName("paramconfig");
       Node node = nList.item(0);
@@ -72,19 +88,19 @@ public class XMLParser {
       for (int i = 0; i < list.getLength(); i++) {
         Node n = list.item(i);
         if (n.getNodeType() == Node.ELEMENT_NODE) {
-          parameterMap.put(n.getNodeName(), Integer.parseInt(n.getTextContent()));
+          returned.put(n.getNodeName(), Integer.parseInt(n.getTextContent()));
         }
       }
     } catch (Exception e) { }//TODO work on exception
+    return returned;
+  }
 
-    NodeList cellRows = root.getElementsByTagName("cellRow");
-    ArrayList<String> cellResults = new ArrayList<>();
-    for (int i = 0; i < cellRows.getLength(); i++) {
-      Node temp = cellRows.item(i);
-      cellResults.add(temp.getTextContent());
+  private ArrayList<String> getInfo(Element root) {
+    ArrayList<String> returned = new ArrayList<>();
+    for (String field : Simulation.INFORMATION_FIELDS) {
+      returned.add(getTextValue(root, field));
     }
-
-    return new Game(infoResults, gridResults, parameterMap, cellResults);
+    return returned;
   }
 
   // get root element of an XML file

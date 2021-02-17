@@ -1,7 +1,7 @@
 package cellsociety;
 
 import cellsociety.configuration.Configure;
-import cellsociety.configuration.Game;
+import cellsociety.configuration.Simulation;
 import cellsociety.model.Grid;
 import cellsociety.model.fire.FireGrid;
 import cellsociety.model.gameoflife.GameOfLifeGrid;
@@ -55,7 +55,7 @@ public class Control {
     animation.getKeyFrames().add(frame);
 
     Configure config = new Configure(DATA_FILE);
-    Game game = config.getGame();
+    Simulation game = config.getGame();
 
     String title = game.getTitle();
     String type = game.getType();
