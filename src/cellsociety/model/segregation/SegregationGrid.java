@@ -19,7 +19,7 @@ public class SegregationGrid extends Grid {
   public SegregationGrid(ArrayList<String> cellArrangement,
       HashMap<String, Integer> parameters) {
     super(cellArrangement, parameters);
-    issues = new HashMap[super.grid.size()];
+    issues = new HashMap[getGrid().size()];
   }
 
   /**
@@ -53,9 +53,9 @@ public class SegregationGrid extends Grid {
   }
 
   private void prepareUpdates() {
-    for (int i = 0; i < grid.size(); i++) {
+    for (int i = 0; i < getGrid().size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
-      HashMap<String, Integer> movement = grid.get(i).prepareNextState(neighborStates);
+      HashMap<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
       if (movement.get("state") != -1) {
         issues[i] = movement;
       }
@@ -71,7 +71,7 @@ public class SegregationGrid extends Grid {
   }
 
   private void pushCellUpdates() {
-    for (Cell cell : grid) {
+    for (Cell cell : getGrid()) {
       cell.updateState();
     }
   }
@@ -88,10 +88,10 @@ public class SegregationGrid extends Grid {
 
     HashMap state = issues[index];
     for (Integer neighborIndex : places) {
-      if (super.grid.get(neighborIndex).receiveUpdate(state)) {
+      if (getGrid().get(neighborIndex).receiveUpdate(state)) {
         return;
       }
     }
-    super.grid.get(index).receiveUpdate(state);
+    getGrid().get(index).receiveUpdate(state);
   }
 }

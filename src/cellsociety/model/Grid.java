@@ -1,6 +1,7 @@
 package cellsociety.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -8,8 +9,8 @@ import java.util.HashMap;
  */
 public abstract class Grid {
 
-  protected HashMap<Cell, int[]> neighbors;
-  protected ArrayList<Cell> grid;
+  private HashMap<Cell, int[]> neighbors;
+  private ArrayList<Cell> grid;
   private final int height;
   private final int width;
 
@@ -44,9 +45,9 @@ public abstract class Grid {
   }
 
   /**
-   * Returns states of cells for printing/viewing.
+   * Returns geometric representation of cells and their states for printing/viewing.
    *
-   * @return array list of cell states
+   * @return integer array list of cell states
    */
   public ArrayList<Integer> viewGrid() {
     ArrayList<Integer> cellStates = new ArrayList<>();
@@ -63,6 +64,25 @@ public abstract class Grid {
    */
   public int[] getDimensions() {
     return new int[]{this.width, this.height};
+  }
+
+  /**
+   * Returns a copy array of neighbor indexes.
+   *
+   * @param cell center cell
+   * @return int[] of neighbor indexes
+   */
+  protected int[] getNeighbors(Cell cell) {
+    return this.neighbors.get(cell).clone();
+  }
+
+  /**
+   * Returns an immutable version of grid.
+   *
+   * @return grid
+   */
+  protected ArrayList<Cell> getGrid() {
+    return (ArrayList<Cell>) Collections.unmodifiableList(this.grid);
   }
 
   /**
@@ -194,20 +214,5 @@ public abstract class Grid {
       neighborStates[i] = neighborCell.getState();
     }
     return neighborStates;
-  }
-
-  /**
-   * For testing.
-   */
-  public void printGrid() {
-    int rowCounter = 0;
-    for (Cell cell : this.grid) {
-      if (rowCounter == this.width) {
-        System.out.println();
-        rowCounter = 0;
-      }
-      System.out.print(cell.getState());
-      rowCounter++;
-    }
   }
 }

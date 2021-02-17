@@ -19,7 +19,7 @@ public class WaTorGrid extends Grid {
   public WaTorGrid(ArrayList<String> cellArrangement,
       HashMap<String, Integer> parameters) {
     super(cellArrangement, parameters);
-    issues = new HashMap[super.grid.size()];
+    issues = new HashMap[super.getGrid().size()];
   }
 
   /**
@@ -58,9 +58,9 @@ public class WaTorGrid extends Grid {
    * Prepares cell updates and stores issues if they arise
    */
   private void prepareUpdates() {
-    for (int i = 0; i < grid.size(); i++) {
+    for (int i = 0; i < getGrid().size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
-      HashMap<String, Integer> movement = grid.get(i).prepareNextState(neighborStates);
+      HashMap<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
       if (movement.get("state") != -1) {
         issues[i] = movement;
       }
@@ -79,15 +79,15 @@ public class WaTorGrid extends Grid {
   }
 
   private void pushCellUpdates() {
-    for (Cell cell : grid) {
+    for (Cell cell : getGrid()) {
       cell.updateState();
     }
   }
 
   // TODO: update arraylist to queue.
   private void moveCell(int index) {
-    Cell center = super.grid.get(index);
-    int[] neighbors = super.neighbors.get(center);
+    Cell center = getGrid().get(index);
+    int[] neighbors = getNeighbors(center);
     ArrayList<Integer> places = new ArrayList<>();
     for (int i : neighbors) {
       places.add(i);
@@ -96,10 +96,10 @@ public class WaTorGrid extends Grid {
 
     HashMap state = issues[index];
     for (Integer neighborIndex : places) {
-      if (super.grid.get(neighborIndex).receiveUpdate(state)) {
+      if (getGrid().get(neighborIndex).receiveUpdate(state)) {
         return;
       }
     }
-    super.grid.get(index).receiveUpdate(state);
+    getGrid().get(index).receiveUpdate(state);
   }
 }
