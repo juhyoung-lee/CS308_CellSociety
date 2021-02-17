@@ -110,14 +110,15 @@ public class WaTorCell implements Cell {
   public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
     int incomingState = newInfo.get("state");
 
-    if (nextState == SHARK || nextState == incomingState) { //TODO: allow fish to move into sharks?
+    if (nextState == incomingState) {
       return false;
     }
 
     breedFishTime = newInfo.get("breedTime");
     breedSharkEnergy = newInfo.get("breedEnergy");
 
-    if (nextState == FISH && incomingState == SHARK) {
+    if (nextState == FISH && incomingState == SHARK
+        || nextState == SHARK && incomingState == FISH) {
       breedSharkEnergy += energyGain;
     }
 
