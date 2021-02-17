@@ -11,10 +11,13 @@ import java.util.HashMap;
  *
  * @author Jessica Yang
  */
-public class GameOfLifeCell extends Cell {
+public class GameOfLifeCell implements Cell {
 
   public static final int ALIVE = 1;
   public static final int DEAD = 0;
+  private final HashMap<String, Integer> moveState;
+  private int myState;
+  private int nextState;
 
   /**
    * Purpose: Constructor for GameOfLifeCell class.
@@ -24,7 +27,8 @@ public class GameOfLifeCell extends Cell {
    * Returns: GameOfLifeCell object.
    */
   public GameOfLifeCell(HashMap<String, Integer> config) {
-    super(config);
+    moveState = new HashMap<>();
+    myState = config.get("state");
   }
 
   /**
@@ -64,6 +68,17 @@ public class GameOfLifeCell extends Cell {
   }
 
   /**
+   * Purpose: Accepts HashMap information with new state information. Will default to return false.
+   * Assumptions: Grid should call this method only on Cells with movement simulations.
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: boolean type.
+   */
+  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+    return false;
+  }
+
+  /**
    * Purpose: Update current cell state, and return value for other methods to use.
    * Assumptions: TODO
    * Parameters: None.
@@ -73,6 +88,17 @@ public class GameOfLifeCell extends Cell {
   public int updateState() {
     myState = nextState;
     nextState = -1;
+    return myState;
+  }
+
+  /**
+   * Purpose: Returns state of the cell.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int state.
+   */
+  public int getState() {
     return myState;
   }
 }
