@@ -57,15 +57,15 @@ public class WaTorCell extends Cell {
    * https://beltoforion.de/en/wator/
    */
   public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
-    if (myState == FISH) {
+    if (getState() == FISH) {
       fishPrepareNextState();
-    } else if (myState == SHARK) {
+    } else if (getState() == SHARK) {
       sharkPrepareNextState();
     } else {
-      nextState = WATER;
-      moveState.put("state", NO_MOVEMENT);
+      setNextState(WATER);
+      setMoveStateValue("state", NO_MOVEMENT);
     }
-    return moveState;
+    return getMoveStateCopy();
   }
 
   private void fishPrepareNextState() {
@@ -74,26 +74,26 @@ public class WaTorCell extends Cell {
     if (breedFishTime < fishBreedThreshold) {
       setToWater();
     } else {
-      nextState = FISH;
+      setNextState(FISH);
       resetState();
     }
-    moveState.put("state", FISH);
+    setMoveStateValue("state", FISH);
   }
 
   private void sharkPrepareNextState() {
     if (breedSharkEnergy <= 0) {
       setToWater();
-      moveState.put("state", NO_MOVEMENT);
+      setMoveStateValue("state", NO_MOVEMENT);
     } else {
       breedSharkEnergy -= energyLoss;
       updateMoveStateParam();
       if (breedSharkEnergy < sharkBreedThreshold) {
         setToWater();
       } else {
-        nextState = SHARK;
+        setNextState(SHARK);
         resetState();
       }
-      moveState.put("state", SHARK);
+      setMoveStateValue("state", SHARK);
     }
   }
 
@@ -106,19 +106,19 @@ public class WaTorCell extends Cell {
   public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
     int incomingState = newInfo.get("state");
 
-    if (nextState == incomingState) {
+    if (getNextState() == incomingState) {
       return false;
     }
 
     breedFishTime = newInfo.get("breedTime");
     breedSharkEnergy = newInfo.get("breedEnergy");
 
-    if (nextState == FISH && incomingState == SHARK
-        || nextState == SHARK && incomingState == FISH) {
+    if (getNextState() == FISH && incomingState == SHARK
+        || getNextState() == SHARK && incomingState == FISH) {
       breedSharkEnergy += energyGain;
     }
 
-    nextState = incomingState;
+    setNextState(incomingState);
     return true;
   }
 
@@ -126,7 +126,7 @@ public class WaTorCell extends Cell {
    * Sets cell up to be water.
    */
   private void setToWater() {
-    nextState = WATER;
+    setNextState(WATER);
     resetState();
   }
 
@@ -134,20 +134,7 @@ public class WaTorCell extends Cell {
    * Updates moveState HashMap.
    */
   private void updateMoveStateParam() {
-    moveState.put("breedTime", breedFishTime);
-    moveState.put("breedEnergy", breedSharkEnergy);
-  }
-
-  /**
-   * Purpose: Update current cell state, and return value for other methods to use.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int object.
-   */
-  public int updateState() {
-    myState = nextState;
-    nextState = -1;
-    return myState;
+    setMoveStateValue("breedTime", breedFishTime);
+    setMoveStateValue("breedEnergy", breedSharkEnergy);
   }
 }

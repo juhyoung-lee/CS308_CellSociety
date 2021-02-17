@@ -37,31 +37,18 @@ public class PercolationCell extends Cell {
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/PercolationCA.pdf
    */
   public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
-    nextState = myState;
-    
-    if (myState == OPEN) {
+    setNextState(getState());
+
+    if (getState() == OPEN) {
       for (int state : neighborStates) {
         if (state == PERCOLATED) {
-          nextState = PERCOLATED;
+          setNextState(PERCOLATED);
           break;
         }
       }
     }
 
-    moveState.put("state", NO_MOVEMENT);
-    return moveState;
-  }
-
-  /**
-   * Purpose: Update current cell state, and return value for other methods to use.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int object.
-   */
-  public int updateState() {
-    myState = nextState;
-    nextState = -1;
-    return myState;
+    setMoveStateValue("state", NO_MOVEMENT);
+    return getMoveStateCopy();
   }
 }

@@ -45,18 +45,18 @@ public class FireCell extends Cell {
     boolean burningNeighbor = checkBurningNeighbor(neighborStates);
     double probFire = randFire.nextDouble();
 
-    if (myState == EMPTY || myState == BURNING) {
-      nextState = EMPTY;
-    } else if (myState == TREE) {
+    if (getState() == EMPTY || getState() == BURNING) {
+      setNextState(EMPTY);
+    } else if (getState() == TREE) {
       if (burningNeighbor && probFire >= catchThreshold) {
-        nextState = BURNING;
+        setNextState(BURNING);
       } else {
-        nextState = TREE;
+        setNextState(TREE);
       }
     }
 
-    moveState.put("state", NO_MOVEMENT);
-    return moveState;
+    setMoveStateValue("state", NO_MOVEMENT);
+    return getMoveStateCopy();
   }
 
   private boolean checkBurningNeighbor(int[] neighborStates) {
@@ -66,18 +66,5 @@ public class FireCell extends Cell {
       }
     }
     return false;
-  }
-
-  /**
-   * Purpose: Update current cell state, and return value for other methods to use.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int object.
-   */
-  public int updateState() {
-    myState = nextState;
-    nextState = -1;
-    return myState;
   }
 }

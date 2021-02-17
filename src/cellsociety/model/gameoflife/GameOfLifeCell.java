@@ -38,16 +38,16 @@ public class GameOfLifeCell extends Cell {
   public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
     int live = calculateLive(neighborStates);
 
-    if (myState == ALIVE && (live == 2 || live == 3)) {
-      nextState = ALIVE;
-    } else if (myState == DEAD && live == 3) {
-      nextState = ALIVE;
+    if (getState() == ALIVE && (live == 2 || live == 3)) {
+      setNextState(ALIVE);
+    } else if (getState() == DEAD && live == 3) {
+      setNextState(ALIVE);
     } else {
-      nextState = DEAD;
+      setNextState(DEAD);
     }
 
-    moveState.put("state", NO_MOVEMENT);
-    return moveState;
+    setMoveStateValue("state", NO_MOVEMENT);
+    return getMoveStateCopy();
   }
 
   /** Calculates number live cells in neighbors. */
@@ -61,18 +61,5 @@ public class GameOfLifeCell extends Cell {
     }
 
     return live;
-  }
-
-  /**
-   * Purpose: Update current cell state, and return value for other methods to use.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int object.
-   */
-  public int updateState() {
-    myState = nextState;
-    nextState = -1;
-    return myState;
   }
 }

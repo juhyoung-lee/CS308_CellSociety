@@ -40,22 +40,22 @@ public class SegregationCell extends Cell {
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/mccown-schelling-model-segregation/
    */
   public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
-    if (myState == EMPTY) {
-      nextState = EMPTY;
-      moveState.put("state", NO_MOVEMENT);
+    if (getState() == EMPTY) {
+      setNextState(EMPTY);
+      setMoveStateValue("state", NO_MOVEMENT);
     } else {
       double similar = calculateSimilarity(neighborStates);
 
       if (similar >= myThreshold) {
-        nextState = myState;
-        moveState.put("state", NO_MOVEMENT);
+        setNextState(getState());
+        setMoveStateValue("state", NO_MOVEMENT);
       } else {
-        nextState = EMPTY;
-        moveState.put("state", myState);
+        setNextState(EMPTY);
+        setMoveStateValue("state", getState());
       }
     }
 
-    return moveState;
+    return getMoveStateCopy();
   }
 
   private double calculateSimilarity(int[] neighborStates) {
@@ -65,7 +65,7 @@ public class SegregationCell extends Cell {
     for (int state : neighborStates) {
       if (state != EMPTY) {
         nonEmpty++;
-        if (state == myState) {
+        if (state == getState()) {
           sameState++;
         }
       }
@@ -84,24 +84,11 @@ public class SegregationCell extends Cell {
   @Override
   public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
     int incomingState = newInfo.get("state");
-    if (nextState != EMPTY) {
+    if (getNextState() != EMPTY) {
       return false;
     } else {
-      nextState = incomingState;
+      setNextState(incomingState);
       return true;
     }
-  }
-
-  /**
-   * Purpose: Update current cell state, and return value for other methods to use.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int object.
-   */
-  public int updateState() {
-    myState = nextState;
-    nextState = -1;
-    return myState;
   }
 }

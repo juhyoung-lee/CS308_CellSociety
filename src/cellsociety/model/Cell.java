@@ -13,20 +13,15 @@ import java.util.HashMap;
 public abstract class Cell {
 
   public static final int NO_MOVEMENT = -1;
-  protected HashMap<String, Integer> moveState = new HashMap<>();
-  protected int myState;
-  protected int nextState;
+  private HashMap<String, Integer> moveState = new HashMap<>();
+  private int myState;
+  private int nextState;
 
   /**
    * Purpose: Constructor for Cell class.
    * Assumptions: TODO
    * Parameters: HashMap config.
-<<<<<<< HEAD
-   * Exceptions:
-   * TODO
-=======
    * Exceptions: TODO
->>>>>>> parent of 9f80d0d... Changed protected instance variables to private.
    * Returns: Cell object.
    */
   public Cell(HashMap<String, Integer> config) {
@@ -43,38 +38,23 @@ public abstract class Cell {
   public abstract HashMap<String, Integer> prepareNextState(int[] neighborStates);
 
   /**
-<<<<<<< HEAD
-=======
-   * Purpose: Updates state field in moveState.
-   * Assumptions: TODO
-   * Parameters: int state.
-   * Exceptions: TODO
-   * Returns: None.
-   */
-  protected void updateMoveStateField(int state) {
-    moveState.put("state", state);
-  }
-
-  /**
->>>>>>> parent of 9f80d0d... Changed protected instance variables to private.
    * Purpose: Update current cell state, and return value for other methods to use.
    * Assumptions: TODO
    * Parameters: None.
    * Exceptions: None.
    * Returns: int object.
    */
-  public abstract int updateState();
+  public int updateState() {
+    myState = nextState;
+    nextState = -1;
+    return myState;
+  }
 
   /**
    * Purpose: Accepts HashMap information with new state information. Will default to return false.
-<<<<<<< HEAD
    * Assumptions: Grid should call this method only on Cells with movement simulations.
    * Parameters:
    * HashMap object.
-=======
-   * Assumptions: Grid should never call this method.
-   * Parameters: HashMap object.
->>>>>>> parent of 9f80d0d... Changed protected instance variables to private.
    * Exceptions: TODO
    * Returns: boolean type.
    */
@@ -91,5 +71,77 @@ public abstract class Cell {
    */
   public int getState() {
     return myState;
+  }
+
+  /**
+   * Purpose: Sets state of the cell.
+   * Assumptions: TODO
+   * Parameters: int type.
+   * Exceptions: None.
+   * Returns: None.
+   */
+  protected void setState(int newState) {
+    myState = newState;
+  }
+
+  /**
+   * Purpose: Returns nextState of the cell.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int state.
+   */
+  protected int getNextState() {
+    return nextState;
+  }
+
+  /**
+   * Purpose: Sets nextState of the cell.
+   * Assumptions: TODO
+   * Parameters: int type.
+   * Exceptions: None.
+   * Returns: None.
+   */
+  protected void setNextState(int newState) {
+    nextState = newState;
+  }
+
+  /**
+   * Purpose: Returns value from moveState.
+   * Assumptions: TODO
+   * Parameters: String key.
+   * Exceptions: None.
+   * Returns: int value.
+   */
+  protected int getMoveStateValue(String key) {
+    return moveState.get(key);
+  }
+
+  /**
+   * Purpose: Sets value in moveState.
+   * Assumptions: TODO
+   * Parameters: int type.
+   * Exceptions: None.
+   * Returns: None.
+   */
+  protected void setMoveStateValue(String key, int value) {
+    moveState.put(key, value);
+  }
+
+  /**
+   * Purpose: Returns deep copy of moveState.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: HashMap object.
+   */
+  protected HashMap<String, Integer> getMoveStateCopy() {
+    HashMap<String, Integer> deepCopy = new HashMap<>();
+
+    for (String key : moveState.keySet()) {
+      deepCopy.put(key, moveState.get(key));
+    }
+
+    return deepCopy;
   }
 }
