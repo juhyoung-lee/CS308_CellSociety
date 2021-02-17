@@ -39,6 +39,7 @@ public class SegregationGrid extends Grid {
 
   /**
    * Loads updates for cells, handles movement, pushes updates.
+   * TODO: moveCell() is only abstract method?
    */
   @Override
   public void updateCells() {
@@ -48,18 +49,12 @@ public class SegregationGrid extends Grid {
     pushCellUpdates();
   }
 
-  /**
-   * Sets issues to null
-   */
   private void clearIssues() {
     for (int i = 0; i < issues.length; i++) {
       issues[i] = null;
     }
   }
 
-  /**
-   * Prepares cell updates and stores issues if they arise
-   */
   private void prepareUpdates() {
     for (int i = 0; i < grid.size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
@@ -70,14 +65,17 @@ public class SegregationGrid extends Grid {
     }
   }
 
-  /**
-   *
-   */
   private void handleIssues() {
     for (int i = 0; i < issues.length; i++) {
       if (issues[i] != null) {
         moveCell(i);
       }
+    }
+  }
+
+  private void pushCellUpdates() {
+    for (Cell cell : grid) {
+      cell.updateState();
     }
   }
 
@@ -92,19 +90,11 @@ public class SegregationGrid extends Grid {
     Collections.shuffle(places);
 
     HashMap state = issues[index];
-    while (places.size() != 0) {
-      Integer cell = places.get(places.size()-1);
-      if (super.grid.get(cell).receiveUpdate(state)) {
+    for (Integer neighborIndex : places) {
+      if (super.grid.get(neighborIndex).receiveUpdate(state)) {
         return;
       }
-      places.remove(places.size()-1);
     }
     super.grid.get(index).receiveUpdate(state);
-  }
-
-  private void pushCellUpdates() {
-    for (Cell cell : grid) {
-      cell.updateState();
-    }
   }
 }
