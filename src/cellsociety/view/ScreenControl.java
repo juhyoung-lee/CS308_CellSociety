@@ -104,7 +104,7 @@ public class ScreenControl {
       for (int j = 0; j < cols; j++) {
         Rectangle block = new Rectangle(Control.GRID_X + j * xsize, Control.GRID_Y + i * ysize, xsize, ysize);
         myBlocks.add(block);
-        block.setStroke(Color.BLACK);
+        block.getStyleClass().add("rect");
         myRoot.getChildren().add(block);
         block.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
       }

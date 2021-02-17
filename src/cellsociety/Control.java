@@ -36,12 +36,11 @@ public class Control {
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
   public static final int Y_SIZE = 600;
-  public static final Paint BACKGROUND = Color.AZURE;
   public static final int GRID_SIZE = 450;
   public static final int GRID_X = (X_SIZE / 2) - (GRID_SIZE / 2);
   public static final int GRID_Y = Y_SIZE / 12;
 
-  public static final String STYLESHEET = "cellsociety/view/resources/default.css";
+  public static final String STYLESHEET = "cellsociety/view/resources/dark.css";
 
   private ScreenControl mySC;
   private Grid myGrid;
@@ -63,9 +62,7 @@ public class Control {
     String type = game.getType();
     ArrayList<String> cells = game.getCellRows();
     HashMap<String, Integer> params = game.getParameters();
-    if (type.equals("Game of Life")) {
-      type = "Game of Life";
-    }
+
     myGrid = switch (type) {
       case "Game of Life" -> new GameOfLifeGrid(cells, params);
       case "Percolation" -> new PercolationGrid(cells, params);
