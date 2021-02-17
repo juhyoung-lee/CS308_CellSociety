@@ -8,8 +8,6 @@ import java.util.HashMap;
 
 public class SegregationGrid extends Grid {
 
-  private HashMap<String, Integer>[] issues;
-
   /**
    * Constructor.
    *
@@ -19,7 +17,6 @@ public class SegregationGrid extends Grid {
   public SegregationGrid(ArrayList<String> cellArrangement,
       HashMap<String, Integer> parameters) {
     super(cellArrangement, parameters);
-    issues = new HashMap[getGrid().size()];
   }
 
   /**
@@ -34,51 +31,9 @@ public class SegregationGrid extends Grid {
     return new SegregationCell(parameters);
   }
 
-  /**
-   * Loads updates for cells, handles movement, pushes updates.
-   * TODO: moveCell() is only abstract method?
-   */
-  @Override
-  public void updateCells() {
-    clearIssues();
-    prepareUpdates();
-    handleIssues();
-    pushCellUpdates();
-  }
-
-  private void clearIssues() {
-    for (int i = 0; i < issues.length; i++) {
-      issues[i] = null;
-    }
-  }
-
-  private void prepareUpdates() {
-    for (int i = 0; i < getGrid().size(); i++) {
-      int[] neighborStates = pullNeighborStates(i);
-      HashMap<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
-      if (movement.get("state") != -1) {
-        issues[i] = movement;
-      }
-    }
-  }
-
-  private void handleIssues() {
-    for (int i = 0; i < issues.length; i++) {
-      if (issues[i] != null) {
-        moveCell(i);
-      }
-    }
-  }
-
-  private void pushCellUpdates() {
-    for (Cell cell : getGrid()) {
-      cell.updateState();
-    }
-  }
-
-  private void moveCell(int index) {
+  protected void moveCell(int index) {
     ArrayList<Integer> places = new ArrayList<>();
-    for (int i = 0; i < issues.length; i++) {
+    for (int i = 0; i < getGrid().size(); i++) {
       if (i == index) {
         continue;
       }
@@ -86,7 +41,7 @@ public class SegregationGrid extends Grid {
     }
     Collections.shuffle(places);
 
-    HashMap state = issues[index];
+    HashMap state = getIssues(index);
     for (Integer neighborIndex : places) {
       if (getGrid().get(neighborIndex).receiveUpdate(state)) {
         return;

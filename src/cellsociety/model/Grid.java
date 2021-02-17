@@ -1,6 +1,7 @@
 package cellsociety.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -11,11 +12,14 @@ public abstract class Grid {
 
   private HashMap<Cell, int[]> neighbors;
   private ArrayList<Cell> grid;
+  private HashMap<String, Integer>[] issues;
   private final int height;
   private final int width;
 
   /**
-   * Constructor.
+   * Constructor fills fields using XML data.
+   * Assumptions: parameters contains all the information required to create appropriate cell.
+   * cellArrangement represents a valid square tesselation grid.
    *
    * @param cellArrangement cell grid from XML
    * @param parameters game settings from XML
@@ -25,23 +29,20 @@ public abstract class Grid {
     this.width = parameters.get("width");
     setupGrid(cellArrangement, parameters);
     setupNeighbors();
+    issues = new HashMap[this.grid.size()];
   }
 
   /**
-   * Loads updates for cells and then updates. If cells move or information beyond state needs to
-   * be passed between cells, this method will need to handle that before cell.updateState().
+   * Clears issues array. Runs prepareNextState() on all cells. Handles any returned issues where
+   * cells wish to "move". Runs updateState() on all cells, finalizing state changes. For a cell to
+   * properly "move" or pass information to another cell, moveCell() will need to be overwritten.
    * Assumptions: No movement of cells.
    */
   public void updateCells() {
-    for (int i = 0; i < grid.size(); i++) {
-      int[] neighborStates = pullNeighborStates(i);
-      grid.get(i).prepareNextState(neighborStates);
-    }
-    // if prepareNextState returns issue, it'll have to be added to an array field
-    // and handled here
-    for (Cell cell : grid) {
-      cell.updateState();
-    }
+    clearIssues();
+    prepareCellUpdates();
+    handleIssues();
+    pushCellUpdates();
   }
 
   /**
@@ -83,6 +84,16 @@ public abstract class Grid {
    */
   protected ArrayList<Cell> getGrid() {
     return (ArrayList<Cell>) Collections.unmodifiableList(this.grid);
+  }
+
+  /**
+   * Gives direct access to issues field variable, as it is only needed if subclass cell wants to
+   * move or pass information. Exists as feature to use if needed.
+   *
+   * @return HashMap parameters corresponding to index/cell of issue.
+   */
+  protected HashMap<String, Integer> getIssues(int index) {
+    return this.issues[index];
   }
 
   /**
@@ -215,4 +226,58 @@ public abstract class Grid {
     }
     return neighborStates;
   }
+
+  /**
+   * Clears issues in preparation of a new cycle.
+   * Assumptions: Issues has already been instantiated.
+   */
+  private void clearIssues() {
+    Arrays.fill(issues, null);
+  }
+
+  /**
+   * Runs prepareNextState() on all cells and catalogs any issues or moving cells that arise.
+   * Assumptions: Cells will return a HashMap with -1 for "state" if no movement occurs
+   */
+  private void prepareCellUpdates() {
+    for (int i = 0; i < getGrid().size(); i++) {
+      int[] neighborStates = pullNeighborStates(i);
+      HashMap<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
+      if (movement.get("state") != -1) {
+        issues[i] = movement;
+      }
+    }
+  }
+
+  /**
+   * Finds any issues cataloged and calls moveCell() on it to be handled.
+   * Assumptions: MoveCell has been overwritten if cells do move or pass information around.
+   */
+  private void handleIssues() {
+    for (int i = 0; i < issues.length; i++) {
+      if (issues[i] != null) {
+        moveCell(i);
+      }
+    }
+  }
+
+  /**
+   * Runs updateState() on all cells and finalizes the cycle.
+   * Assumptions: Every cell has their proper preparedState and all issues have been handled.
+   */
+  private void pushCellUpdates() {
+    for (Cell cell : getGrid()) {
+      cell.updateState();
+    }
+  }
+
+  /**
+   * Override to use. Handles cell movement or information passing by calling receiveUpdate() on
+   * whichever neighboring cell will be passed the information.
+   * Assumptions: Any cell wishing to move or pass information has been cataloged in issues.
+   *
+   * @param index cell trying to move or pass information
+   */
+  protected void moveCell(int index) {}
+
 }
