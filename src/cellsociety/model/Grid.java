@@ -272,13 +272,36 @@ public abstract class Grid {
   }
 
   /**
-   * Override to use. Handles cell movement or information passing by calling receiveUpdate() on
-   * whichever neighboring cell will be passed the information.
+   * Handles cell movement or information passing by calling receiveUpdate() on whichever
+   * neighboring cell will be passed the information. If no cell can receive an update, the cell
+   * will not move. Requires overriding of findPotentialMoves() to properly function.
    * Assumptions: Any cell wishing to move or pass information has been cataloged in issues.
    *
    * @param index cell trying to move or pass information
    */
-  protected void moveCell(int index) {}
+  private void moveCell(int index) {
+    ArrayList<Integer> places = findPotentialMoves(index);
+
+    Collections.shuffle(places);
+    HashMap<String, Integer> state = getIssues(index);
+    for (Integer neighborIndex : places) {
+      if (getGrid().get(neighborIndex).receiveUpdate(state)) {
+        return;
+      }
+    }
+    getGrid().get(index).receiveUpdate(state);
+  }
+
+  /**
+   * Must be overwritten to function. Returns array list of indexes that should be checked to
+   * receive a moving cell.
+   *
+   * @param index of cell trying to move
+   * @return indexes to be checked for receiving update
+   */
+  protected ArrayList<Integer> findPotentialMoves(int index) {
+    return new ArrayList<>();
+  }
 
   // TODO: extract methods. only variation so far is in which neighbors are considered.
 }

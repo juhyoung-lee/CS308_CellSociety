@@ -31,22 +31,14 @@ public class WaTorGrid extends Grid {
     return new WaTorCell(parameters);
   }
 
-  // TODO: extract methods
-  protected void moveCell(int index) {
+  @Override
+  protected ArrayList<Integer> findPotentialMoves(int index) {
     Cell center = getGrid().get(index);
     int[] neighbors = getNeighbors(center);
     ArrayList<Integer> places = new ArrayList<>();
     for (int i : neighbors) {
       places.add(i);
     }
-    Collections.shuffle(places);
-
-    HashMap state = getIssues(index);
-    for (Integer neighborIndex : places) {
-      if (getGrid().get(neighborIndex).receiveUpdate(state)) {
-        return;
-      }
-    }
-    getGrid().get(index).receiveUpdate(state);
+    return places;
   }
 }

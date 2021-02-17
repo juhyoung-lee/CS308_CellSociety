@@ -31,8 +31,8 @@ public class SegregationGrid extends Grid {
     return new SegregationCell(parameters);
   }
 
-  // TODO: extract methods
-  protected void moveCell(int index) {
+  @Override
+  protected ArrayList<Integer> findPotentialMoves(int index) {
     ArrayList<Integer> places = new ArrayList<>();
     for (int i = 0; i < getGrid().size(); i++) {
       if (i == index) {
@@ -40,14 +40,6 @@ public class SegregationGrid extends Grid {
       }
       places.add(i);
     }
-    Collections.shuffle(places);
-
-    HashMap state = getIssues(index);
-    for (Integer neighborIndex : places) {
-      if (getGrid().get(neighborIndex).receiveUpdate(state)) {
-        return;
-      }
-    }
-    getGrid().get(index).receiveUpdate(state);
+    return places;
   }
 }
