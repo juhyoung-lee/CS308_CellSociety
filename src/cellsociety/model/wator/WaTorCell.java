@@ -20,6 +20,9 @@ public class WaTorCell extends Cell {
   private final int sharkBreedThreshold;
   private final int energyGain;
   private final int energyLoss;
+  private HashMap<String, Integer> moveState;
+  private int nextState;
+  private int myState;
   private int breedFishTime;
   private int breedSharkEnergy;
 
@@ -35,6 +38,9 @@ public class WaTorCell extends Cell {
     sharkBreedThreshold = config.get("sharkBreedThreshold");
     energyGain = config.get("energyGain");
     energyLoss = config.get("energyLoss");
+    moveState = new HashMap<>();
+    myState = super.getState();
+    nextState = -1;
     resetState();
   }
 

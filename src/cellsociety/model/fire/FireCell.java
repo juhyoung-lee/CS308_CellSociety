@@ -18,6 +18,9 @@ public class FireCell extends Cell {
   public static final int BURNING = 1;
   public static final int EMPTY = 2;
   private final Random randFire = new Random();
+  private HashMap<String, Integer> moveState;
+  private int nextState;
+  private int myState;
   private final double catchThreshold;
 
   /**
@@ -29,6 +32,9 @@ public class FireCell extends Cell {
    */
   public FireCell(HashMap<String, Integer> config) {
     super(config);
+    moveState = new HashMap<>();
+    myState = super.getState();
+    nextState = -1;
     catchThreshold = (double) config.get("prob") / 100;
   }
 

@@ -16,6 +16,9 @@ public class PercolationCell extends Cell {
   public static final int OPEN = 1;
   public static final int PERCOLATED = 2;
   public static final int BLOCKED = 0;
+  private HashMap<String, Integer> moveState;
+  private int nextState;
+  private int myState;
 
   /**
    * Purpose: Constructor for PercolationCell class.
@@ -26,6 +29,9 @@ public class PercolationCell extends Cell {
    */
   public PercolationCell(HashMap<String, Integer> config) {
     super(config);
+    moveState = new HashMap<>();
+    myState = super.getState();
+    nextState = -1;
   }
 
   /**
