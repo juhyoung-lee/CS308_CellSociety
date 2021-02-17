@@ -24,13 +24,9 @@ public class WaTorCell extends Cell {
   private final int sharkBreedThreshold;
   private final int energyGain;
   private final int energyLoss;
-  private HashMap<String, Integer> moveState;
-  private int nextState;
-  private int myState;
   private int breedFishTime;
   private int breedSharkEnergy;
-
-
+  
   /**
    * Purpose: Constructor for WaTorCell class. Assumptions: config will include keys "breedFish",
    * "breedShark", "energyGain", and "energyLoss" Parameters: HashMap config. Exceptions: TODO
@@ -38,13 +34,10 @@ public class WaTorCell extends Cell {
    */
   public WaTorCell(HashMap<String, Integer> config) {
     super(config);
-    fishBreedThreshold = config.get(fishBreedThresholdKey);
-    sharkBreedThreshold = config.get(sharkBreedThresholdKey);
-    energyGain = config.get(energyGainKey);
-    energyLoss = config.get(energyLossKey);
-    moveState = new HashMap<>();
-    myState = super.getState();
-    nextState = -1;
+    fishBreedThreshold = config.get("fishBreedThreshold");
+    sharkBreedThreshold = config.get("sharkBreedThreshold");
+    energyGain = config.get("energyGain");
+    energyLoss = config.get("energyLoss");
     resetState();
   }
 

@@ -13,14 +13,20 @@ import java.util.HashMap;
 public abstract class Cell {
 
   public static final int NO_MOVEMENT = -1;
-  private int myState;
+  protected HashMap<String, Integer> moveState = new HashMap<>();
+  protected int myState;
+  protected int nextState;
 
   /**
    * Purpose: Constructor for Cell class.
    * Assumptions: TODO
    * Parameters: HashMap config.
+<<<<<<< HEAD
    * Exceptions:
    * TODO
+=======
+   * Exceptions: TODO
+>>>>>>> parent of 9f80d0d... Changed protected instance variables to private.
    * Returns: Cell object.
    */
   public Cell(HashMap<String, Integer> config) {
@@ -37,6 +43,20 @@ public abstract class Cell {
   public abstract HashMap<String, Integer> prepareNextState(int[] neighborStates);
 
   /**
+<<<<<<< HEAD
+=======
+   * Purpose: Updates state field in moveState.
+   * Assumptions: TODO
+   * Parameters: int state.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  protected void updateMoveStateField(int state) {
+    moveState.put("state", state);
+  }
+
+  /**
+>>>>>>> parent of 9f80d0d... Changed protected instance variables to private.
    * Purpose: Update current cell state, and return value for other methods to use.
    * Assumptions: TODO
    * Parameters: None.
@@ -47,9 +67,14 @@ public abstract class Cell {
 
   /**
    * Purpose: Accepts HashMap information with new state information. Will default to return false.
+<<<<<<< HEAD
    * Assumptions: Grid should call this method only on Cells with movement simulations.
    * Parameters:
    * HashMap object.
+=======
+   * Assumptions: Grid should never call this method.
+   * Parameters: HashMap object.
+>>>>>>> parent of 9f80d0d... Changed protected instance variables to private.
    * Exceptions: TODO
    * Returns: boolean type.
    */
@@ -67,5 +92,4 @@ public abstract class Cell {
   public int getState() {
     return myState;
   }
-
 }

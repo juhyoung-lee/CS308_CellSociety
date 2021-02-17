@@ -15,10 +15,6 @@ public class GameOfLifeCell extends Cell {
 
   public static final int ALIVE = 1;
   public static final int DEAD = 0;
-  private HashMap<String, Integer> moveState;
-  private int nextState;
-  private int myState;
-
 
   /**
    * Purpose: Constructor for GameOfLifeCell class.
@@ -29,9 +25,6 @@ public class GameOfLifeCell extends Cell {
    */
   public GameOfLifeCell(HashMap<String, Integer> config) {
     super(config);
-    moveState = new HashMap<>();
-    myState = super.getState();
-    nextState = -1;
   }
 
   /**
