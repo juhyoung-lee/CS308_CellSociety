@@ -11,7 +11,7 @@ import java.util.HashMap;
  *
  * @author Jessica Yang
  */
-public class WaTorCell implements Cell {
+public class WaTorCell extends Cell {
 
   public static final int FISH = 1;
   public static final int SHARK = 2;
@@ -26,9 +26,6 @@ public class WaTorCell implements Cell {
   private final int energyLoss;
   private int breedFishTime;
   private int breedSharkEnergy;
-  private final HashMap<String, Integer> moveState;
-  private int myState;
-  private int nextState;
 
   /**
    * Purpose: Constructor for WaTorCell class. Assumptions: config will include keys "breedFish",
@@ -36,8 +33,7 @@ public class WaTorCell implements Cell {
    * Returns: WaTorCell object.
    */
   public WaTorCell(HashMap<String, Integer> config) {
-    moveState = new HashMap<>();
-    myState = config.get("state");
+    super(config);
     fishBreedThreshold = config.get(fishBreedThresholdKey);
     sharkBreedThreshold = config.get(sharkBreedThresholdKey);
     energyGain = config.get(energyGainKey);
@@ -152,17 +148,6 @@ public class WaTorCell implements Cell {
   public int updateState() {
     myState = nextState;
     nextState = -1;
-    return myState;
-  }
-
-  /**
-   * Purpose: Returns state of the cell.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int state.
-   */
-  public int getState() {
     return myState;
   }
 }

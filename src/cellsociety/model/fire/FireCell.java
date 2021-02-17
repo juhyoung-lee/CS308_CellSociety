@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author Jessica Yang
  */
-public class FireCell implements Cell {
+public class FireCell extends Cell {
 
   public static final int TREE = 0;
   public static final int BURNING = 1;
@@ -20,9 +20,6 @@ public class FireCell implements Cell {
   private final String probKey = "prob";
   private final Random randFire = new Random();
   private final double catchThreshold;
-  private final HashMap<String, Integer> moveState;
-  private int myState;
-  private int nextState;
 
   /**
    * Purpose: Constructor for FireCell class.
@@ -32,8 +29,7 @@ public class FireCell implements Cell {
    * Returns: FireCell object.
    */
   public FireCell(HashMap<String, Integer> config) {
-    moveState = new HashMap<>();
-    myState = config.get("state");
+    super(config);
     catchThreshold = (double) config.get(probKey) / 100;
   }
 
@@ -73,17 +69,6 @@ public class FireCell implements Cell {
   }
 
   /**
-   * Purpose: Accepts HashMap information with new state information. Will default to return false.
-   * Assumptions: Grid should call this method only on Cells with movement simulations.
-   * Parameters: HashMap object.
-   * Exceptions: TODO
-   * Returns: boolean type.
-   */
-  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
-    return false;
-  }
-
-  /**
    * Purpose: Update current cell state, and return value for other methods to use.
    * Assumptions: TODO
    * Parameters: None.
@@ -93,17 +78,6 @@ public class FireCell implements Cell {
   public int updateState() {
     myState = nextState;
     nextState = -1;
-    return myState;
-  }
-
-  /**
-   * Purpose: Returns state of the cell.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int state.
-   */
-  public int getState() {
     return myState;
   }
 }

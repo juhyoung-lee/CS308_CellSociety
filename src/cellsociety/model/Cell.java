@@ -10,9 +10,28 @@ import java.util.HashMap;
  *
  * @author Juhyoung Lee, Jessica Yang
  */
-public interface Cell {
+public abstract class Cell {
 
-  int NO_MOVEMENT = -1;
+  public static final int NO_MOVEMENT = -1;
+  protected HashMap<String, Integer> moveState = new HashMap<>();
+  protected int myState;
+  protected int nextState;
+
+  /**
+   * Purpose: Constructor for Cell class.
+   * Assumptions: TODO
+   * Parameters: HashMap config.
+<<<<<<< HEAD
+   * Exceptions:
+   * TODO
+=======
+   * Exceptions: TODO
+>>>>>>> parent of 9f80d0d... Changed protected instance variables to private.
+   * Returns: Cell object.
+   */
+  public Cell(HashMap<String, Integer> config) {
+    myState = config.get("state");
+  }
 
   /**
    * Purpose: Determine new state to update to.
@@ -21,25 +40,47 @@ public interface Cell {
    * Exceptions: TODO
    * Returns: int type. Describes what needs to be moved, if any.
    */
-  HashMap<String, Integer> prepareNextState(int[] neighborStates);
+  public abstract HashMap<String, Integer> prepareNextState(int[] neighborStates);
 
   /**
+<<<<<<< HEAD
+=======
+   * Purpose: Updates state field in moveState.
+   * Assumptions: TODO
+   * Parameters: int state.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  protected void updateMoveStateField(int state) {
+    moveState.put("state", state);
+  }
+
+  /**
+>>>>>>> parent of 9f80d0d... Changed protected instance variables to private.
    * Purpose: Update current cell state, and return value for other methods to use.
    * Assumptions: TODO
    * Parameters: None.
    * Exceptions: None.
    * Returns: int object.
    */
-  int updateState();
+  public abstract int updateState();
 
   /**
    * Purpose: Accepts HashMap information with new state information. Will default to return false.
+<<<<<<< HEAD
    * Assumptions: Grid should call this method only on Cells with movement simulations.
+   * Parameters:
+   * HashMap object.
+=======
+   * Assumptions: Grid should never call this method.
    * Parameters: HashMap object.
+>>>>>>> parent of 9f80d0d... Changed protected instance variables to private.
    * Exceptions: TODO
    * Returns: boolean type.
    */
-  boolean receiveUpdate(HashMap<String, Integer> newInfo);
+  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+    return false;
+  }
 
   /**
    * Purpose: Returns state of the cell.
@@ -48,5 +89,7 @@ public interface Cell {
    * Exceptions: None.
    * Returns: int state.
    */
-  int getState();
+  public int getState() {
+    return myState;
+  }
 }

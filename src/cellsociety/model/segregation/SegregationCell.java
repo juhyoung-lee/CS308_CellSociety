@@ -11,16 +11,13 @@ import java.util.HashMap;
  *
  * @author Jessica Yang
  */
-public class SegregationCell implements Cell {
+public class SegregationCell extends Cell {
 
   public static final int AGENT_A = 1;
   public static final int AGENT_B = 2;
   public static final int EMPTY = 0;
   private final String thresholdKey = "threshold";
   private final double myThreshold;
-  private final HashMap<String, Integer> moveState;
-  private int myState;
-  private int nextState;
 
   /**
    * Purpose: Constructor for SegregationCell class.
@@ -30,8 +27,7 @@ public class SegregationCell implements Cell {
    * Returns: SegregationCell object.
    */
   public SegregationCell(HashMap<String, Integer> config) {
-    moveState = new HashMap<>();
-    myState = config.get("state");
+    super(config);
     myThreshold = (double) config.get(thresholdKey) / 100;
   }
 
@@ -106,17 +102,6 @@ public class SegregationCell implements Cell {
   public int updateState() {
     myState = nextState;
     nextState = -1;
-    return myState;
-  }
-
-  /**
-   * Purpose: Returns state of the cell.
-   * Assumptions: TODO
-   * Parameters: None.
-   * Exceptions: None.
-   * Returns: int state.
-   */
-  public int getState() {
     return myState;
   }
 }
