@@ -38,19 +38,19 @@ public class SegregationCell extends Cell {
    * Returns: int type. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/mccown-schelling-model-segregation/
    */
-  public HashMap<String, Integer> prepareNewState(int[] neighborStates) {
+  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
     if (myState == EMPTY) {
       nextState = EMPTY;
-      updateStateField(NO_MOVEMENT);
+      updateMoveStateField(NO_MOVEMENT);
     } else {
       double similar = calculateSimilarity(neighborStates);
 
       if (similar >= myThreshold) {
         nextState = myState;
-        updateStateField(NO_MOVEMENT);
+        updateMoveStateField(NO_MOVEMENT);
       } else {
         nextState = EMPTY;
-        updateStateField(myState);
+        updateMoveStateField(myState);
       }
     }
 

@@ -35,7 +35,7 @@ public abstract class Cell {
    * Exceptions: TODO
    * Returns: int type. Describes what needs to be moved, if any.
    */
-  public abstract HashMap<String, Integer> prepareNewState(int[] neighborStates);
+  public abstract HashMap<String, Integer> prepareNextState(int[] neighborStates);
 
   /**
    * Purpose: Updates state field in moveState.
@@ -44,7 +44,7 @@ public abstract class Cell {
    * Exceptions: TODO
    * Returns: None.
    */
-  protected void updateStateField(int state) {
+  protected void updateMoveStateField(int state) {
     moveState.put("state", state);
   }
 

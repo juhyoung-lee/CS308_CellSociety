@@ -7,6 +7,7 @@ import cellsociety.model.fire.FireGrid;
 import cellsociety.model.gameoflife.GameOfLifeGrid;
 import cellsociety.model.percolation.PercolationGrid;
 import cellsociety.model.segregation.SegregationGrid;
+import cellsociety.model.wator.WaTorGrid;
 import java.util.HashMap;
 
 import cellsociety.view.ScreenControl;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
  */
 
 public class Control {
-  public static final String DATA_FILE="data/XMLs/basic.XML";
+  public static final String DATA_FILE="data/XMLs/WaTor/first.XML";
 
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
@@ -70,7 +71,7 @@ public class Control {
       case "Percolation" -> new PercolationGrid(cells, params);
       case "Fire" -> new FireGrid(cells, params);
       case "Segregation" -> new SegregationGrid(cells, params);
-      //case "WaTor" -> new WaTorGrid(cells, params);
+      case "WaTor" -> new WaTorGrid(cells, params);
       default -> null;
     };
 

@@ -34,9 +34,9 @@ public abstract class Grid {
   public void updateCells() {
     for (int i = 0; i < grid.size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
-      grid.get(i).prepareNewState(neighborStates);
+      grid.get(i).prepareNextState(neighborStates);
     }
-    // if prepareNewState returns issue, it'll have to be added to an array field
+    // if prepareNextState returns issue, it'll have to be added to an array field
     // and handled here
     for (Cell cell : grid) {
       cell.updateState();
