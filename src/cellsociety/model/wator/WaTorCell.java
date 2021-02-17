@@ -16,6 +16,10 @@ public class WaTorCell extends Cell {
   public static final int FISH = 1;
   public static final int SHARK = 2;
   public static final int WATER = 0;
+  private final String fishBreedThresholdKey = "fishBreedThreshold";
+  private final String sharkBreedThresholdKey = "sharkBreedThreshold";
+  private final String energyGainKey = "energyGain";
+  private final String energyLossKey = "energyLoss";
   private final int fishBreedThreshold;
   private final int sharkBreedThreshold;
   private final int energyGain;
@@ -34,10 +38,10 @@ public class WaTorCell extends Cell {
    */
   public WaTorCell(HashMap<String, Integer> config) {
     super(config);
-    fishBreedThreshold = config.get("fishBreedThreshold");
-    sharkBreedThreshold = config.get("sharkBreedThreshold");
-    energyGain = config.get("energyGain");
-    energyLoss = config.get("energyLoss");
+    fishBreedThreshold = config.get(fishBreedThresholdKey);
+    sharkBreedThreshold = config.get(sharkBreedThresholdKey);
+    energyGain = config.get(energyGainKey);
+    energyLoss = config.get(energyLossKey);
     moveState = new HashMap<>();
     myState = super.getState();
     nextState = -1;
