@@ -9,8 +9,6 @@ import cellsociety.model.percolation.PercolationGrid;
 import cellsociety.model.segregation.SegregationGrid;
 import cellsociety.model.wator.WaTorGrid;
 import java.util.HashMap;
-
-import cellsociety.view.ScreenControl;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -41,7 +39,7 @@ public class Control {
   public static final int GRID_X = (X_SIZE / 2) - (GRID_SIZE / 2);
   public static final int GRID_Y = Y_SIZE / 12;
 
-  public static final String STYLESHEET = "cellsociety/view/resources/default.css";
+  public static final String STYLESHEET = "cellsociety/default.css";
 
   private ScreenControl mySC;
   private Grid myGrid;
