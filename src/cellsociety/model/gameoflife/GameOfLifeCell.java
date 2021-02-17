@@ -53,7 +53,7 @@ public class GameOfLifeCell extends Cell {
       nextState = DEAD;
     }
 
-    updateMoveStateField(NO_MOVEMENT);
+    moveState.put("state", NO_MOVEMENT);
     return moveState;
   }
 
@@ -68,5 +68,18 @@ public class GameOfLifeCell extends Cell {
     }
 
     return live;
+  }
+
+  /**
+   * Purpose: Update current cell state, and return value for other methods to use.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int object.
+   */
+  public int updateState() {
+    myState = nextState;
+    nextState = -1;
+    return myState;
   }
 }

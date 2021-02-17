@@ -13,46 +13,45 @@ import java.util.HashMap;
 public abstract class Cell {
 
   public static final int NO_MOVEMENT = -1;
-  private HashMap<String, Integer> moveState = new HashMap<>();
   private int myState;
-  private int nextState;
 
   /**
-   * Purpose: Constructor for Cell class. Assumptions: TODO Parameters: HashMap config. Exceptions:
-   * TODO Returns: Cell object.
+   * Purpose: Constructor for Cell class.
+   * Assumptions: TODO
+   * Parameters: HashMap config.
+   * Exceptions:
+   * TODO
+   * Returns: Cell object.
    */
   public Cell(HashMap<String, Integer> config) {
     myState = config.get("state");
   }
 
   /**
-   * Purpose: Determine new state to update to. Assumptions: TODO Parameters: int[] neighborStates.
-   * Exceptions: TODO Returns: int type. Describes what needs to be moved, if any.
+   * Purpose: Determine new state to update to.
+   * Assumptions: TODO
+   * Parameters: int[] neighborStates.
+   * Exceptions: TODO
+   * Returns: int type. Describes what needs to be moved, if any.
    */
   public abstract HashMap<String, Integer> prepareNextState(int[] neighborStates);
 
   /**
-   * Purpose: Updates state field in moveState. Assumptions: TODO Parameters: int state. Exceptions:
-   * TODO Returns: None.
+   * Purpose: Update current cell state, and return value for other methods to use.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int object.
    */
-  protected void updateMoveStateField(int state) {
-    moveState.put("state", state);
-  }
-
-  /**
-   * Purpose: Update current cell state, and return value for other methods to use. Assumptions:
-   * TODO Parameters: None. Exceptions: None. Returns: int object.
-   */
-  public int updateState() {
-    myState = nextState;
-    nextState = -1;
-    return myState;
-  }
+  public abstract int updateState();
 
   /**
    * Purpose: Accepts HashMap information with new state information. Will default to return false.
-   * Assumptions: Grid should call this method only on Cells with movement simulations. Parameters:
-   * HashMap object. Exceptions: TODO Returns: boolean type.
+   * Assumptions: Grid should call this method only on Cells with movement simulations.
+   * Parameters:
+   * HashMap object.
+   * Exceptions: TODO
+   * Returns: boolean type.
    */
   public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
     return false;

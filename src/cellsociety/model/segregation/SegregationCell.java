@@ -48,16 +48,16 @@ public class SegregationCell extends Cell {
   public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
     if (myState == EMPTY) {
       nextState = EMPTY;
-      updateMoveStateField(NO_MOVEMENT);
+      moveState.put("state", NO_MOVEMENT);
     } else {
       double similar = calculateSimilarity(neighborStates);
 
       if (similar >= myThreshold) {
         nextState = myState;
-        updateMoveStateField(NO_MOVEMENT);
+        moveState.put("state", NO_MOVEMENT);
       } else {
         nextState = EMPTY;
-        updateMoveStateField(myState);
+        moveState.put("state", myState);
       }
     }
 
@@ -96,5 +96,18 @@ public class SegregationCell extends Cell {
       nextState = incomingState;
       return true;
     }
+  }
+
+  /**
+   * Purpose: Update current cell state, and return value for other methods to use.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int object.
+   */
+  public int updateState() {
+    myState = nextState;
+    nextState = -1;
+    return myState;
   }
 }

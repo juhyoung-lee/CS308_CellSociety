@@ -70,7 +70,7 @@ public class WaTorCell extends Cell {
       sharkPrepareNextState();
     } else {
       nextState = WATER;
-      updateMoveStateField(NO_MOVEMENT);
+      moveState.put("state", NO_MOVEMENT);
     }
     return moveState;
   }
@@ -84,13 +84,13 @@ public class WaTorCell extends Cell {
       nextState = FISH;
       resetState();
     }
-    updateMoveStateField(FISH);
+    moveState.put("state", FISH);
   }
 
   private void sharkPrepareNextState() {
     if (breedSharkEnergy <= 0) {
       setToWater();
-      updateMoveStateField(NO_MOVEMENT);
+      moveState.put("state", NO_MOVEMENT);
     } else {
       breedSharkEnergy -= energyLoss;
       updateMoveStateParam();
@@ -100,7 +100,7 @@ public class WaTorCell extends Cell {
         nextState = SHARK;
         resetState();
       }
-      updateMoveStateField(SHARK);
+      moveState.put("state", SHARK);
     }
   }
 
@@ -142,5 +142,18 @@ public class WaTorCell extends Cell {
   private void updateMoveStateParam() {
     moveState.put("breedTime", breedFishTime);
     moveState.put("breedEnergy", breedSharkEnergy);
+  }
+
+  /**
+   * Purpose: Update current cell state, and return value for other methods to use.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int object.
+   */
+  public int updateState() {
+    myState = nextState;
+    nextState = -1;
+    return myState;
   }
 }

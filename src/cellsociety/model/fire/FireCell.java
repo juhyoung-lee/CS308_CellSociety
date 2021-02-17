@@ -48,15 +48,8 @@ public class FireCell extends Cell {
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/shiflet-fire/
    */
   public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
-    boolean burningNeighbor = false;
+    boolean burningNeighbor = checkBurningNeighbor(neighborStates);
     double probFire = randFire.nextDouble();
-
-    for (int state : neighborStates) {
-      if (state == BURNING) {
-        burningNeighbor = true;
-        break;
-      }
-    }
 
     if (myState == EMPTY || myState == BURNING) {
       nextState = EMPTY;
@@ -68,7 +61,29 @@ public class FireCell extends Cell {
       }
     }
 
-    updateMoveStateField(NO_MOVEMENT);
+    moveState.put("state", NO_MOVEMENT);
     return moveState;
+  }
+
+  private boolean checkBurningNeighbor(int[] neighborStates) {
+    for (int state : neighborStates) {
+      if (state == BURNING) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Purpose: Update current cell state, and return value for other methods to use.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int object.
+   */
+  public int updateState() {
+    myState = nextState;
+    nextState = -1;
+    return myState;
   }
 }
