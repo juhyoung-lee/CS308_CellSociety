@@ -16,6 +16,7 @@ public class SegregationCell extends Cell {
   public static final int AGENT_A = 1;
   public static final int AGENT_B = 2;
   public static final int EMPTY = 0;
+  private final String thresholdKey = "threshold";
   private final double myThreshold;
 
   /**
@@ -27,7 +28,7 @@ public class SegregationCell extends Cell {
    */
   public SegregationCell(HashMap<String, Integer> config) {
     super(config);
-    myThreshold = (double) config.get("threshold") / 100;
+    myThreshold = (double) config.get(thresholdKey) / 100;
   }
 
   /**
