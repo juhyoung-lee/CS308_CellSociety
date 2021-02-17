@@ -124,15 +124,6 @@ public class ScreenControl {
   }
 
   /**
-   * Clears the grid.
-   */
-  public void clearGrid() {
-    myRoot.getChildren().clear();
-    createButtons();
-    setGameTitleText();
-  }
-
-  /**
    * Returns the Scene.
    ** @return Scene
    */
