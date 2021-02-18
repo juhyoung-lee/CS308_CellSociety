@@ -1,7 +1,7 @@
-package cellsociety;
+package cellsociety.view;
 
 /**
- * Purpose: Creates the grid for the view.
+ * Purpose: Creates buttons for the view.
  * Assumptions: TODO
  * Dependencies: TODO
  * Example of use: TODO
@@ -9,5 +9,5 @@ package cellsociety;
  * @author Kathleen Chen
  */
 
-public class GridBuilder {
+public class ButtonBuilder {
 }

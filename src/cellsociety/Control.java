@@ -8,12 +8,15 @@ import cellsociety.model.gameoflife.GameOfLifeGrid;
 import cellsociety.model.percolation.PercolationGrid;
 import cellsociety.model.segregation.SegregationGrid;
 import cellsociety.model.wator.WaTorGrid;
+
+import java.io.File;
 import java.util.HashMap;
+
+import cellsociety.view.ScreenControl;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -29,41 +32,56 @@ import java.util.ArrayList;
  */
 
 public class Control {
-  public static final String DATA_FILE="data/XMLs/Segregation/fourLinesFree75.XML";
-
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
   public static final int Y_SIZE = 600;
-  public static final Paint BACKGROUND = Color.AZURE;
   public static final int GRID_SIZE = 450;
   public static final int GRID_X = (X_SIZE / 2) - (GRID_SIZE / 2);
   public static final int GRID_Y = Y_SIZE / 12;
 
-  public static final String STYLESHEET = "cellsociety/default.css";
-
   private ScreenControl mySC;
   private Grid myGrid;
-  private int framecount = 1;
+  private int frameCount;
   private double delay;
   private Timeline animation;
+  private Stage myStage;
 
   public void initialize(Stage stage) {
-    delay = 1.0 / framecount;
+    myStage = stage;
+
+    frameCount = 1;
+    delay = 1.0 / frameCount;
     KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
 
-    Configure config = new Configure(DATA_FILE);
-    Simulation game = config.getGame();
+    mySC = new ScreenControl(this);
+    Scene scene = mySC.getScene();
+    stage.setScene(scene);
+    stage.setTitle(TITLE);
+    stage.show();
+  }
+
+  public void uploadFile() {
+    FileChooser fileChooser = new FileChooser();
+    File selectedFile = fileChooser.showOpenDialog(myStage);
+    String dataFile = selectedFile.getPath();
+    createStageFromData(dataFile);
+  }
+
+  private void createStageFromData(String dataFile) {
+    mySC.resetGameTitleText();
+    mySC.clearGrid();
+
+    Configure config = new Configure(dataFile);
+    Game game = config.getGame();
 
     String title = game.getTitle();
     String type = game.getType();
     ArrayList<String> cells = game.getCellRows();
     HashMap<String, Integer> params = game.getParameters();
-    if (type.equals("Game of Life")) {
-      type = "Game of Life";
-    }
+
     myGrid = switch (type) {
       case "Game of Life" -> new GameOfLifeGrid(cells, params);
       case "Percolation" -> new PercolationGrid(cells, params);
@@ -73,13 +91,18 @@ public class Control {
       default -> null;
     };
 
-    mySC = new ScreenControl(this, title, type);
-    Scene scene = mySC.getScene();
-    stage.setScene(scene);
-    stage.setTitle(TITLE);
-    stage.show();
+    mySC.createGrid(title, type, game.getHeight(), game.getWidth(), myGrid.viewGrid());
 
-    mySC.createGrid(game.getHeight(), game.getWidth(), myGrid.viewGrid());
+    resetAnimation();
+  }
+
+  private void resetAnimation() {
+    animation.stop();
+    animation.getKeyFrames().clear();
+    frameCount = 1;
+    delay = 1.0 / frameCount;
+    KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
+    animation.getKeyFrames().add(frame);
   }
 
   private void step() {
@@ -103,23 +126,23 @@ public class Control {
 
   public void fast() {
     animation.stop();
-    framecount += 1;
-    if (framecount < 0) {
-      framecount = 1;
+    frameCount += 1;
+    if (frameCount < 0) {
+      frameCount = 1;
     }
-    animation.setRate(framecount);
+    animation.setRate(frameCount);
     animation.play();
   }
 
   public void slow() {
     animation.stop();
-    framecount -= 1;
-    if (framecount > 0) {
-      animation.setRate(framecount);
-    } else if (framecount == 0 || framecount == -1) {
+    frameCount -= 1;
+    if (frameCount > 0) {
+      animation.setRate(frameCount);
+    } else if (frameCount == 0 || frameCount == -1) {
       animation.setRate(0.8);
     } else {
-      animation.setRate(1.0 / (framecount * -1));
+      animation.setRate(1.0 / (frameCount * -1));
     }
     animation.play();
   }
