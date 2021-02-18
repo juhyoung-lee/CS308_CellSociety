@@ -1,7 +1,7 @@
 package cellsociety.model.wator;
 
 import cellsociety.model.Cell;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Purpose: Represents a cell for the Wa-Tor simulation. Extends the Cell class.
@@ -16,6 +16,10 @@ public class WaTorCell extends Cell {
   public static final int FISH = 1;
   public static final int SHARK = 2;
   public static final int WATER = 0;
+  private final String fishBreedThresholdKey = "fishBreedThreshold";
+  private final String sharkBreedThresholdKey = "sharkBreedThreshold";
+  private final String energyGainKey = "energyGain";
+  private final String energyLossKey = "energyLoss";
   private final int fishBreedThreshold;
   private final int sharkBreedThreshold;
   private final int energyGain;
@@ -23,18 +27,19 @@ public class WaTorCell extends Cell {
   private int breedFishTime;
   private int breedSharkEnergy;
 
-
   /**
-   * Purpose: Constructor for WaTorCell class. Assumptions: config will include keys "breedFish",
-   * "breedShark", "energyGain", and "energyLoss" Parameters: HashMap config. Exceptions: TODO
+   * Purpose: Constructor for WaTorCell class.
+   * Assumptions: config will include keys "breedFish", "breedShark", "energyGain", and "energyLoss"
+   * Parameters: Map config.
+   * Exceptions: TODO
    * Returns: WaTorCell object.
    */
-  public WaTorCell(HashMap<String, Integer> config) {
+  public WaTorCell(Map<String, Integer> config) {
     super(config);
-    fishBreedThreshold = config.get("fishBreedThreshold");
-    sharkBreedThreshold = config.get("sharkBreedThreshold");
-    energyGain = config.get("energyGain");
-    energyLoss = config.get("energyLoss");
+    fishBreedThreshold = config.get(fishBreedThresholdKey);
+    sharkBreedThreshold = config.get(sharkBreedThresholdKey);
+    energyGain = config.get(energyGainKey);
+    energyLoss = config.get(energyLossKey);
     resetState();
   }
 
@@ -48,21 +53,22 @@ public class WaTorCell extends Cell {
 
   /**
    * Purpose: Determine new state to update to.
-   * Assumptions: TODO Parameters: int[] neighborStates.
+   * Assumptions: TODO
+   * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: int type. Describes what needs to be moved, if any. Rules taken from
+   * Returns: Map object. Describes what needs to be moved, if any.
    * https://beltoforion.de/en/wator/
    */
-  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
-    if (myState == FISH) {
+  public Map<String, Integer> prepareNextState(int[] neighborStates) {
+    if (getState() == FISH) {
       fishPrepareNextState();
-    } else if (myState == SHARK) {
+    } else if (getState() == SHARK) {
       sharkPrepareNextState();
     } else {
-      nextState = WATER;
-      updateMoveStateField(NO_MOVEMENT);
+      setNextState(WATER);
+      setMoveStateValue("state", NO_MOVEMENT);
     }
-    return moveState;
+    return getMoveStateCopy();
   }
 
   private void fishPrepareNextState() {
@@ -71,50 +77,53 @@ public class WaTorCell extends Cell {
     if (breedFishTime < fishBreedThreshold) {
       setToWater();
     } else {
-      nextState = FISH;
+      setNextState(FISH);
       resetState();
     }
-    updateMoveStateField(FISH);
+    setMoveStateValue("state", FISH);
   }
 
   private void sharkPrepareNextState() {
     if (breedSharkEnergy <= 0) {
       setToWater();
-      updateMoveStateField(NO_MOVEMENT);
+      setMoveStateValue("state", NO_MOVEMENT);
     } else {
       breedSharkEnergy -= energyLoss;
       updateMoveStateParam();
       if (breedSharkEnergy < sharkBreedThreshold) {
         setToWater();
       } else {
-        nextState = SHARK;
+        setNextState(SHARK);
         resetState();
       }
-      updateMoveStateField(SHARK);
+      setMoveStateValue("state", SHARK);
     }
   }
 
   /**
-   * Purpose: Accepts HashMap information with new state information. Assumptions: Grid will not
-   * pass call this method when the 'state' field is NO_MOVEMENT (-1). Parameters: HashMap object.
-   * Exceptions: TODO Returns: None.
+   * Purpose: Accepts Map information with new state information.
+   * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
+   * Parameters: Map object.
+   * Exceptions: TODO
+   * Returns: None.
    */
   @Override
-  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+  public boolean receiveUpdate(Map<String, Integer> newInfo) {
     int incomingState = newInfo.get("state");
 
-    if (nextState == SHARK || nextState == incomingState) { //TODO: allow fish to move into sharks?
+    if (getNextState() == incomingState) {
       return false;
     }
 
     breedFishTime = newInfo.get("breedTime");
     breedSharkEnergy = newInfo.get("breedEnergy");
 
-    if (nextState == FISH && incomingState == SHARK) {
+    if (getNextState() == FISH && incomingState == SHARK
+        || getNextState() == SHARK && incomingState == FISH) {
       breedSharkEnergy += energyGain;
     }
 
-    nextState = incomingState;
+    setNextState(incomingState);
     return true;
   }
 
@@ -122,15 +131,15 @@ public class WaTorCell extends Cell {
    * Sets cell up to be water.
    */
   private void setToWater() {
-    nextState = WATER;
+    setNextState(WATER);
     resetState();
   }
 
   /**
-   * Updates moveState HashMap.
+   * Updates moveState Map.
    */
   private void updateMoveStateParam() {
-    moveState.put("breedTime", breedFishTime);
-    moveState.put("breedEnergy", breedSharkEnergy);
+    setMoveStateValue("breedTime", breedFishTime);
+    setMoveStateValue("breedEnergy", breedSharkEnergy);
   }
 }
