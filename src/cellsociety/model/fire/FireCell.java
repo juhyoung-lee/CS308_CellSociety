@@ -1,7 +1,7 @@
 package cellsociety.model.fire;
 
 import cellsociety.model.Cell;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -23,12 +23,12 @@ public class FireCell extends Cell {
 
   /**
    * Purpose: Constructor for FireCell class.
-   * Assumptions: HashMap will contain the key "prob" with an integer value.
-   * Parameters: HashMap config.
+   * Assumptions: Map will contain the key "prob" with an integer value.
+   * Parameters: Map config.
    * Exceptions: TODO
    * Returns: FireCell object.
    */
-  public FireCell(HashMap<String, Integer> config) {
+  public FireCell(Map<String, Integer> config) {
     super(config);
     catchThreshold = (double) config.get(probKey) / 100;
   }
@@ -38,10 +38,10 @@ public class FireCell extends Cell {
    * Assumptions: neighborStates is passed with [N, S, E, W].
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: HashMap object. Describes what needs to be moved, if any.
+   * Returns: Map object. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/shiflet-fire/
    */
-  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
+  public Map<String, Integer> prepareNextState(int[] neighborStates) {
     boolean burningNeighbor = checkBurningNeighbor(neighborStates);
     double probFire = randFire.nextDouble();
 

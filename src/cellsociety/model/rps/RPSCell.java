@@ -1,7 +1,7 @@
 package cellsociety.model.rps;
 
 import cellsociety.model.Cell;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -26,11 +26,11 @@ public class RPSCell extends Cell {
   /**
    * Purpose: Constructor for RPSCell class.
    * Assumptions: TODO
-   * Parameters: HashMap config.
+   * Parameters: Map config.
    * Exceptions: TODO
    * Returns: RPSCell object.
    */
-  public RPSCell(HashMap<String, Integer> config) {
+  public RPSCell(Map<String, Integer> config) {
     super(config);
     loseThreshold = config.get(loseThresholdKey);
     bufferBound = config.get(bufferBoundKey);
@@ -41,10 +41,10 @@ public class RPSCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: HashMap object. There should never be any movement.
+   * Returns: Map object. There should never be any movement.
    * Rules taken from https://softologyblog.wordpress.com/2018/03/23/rock-paper-scissors-cellular-automata/
    */
-  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
+  public Map<String, Integer> prepareNextState(int[] neighborStates) {
     if (getState() == ROCK && checkLose(PAPER, neighborStates)) {
       setNextState(PAPER);
     } else if (getState() == PAPER && checkLose(SCISSORS, neighborStates)) {

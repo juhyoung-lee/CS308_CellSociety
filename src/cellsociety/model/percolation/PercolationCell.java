@@ -1,7 +1,7 @@
 package cellsociety.model.percolation;
 
 import cellsociety.model.Cell;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Purpose: Represents a cell for the Percolation simulation. Extends the Cell class.
@@ -20,11 +20,11 @@ public class PercolationCell extends Cell {
   /**
    * Purpose: Constructor for PercolationCell class.
    * Assumptions: TODO
-   * Parameters: HashMap config.
+   * Parameters: Map config.
    * Exceptions: TODO
    * Returns: PercolationCell object.
    */
-  public PercolationCell(HashMap<String, Integer> config) {
+  public PercolationCell(Map<String, Integer> config) {
     super(config);
   }
 
@@ -33,10 +33,10 @@ public class PercolationCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: HashMap object. Describes what needs to be moved, if any.
+   * Returns: Map object. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/PercolationCA.pdf
    */
-  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
+  public Map<String, Integer> prepareNextState(int[] neighborStates) {
     setNextState(getState());
 
     if (getState() == OPEN) {

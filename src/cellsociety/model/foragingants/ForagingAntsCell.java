@@ -1,7 +1,7 @@
 package cellsociety.model.foragingants;
 
 import cellsociety.model.Cell;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Purpose: Represents a cell for the Foraging Ants simulation. Extends the Cell class.
@@ -24,11 +24,11 @@ public class ForagingAntsCell extends Cell {
   /**
    * Purpose: Constructor for ForagingAntsCell class.
    * Assumptions: TODO
-   * Parameters: HashMap config.
+   * Parameters: Map config.
    * Exceptions: TODO
    * Returns: ForagingAntsCell object.
    */
-  public ForagingAntsCell(HashMap<String, Integer> config) {
+  public ForagingAntsCell(Map<String, Integer> config) {
     super(config);
     foodPheromone = 0;
     homePheromone = 0;
@@ -40,10 +40,10 @@ public class ForagingAntsCell extends Cell {
    * Assumptions: Grid will use values in moveState to determine where to move an ant.
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: HashMap object.
+   * Returns: Map object.
    * Rules taken from https://greenteapress.com/complexity/html/thinkcomplexity013.html
    */
-  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
+  public Map<String, Integer> prepareNextState(int[] neighborStates) {
     if (getState() == HOME) {
       setNextState(HOME);
       setMoveStateValue("state", ANT);
@@ -94,14 +94,14 @@ public class ForagingAntsCell extends Cell {
   }
 
   /**
-   * Purpose: Accepts HashMap information with new state information.
+   * Purpose: Accepts Map information with new state information.
    * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
-   * Parameters: HashMap object.
+   * Parameters: Map object.
    * Exceptions: TODO
    * Returns: None.
    */
   @Override
-  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+  public boolean receiveUpdate(Map<String, Integer> newInfo) {
     int incomingState = newInfo.get("state");
 
     if (incomingState == ANT && getState() == EMPTY) {

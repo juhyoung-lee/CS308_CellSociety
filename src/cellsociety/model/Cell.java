@@ -1,6 +1,7 @@
 package cellsociety.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Purpose: Represents a cell within the cell automata simulation.
@@ -13,7 +14,7 @@ import java.util.HashMap;
 public abstract class Cell {
 
   public static final int NO_MOVEMENT = -1;
-  private HashMap<String, Integer> moveState = new HashMap<>();
+  private Map<String, Integer> moveState = new HashMap<>();
   private int myState;
   private int nextState;
 
@@ -24,7 +25,7 @@ public abstract class Cell {
    * Exceptions: TODO
    * Returns: Cell object.
    */
-  public Cell(HashMap<String, Integer> config) {
+  public Cell(Map<String, Integer> config) {
     myState = config.get("state");
   }
 
@@ -35,7 +36,7 @@ public abstract class Cell {
    * Exceptions: TODO
    * Returns: HashMap object. Describes what needs to be moved, if any.
    */
-  public abstract HashMap<String, Integer> prepareNextState(int[] neighborStates);
+  public abstract Map<String, Integer> prepareNextState(int[] neighborStates);
 
   /**
    * Purpose: Update current cell state, and return value for other methods to use.
@@ -58,7 +59,7 @@ public abstract class Cell {
    * Exceptions: TODO
    * Returns: boolean type.
    */
-  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+  public boolean receiveUpdate(Map<String, Integer> newInfo) {
     return false;
   }
 
@@ -113,8 +114,8 @@ public abstract class Cell {
    * Exceptions: None.
    * Returns: HashMap object.
    */
-  protected HashMap<String, Integer> getMoveStateCopy() {
-    HashMap<String, Integer> deepCopy = new HashMap<>();
+  protected Map<String, Integer> getMoveStateCopy() {
+    Map<String, Integer> deepCopy = new HashMap<>();
 
     for (String key : moveState.keySet()) {
       deepCopy.put(key, moveState.get(key));

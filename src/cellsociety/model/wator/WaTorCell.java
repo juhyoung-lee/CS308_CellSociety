@@ -1,7 +1,7 @@
 package cellsociety.model.wator;
 
 import cellsociety.model.Cell;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Purpose: Represents a cell for the Wa-Tor simulation. Extends the Cell class.
@@ -28,11 +28,13 @@ public class WaTorCell extends Cell {
   private int breedSharkEnergy;
 
   /**
-   * Purpose: Constructor for WaTorCell class. Assumptions: config will include keys "breedFish",
-   * "breedShark", "energyGain", and "energyLoss" Parameters: HashMap config. Exceptions: TODO
+   * Purpose: Constructor for WaTorCell class.
+   * Assumptions: config will include keys "breedFish", "breedShark", "energyGain", and "energyLoss"
+   * Parameters: Map config.
+   * Exceptions: TODO
    * Returns: WaTorCell object.
    */
-  public WaTorCell(HashMap<String, Integer> config) {
+  public WaTorCell(Map<String, Integer> config) {
     super(config);
     fishBreedThreshold = config.get(fishBreedThresholdKey);
     sharkBreedThreshold = config.get(sharkBreedThresholdKey);
@@ -54,10 +56,10 @@ public class WaTorCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: HashMap object. Describes what needs to be moved, if any.
+   * Returns: Map object. Describes what needs to be moved, if any.
    * https://beltoforion.de/en/wator/
    */
-  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
+  public Map<String, Integer> prepareNextState(int[] neighborStates) {
     if (getState() == FISH) {
       fishPrepareNextState();
     } else if (getState() == SHARK) {
@@ -99,14 +101,14 @@ public class WaTorCell extends Cell {
   }
 
   /**
-   * Purpose: Accepts HashMap information with new state information.
+   * Purpose: Accepts Map information with new state information.
    * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
-   * Parameters: HashMap object.
+   * Parameters: Map object.
    * Exceptions: TODO
    * Returns: None.
    */
   @Override
-  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+  public boolean receiveUpdate(Map<String, Integer> newInfo) {
     int incomingState = newInfo.get("state");
 
     if (getNextState() == incomingState) {
@@ -134,7 +136,7 @@ public class WaTorCell extends Cell {
   }
 
   /**
-   * Updates moveState HashMap.
+   * Updates moveState Map.
    */
   private void updateMoveStateParam() {
     setMoveStateValue("breedTime", breedFishTime);

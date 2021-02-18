@@ -1,7 +1,7 @@
 package cellsociety.model.gameoflife;
 
 import cellsociety.model.Cell;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Purpose: Represents a cell for the Game of Life simulation. Extends the Cell class.
@@ -19,11 +19,11 @@ public class GameOfLifeCell extends Cell {
   /**
    * Purpose: Constructor for GameOfLifeCell class.
    * Assumptions: TODO
-   * Parameters: HashMap config.
+   * Parameters: Map config.
    * Exceptions: TODO
    * Returns: GameOfLifeCell object.
    */
-  public GameOfLifeCell(HashMap<String, Integer> config) {
+  public GameOfLifeCell(Map<String, Integer> config) {
     super(config);
   }
 
@@ -32,10 +32,10 @@ public class GameOfLifeCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: HashMap object. Describes what needs to be moved, if any.
+   * Returns: Map object. Describes what needs to be moved, if any.
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
-  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
+  public Map<String, Integer> prepareNextState(int[] neighborStates) {
     int live = calculateLive(neighborStates);
 
     if (getState() == ALIVE && (live == 2 || live == 3)) {
