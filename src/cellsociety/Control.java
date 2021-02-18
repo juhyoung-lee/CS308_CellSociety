@@ -52,45 +52,14 @@ public class Control {
   private double delay;
   private Timeline animation;
   private Stage myStage;
-  //private String dataFile;
 
   public void initialize(Stage stage) {
-    Stage myStage = stage;
-    delay = 1.0 / framecount;
-    KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
-    animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(frame);
-
+    myStage = stage;
     mySC = new ScreenControl(this);
     Scene scene = mySC.getScene();
     stage.setScene(scene);
     stage.setTitle(TITLE);
     stage.show();
-
-    /*Configure config = new Configure(DATA_FILE);
-    Game game = config.getGame();
-
-    String title = game.getTitle();
-    String type = game.getType();
-    ArrayList<String> cells = game.getCellRows();
-    HashMap<String, Integer> params = game.getParameters();
-
-    myGrid = switch (type) {
-      case "Game of Life" -> new GameOfLifeGrid(cells, params);
-      case "Percolation" -> new PercolationGrid(cells, params);
-      case "Fire" -> new FireGrid(cells, params);
-      case "Segregation" -> new SegregationGrid(cells, params);
-      case "WaTor" -> new WaTorGrid(cells, params);
-      default -> null;
-    };
-
-    mySC.createGrid(title, type, game.getHeight(), game.getWidth(), myGrid.viewGrid());*/
-  }
-
-  private void step() {
-    myGrid.updateCells();
-    mySC.updateGrid(myGrid.viewGrid());
   }
 
   public void uploadFile() {
@@ -101,15 +70,15 @@ public class Control {
   }
 
   private void createStageFromData(String dataFile) {
+    mySC.resetGameTitleText();
+
     Configure config = new Configure(dataFile);
     Game game = config.getGame();
 
     String title = game.getTitle();
     String type = game.getType();
     ArrayList<String> cells = game.getCellRows();
-    System.out.println(cells);
     HashMap<String, Integer> params = game.getParameters();
-    System.out.println(params);
 
     myGrid = switch (type) {
       case "Game of Life" -> new GameOfLifeGrid(cells, params);
@@ -121,6 +90,21 @@ public class Control {
     };
 
     mySC.createGrid(title, type, game.getHeight(), game.getWidth(), myGrid.viewGrid());
+
+    startAnimation();
+  }
+
+  private void startAnimation() {
+    delay = 1.0 / framecount;
+    KeyFrame frame = new KeyFrame(Duration.seconds(delay), e -> step());
+    animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+  }
+
+  private void step() {
+    myGrid.updateCells();
+    mySC.updateGrid(myGrid.viewGrid());
   }
 
   public void pause() {

@@ -38,15 +38,15 @@
 }
 
 .Fire-0 {
-    -fx-fill: limegreen;
+    -fx-fill: #006600;
 }
 
 .Fire-1 {
-    -fx-fill: firebrick;
+    -fx-fill: #990000;
 }
 
 .Fire-2 {
-    -fx-fill: aliceblue;
+    -fx-fill: #b3b3b3;
 }
 
 .WaTor-0 {
@@ -62,16 +62,16 @@
 }
 
 .title {
-    -fx-fill: aliceblue;
+    -fx-fill: #f2f2f2;
 }
 
 .button {
     -fx-border-radius: 20;
     -fx-background-radius: 15;
     -fx-padding: 8;
-    -fx-text-fill: white;
+    -fx-text-fill: #f2f2f2;
 }
 
 .rect {
-    -fx-stroke: #b3b3b3;
+    -fx-stroke: white;
 }

@@ -7,7 +7,6 @@ import cellsociety.Control;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -46,7 +45,7 @@ public class ScreenControl {
     myRoot = new Pane();
     sX = Control.X_SIZE;
     sY = Control.Y_SIZE;
-    myResources = ResourceBundle.getBundle("cellsociety.view.resources.Visual");
+    myResources = ResourceBundle.getBundle("cellsociety.view.resources.English");
     myScene = new Scene(myRoot, sX, sY);
     myScene.getStylesheets().add(Control.STYLESHEET);
     myBlocks = new ArrayList<>();
@@ -65,7 +64,7 @@ public class ScreenControl {
     fastButton.setOnAction(event -> sim.fast());
     slowButton = buttonCreation(myResources.getString("SlowDownButton"), sX * 2 / 9, sY / 12 + 500);
     slowButton.setOnAction(event -> sim.slow());
-    uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 100, 5);
+    uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 120, 5);
     uploadButton.setOnAction(event -> sim.uploadFile());
   }
 
@@ -84,6 +83,10 @@ public class ScreenControl {
     titleText.getStyleClass().add("title");
     titleText.setX(sX / 2 - (titleText.getLayoutBounds().getWidth() / 2));
     myRoot.getChildren().add(titleText);
+  }
+
+  public void resetGameTitleText() {
+    myRoot.getChildren().remove(titleText);
   }
 
   /**
@@ -119,6 +122,7 @@ public class ScreenControl {
     for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
       block.getStyleClass().clear();
+      block.getStyleClass().add("rect");
       block.getStyleClass().add(myType + "-" + cells.get(i));
     }
   }
