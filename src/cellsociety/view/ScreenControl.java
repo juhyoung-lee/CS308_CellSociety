@@ -42,17 +42,14 @@ public class ScreenControl {
   /**
    * Initialize the scene and add buttons and text.
    */
-  public ScreenControl(Control simulationControl, String title, String type) {
+  public ScreenControl(Control simulationControl) {
     myRoot = new Pane();
     sX = Control.X_SIZE;
     sY = Control.Y_SIZE;
-    myTitle = title;
-    myType = type;
     myResources = ResourceBundle.getBundle("cellsociety.view.resources.Visual");
     myScene = new Scene(myRoot, sX, sY);
     myScene.getStylesheets().add(Control.STYLESHEET);
     myBlocks = new ArrayList<>();
-    setGameTitleText();
     createButtons();
     sim = simulationControl;
   }
@@ -69,7 +66,7 @@ public class ScreenControl {
     slowButton = buttonCreation(myResources.getString("SlowDownButton"), sX * 2 / 9, sY / 12 + 500);
     slowButton.setOnAction(event -> sim.slow());
     uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 100, 5);
-    uploadButton.setOnAction(event -> sim.slow());
+    uploadButton.setOnAction(event -> sim.uploadFile());
   }
 
   private Button buttonCreation(String text, double x, double y) {
@@ -95,7 +92,10 @@ public class ScreenControl {
    ** @param cols
    ** @param cells
    */
-  public void createGrid(int rows, int cols, ArrayList<Integer> cells) {
+  public void createGrid(String title, String type, int rows, int cols, ArrayList<Integer> cells) {
+    myTitle = title;
+    myType = type;
+    setGameTitleText();
     myRoot.getChildren().remove(myBlocks);
     int xsize = Control.GRID_SIZE / cols;
     int ysize = Control.GRID_SIZE / rows;
