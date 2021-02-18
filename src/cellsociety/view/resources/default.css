@@ -70,3 +70,7 @@
   -fx-background-radius: 15;
   -fx-padding: 8;
 }
+
+.rect {
+  -fx-stroke: black;
+}
