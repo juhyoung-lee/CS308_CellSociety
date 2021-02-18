@@ -1,6 +1,7 @@
 package cellsociety.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Purpose: Represents a cell within the cell automata simulation.
@@ -13,9 +14,9 @@ import java.util.HashMap;
 public abstract class Cell {
 
   public static final int NO_MOVEMENT = -1;
-  protected HashMap<String, Integer> moveState = new HashMap<>();
-  protected int myState;
-  protected int nextState;
+  private Map<String, Integer> moveState = new HashMap<>();
+  private int myState;
+  private int nextState;
 
   /**
    * Purpose: Constructor for Cell class.
@@ -24,7 +25,7 @@ public abstract class Cell {
    * Exceptions: TODO
    * Returns: Cell object.
    */
-  public Cell(HashMap<String, Integer> config) {
+  public Cell(Map<String, Integer> config) {
     myState = config.get("state");
   }
 
@@ -33,20 +34,9 @@ public abstract class Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: int type. Describes what needs to be moved, if any.
+   * Returns: HashMap object. Describes what needs to be moved, if any.
    */
-  public abstract HashMap<String, Integer> prepareNextState(int[] neighborStates);
-
-  /**
-   * Purpose: Updates state field in moveState.
-   * Assumptions: TODO
-   * Parameters: int state.
-   * Exceptions: TODO
-   * Returns: None.
-   */
-  protected void updateMoveStateField(int state) {
-    moveState.put("state", state);
-  }
+  public abstract Map<String, Integer> prepareNextState(int[] neighborStates);
 
   /**
    * Purpose: Update current cell state, and return value for other methods to use.
@@ -63,12 +53,13 @@ public abstract class Cell {
 
   /**
    * Purpose: Accepts HashMap information with new state information. Will default to return false.
-   * Assumptions: Grid should never call this method.
-   * Parameters: HashMap object.
+   * Assumptions: Grid should call this method only on Cells with movement simulations.
+   * Parameters:
+   * HashMap object.
    * Exceptions: TODO
    * Returns: boolean type.
    */
-  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+  public boolean receiveUpdate(Map<String, Integer> newInfo) {
     return false;
   }
 
@@ -81,5 +72,55 @@ public abstract class Cell {
    */
   public int getState() {
     return myState;
+  }
+
+  /**
+   * Purpose: Returns nextState of the cell.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: int state.
+   */
+  protected int getNextState() {
+    return nextState;
+  }
+
+  /**
+   * Purpose: Sets nextState of the cell.
+   * Assumptions: TODO
+   * Parameters: int type.
+   * Exceptions: None.
+   * Returns: None.
+   */
+  protected void setNextState(int newState) {
+    nextState = newState;
+  }
+
+  /**
+   * Purpose: Sets value in moveState.
+   * Assumptions: TODO
+   * Parameters: int type.
+   * Exceptions: None.
+   * Returns: None.
+   */
+  protected void setMoveStateValue(String key, int value) {
+    moveState.put(key, value);
+  }
+
+  /**
+   * Purpose: Returns deep copy of moveState.
+   * Assumptions: TODO
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: HashMap object.
+   */
+  protected Map<String, Integer> getMoveStateCopy() {
+    Map<String, Integer> deepCopy = new HashMap<>();
+
+    for (String key : moveState.keySet()) {
+      deepCopy.put(key, moveState.get(key));
+    }
+
+    return deepCopy;
   }
 }
