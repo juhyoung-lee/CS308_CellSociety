@@ -1,17 +1,18 @@
 package cellsociety.view;
 
+import cellsociety.Control;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import cellsociety.Control;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import org.w3c.dom.css.Rect;
 
 /**
  * Purpose: Creates screen display that user interacts with.
@@ -41,6 +42,7 @@ public class ScreenControl {
   private String myType;
   private ResourceBundle myResources;
   private String myStyleSheet;
+
   /**
    * Initialize the scene and add buttons and text.
    */
@@ -48,6 +50,8 @@ public class ScreenControl {
     myRoot = new Pane();
     sX = Control.X_SIZE;
     sY = Control.Y_SIZE;
+    createResourceButton();
+    createStyleButton();
     myResources = ResourceBundle.getBundle("cellsociety.view.resources.English");
     myStyleSheet = "cellsociety/view/resources/default.css";
     myScene = new Scene(myRoot, sX, sY);
@@ -55,6 +59,45 @@ public class ScreenControl {
     myBlocks = new ArrayList<>();
     createButtons();
     sim = simulationControl;
+  }
+
+  private void createStyleButton() {
+    ComboBox<String> styleButton = new ComboBox();
+    styleButton.getItems().addAll(
+            "dark",
+            "light",
+            "default"
+    );
+    styleButton.setValue("default");
+    styleButton.setLayoutX(100);
+    myRoot.getChildren().add(styleButton);
+    styleButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        myScene.getStylesheets().remove(myStyleSheet);
+        myStyleSheet = "cellsociety/view/resources/" + styleButton.getValue() + ".css";
+        myScene.getStylesheets().add(myStyleSheet);
+        resetButtons();
+      }
+    });
+  }
+
+  private void createResourceButton() {
+    ComboBox<String> resourceButton = new ComboBox();
+    resourceButton.getItems().addAll(
+            "English",
+            "Chinese",
+            "Spanish"
+    );
+    resourceButton.setValue("English");
+    myRoot.getChildren().add(resourceButton);
+    resourceButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        myResources = ResourceBundle.getBundle("cellsociety.view.resources." + resourceButton.getValue());
+        resetButtons();
+      }
+    });
   }
 
   private void createButtons() {

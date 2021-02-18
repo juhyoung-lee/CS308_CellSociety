@@ -69,7 +69,7 @@
     -fx-border-radius: 20;
     -fx-background-radius: 15;
     -fx-padding: 8;
-    -fx-text-fill: #f2f2f2;
+    -fx-text-fill: black;
 }
 
 .rect {
