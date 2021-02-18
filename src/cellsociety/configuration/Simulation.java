@@ -10,6 +10,8 @@ public class Simulation {
       "type", "title", "author", "description");
   public static final List<String> GRID_FIELDS = List.of("width", "height");
 
+  private String configFile;
+
   private String myType;
   private String myTitle;
   private String myAuthor;
