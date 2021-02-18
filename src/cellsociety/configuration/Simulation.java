@@ -1,8 +1,7 @@
 package cellsociety.configuration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Simulation {
 
@@ -14,26 +13,20 @@ public class Simulation {
   private String myTitle;
   private String myAuthor;
   private String myDescription;
-  private HashMap<String, Integer> myParameters;
-  private ArrayList<String> myCellRows;
+  private Map<String, Integer> myParameters;
+  private List<String> myCellRows;
 
-  public Simulation(String type, String title, String author, String description,
-  HashMap<String, Integer> parameters, ArrayList<String> cellRows) {
-    myType = type;
-    myTitle = title;
-    myAuthor = author;
-    myDescription = description;
-    myParameters = parameters;
-    myCellRows = cellRows;
+  public Simulation(List<String> infoValues, Map<String, Integer> paramValues,
+      List<String> cellValues) {
+    myType = infoValues.get(0);
+    myTitle = infoValues.get(1);
+    myAuthor = infoValues.get(2);
+    myDescription = infoValues.get(3);
+    myParameters = paramValues;
+    myCellRows = cellValues;
   }
 
-  public Simulation(ArrayList<String> infoValues, HashMap<String, Integer> paramValues,
-      ArrayList<String> cellValues) {
-    this(infoValues.get(0), infoValues.get(1), infoValues.get(2), infoValues.get(3),
-        paramValues, cellValues);
-  }
-
-  public ArrayList<String> getCellRows(){
+  public List<String> getCellRows(){
     return myCellRows;
   }
 
@@ -41,7 +34,7 @@ public class Simulation {
   public int getHeight(){return myParameters.get("height");}
   public String getTitle(){return myTitle;}
   public String getType(){return myType;}
-  public HashMap<String, Integer> getParameters() {
+  public Map<String, Integer> getParameters() {
     return myParameters;
   }
 
