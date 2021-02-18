@@ -154,7 +154,7 @@ public class ScreenControl {
       for (int j = 0; j < cols; j++) {
         Rectangle block = new Rectangle(Control.GRID_X + j * xsize, Control.GRID_Y + i * ysize, xsize, ysize);
         myBlocks.add(block);
-        //block.getStyleClass().add("rect");
+        block.getStyleClass().add("rect");
         myRoot.getChildren().add(block);
         block.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
       }
@@ -169,7 +169,7 @@ public class ScreenControl {
     for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
       block.getStyleClass().clear();
-      //block.getStyleClass().add("rect");
+      block.getStyleClass().add("rect");
       block.getStyleClass().add(myType + "-" + cells.get(i));
     }
   }

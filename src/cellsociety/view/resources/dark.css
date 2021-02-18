@@ -14,27 +14,27 @@
 }
 
 .Percolation-0 {
-    -fx-fill: #262626;
+    -fx-fill: black;
 }
 
 .Percolation-1 {
-    -fx-fill: #bfbfbf;
+    -fx-fill: aliceblue;
 }
 
 .Percolation-2 {
-    -fx-fill: #000099;
+    -fx-fill: darkturquoise;
 }
 
 .Segregation-0 {
-    -fx-fill: #262626;
+    -fx-fill: #595959;
 }
 
 .Segregation-1 {
-    -fx-fill: #600080;
+    -fx-fill: deeppink;
 }
 
 .Segregation-2 {
-    -fx-fill: #00995c;
+    -fx-fill: dodgerblue;
 }
 
 .Fire-0 {
