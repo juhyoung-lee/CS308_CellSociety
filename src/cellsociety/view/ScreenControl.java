@@ -1,6 +1,7 @@
 package cellsociety.view;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import cellsociety.Control;
@@ -98,7 +99,7 @@ public class ScreenControl {
    ** @param cols
    ** @param cells
    */
-  public void createGrid(String title, String type, int rows, int cols, ArrayList<Integer> cells) {
+  public void createGrid(String title, String type, int rows, int cols, List<Integer> cells) {
     myTitle = title;
     myType = type;
     setGameTitleText();
@@ -121,7 +122,7 @@ public class ScreenControl {
    * Updates the grid based on new cell information passed in.
    ** @param cells
    */
-  public void updateGrid(ArrayList<Integer> cells) {
+  public void updateGrid(List<Integer> cells) {
     for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
       block.getStyleClass().clear();

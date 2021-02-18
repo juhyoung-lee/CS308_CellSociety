@@ -2,8 +2,8 @@ package cellsociety.model.percolation;
 
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PercolationGrid extends Grid {
 
@@ -13,8 +13,8 @@ public class PercolationGrid extends Grid {
    * @param cellArrangement cell grid from XML
    * @param parameters      game settings from XML
    */
-  public PercolationGrid(ArrayList<String> cellArrangement,
-      HashMap<String, Integer> parameters) {
+  public PercolationGrid(List<String> cellArrangement,
+      Map<String, Integer> parameters) {
     super(cellArrangement, parameters);
   }
 
@@ -26,7 +26,7 @@ public class PercolationGrid extends Grid {
    * @return appropriate cell object
    */
   @Override
-  protected Cell chooseCell(HashMap<String, Integer> parameters) {
+  protected Cell chooseCell(Map<String, Integer> parameters) {
     return new PercolationCell(parameters);
   }
 
