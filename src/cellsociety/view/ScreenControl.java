@@ -7,10 +7,10 @@ import cellsociety.Control;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import org.w3c.dom.css.Rect;
 
 /**
  * Purpose: Creates screen display that user interacts with.
@@ -39,20 +39,19 @@ public class ScreenControl {
   private String myTitle;
   private String myType;
   private ResourceBundle myResources;
+  private String myStyleSheet;
   /**
    * Initialize the scene and add buttons and text.
    */
-  public ScreenControl(Control simulationControl, String title, String type) {
+  public ScreenControl(Control simulationControl) {
     myRoot = new Pane();
     sX = Control.X_SIZE;
     sY = Control.Y_SIZE;
-    myTitle = title;
-    myType = type;
-    myResources = ResourceBundle.getBundle("cellsociety.view.resources.Visual");
+    myResources = ResourceBundle.getBundle("cellsociety.view.resources.English");
+    myStyleSheet = "cellsociety/view/resources/default.css";
     myScene = new Scene(myRoot, sX, sY);
-    myScene.getStylesheets().add(Control.STYLESHEET);
+    myScene.getStylesheets().add(myStyleSheet);
     myBlocks = new ArrayList<>();
-    setGameTitleText();
     createButtons();
     sim = simulationControl;
   }
@@ -68,8 +67,8 @@ public class ScreenControl {
     fastButton.setOnAction(event -> sim.fast());
     slowButton = buttonCreation(myResources.getString("SlowDownButton"), sX * 2 / 9, sY / 12 + 500);
     slowButton.setOnAction(event -> sim.slow());
-    uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 100, 5);
-    uploadButton.setOnAction(event -> sim.slow());
+    uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 120, 5);
+    uploadButton.setOnAction(event -> sim.uploadFile());
   }
 
   private Button buttonCreation(String text, double x, double y) {
@@ -83,10 +82,14 @@ public class ScreenControl {
 
   private void setGameTitleText() {
     titleText = new Text(0, 30, myType + ": " + myTitle);
-    titleText.setFont(new Font(30));
+    titleText.setFont(new Font(20));
     titleText.getStyleClass().add("title");
     titleText.setX(sX / 2 - (titleText.getLayoutBounds().getWidth() / 2));
     myRoot.getChildren().add(titleText);
+  }
+
+  public void resetGameTitleText() {
+    myRoot.getChildren().remove(titleText);
   }
 
   /**
@@ -95,7 +98,10 @@ public class ScreenControl {
    ** @param cols
    ** @param cells
    */
-  public void createGrid(int rows, int cols, ArrayList<Integer> cells) {
+  public void createGrid(String title, String type, int rows, int cols, ArrayList<Integer> cells) {
+    myTitle = title;
+    myType = type;
+    setGameTitleText();
     myRoot.getChildren().remove(myBlocks);
     int xsize = Control.GRID_SIZE / cols;
     int ysize = Control.GRID_SIZE / rows;
@@ -104,7 +110,7 @@ public class ScreenControl {
       for (int j = 0; j < cols; j++) {
         Rectangle block = new Rectangle(Control.GRID_X + j * xsize, Control.GRID_Y + i * ysize, xsize, ysize);
         myBlocks.add(block);
-        block.setStroke(Color.BLACK);
+        block.getStyleClass().add("rect");
         myRoot.getChildren().add(block);
         block.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
       }
@@ -119,8 +125,29 @@ public class ScreenControl {
     for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
       block.getStyleClass().clear();
+      block.getStyleClass().add("rect");
       block.getStyleClass().add(myType + "-" + cells.get(i));
     }
+  }
+
+  public void clearGrid() {
+    for (Rectangle block : myBlocks) {
+      block.getStyleClass().clear();
+      myRoot.getChildren().remove(block);
+    }
+    myRoot.getChildren().remove(myBlocks);
+    myBlocks.removeAll(myBlocks);
+    resetButtons();
+  }
+
+  private void resetButtons() {
+    myRoot.getChildren().remove(startButton);
+    myRoot.getChildren().remove(pauseButton);
+    myRoot.getChildren().remove(fastButton);
+    myRoot.getChildren().remove(slowButton);
+    myRoot.getChildren().remove(stepButton);
+    myRoot.getChildren().remove(uploadButton);
+    createButtons();
   }
 
   /**
