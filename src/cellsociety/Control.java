@@ -46,6 +46,12 @@ public class Control {
   private Timeline animation;
   private Stage myStage;
 
+  /**
+   * Purpose: Initialize the scene and animation timeline.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void initialize(Stage stage) {
     myStage = stage;
 
@@ -63,6 +69,12 @@ public class Control {
     stage.show();
   }
 
+  /**
+   * Purpose: Upload a XML file from the computer when the upload button is pressed.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void uploadFile() {
     FileChooser fileChooser = new FileChooser();
     File selectedFile = fileChooser.showOpenDialog(myStage);
@@ -110,20 +122,44 @@ public class Control {
     mySC.updateGrid(myGrid.viewGrid());
   }
 
+  /**
+   * Purpose: Pause the animation when the pause button is pressed.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void pause() {
     animation.stop();
   }
 
+  /**
+   * Purpose: Start the animation when the play button is pressed.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void start() {
     animation.play();
   }
 
+  /**
+   * Purpose: Step through the animation step by step when the step button is called.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void next() {
     animation.stop();
     myGrid.updateCells();
     mySC.updateGrid(myGrid.viewGrid());
   }
 
+  /**
+   * Purpose: Speed up the animation speed when the speed up button is pressed.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void fast() {
     animation.stop();
     frameCount += 1;
@@ -134,13 +170,21 @@ public class Control {
     animation.play();
   }
 
+  /**
+   * Purpose: Slow the speed of the animation when the slow button is called.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void slow() {
     animation.stop();
     frameCount -= 1;
     if (frameCount > 0) {
       animation.setRate(frameCount);
-    } else if (frameCount == 0 || frameCount == -1) {
+    } else if (frameCount == 0) {
       animation.setRate(0.8);
+    } else if (frameCount == -1) {
+      animation.setRate(0.65);
     } else {
       animation.setRate(1.0 / (frameCount * -1));
     }
