@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import org.w3c.dom.css.Rect;
 
 /**
  * Purpose: Creates screen display that user interacts with.
@@ -38,6 +39,7 @@ public class ScreenControl {
   private String myTitle;
   private String myType;
   private ResourceBundle myResources;
+  private String myStyleSheet;
   /**
    * Initialize the scene and add buttons and text.
    */
@@ -46,8 +48,9 @@ public class ScreenControl {
     sX = Control.X_SIZE;
     sY = Control.Y_SIZE;
     myResources = ResourceBundle.getBundle("cellsociety.view.resources.English");
+    myStyleSheet = "cellsociety/view/resources/default.css";
     myScene = new Scene(myRoot, sX, sY);
-    myScene.getStylesheets().add(Control.STYLESHEET);
+    myScene.getStylesheets().add(myStyleSheet);
     myBlocks = new ArrayList<>();
     createButtons();
     sim = simulationControl;
@@ -79,7 +82,7 @@ public class ScreenControl {
 
   private void setGameTitleText() {
     titleText = new Text(0, 30, myType + ": " + myTitle);
-    titleText.setFont(new Font(30));
+    titleText.setFont(new Font(20));
     titleText.getStyleClass().add("title");
     titleText.setX(sX / 2 - (titleText.getLayoutBounds().getWidth() / 2));
     myRoot.getChildren().add(titleText);
@@ -125,6 +128,26 @@ public class ScreenControl {
       block.getStyleClass().add("rect");
       block.getStyleClass().add(myType + "-" + cells.get(i));
     }
+  }
+
+  public void clearGrid() {
+    for (Rectangle block : myBlocks) {
+      block.getStyleClass().clear();
+      myRoot.getChildren().remove(block);
+    }
+    myRoot.getChildren().remove(myBlocks);
+    myBlocks.removeAll(myBlocks);
+    resetButtons();
+  }
+
+  private void resetButtons() {
+    myRoot.getChildren().remove(startButton);
+    myRoot.getChildren().remove(pauseButton);
+    myRoot.getChildren().remove(fastButton);
+    myRoot.getChildren().remove(slowButton);
+    myRoot.getChildren().remove(stepButton);
+    myRoot.getChildren().remove(uploadButton);
+    createButtons();
   }
 
   /**
