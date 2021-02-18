@@ -1,8 +1,6 @@
 package cellsociety.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -10,16 +8,13 @@ import java.util.HashMap;
  */
 public abstract class Grid {
 
-  private HashMap<Cell, int[]> neighbors;
-  private ArrayList<Cell> grid;
-  private HashMap<String, Integer>[] issues;
+  protected HashMap<Cell, int[]> neighbors;
+  protected ArrayList<Cell> grid;
   private final int height;
   private final int width;
 
   /**
-   * Constructor fills fields using XML data.
-   * Assumptions: parameters contains all the information required to create appropriate cell.
-   * cellArrangement represents a valid square tesselation grid.
+   * Constructor.
    *
    * @param cellArrangement cell grid from XML
    * @param parameters game settings from XML
@@ -29,26 +24,29 @@ public abstract class Grid {
     this.width = parameters.get("width");
     setupGrid(cellArrangement, parameters);
     setupNeighbors();
-    issues = new HashMap[this.grid.size()];
   }
 
   /**
-   * Clears issues array. Runs prepareNextState() on all cells. Handles any returned issues where
-   * cells wish to "move". Runs updateState() on all cells, finalizing state changes. For a cell to
-   * properly "move" or pass information to another cell, moveCell() will need to be overwritten.
+   * Loads updates for cells and then updates. If cells move or information beyond state needs to
+   * be passed between cells, this method will need to handle that before cell.updateState().
    * Assumptions: No movement of cells.
    */
   public void updateCells() {
-    clearIssues();
-    prepareCellUpdates();
-    handleIssues();
-    pushCellUpdates();
+    for (int i = 0; i < grid.size(); i++) {
+      int[] neighborStates = pullNeighborStates(i);
+      grid.get(i).prepareNextState(neighborStates);
+    }
+    // if prepareNextState returns issue, it'll have to be added to an array field
+    // and handled here
+    for (Cell cell : grid) {
+      cell.updateState();
+    }
   }
 
   /**
-   * Returns geometric representation of cells and their states for printing/viewing.
+   * Returns states of cells for printing/viewing.
    *
-   * @return integer array list of cell states
+   * @return array list of cell states
    */
   public ArrayList<Integer> viewGrid() {
     ArrayList<Integer> cellStates = new ArrayList<>();
@@ -65,35 +63,6 @@ public abstract class Grid {
    */
   public int[] getDimensions() {
     return new int[]{this.width, this.height};
-  }
-
-  /**
-   * Returns a copy array of neighbor indexes.
-   *
-   * @param cell center cell
-   * @return int[] of neighbor indexes
-   */
-  protected int[] getNeighbors(Cell cell) {
-    return this.neighbors.get(cell).clone();
-  }
-
-  /**
-   * Returns an immutable version of grid.
-   *
-   * @return grid
-   */
-  protected ArrayList<Cell> getGrid() {
-    return (ArrayList<Cell>) Collections.unmodifiableList(this.grid);
-  }
-
-  /**
-   * Gives direct access to issues field variable, as it is only needed if subclass cell wants to
-   * move or pass information. Exists as feature to use if needed.
-   *
-   * @return HashMap parameters corresponding to index/cell of issue.
-   */
-  protected HashMap<String, Integer> getIssues(int index) {
-    return this.issues[index];
   }
 
   /**
@@ -228,80 +197,17 @@ public abstract class Grid {
   }
 
   /**
-   * Clears issues in preparation of a new cycle.
-   * Assumptions: Issues has already been instantiated.
+   * For testing.
    */
-  private void clearIssues() {
-    Arrays.fill(issues, null);
-  }
-
-  /**
-   * Runs prepareNextState() on all cells and catalogs any issues or moving cells that arise.
-   * Assumptions: Cells will return a HashMap with -1 for "state" if no movement occurs
-   */
-  private void prepareCellUpdates() {
-    for (int i = 0; i < getGrid().size(); i++) {
-      int[] neighborStates = pullNeighborStates(i);
-      HashMap<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
-      if (movement.get("state") != -1) {
-        issues[i] = movement;
+  public void printGrid() {
+    int rowCounter = 0;
+    for (Cell cell : this.grid) {
+      if (rowCounter == this.width) {
+        System.out.println();
+        rowCounter = 0;
       }
+      System.out.print(cell.getState());
+      rowCounter++;
     }
   }
-
-  /**
-   * Finds any issues cataloged and calls moveCell() on it to be handled.
-   * Assumptions: MoveCell has been overwritten if cells do move or pass information around.
-   */
-  private void handleIssues() {
-    for (int i = 0; i < issues.length; i++) {
-      if (issues[i] != null) {
-        moveCell(i);
-      }
-    }
-  }
-
-  /**
-   * Runs updateState() on all cells and finalizes the cycle.
-   * Assumptions: Every cell has their proper preparedState and all issues have been handled.
-   */
-  private void pushCellUpdates() {
-    for (Cell cell : getGrid()) {
-      cell.updateState();
-    }
-  }
-
-  /**
-   * Handles cell movement or information passing by calling receiveUpdate() on whichever
-   * neighboring cell will be passed the information. If no cell can receive an update, the cell
-   * will not move. Requires overriding of findPotentialMoves() to properly function.
-   * Assumptions: Any cell wishing to move or pass information has been cataloged in issues.
-   *
-   * @param index cell trying to move or pass information
-   */
-  private void moveCell(int index) {
-    ArrayList<Integer> places = findPotentialMoves(index);
-
-    Collections.shuffle(places);
-    HashMap<String, Integer> state = getIssues(index);
-    for (Integer neighborIndex : places) {
-      if (getGrid().get(neighborIndex).receiveUpdate(state)) {
-        return;
-      }
-    }
-    getGrid().get(index).receiveUpdate(state);
-  }
-
-  /**
-   * Must be overwritten to function. Returns array list of indexes that should be checked to
-   * receive a moving cell.
-   *
-   * @param index of cell trying to move
-   * @return indexes to be checked for receiving update
-   */
-  protected ArrayList<Integer> findPotentialMoves(int index) {
-    return new ArrayList<>();
-  }
-
-  // TODO: extract methods. only variation so far is in which neighbors are considered.
 }
