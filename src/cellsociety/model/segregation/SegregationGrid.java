@@ -3,8 +3,8 @@ package cellsociety.model.segregation;
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SegregationGrid extends Grid {
 
@@ -14,8 +14,8 @@ public class SegregationGrid extends Grid {
    * @param cellArrangement cell grid from XML
    * @param parameters      game settings from XML
    */
-  public SegregationGrid(ArrayList<String> cellArrangement,
-      HashMap<String, Integer> parameters) {
+  public SegregationGrid(List<String> cellArrangement,
+      Map<String, Integer> parameters) {
     super(cellArrangement, parameters);
   }
 
@@ -27,13 +27,13 @@ public class SegregationGrid extends Grid {
    * @return appropriate cell object
    */
   @Override
-  protected Cell chooseCell(HashMap<String, Integer> parameters) {
+  protected Cell chooseCell(Map<String, Integer> parameters) {
     return new SegregationCell(parameters);
   }
 
   @Override
-  protected ArrayList<Integer> findPotentialMoves(int index) {
-    ArrayList<Integer> places = new ArrayList<>();
+  protected List<Integer> findPotentialMoves(int index) {
+    List<Integer> places = new ArrayList<>();
     for (int i = 0; i < getGrid().size(); i++) {
       if (i == index) {
         continue;

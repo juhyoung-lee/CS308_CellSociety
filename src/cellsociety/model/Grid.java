@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Keeps track of Cells in a Grid.
  */
 public abstract class Grid {
 
-  private HashMap<Cell, int[]> neighbors;
-  private ArrayList<Cell> grid;
-  private HashMap<String, Integer>[] issues;
+  private Map<Cell, int[]> neighbors;
+  private List<Cell> grid;
+  private Map<String, Integer>[] issues;
   private final int height;
   private final int width;
 
@@ -24,7 +26,7 @@ public abstract class Grid {
    * @param cellArrangement cell grid from XML
    * @param parameters game settings from XML
    */
-  public Grid(ArrayList<String> cellArrangement, HashMap<String, Integer> parameters) {
+  public Grid(List<String> cellArrangement, Map<String, Integer> parameters) {
     this.height = parameters.get("height");
     this.width = parameters.get("width");
     setupGrid(cellArrangement, parameters);
@@ -50,8 +52,8 @@ public abstract class Grid {
    *
    * @return integer array list of cell states
    */
-  public ArrayList<Integer> viewGrid() {
-    ArrayList<Integer> cellStates = new ArrayList<>();
+  public List<Integer> viewGrid() {
+    List<Integer> cellStates = new ArrayList<>();
     for (Cell cell : this.grid) {
       cellStates.add(cell.getState());
     }
@@ -82,8 +84,8 @@ public abstract class Grid {
    *
    * @return grid
    */
-  protected ArrayList<Cell> getGrid() {
-    return (ArrayList<Cell>) Collections.unmodifiableList(this.grid);
+  protected List<Cell> getGrid() {
+    return Collections.unmodifiableList(this.grid);
   }
 
   /**
@@ -92,7 +94,7 @@ public abstract class Grid {
    *
    * @return HashMap parameters corresponding to index/cell of issue.
    */
-  protected HashMap<String, Integer> getIssues(int index) {
+  protected Map<String, Integer> getIssues(int index) {
     return this.issues[index];
   }
 
@@ -104,7 +106,7 @@ public abstract class Grid {
    * @param cellArrangement cell grid from XML
    * @param parameters game parameters from XML
    */
-  private void setupGrid(ArrayList<String> cellArrangement, HashMap<String, Integer> parameters) {
+  private void setupGrid(List<String> cellArrangement, Map<String, Integer> parameters) {
     this.grid = new ArrayList<>();
     for (String s : cellArrangement) {
       String[] row = s.split("");
@@ -134,7 +136,7 @@ public abstract class Grid {
    * @param parameters cell state and game parameters from XML
    * @return appropriate cell object
    */
-  protected abstract Cell chooseCell(HashMap<String, Integer> parameters);
+  protected abstract Cell chooseCell(Map<String, Integer> parameters);
 
   /**
    * Used by setupNeighbors(). Finds neighboring indexes in arraylist representation of grid.
@@ -149,8 +151,8 @@ public abstract class Grid {
     for (int i : variance) {
       possibleIndexes.add(i + index);
     }
-    ArrayList<Integer> validIndexes = removeInvalidIndexes(index, possibleIndexes);
-    return convertIntArrayList(validIndexes);
+    List<Integer> validIndexes = removeInvalidIndexes(index, possibleIndexes);
+    return convertToIntArrayList(validIndexes);
   }
 
   /**
@@ -173,7 +175,7 @@ public abstract class Grid {
    * @param validIndexes Integer ArrayList
    * @return int[]
    */
-  private int[] convertIntArrayList(ArrayList<Integer> validIndexes) {
+  private int[] convertToIntArrayList(List<Integer> validIndexes) {
     int[] neighbors = new int[validIndexes.size()];
     for (int i = 0; i < neighbors.length; i++) {
       neighbors[i] = validIndexes.get(i);
@@ -191,9 +193,9 @@ public abstract class Grid {
    * @param possibleIndexes all calculated index values
    * @return valid neighboring indexes
    */
-  private ArrayList<Integer> removeInvalidIndexes(int centerIndex,
-      ArrayList<Integer> possibleIndexes) {
-    ArrayList<Integer> validIndexes = new ArrayList<>(possibleIndexes);
+  private List<Integer> removeInvalidIndexes(int centerIndex,
+      List<Integer> possibleIndexes) {
+    List<Integer> validIndexes = new ArrayList<>(possibleIndexes);
     for (int i : possibleIndexes) {
       if (i < 0 || i >= this.width * this.height) {
         validIndexes.remove((Integer) i);
@@ -242,7 +244,7 @@ public abstract class Grid {
   private void prepareCellUpdates() {
     for (int i = 0; i < getGrid().size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
-      HashMap<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
+      Map<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
       if (movement.get("state") != -1) {
         issues[i] = movement;
       }
@@ -280,10 +282,10 @@ public abstract class Grid {
    * @param index cell trying to move or pass information
    */
   private void moveCell(int index) {
-    ArrayList<Integer> places = findPotentialMoves(index);
+    List<Integer> places = findPotentialMoves(index);
 
     Collections.shuffle(places);
-    HashMap<String, Integer> state = getIssues(index);
+    Map<String, Integer> state = getIssues(index);
     for (Integer neighborIndex : places) {
       if (getGrid().get(neighborIndex).receiveUpdate(state)) {
         return;
@@ -299,7 +301,7 @@ public abstract class Grid {
    * @param index of cell trying to move
    * @return indexes to be checked for receiving update
    */
-  protected ArrayList<Integer> findPotentialMoves(int index) {
+  protected List<Integer> findPotentialMoves(int index) {
     return new ArrayList<>();
   }
 
