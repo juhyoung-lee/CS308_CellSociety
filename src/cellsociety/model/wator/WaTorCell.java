@@ -99,9 +99,11 @@ public class WaTorCell extends Cell {
   }
 
   /**
-   * Purpose: Accepts HashMap information with new state information. Assumptions: Grid will not
-   * pass call this method when the 'state' field is NO_MOVEMENT (-1). Parameters: HashMap object.
-   * Exceptions: TODO Returns: None.
+   * Purpose: Accepts HashMap information with new state information.
+   * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
+   * Parameters: HashMap object.
+   * Exceptions: TODO
+   * Returns: None.
    */
   @Override
   public boolean receiveUpdate(HashMap<String, Integer> newInfo) {

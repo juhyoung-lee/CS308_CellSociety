@@ -28,7 +28,7 @@ public class RPSCell extends Cell {
    * Assumptions: TODO
    * Parameters: HashMap config.
    * Exceptions: TODO
-   * Returns: GameOfLifeCell object.
+   * Returns: RPSCell object.
    */
   public RPSCell(HashMap<String, Integer> config) {
     super(config);
