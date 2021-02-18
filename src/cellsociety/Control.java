@@ -75,12 +75,12 @@ public class Control {
     mySC.clearGrid();
 
     Configure config = new Configure(dataFile);
-    Game game = config.getGame();
+    Simulation simulation = config.getSimulation();
 
-    String title = game.getTitle();
-    String type = game.getType();
-    ArrayList<String> cells = game.getCellRows();
-    HashMap<String, Integer> params = game.getParameters();
+    String title = simulation.getTitle();
+    String type = simulation.getType();
+    ArrayList<String> cells = simulation.getCellRows();
+    HashMap<String, Integer> params = simulation.getParameters();
 
     myGrid = switch (type) {
       case "Game of Life" -> new GameOfLifeGrid(cells, params);
@@ -91,7 +91,7 @@ public class Control {
       default -> null;
     };
 
-    mySC.createGrid(title, type, game.getHeight(), game.getWidth(), myGrid.viewGrid());
+    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
 
     resetAnimation();
   }

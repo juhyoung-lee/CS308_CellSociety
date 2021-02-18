@@ -10,7 +10,7 @@ public class Configure {
     configFile = file;
   }
 
-  public Simulation getGame() {
+  public Simulation getSimulation() {
     File dataFile = new File(configFile);
     while (dataFile != null) {
       try {
