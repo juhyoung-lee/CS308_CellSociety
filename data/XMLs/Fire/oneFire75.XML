@@ -1,20 +1,21 @@
 <root>
   <information>
-    <type>Game of Life</type>
-    <title>Glider</title>
-    <author>wiki</author>
-    <description>Loaf should not change at all</description>
+    <type>Fire</type>
+    <title>One Fire 75%</title>
+    <author>Kenny</author>
+    <description>One fire with 75% chance of not moving</description>
   </information>
   <parameters>
+    <prob>50</prob>
     <width>10</width>
     <height>10</height>
   </parameters>
   <cells>
-    <cellRow>0010000000</cellRow>
-    <cellRow>1010000000</cellRow>
-    <cellRow>0110000000</cellRow>
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000010000</cellRow>
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>

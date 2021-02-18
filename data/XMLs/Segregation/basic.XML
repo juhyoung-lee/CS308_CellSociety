@@ -5,16 +5,12 @@
     <author>Kenny</author>
     <description>lets see if this works?</description>
   </information>
-  <paramconfig>
+  <parameters>
     <threshold>50</threshold>
     <width>10</width>
     <height>10</height>
-  </paramconfig>
-  <grid>
-    <width>10</width>
-    <height>10</height>
-  </grid>
-  <cellConfig>
+  </parameters>
+  <cells>
     <cellRow>0000000000</cellRow>
     <cellRow>0001001000</cellRow>
     <cellRow>2222222222</cellRow>
@@ -25,5 +21,5 @@
     <cellRow>0000000000</cellRow>
     <cellRow>1000000000</cellRow>
     <cellRow>0000000101</cellRow>
-  </cellConfig>
+  </cells>
 </root>

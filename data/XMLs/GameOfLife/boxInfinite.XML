@@ -5,13 +5,11 @@
     <author>wiki</author>
     <description>The Pulsar</description>
   </information>
-  <paramconfig>
-  </paramconfig>
-  <grid>
+  <parameters>
     <width>27</width>
     <height>22</height>
-  </grid>
-  <cellConfig>
+  </parameters>
+  <cells>
     <cellRow>000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000</cellRow>
@@ -34,5 +32,5 @@
     <cellRow>000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000</cellRow>
-  </cellConfig>
+  </cells>
 </root>

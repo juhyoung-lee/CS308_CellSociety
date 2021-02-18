@@ -1,7 +1,7 @@
 package cellsociety.model.segregation;
 
 import cellsociety.model.Cell;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Purpose: Represents a cell for the Segregation simulation. Extends the Cell class.
@@ -16,18 +16,19 @@ public class SegregationCell extends Cell {
   public static final int AGENT_A = 1;
   public static final int AGENT_B = 2;
   public static final int EMPTY = 0;
+  private final String thresholdKey = "threshold";
   private final double myThreshold;
 
   /**
    * Purpose: Constructor for SegregationCell class.
    * Assumptions: config will include the key "threshold", with an integer value.
-   * Parameters: HashMap config.
+   * Parameters: Map config.
    * Exceptions: TODO
    * Returns: SegregationCell object.
    */
-  public SegregationCell(HashMap<String, Integer> config) {
+  public SegregationCell(Map<String, Integer> config) {
     super(config);
-    myThreshold = (double) config.get("threshold") / 100;
+    myThreshold = (double) config.get(thresholdKey) / 100;
   }
 
   /**
@@ -35,26 +36,26 @@ public class SegregationCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: int type. Describes what needs to be moved, if any.
+   * Returns: Map object. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/mccown-schelling-model-segregation/
    */
-  public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
-    if (myState == EMPTY) {
-      nextState = EMPTY;
-      updateMoveStateField(NO_MOVEMENT);
+  public Map<String, Integer> prepareNextState(int[] neighborStates) {
+    if (getState() == EMPTY) {
+      setNextState(EMPTY);
+      setMoveStateValue("state", NO_MOVEMENT);
     } else {
       double similar = calculateSimilarity(neighborStates);
 
       if (similar >= myThreshold) {
-        nextState = myState;
-        updateMoveStateField(NO_MOVEMENT);
+        setNextState(getState());
+        setMoveStateValue("state", NO_MOVEMENT);
       } else {
-        nextState = EMPTY;
-        updateMoveStateField(myState);
+        setNextState(EMPTY);
+        setMoveStateValue("state", getState());
       }
     }
 
-    return moveState;
+    return getMoveStateCopy();
   }
 
   private double calculateSimilarity(int[] neighborStates) {
@@ -64,7 +65,7 @@ public class SegregationCell extends Cell {
     for (int state : neighborStates) {
       if (state != EMPTY) {
         nonEmpty++;
-        if (state == myState) {
+        if (state == getState()) {
           sameState++;
         }
       }
@@ -74,19 +75,19 @@ public class SegregationCell extends Cell {
   }
 
   /**
-   * Purpose: Accepts HashMap information with new state information. Will default to return false.
+   * Purpose: Accepts Map information with new state information. Will default to return false.
    * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
-   * Parameters: HashMap object.
+   * Parameters: Map object.
    * Exceptions: TODO
    * Returns: boolean type.
    */
   @Override
-  public boolean receiveUpdate(HashMap<String, Integer> newInfo) {
+  public boolean receiveUpdate(Map<String, Integer> newInfo) {
     int incomingState = newInfo.get("state");
-    if (nextState != EMPTY) {
+    if (getNextState() != EMPTY) {
       return false;
     } else {
-      nextState = incomingState;
+      setNextState(incomingState);
       return true;
     }
   }

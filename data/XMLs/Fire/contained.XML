@@ -1,0 +1,25 @@
+<root>
+  <information>
+    <type>Fire</type>
+    <title>Contained</title>
+    <author>Kenny</author>
+    <description>Fire does not reach edge of screen.  </description>
+  </information>
+  <parameters>
+    <prob>0</prob>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>2222222222</cellRow>
+    <cellRow>2000000012</cellRow>
+    <cellRow>2000101102</cellRow>
+    <cellRow>2000001002</cellRow>
+    <cellRow>2001000002</cellRow>
+    <cellRow>2000100002</cellRow>
+    <cellRow>2001001002</cellRow>
+    <cellRow>2000110002</cellRow>
+    <cellRow>2100000012</cellRow>
+    <cellRow>2222222222</cellRow>
+  </cells>
+</root>
