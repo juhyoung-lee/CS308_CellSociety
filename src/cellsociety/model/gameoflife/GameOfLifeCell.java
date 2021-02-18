@@ -32,7 +32,7 @@ public class GameOfLifeCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: int type. Describes what needs to be moved, if any.
+   * Returns: HashMap object. Describes what needs to be moved, if any.
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
   public HashMap<String, Integer> prepareNextState(int[] neighborStates) {

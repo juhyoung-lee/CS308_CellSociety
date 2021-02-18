@@ -33,7 +33,7 @@ public class PercolationCell extends Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: int type. Describes what needs to be moved, if any.
+   * Returns: HashMap object. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/PercolationCA.pdf
    */
   public HashMap<String, Integer> prepareNextState(int[] neighborStates) {

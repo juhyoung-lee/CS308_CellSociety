@@ -33,7 +33,7 @@ public abstract class Cell {
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: int type. Describes what needs to be moved, if any.
+   * Returns: HashMap object. Describes what needs to be moved, if any.
    */
   public abstract HashMap<String, Integer> prepareNextState(int[] neighborStates);
 
@@ -74,17 +74,6 @@ public abstract class Cell {
   }
 
   /**
-   * Purpose: Sets state of the cell.
-   * Assumptions: TODO
-   * Parameters: int type.
-   * Exceptions: None.
-   * Returns: None.
-   */
-  protected void setState(int newState) {
-    myState = newState;
-  }
-
-  /**
    * Purpose: Returns nextState of the cell.
    * Assumptions: TODO
    * Parameters: None.
@@ -104,17 +93,6 @@ public abstract class Cell {
    */
   protected void setNextState(int newState) {
     nextState = newState;
-  }
-
-  /**
-   * Purpose: Returns value from moveState.
-   * Assumptions: TODO
-   * Parameters: String key.
-   * Exceptions: None.
-   * Returns: int value.
-   */
-  protected int getMoveStateValue(String key) {
-    return moveState.get(key);
   }
 
   /**

@@ -51,9 +51,10 @@ public class WaTorCell extends Cell {
 
   /**
    * Purpose: Determine new state to update to.
-   * Assumptions: TODO Parameters: int[] neighborStates.
+   * Assumptions: TODO
+   * Parameters: int[] neighborStates.
    * Exceptions: TODO
-   * Returns: int type. Describes what needs to be moved, if any. Rules taken from
+   * Returns: HashMap object. Describes what needs to be moved, if any.
    * https://beltoforion.de/en/wator/
    */
   public HashMap<String, Integer> prepareNextState(int[] neighborStates) {
