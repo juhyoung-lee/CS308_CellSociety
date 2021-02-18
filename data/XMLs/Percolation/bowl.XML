@@ -1,0 +1,24 @@
+<root>
+  <information>
+    <type>Percolation</type>
+    <title>Bowl</title>
+    <author>Kenny</author>
+    <description>Water stays in bowl</description>
+  </information>
+  <parameters>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>0111111110</cellRow>
+    <cellRow>0111111110</cellRow>
+    <cellRow>0111111110</cellRow>
+    <cellRow>0111111110</cellRow>
+    <cellRow>0111111110</cellRow>
+    <cellRow>0222222220</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+  </cells>
+</root>

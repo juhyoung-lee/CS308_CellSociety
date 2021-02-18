@@ -1,0 +1,25 @@
+<root>
+  <information>
+    <type>Fire</type>
+    <title>Small Contained</title>
+    <author>Kenny</author>
+    <description>Fire does not reach outer forest.  </description>
+  </information>
+  <parameters>
+    <prob>0</prob>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0022222200</cellRow>
+    <cellRow>0021000200</cellRow>
+    <cellRow>0020000200</cellRow>
+    <cellRow>0020101200</cellRow>
+    <cellRow>0020010200</cellRow>
+    <cellRow>0022222200</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+  </cells>
+</root>

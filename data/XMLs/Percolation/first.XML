@@ -5,15 +5,11 @@
     <author>Kenny</author>
     <description>lets see if this works?</description>
   </information>
-  <paramconfig>
+  <parameters>
     <width>10</width>
     <height>10</height>
-  </paramconfig>
-  <grid>
-    <width>10</width>
-    <height>10</height>
-  </grid>
-  <cellConfig>
+  </parameters>
+  <cells>
     <cellRow>2222222222</cellRow>
     <cellRow>0001000000</cellRow>
     <cellRow>0001000000</cellRow>
@@ -24,5 +20,5 @@
     <cellRow>0001111000</cellRow>
     <cellRow>0011110000</cellRow>
     <cellRow>0001000000</cellRow>
-  </cellConfig>
+  </cells>
 </root>

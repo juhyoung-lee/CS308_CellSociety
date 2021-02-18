@@ -10,11 +10,11 @@ public class Configure {
     configFile = file;
   }
 
-  public Game getGame() {
+  public Simulation getSimulation() {
     File dataFile = new File(configFile);
     while (dataFile != null) {
       try {
-        return new XMLParser("media").getGame(dataFile);
+        return new XMLParser("media").getSimulation(dataFile);
       } catch (XMLException e) { }
     }
     return null;

@@ -1,0 +1,24 @@
+<root>
+  <information>
+    <type>Percolation</type>
+    <title>Zig Zag</title>
+    <author>Kenny</author>
+    <description>water goes back and forth</description>
+  </information>
+  <parameters>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>2222222222</cellRow>
+    <cellRow>0000000001</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1000000000</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>0000000001</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1000000000</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>0000000001</cellRow>
+  </cells>
+</root>

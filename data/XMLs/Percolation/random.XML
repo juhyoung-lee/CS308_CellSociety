@@ -1,0 +1,24 @@
+<root>
+  <information>
+    <type>Percolation</type>
+    <title>Random</title>
+    <author>Kenny</author>
+    <description>Created by mashing keys</description>
+  </information>
+  <parameters>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>1222010101</cellRow>
+    <cellRow>2020202101</cellRow>
+    <cellRow>2012020102</cellRow>
+    <cellRow>2210220101</cellRow>
+    <cellRow>0201020102</cellRow>
+    <cellRow>0102012020</cellRow>
+    <cellRow>0002001010</cellRow>
+    <cellRow>0102020102</cellRow>
+    <cellRow>0201120102</cellRow>
+    <cellRow>2102101020</cellRow>
+  </cells>
+</root>
