@@ -1,0 +1,25 @@
+<root>
+  <information>
+    <type>Segregation</type>
+    <title>Random</title>
+    <author>Kenny</author>
+    <description>just mashing keys</description>
+  </information>
+  <parameters>
+    <threshold>50</threshold>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>1212020102</cellRow>
+    <cellRow>2022210110</cellRow>
+    <cellRow>0120210210</cellRow>
+    <cellRow>2002021012</cellRow>
+    <cellRow>2110000121</cellRow>
+    <cellRow>1210202012</cellRow>
+    <cellRow>2120201202</cellRow>
+    <cellRow>0210222101</cellRow>
+    <cellRow>0120120121</cellRow>
+    <cellRow>0010120022</cellRow>
+  </cells>
+</root>

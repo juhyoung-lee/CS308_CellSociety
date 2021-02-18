@@ -1,15 +1,12 @@
 <root>
   <information>
-    <type>WaTor</type>
-    <title>first try</title>
+    <type>Fire</type>
+    <title>One Fire 0%</title>
     <author>Kenny</author>
-    <description>lets see if this works?</description>
+    <description>One fire with 0% chance of not moving</description>
   </information>
   <parameters>
-    <fishBreedThreshold>3</fishBreedThreshold>
-    <sharkBreedThreshold>2</sharkBreedThreshold>
-    <energyGain>2</energyGain>
-    <energyLoss>1</energyLoss>
+    <prob>0</prob>
     <width>10</width>
     <height>10</height>
   </parameters>
@@ -18,8 +15,8 @@
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>
-    <cellRow>0000120000</cellRow>
-    <cellRow>0000111000</cellRow>
+    <cellRow>0000010000</cellRow>
+    <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>

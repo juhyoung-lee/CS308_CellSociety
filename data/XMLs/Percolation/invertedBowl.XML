@@ -1,0 +1,24 @@
+<root>
+  <information>
+    <type>Percolation</type>
+    <title>Inverted Bowl</title>
+    <author>Kenny</author>
+    <description>Reverse of Bowl</description>
+  </information>
+  <parameters>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>1000000001</cellRow>
+    <cellRow>1000000001</cellRow>
+    <cellRow>1000000001</cellRow>
+    <cellRow>1000000001</cellRow>
+    <cellRow>1000000001</cellRow>
+    <cellRow>1222222221</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+  </cells>
+</root>

@@ -29,7 +29,7 @@ import java.util.ArrayList;
  */
 
 public class Control {
-  public static final String DATA_FILE="data/XMLs/WaTor/first.XML";
+  public static final String DATA_FILE="data/XMLs/Segregation/fourLinesFree75.XML";
 
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;

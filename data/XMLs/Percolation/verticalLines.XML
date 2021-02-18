@@ -1,0 +1,24 @@
+<root>
+  <information>
+    <type>Percolation</type>
+    <title>Vertical Lines</title>
+    <author>Kenny</author>
+    <description>lets see if this works?</description>
+  </information>
+  <parameters>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>2222222222</cellRow>
+    <cellRow>1010101010</cellRow>
+    <cellRow>1010101010</cellRow>
+    <cellRow>1010101010</cellRow>
+    <cellRow>1010101010</cellRow>
+    <cellRow>1010101010</cellRow>
+    <cellRow>1010101010</cellRow>
+    <cellRow>1010101010</cellRow>
+    <cellRow>1010101010</cellRow>
+    <cellRow>1010101010</cellRow>
+  </cells>
+</root>

@@ -82,7 +82,7 @@ public class XMLParser {
   private HashMap<String, Integer> getParameters(File dataFile) {
     HashMap<String, Integer> returned = new HashMap<>();
     try {
-      NodeList nList = DOCUMENT_BUILDER.parse(dataFile).getElementsByTagName("paramconfig");
+      NodeList nList = DOCUMENT_BUILDER.parse(dataFile).getElementsByTagName("parameters");
       Node node = nList.item(0);
       NodeList list = node.getChildNodes();
       for (int i = 0; i < list.getLength(); i++) {

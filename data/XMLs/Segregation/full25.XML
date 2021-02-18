@@ -1,0 +1,25 @@
+<root>
+  <information>
+    <type>Segregation</type>
+    <title>full</title>
+    <author>Kenny</author>
+    <description>alternating rows of people with 25% threshold</description>
+  </information>
+  <parameters>
+    <threshold>25</threshold>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>1111111111</cellRow>
+    <cellRow>2222222222</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>2222222222</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>2222222222</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>2222222222</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>2222222222</cellRow>
+  </cells>
+</root>

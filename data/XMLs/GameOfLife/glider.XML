@@ -5,13 +5,11 @@
     <author>wiki</author>
     <description>Loaf should not change at all</description>
   </information>
-  <paramconfig>
-  </paramconfig>
-  <grid>
+  <parameters>
     <width>10</width>
     <height>10</height>
-  </grid>
-  <cellConfig>
+  </parameters>
+  <cells>
     <cellRow>0010000000</cellRow>
     <cellRow>1010000000</cellRow>
     <cellRow>0110000000</cellRow>
@@ -22,5 +20,5 @@
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>
-  </cellConfig>
+  </cells>
 </root>
