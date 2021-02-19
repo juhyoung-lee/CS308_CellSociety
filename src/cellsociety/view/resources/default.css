@@ -1,76 +1,84 @@
 .root {
   -fx-font-size: 10pt;
   -fx-font-family: "Futura";
-  -fx-base: honeydew;
-  -fx-background: darkslateblue;
+  -fx-base: #a6a6a6;
+  -fx-background: #d9d9d9;
 }
 
 .GameofLife-0 {
-  -fx-fill: aliceblue;
+  -fx-fill: #f2f2f2;
 }
 
 .GameofLife-1 {
-  -fx-fill: mediumseagreen;
+  -fx-fill: #1a1a1a;
 }
 
 .Percolation-0 {
-  -fx-fill: black;
+  -fx-fill: #1a1a1a;
 }
 
 .Percolation-1 {
-  -fx-fill: aliceblue;
+  -fx-fill: #f2f2f2;
 }
 
 .Percolation-2 {
-  -fx-fill: darkturquoise;
+  -fx-fill: #0000ff;
 }
 
 .Segregation-0 {
-  -fx-fill: aliceblue;
+  -fx-fill: #f2f2f2;
 }
 
 .Segregation-1 {
-  -fx-fill: deeppink;
+  -fx-fill: #00cc00;
 }
 
 .Segregation-2 {
-  -fx-fill: dodgerblue;
+  -fx-fill: #ff0066;
 }
 
 .Fire-0 {
-  -fx-fill: limegreen;
+  -fx-fill: #00cc00;
 }
 
 .Fire-1 {
-  -fx-fill: firebrick;
+  -fx-fill: #ff0000;
 }
 
 .Fire-2 {
-  -fx-fill: aliceblue;
+  -fx-fill: #f2f2f2;
 }
 
 .WaTor-0 {
-  -fx-fill: blue;
+  -fx-fill: #0000ff;
 }
 
 .WaTor-1 {
-  -fx-fill: darkorange;
+  -fx-fill: #ff5050;
 }
 
 .WaTor-2 {
-  -fx-fill: silver;
+  -fx-fill: #808080;
+}
+
+.RockPaperScissors-0 {
+  -fx-fill: #808080;
+}
+
+.RockPaperScissors-1 {
+  -fx-fill: #f2f2f2;
+}
+
+.RockPaperScissors-2 {
+  -fx-fill: #ff0066;
 }
 
 .title {
-  -fx-fill: aliceblue;
+  -fx-fill: #000000;
 }
 
 .button {
   -fx-border-radius: 20;
   -fx-background-radius: 15;
   -fx-padding: 8;
-}
-
-.rect {
-  -fx-stroke: black;
 }

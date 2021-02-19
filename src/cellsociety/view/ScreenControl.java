@@ -111,7 +111,7 @@ public class ScreenControl {
     fastButton.setOnAction(event -> sim.fast());
     slowButton = buttonCreation(myResources.getString("SlowDownButton"), sX * 2 / 9, sY / 12 + 500);
     slowButton.setOnAction(event -> sim.slow());
-    uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 120, 5);
+    uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 120, 0);
     uploadButton.setOnAction(event -> sim.uploadFile());
   }
 
@@ -143,23 +143,17 @@ public class ScreenControl {
    ** @param cells
    */
   public void createGrid(String title, String type, int rows, int cols, List<Integer> cells) {
-    System.out.println(rows);
-    System.out.println(cols);
     myTitle = title;
     myType = type;
     setGameTitleText();
     myRoot.getChildren().remove(myBlocks);
-    double xSize = Control.GRID_SIZE / cols;
-    double ySize = Control.GRID_SIZE / rows;
-    System.out.println(xSize);
-    System.out.println(Control.GRID_SIZE / cols);
-    System.out.println(ySize);
+    double xSize = ((double) Control.GRID_SIZE) / cols;
+    double ySize = ((double) Control.GRID_SIZE) / rows;
     myType = myType.replaceAll("\\s", "");
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         Rectangle block = new Rectangle(Control.GRID_X + j * xSize, Control.GRID_Y + i * ySize, xSize, ySize);
         myBlocks.add(block);
-        //block.getStyleClass().add("rect");
         myRoot.getChildren().add(block);
         block.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
       }
@@ -174,7 +168,6 @@ public class ScreenControl {
     for (int i = 0; i < cells.size(); i++) {
       Rectangle block = myBlocks.get(i);
       block.getStyleClass().clear();
-      //block.getStyleClass().add("rect");
       block.getStyleClass().add(myType + "-" + cells.get(i));
     }
   }
