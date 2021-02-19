@@ -53,5 +53,6 @@ public class SugarScapeCell extends Cell {
    * Rules taken from https://fab.cba.mit.edu/classes/865.18/replication/Byl.pdf
    */
   public Map<String, Integer> prepareNextState(int[] neighborStates) {
+    return getMoveStateCopy();
   }
 }
