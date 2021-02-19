@@ -58,17 +58,17 @@ public class BylsLoopCell extends Cell {
     String minRotationKey = getMinRotationKey(neighborStates);
 
     if (getState() == EMPTY) {
-      setNextStateLookup(emptyTable, minRotationKey, EMPTY);
+      setNextState(emptyTable.getOrDefault(minRotationKey, EMPTY));
     } else if (getState() == DATA_PATH) {
-      setNextStateLookup(dataPathTable, minRotationKey, LEFT_SIGNAL);
+      setNextState(dataPathTable.getOrDefault(minRotationKey, LEFT_SIGNAL));
     } else if (getState() == WALL) {
-      setNextStateLookup(wallTable, minRotationKey, WALL);
+      setNextState(wallTable.getOrDefault(minRotationKey, WALL));
     } else if (getState() == EXTEND_SIGNAL) {
-      setNextStateLookup(extendSignalTable, minRotationKey, EXTEND_SIGNAL);
+      setNextState(extendSignalTable.getOrDefault(minRotationKey, EXTEND_SIGNAL));
     } else if (getState() == LEFT_SIGNAL) {
-      setNextStateLookup(leftSignalTable, minRotationKey, EXTEND_SIGNAL);
+      setNextState(leftSignalTable.getOrDefault(minRotationKey, EXTEND_SIGNAL));
     } else {
-      setNextStateLookup(disconnectSignalTable, minRotationKey, WALL);
+      setNextState(disconnectSignalTable.getOrDefault(minRotationKey, WALL));
     }
 
     setMoveStateValue("state", NO_MOVEMENT);
@@ -89,14 +89,6 @@ public class BylsLoopCell extends Cell {
     }
 
     return String.format("%04d", minRotation);
-  }
-
-  private void setNextStateLookup(Map<String, Integer> table, String minRotationKey, int standard) {
-    if (table.containsKey(minRotationKey)) {
-      setNextState(table.get(minRotationKey));
-    } else {
-      setNextState(standard);
-    }
   }
 
   private void fillEmptyTable() {
