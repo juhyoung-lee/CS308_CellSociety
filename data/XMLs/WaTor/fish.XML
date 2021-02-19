@@ -1,0 +1,28 @@
+<root>
+  <information>
+    <type>WaTor</type>
+    <title>random</title>
+    <author>Kenny</author>
+    <description>mashing buttons</description>
+  </information>
+  <parameters>
+    <fishBreedThreshold>3</fishBreedThreshold>
+    <sharkBreedThreshold>10</sharkBreedThreshold>
+    <energyGain>2</energyGain>
+    <energyLoss>1</energyLoss>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1111111111</cellRow>
+  </cells>
+</root>
