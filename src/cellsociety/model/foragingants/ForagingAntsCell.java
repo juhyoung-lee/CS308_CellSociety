@@ -60,18 +60,8 @@ public class ForagingAntsCell extends Cell {
   }
 
   private void antPrepareNextState(int[] neighborStates) {
-    boolean containsHome = false;
-    boolean containsFood = false;
-
-    for (int state : neighborStates) {
-      if (state == HOME) {
-        containsHome = true;
-      }
-
-      if (state == FOOD) {
-        containsFood = true;
-      }
-    }
+    boolean containsHome = checkNeighborState(HOME, neighborStates);
+    boolean containsFood = checkNeighborState(FOOD, neighborStates);
 
     if (hasFood == 0) { //basically reached food
       if (containsFood) {
@@ -84,8 +74,19 @@ public class ForagingAntsCell extends Cell {
       }
       foodPheromone += 2;
     }
+
     setNextState(EMPTY);
     setMoveStateValue("state", ANT);
+  }
+
+  private boolean checkNeighborState(int checkState, int[] neighborStates) {
+    for (int state : neighborStates) {
+      if (state == checkState) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private void updateMoveStateParam() {
