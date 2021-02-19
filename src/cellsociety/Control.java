@@ -2,6 +2,7 @@ package cellsociety;
 
 import cellsociety.configuration.Simulation;
 import cellsociety.model.Grid;
+import cellsociety.model.bylsloop.BylsLoopGrid;
 import cellsociety.model.fire.FireGrid;
 import cellsociety.model.foragingants.ForagingAntsGrid;
 import cellsociety.model.gameoflife.GameOfLifeGrid;
@@ -79,10 +80,14 @@ public class Control {
     FileChooser fileChooser = new FileChooser();
     File selectedFile = fileChooser.showOpenDialog(myStage);
     String dataFile = selectedFile.getPath();
-    createStageFromData(dataFile);
+    try {
+      createStageFromData(dataFile);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
-  private void createStageFromData(String dataFile) {
+  private void createStageFromData(String dataFile) throws Exception {
     mySC.resetGameTitleText();
     mySC.clearGrid();
 
@@ -101,7 +106,7 @@ public class Control {
       case "WaTor" -> new WaTorGrid(cells, params);
       case "Rock Paper Scissors" -> new RPSGrid(cells, params);
       case "Foraging Ants" -> new ForagingAntsGrid(cells, params);
-      case "Byl's Loop" -> new BylsLoopGrid(cells, params);
+      case "Byls Loop" -> new BylsLoopGrid(cells, params);
       default -> null;
     };
 

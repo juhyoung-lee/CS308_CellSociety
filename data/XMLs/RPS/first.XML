@@ -1,9 +1,9 @@
 <root>
   <information>
     <type>Rock Paper Scissors</type>
-    <title>Splatoons 3</title>
+    <title>Random</title>
     <author>juhyoung</author>
-    <description>Jackson Pollock Style</description>
+    <description>Randomly generated</description>
   </information>
   <parameters>
     <loseThreshold>3</loseThreshold>

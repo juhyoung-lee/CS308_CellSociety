@@ -15,8 +15,8 @@ import java.util.Map;
 public class ForagingAntsCell extends Cell {
 
   public static final int EMPTY = 0;
-  public static final int FOOD = 1;
-  public static final int HOME = 2;
+  public static final int HOME = 1;
+  public static final int FOOD = 2;
   public static final int ANT = 3;
   private int foodPheromone;
   private int homePheromone;
@@ -117,6 +117,15 @@ public class ForagingAntsCell extends Cell {
     }
 
     return false;
+  }
+
+  /**
+   * Getter used by ForagingAntsGrid.
+   *
+   * @return [food pheromone count, home pheromone count]
+   */
+  public int[] getPheromone() {
+    return new int[]{foodPheromone, homePheromone};
   }
 
   /* sample grid code for movement
