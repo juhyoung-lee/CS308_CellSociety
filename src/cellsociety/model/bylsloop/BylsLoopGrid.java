@@ -44,6 +44,6 @@ public class BylsLoopGrid extends Grid {
   @Override
   protected int[] neighborVariances(int index) {
     int width = getDimensions()[0];
-    return new int[]{-1, -1 - width, -1 * width, 1 - width, 1, 1 + width, width, -1 + width};
+    return new int[]{-1, -1 * width, 1, width};
   }
 }

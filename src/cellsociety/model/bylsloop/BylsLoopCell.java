@@ -80,9 +80,9 @@ public class BylsLoopCell extends Cell {
     int minRotation = 6000; // number greater than largest possible rotation
     int temp;
 
-    for (int i = 0; i < 4; i++) {
-      temp = (neighborStates[i % 4] * 1000) + (neighborStates[(1 + i) % 4] * 100)
-          + (neighborStates[(2 + i) % 4] * 10) + (neighborStates[(3 + i) % 4]);
+    for (int i = 0; i < neighborStates.length; i++) {
+      temp = (neighborStates[i % neighborStates.length] * 1000) + (neighborStates[(1 + i) % neighborStates.length] * 100)
+          + (neighborStates[(2 + i) % neighborStates.length] * 10) + (neighborStates[(3 + i) % neighborStates.length]);
       if (temp < minRotation) {
         minRotation = temp;
       }
