@@ -79,10 +79,14 @@ public class Control {
     FileChooser fileChooser = new FileChooser();
     File selectedFile = fileChooser.showOpenDialog(myStage);
     String dataFile = selectedFile.getPath();
-    createStageFromData(dataFile);
+    try {
+      createStageFromData(dataFile);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
-  private void createStageFromData(String dataFile) {
+  private void createStageFromData(String dataFile) throws Exception {
     mySC.resetGameTitleText();
     mySC.clearGrid();
 

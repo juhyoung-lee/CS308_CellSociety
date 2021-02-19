@@ -25,8 +25,9 @@ public abstract class Grid {
    *
    * @param cellArrangement cell grid from XML
    * @param parameters game settings from XML
+   * @throws Exception invalid cell state
    */
-  public Grid(List<String> cellArrangement, Map<String, Integer> parameters) {
+  public Grid(List<String> cellArrangement, Map<String, Integer> parameters) throws Exception {
     this.height = parameters.get("height");
     this.width = parameters.get("width");
     setupGrid(cellArrangement, parameters);
@@ -105,15 +106,21 @@ public abstract class Grid {
    *
    * @param cellArrangement cell grid from XML
    * @param parameters game parameters from XML
+   * @throws Exception invalid cell state
    */
-  private void setupGrid(List<String> cellArrangement, Map<String, Integer> parameters) {
+  private void setupGrid(List<String> cellArrangement, Map<String, Integer> parameters)
+      throws Exception {
     this.grid = new ArrayList<>();
     for (String s : cellArrangement) {
       String[] row = s.split("");
       for (String state : row) {
         parameters.put("state", Integer.parseInt(state));
         Cell cell = chooseCell(parameters);
-        this.grid.add(cell);
+        if (cell.isValidState()) {
+          this.grid.add(cell);
+        } else {
+          throw new Exception("Invalid Cell State");
+        }
       }
     }
   }
@@ -305,6 +312,4 @@ public abstract class Grid {
   protected List<Integer> findPotentialMoves(int index) {
     return new ArrayList<>();
   }
-
-  // TODO: extract methods. only variation so far is in which neighbors are considered.
 }
