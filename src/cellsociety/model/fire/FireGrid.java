@@ -14,7 +14,7 @@ public class FireGrid extends Grid {
    * @param parameters      game settings from XML
    */
   public FireGrid(List<String> cellArrangement,
-      Map<String, Integer> parameters) {
+      Map<String, Integer> parameters) throws Exception {
     super(cellArrangement, parameters);
   }
 

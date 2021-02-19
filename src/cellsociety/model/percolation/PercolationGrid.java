@@ -5,7 +5,8 @@ import cellsociety.model.Grid;
 import java.util.List;
 import java.util.Map;
 
-public class PercolationGrid extends Grid {
+public class
+PercolationGrid extends Grid {
 
   /**
    * Constructor.
@@ -14,7 +15,7 @@ public class PercolationGrid extends Grid {
    * @param parameters      game settings from XML
    */
   public PercolationGrid(List<String> cellArrangement,
-      Map<String, Integer> parameters) {
+      Map<String, Integer> parameters) throws Exception {
     super(cellArrangement, parameters);
   }
 

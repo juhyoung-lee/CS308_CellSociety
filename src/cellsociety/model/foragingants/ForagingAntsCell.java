@@ -116,6 +116,15 @@ public class ForagingAntsCell extends Cell {
     return false;
   }
 
+  /**
+   * Getter used by ForagingAntsGrid.
+   *
+   * @return [food pheromone count, home pheromone count]
+   */
+  public int[] getPheromone() {
+    return new int[]{foodPheromone, homePheromone};
+  }
+
   /* sample grid code for movement
 
   if movestate.hasFood == 0 -> go towards food
