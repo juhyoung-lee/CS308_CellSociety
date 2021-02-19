@@ -32,6 +32,7 @@ public class RPSCell extends Cell {
    */
   public RPSCell(Map<String, Integer> config) {
     super(config);
+    setMaxStateValue(SCISSORS);
     loseThreshold = config.get(loseThresholdKey);
     bufferBound = config.get(bufferBoundKey);
   }

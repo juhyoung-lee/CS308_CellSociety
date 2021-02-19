@@ -13,6 +13,7 @@ import java.util.Map;
  * @author Jessica Yang
  */
 public class ForagingAntsCell extends Cell {
+
   public static final int EMPTY = 0;
   public static final int FOOD = 1;
   public static final int HOME = 2;
@@ -30,6 +31,7 @@ public class ForagingAntsCell extends Cell {
    */
   public ForagingAntsCell(Map<String, Integer> config) {
     super(config);
+    setMaxStateValue(ANT);
     foodPheromone = 0;
     homePheromone = 0;
     hasFood = 0;

@@ -13,9 +13,9 @@ import java.util.Map;
  */
 public class PercolationCell extends Cell {
 
+  public static final int BLOCKED = 0;
   public static final int OPEN = 1;
   public static final int PERCOLATED = 2;
-  public static final int BLOCKED = 0;
 
   /**
    * Purpose: Constructor for PercolationCell class.
@@ -26,6 +26,7 @@ public class PercolationCell extends Cell {
    */
   public PercolationCell(Map<String, Integer> config) {
     super(config);
+    setMaxStateValue(PERCOLATED);
   }
 
   /**

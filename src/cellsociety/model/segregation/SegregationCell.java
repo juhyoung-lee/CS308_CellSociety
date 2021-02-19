@@ -13,9 +13,9 @@ import java.util.Map;
  */
 public class SegregationCell extends Cell {
 
+  public static final int EMPTY = 0;
   public static final int AGENT_A = 1;
   public static final int AGENT_B = 2;
-  public static final int EMPTY = 0;
   private final String thresholdKey = "threshold";
   private final double myThreshold;
 
@@ -28,6 +28,7 @@ public class SegregationCell extends Cell {
    */
   public SegregationCell(Map<String, Integer> config) {
     super(config);
+    setMaxStateValue(AGENT_B);
     myThreshold = (double) config.get(thresholdKey) / 100;
   }
 
