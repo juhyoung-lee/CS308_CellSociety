@@ -12,10 +12,7 @@ import cellsociety.model.wator.WaTorGrid;
 import java.io.File;
 
 import cellsociety.view.ScreenControl;
-<<<<<<< HEAD
-=======
 import java.util.List;
->>>>>>> master
 import java.util.Map;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
