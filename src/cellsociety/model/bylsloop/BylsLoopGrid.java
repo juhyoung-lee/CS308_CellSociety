@@ -33,7 +33,7 @@ public class BylsLoopGrid extends Grid {
   }
 
   /**
-   * Clockwise pattern starting from index directly left.
+   * Counterlockwise pattern starting from index directly bottom.
    * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
    * neighboring indexes. Assumptions: counts surrounding 8 Moore cells as neighbors. Grid is a
    * square tesselation.
@@ -44,6 +44,6 @@ public class BylsLoopGrid extends Grid {
   @Override
   protected int[] neighborVariances(int index) {
     int width = getDimensions()[0];
-    return new int[]{-1, -1 * width, 1, width};
+    return new int[]{width, 1, -1 * width, -1};
   }
 }
