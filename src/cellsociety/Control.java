@@ -2,6 +2,7 @@ package cellsociety;
 
 import cellsociety.configuration.Simulation;
 import cellsociety.model.Grid;
+import cellsociety.model.bylsloop.BylsLoopGrid;
 import cellsociety.model.fire.FireGrid;
 import cellsociety.model.foragingants.ForagingAntsGrid;
 import cellsociety.model.gameoflife.GameOfLifeGrid;
