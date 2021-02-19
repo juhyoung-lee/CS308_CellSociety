@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class GameOfLifeCell extends Cell {
 
-  public static final int ALIVE = 1;
   public static final int DEAD = 0;
+  public static final int ALIVE = 1;
 
   /**
    * Purpose: Constructor for GameOfLifeCell class.
@@ -25,6 +25,7 @@ public class GameOfLifeCell extends Cell {
    */
   public GameOfLifeCell(Map<String, Integer> config) {
     super(config);
+    setMaxStateValue(ALIVE);
   }
 
   /**

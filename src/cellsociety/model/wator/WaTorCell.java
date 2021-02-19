@@ -13,9 +13,9 @@ import java.util.Map;
  */
 public class WaTorCell extends Cell {
 
+  public static final int WATER = 0;
   public static final int FISH = 1;
   public static final int SHARK = 2;
-  public static final int WATER = 0;
   private final String fishBreedThresholdKey = "fishBreedThreshold";
   private final String sharkBreedThresholdKey = "sharkBreedThreshold";
   private final String energyGainKey = "energyGain";
@@ -36,6 +36,7 @@ public class WaTorCell extends Cell {
    */
   public WaTorCell(Map<String, Integer> config) {
     super(config);
+    setMaxStateValue(SHARK);
     fishBreedThreshold = config.get(fishBreedThresholdKey);
     sharkBreedThreshold = config.get(sharkBreedThresholdKey);
     energyGain = config.get(energyGainKey);

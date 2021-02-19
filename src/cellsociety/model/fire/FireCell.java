@@ -30,6 +30,7 @@ public class FireCell extends Cell {
    */
   public FireCell(Map<String, Integer> config) {
     super(config);
+    setMaxStateValue(EMPTY);
     catchThreshold = (double) config.get(probKey) / 100;
   }
 

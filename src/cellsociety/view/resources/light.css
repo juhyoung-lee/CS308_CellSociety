@@ -61,6 +61,34 @@
     -fx-fill: silver;
 }
 
+.RockPaperScissors-0 {
+    -fx-fill: #808080;
+}
+
+.RockPaperScissors-1 {
+    -fx-fill: #f2f2f2;
+}
+
+.RockPaperScissors-2 {
+    -fx-fill: #ff0066;
+}
+
+.ForagingAnts-0 {
+    -fx-fill: #f2f2f2;
+}
+
+.ForagingAnts-1 {
+    -fx-fill: #33cc33;
+}
+
+.ForagingAnts-2 {
+    -fx-fill: #ffff66;
+}
+
+.ForagingAnts-3 {
+    -fx-fill: #ff0000;
+}
+
 .title {
     -fx-fill: aliceblue;
 }
@@ -69,8 +97,4 @@
     -fx-border-radius: 20;
     -fx-background-radius: 15;
     -fx-padding: 8;
-}
-
-.rect {
-    -fx-stroke: black;
 }
