@@ -89,6 +89,30 @@
   -fx-fill: #ff0000;
 }
 
+.BylsLoop-0 {
+  -fx-fil: #f2f2f2;
+}
+
+.BylsLoop-1 {
+  -fx-fil: #ffff66;
+}
+
+.BylsLoop-2 {
+  -fx-fil: #000000;
+}
+
+.BylsLoop-3 {
+  -fx-fil: #ff0000;
+}
+
+.BylsLoop-4 {
+  -fx-fil: #33cc33;
+}
+
+.BylsLoop-5 {
+  -fx-fil: #0000ff;
+}
+
 .title {
   -fx-fill: #000000;
 }
