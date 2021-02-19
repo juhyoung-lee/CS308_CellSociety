@@ -1,6 +1,5 @@
 package cellsociety;
 
-import cellsociety.configuration.Configure;
 import cellsociety.configuration.Simulation;
 import cellsociety.model.Grid;
 import cellsociety.model.fire.FireGrid;
@@ -85,8 +84,7 @@ public class Control {
     mySC.resetGameTitleText();
     mySC.clearGrid();
 
-    Configure config = new Configure(dataFile);
-    Simulation simulation = config.getSimulation();
+    Simulation simulation = new Simulation(dataFile);
 
     String title = simulation.getTitle();
     String type = simulation.getType();
