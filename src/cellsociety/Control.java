@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import cellsociety.view.ScreenControl;
+import java.util.Map;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -80,7 +81,7 @@ public class Control {
     String title = simulation.getTitle();
     String type = simulation.getType();
     ArrayList<String> cells = simulation.getCellRows();
-    HashMap<String, Integer> params = simulation.getParameters();
+    Map<String, Integer> params = simulation.getParameters();
 
     myGrid = switch (type) {
       case "Game of Life" -> new GameOfLifeGrid(cells, params);

@@ -12,7 +12,7 @@ public class Configure {
 
   public Simulation getSimulation() {
     File dataFile = new File(configFile);
-    while (dataFile != null) {
+    if (dataFile != null) {
       try {
         return new XMLParser("media").getSimulation(dataFile);
       } catch (XMLException e) { }

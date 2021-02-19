@@ -3,6 +3,7 @@ package cellsociety.configuration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Simulation {
 
@@ -16,11 +17,11 @@ public class Simulation {
   private String myTitle;
   private String myAuthor;
   private String myDescription;
-  private HashMap<String, Integer> myParameters;
+  private Map<String, Integer> myParameters;
   private ArrayList<String> myCellRows;
 
   public Simulation(String type, String title, String author, String description,
-  HashMap<String, Integer> parameters, ArrayList<String> cellRows) {
+      HashMap<String, Integer> parameters, ArrayList<String> cellRows) {
     myType = type;
     myTitle = title;
     myAuthor = author;
@@ -35,16 +36,32 @@ public class Simulation {
         paramValues, cellValues);
   }
 
-  public ArrayList<String> getCellRows(){
+  public ArrayList<String> getCellRows() {
     return myCellRows;
   }
 
-  public int getWidth(){return myParameters.get("width");}
-  public int getHeight(){return myParameters.get("height");}
-  public String getTitle(){return myTitle;}
-  public String getType(){return myType;}
-  public HashMap<String, Integer> getParameters() {
-    return myParameters;
+  public int getWidth() {
+    return myParameters.get("width");
+  }
+
+  public int getHeight() {
+    return myParameters.get("height");
+  }
+
+  // TODO: make so not returning objects
+  public String getTitle() {
+    return myTitle;
+  }
+
+  public String getType() {
+    return myType;
+  }
+
+  //TODO: does this protect against pointer object
+  public Map<String, Integer> getParameters() {
+    Map<String, Integer> returned = new HashMap<>();
+    returned.putAll(myParameters);
+    return returned;
   }
 
   public String toString() {
