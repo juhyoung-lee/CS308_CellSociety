@@ -17,6 +17,7 @@ public abstract class Cell {
   private Map<String, Integer> moveState = new HashMap<>();
   private int myState;
   private int nextState;
+  private int maxStateValue;
 
   // TODO: make isValid method
 
@@ -29,6 +30,23 @@ public abstract class Cell {
    */
   public Cell(Map<String, Integer> config) {
     myState = config.get("state");
+  }
+
+  /**
+   * Purpose: Checks if assigned state is valid for the Cell subclass.
+   * Assumptions: setMaxStateValue has already been called in the constructor of the subclass.
+   * Parameters: None.
+   * Exceptions: TODO
+   * Returns: boolean type.
+   */
+  public boolean isValidState() {
+    for (int i = 0; i <= maxStateValue; i++) {
+      if (getState() == i) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
@@ -63,6 +81,17 @@ public abstract class Cell {
    */
   public boolean receiveUpdate(Map<String, Integer> newInfo) {
     return false;
+  }
+
+  /**
+   * Purpose: Sets maxStateValue of the cell.
+   * Assumptions: TODO
+   * Parameters: int type.
+   * Exceptions: None.
+   * Returns: None.
+   */
+  protected void setMaxStateValue(int maxState) {
+    maxStateValue = maxState;
   }
 
   /**
