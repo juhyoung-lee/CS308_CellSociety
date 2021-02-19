@@ -112,4 +112,9 @@ public class ForagingAntsCell extends Cell {
 
     return false;
   }
+
+  /* sample grid code for movement
+
+  if movestate.hasFood == 0 -> go towards food
+   */
 }

@@ -27,7 +27,7 @@ import javafx.scene.text.Text;
 public class ScreenControl {
   private Pane myRoot;
   private Text titleText;
-  private ArrayList<Rectangle> myBlocks;
+  private List<Rectangle> myBlocks;
   private Button slowButton;
   private Button fastButton;
   private Button startButton;

@@ -18,6 +18,8 @@ public abstract class Cell {
   private int myState;
   private int nextState;
 
+  // TODO: make isValid method
+
   /**
    * Purpose: Constructor for Cell class.
    * Assumptions: TODO

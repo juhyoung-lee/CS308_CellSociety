@@ -25,8 +25,6 @@ public class XMLParser {
 
   // Readable error message that can be displayed by the GUI
   public static final String ERROR_MESSAGE = "XML file does not represent %s";
-  // name of root attribute that notes the type of file expecting to parse
-  private final String TYPE_ATTRIBUTE;
   // keep only one documentBuilder because it is expensive to make and can reset it before parsing
   private final DocumentBuilder DOCUMENT_BUILDER;
 
@@ -36,7 +34,6 @@ public class XMLParser {
    */
   public XMLParser(String type) throws XMLException {
     DOCUMENT_BUILDER = getDocumentBuilder();
-    TYPE_ATTRIBUTE = type;
   }
 
   /**
