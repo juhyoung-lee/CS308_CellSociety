@@ -143,16 +143,21 @@ public class ScreenControl {
    ** @param cells
    */
   public void createGrid(String title, String type, int rows, int cols, List<Integer> cells) {
+    System.out.println(rows);
+    System.out.println(cols);
     myTitle = title;
     myType = type;
     setGameTitleText();
     myRoot.getChildren().remove(myBlocks);
-    int xsize = Control.GRID_SIZE / cols;
-    int ysize = Control.GRID_SIZE / rows;
+    double xSize = Control.GRID_SIZE / cols;
+    double ySize = Control.GRID_SIZE / rows;
+    System.out.println(xSize);
+    System.out.println(Control.GRID_SIZE / cols);
+    System.out.println(ySize);
     myType = myType.replaceAll("\\s", "");
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
-        Rectangle block = new Rectangle(Control.GRID_X + j * xsize, Control.GRID_Y + i * ysize, xsize, ysize);
+        Rectangle block = new Rectangle(Control.GRID_X + j * xSize, Control.GRID_Y + i * ySize, xSize, ySize);
         myBlocks.add(block);
         //block.getStyleClass().add("rect");
         myRoot.getChildren().add(block);
