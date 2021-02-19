@@ -3,8 +3,10 @@ package cellsociety;
 import cellsociety.configuration.Simulation;
 import cellsociety.model.Grid;
 import cellsociety.model.fire.FireGrid;
+import cellsociety.model.foragingants.ForagingAntsGrid;
 import cellsociety.model.gameoflife.GameOfLifeGrid;
 import cellsociety.model.percolation.PercolationGrid;
+import cellsociety.model.rps.RPSGrid;
 import cellsociety.model.segregation.SegregationGrid;
 import cellsociety.model.wator.WaTorGrid;
 
@@ -97,6 +99,8 @@ public class Control {
       case "Fire" -> new FireGrid(cells, params);
       case "Segregation" -> new SegregationGrid(cells, params);
       case "WaTor" -> new WaTorGrid(cells, params);
+      case "Rock Paper Scissors" -> new RPSGrid(cells, params);
+      case "Foraging Ants" -> new ForagingAntsGrid(cells, params);
       default -> null;
     };
 
