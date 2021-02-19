@@ -101,6 +101,7 @@ public class Control {
       case "WaTor" -> new WaTorGrid(cells, params);
       case "Rock Paper Scissors" -> new RPSGrid(cells, params);
       case "Foraging Ants" -> new ForagingAntsGrid(cells, params);
+      case "Byl's Loop" -> new BylsLoopGrid(cells, params);
       default -> null;
     };
 
