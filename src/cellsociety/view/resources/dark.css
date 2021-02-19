@@ -73,6 +73,22 @@
     -fx-fill: #ff0066;
 }
 
+.ForagingAnts-0 {
+    -fx-fill: #f2f2f2;
+}
+
+.ForagingAnts-1 {
+    -fx-fill: #33cc33;
+}
+
+.ForagingAnts-2 {
+    -fx-fill: #ffff66;
+}
+
+.ForagingAnts-3 {
+    -fx-fill: #ff0000;
+}
+
 .title {
     -fx-fill: #f2f2f2;
 }
