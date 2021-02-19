@@ -10,9 +10,12 @@ import cellsociety.model.segregation.SegregationGrid;
 import cellsociety.model.wator.WaTorGrid;
 
 import java.io.File;
-import java.util.HashMap;
 
 import cellsociety.view.ScreenControl;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> master
 import java.util.Map;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -20,8 +23,6 @@ import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
 
 /**
  * Purpose: Creates simulation and runs step function.
@@ -80,7 +81,7 @@ public class Control {
 
     String title = simulation.getTitle();
     String type = simulation.getType();
-    ArrayList<String> cells = simulation.getCellRows();
+    List<String> cells = simulation.getCellRows();
     Map<String, Integer> params = simulation.getParameters();
 
     myGrid = switch (type) {

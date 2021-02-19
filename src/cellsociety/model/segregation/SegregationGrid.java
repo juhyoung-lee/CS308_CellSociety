@@ -35,10 +35,9 @@ public class SegregationGrid extends Grid {
   protected List<Integer> findPotentialMoves(int index) {
     List<Integer> places = new ArrayList<>();
     for (int i = 0; i < getGrid().size(); i++) {
-      if (i == index) {
-        continue;
+      if (i != index) {
+        places.add(i);
       }
-      places.add(i);
     }
     return places;
   }
