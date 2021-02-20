@@ -93,7 +93,7 @@ public class SugarScapeCell extends Cell {
 
     if (getState() == AGENT) {
       setMoveStateValue("state", AGENT);
-      updateStateParam();
+      updateMoveStateParam();
     } else {
       setMoveStateValue("state", NO_MOVEMENT);
     }
@@ -110,7 +110,7 @@ public class SugarScapeCell extends Cell {
     }
   }
 
-  private void updateStateParam() {
+  private void updateMoveStateParam() {
     setMoveStateValue(agentSugarKey, agentSugar);
     setMoveStateValue(agentSugarMetabolismKey, agentSugarMetabolism);
     setMoveStateValue(agentVisionKey, agentVision);
