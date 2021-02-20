@@ -43,16 +43,16 @@ public class SegregationCell extends Cell {
   public Map<String, Integer> prepareNextState(int[] neighborStates) {
     if (getState() == EMPTY) {
       setNextState(EMPTY);
-      setMoveStateValue("state", NO_MOVEMENT);
+      setMoveStateValue(STATE_KEY, NO_MOVEMENT);
     } else {
       double similar = calculateSimilarity(neighborStates);
 
       if (similar >= myThreshold) {
         setNextState(getState());
-        setMoveStateValue("state", NO_MOVEMENT);
+        setMoveStateValue(STATE_KEY, NO_MOVEMENT);
       } else {
         setNextState(EMPTY);
-        setMoveStateValue("state", getState());
+        setMoveStateValue(STATE_KEY, getState());
       }
     }
 
@@ -84,7 +84,7 @@ public class SegregationCell extends Cell {
    */
   @Override
   public boolean receiveUpdate(Map<String, Integer> newInfo) {
-    int incomingState = newInfo.get("state");
+    int incomingState = newInfo.get(STATE_KEY);
     if (getNextState() != EMPTY) {
       return false;
     } else {
