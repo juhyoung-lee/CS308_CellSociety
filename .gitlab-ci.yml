@@ -11,13 +11,13 @@ checkstyle_analysis:
 sonar_analysis:
   stage: analyze
   script:
-    - java -version
-    - mvn -version
+    - java --version
+    - mvn --version
     - |
       mvn -X sonar:sonar \
       -Dsonar.host.url=http://coursework.cs.duke.edu:9000 \
       -Dsonar.sources=. -Dsonar.java.binaries=. \
-      -Dsonar.exclusions=**/*.xml
+      -Dsonar.exclusions=**/*.xml,**/*.css,src/test/**
   tags:
     - sonarqube
   only:
