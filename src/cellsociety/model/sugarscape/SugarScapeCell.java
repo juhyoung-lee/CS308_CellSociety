@@ -14,15 +14,6 @@ import java.util.Random;
  */
 public class SugarScapeCell extends Cell {
 
-  private final String patchMaxSugarKey = "patchMaxSugar";
-  private final String patchSugarGrowbackRateKey = "patchSugarGrowbackRate";
-  private final String patchSugarGrowbackIntervalKey = "getPatchSugarGrowbackInterval";
-  private final int patchMaxSugar;
-  private final int patchSugarGrowbackRate;
-  private final int patchSugarGrowbackInterval;
-  private int patchSugar;
-  private int patchIntervalCount;
-
   public static final int EMPTY = 0;
   public static final int AGENT = 1;
   private final String neighborNumMaxKey = "neighborNumMax";
@@ -32,9 +23,22 @@ public class SugarScapeCell extends Cell {
   private final Random randGen = new Random();
   private final int neighborNumMax;
   private final int agentVisionMax;
-  private int agentSugarMetabolism;
+  private final int agentSugarMetabolism;
   private int agentVision;
   private int agentSugar;
+
+  private final String patchMaxSugarKey = "patchMaxSugar";
+  private final String patchSugarGrowBackRateKey = "patchSugarGrowBackRate";
+  private final String patchSugarGrowBackIntervalKey = "getPatchSugarGrowBackInterval";
+  private final int patchMaxSugar;
+  private final int patchSugarGrowBackRate;
+  private final int patchSugarGrowBackInterval;
+  private int patchSugar;
+  private int patchIntervalCount;
+
+  private final String agentSugarMetabolismKey = "agentSugarMetabolism";
+  private final String agentVisionKey = "agentVision";
+  private final String agentSugarKey = "agentSugar";
 
   /**
    * Purpose: Constructor for SugarScapeCell class.
@@ -45,18 +49,18 @@ public class SugarScapeCell extends Cell {
    */
   public SugarScapeCell(Map<String, Integer> config) {
     super(config);
-    patchMaxSugar = config.get(patchMaxSugarKey);
-    patchSugarGrowbackRate = config.get(patchSugarGrowbackRateKey);
-    patchSugarGrowbackInterval = config.get(patchSugarGrowbackIntervalKey);
-    patchSugar = patchMaxSugar;
-    patchIntervalCount = 0;
-
     neighborNumMax = config.get(neighborNumMaxKey);
     agentVisionMax = config.get(agentVisionMaxKey);
     agentVision = randGen.nextInt(agentVisionMax - 1) + 1;
 
     agentSugarMetabolism = randGen.nextInt(config.get(agentSugarMetabolismMaxKey)) + 1;
     agentSugar = config.get(agentInitialSugarKey) + 5;
+
+    patchMaxSugar = config.get(patchMaxSugarKey);
+    patchSugarGrowBackRate = config.get(patchSugarGrowBackRateKey);
+    patchSugarGrowBackInterval = config.get(patchSugarGrowBackIntervalKey);
+    patchSugar = patchMaxSugar;
+    patchIntervalCount = 0;
   }
 
   /**
@@ -85,11 +89,7 @@ public class SugarScapeCell extends Cell {
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/Sugarscape_Leicester.pdf
    */
   public Map<String, Integer> prepareNextState(int[] neighborStates) {
-    patchIntervalCount++;
-    if (patchIntervalCount == patchSugarGrowbackInterval) {
-      patchSugar = Math.min(patchMaxSugar, patchSugar + patchSugarGrowbackRate);
-      patchIntervalCount = 0;
-    }
+    updatePatchSugar();
 
     if (getState() == AGENT) {
       setMoveStateValue("state", AGENT);
@@ -102,11 +102,20 @@ public class SugarScapeCell extends Cell {
     return getMoveStateCopy();
   }
 
-  private void updateStateParam() {
-    setMoveStateValue("agentSugar", agentSugar);
-    setMoveStateValue("agentSugarMetabolism", agentSugarMetabolism);
-    setMoveStateValue("agentVision", agentVision);
+  private void updatePatchSugar() {
+    patchIntervalCount++;
+    if (patchIntervalCount == patchSugarGrowBackInterval) {
+      patchSugar = Math.min(patchMaxSugar, patchSugar + patchSugarGrowBackRate);
+      patchIntervalCount = 0;
+    }
   }
+
+  private void updateStateParam() {
+    setMoveStateValue(agentSugarKey, agentSugar);
+    setMoveStateValue(agentSugarMetabolismKey, agentSugarMetabolism);
+    setMoveStateValue(agentVisionKey, agentVision);
+  }
+
   /**
    * Purpose: Accepts Map information with new state information.
    * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
@@ -124,15 +133,15 @@ public class SugarScapeCell extends Cell {
     } else {
       agentSugar = newAgentSugar;
       patchSugar = 0;
-      agentVision = newInfo.get("agentVision");
+      agentVision = newInfo.get(agentVisionKey);
       setNextState(incomingState);
       return true;
     }
   }
 
   private int calcNewAgentSugar(Map<String, Integer> newInfo) {
-    int newAgentSugar = newInfo.get("agentSugar");
-    int newAgentSugarMetabolism = newInfo.get("agentSugarMetabolism");
+    int newAgentSugar = newInfo.get(agentSugarKey);
+    int newAgentSugarMetabolism = newInfo.get(agentSugarMetabolismKey);
 
     newAgentSugar += (patchSugar - newAgentSugarMetabolism);
 
