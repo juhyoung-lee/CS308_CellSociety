@@ -28,19 +28,19 @@ public class Simulation {
   private Map<String, Integer> myParameters;
   private List<String> myCellRows;
 
-  public Simulation(String fileString) {
+  public Simulation(String fileString) throws XMLException {
     File dataFile = new File(fileString);
 
     DOCUMENT_BUILDER = getDocumentBuilder();
     Element root = getRootElement(dataFile);
 
-    ArrayList<String> infoValues = getInfo(root);
+    myParameters = makeParameterMap(dataFile);
+    myCellRows = makeCellRowList(root);
+    List<String> infoValues = makeInfoList(root);
     myType = infoValues.get(0);
     myTitle = infoValues.get(1);
     myAuthor = infoValues.get(2);
     myDescription = infoValues.get(3);
-    myParameters = makeParameterMap(dataFile);
-    myCellRows = getCells(root);
   }
 
   //TODO: fix pointer stuff
@@ -55,15 +55,12 @@ public class Simulation {
   public int getHeight() {
     return myParameters.get("height");
   }
-  //TODO: fix pointer stuff
   public String getTitle() {
     return myTitle;
   }
-  //TODO: fix pointer stuff
   public String getType() {
     return myType;
   }
-  //TODO: does this pointer stuff work
   public Map<String, Integer> getParameters() {
     Map<String, Integer> returned = new HashMap<>();
     returned.putAll(myParameters);
@@ -74,7 +71,8 @@ public class Simulation {
     try {
       return DocumentBuilderFactory.newInstance().newDocumentBuilder();
     } catch (ParserConfigurationException e) {
-      //TODO: fix excpetions
+      //TODO: fix exceptions
+      //Document builder exception 1
       throw new XMLException(e);
     }
   }
@@ -86,13 +84,14 @@ public class Simulation {
       return xmlDocument.getDocumentElement();
     } catch (SAXException | IOException e) {
       //TODO: fix exceptions
+      //Document Exception 2
       throw new XMLException(e);
     }
   }
 
-  private Map<String, Integer> makeParameters(File dataFile) {
-    HashMap<String, Integer> returned = new HashMap<>();
+  private Map<String, Integer> makeParameterMap(File dataFile) throws XMLException{
     try {
+      Map<String, Integer> returned = new HashMap<>();
       NodeList nList = DOCUMENT_BUILDER.parse(dataFile).getElementsByTagName("parameters");
       Node node = nList.item(0);
       NodeList list = node.getChildNodes();
@@ -102,18 +101,17 @@ public class Simulation {
           returned.put(n.getNodeName(), Integer.parseInt(n.getTextContent()));
         }
       }
+      return returned;
     } catch (Exception e) {
-    }//TODO work on exception
-    return returned;
+      throw new XMLException(null, null);
+      //TODO work on exception
+      //parse datafile exception
+    }
   }
 
-  private Map<String, Integer> makeParameterMap(File dataFile) {
-    Map<String, Integer> parameterMap = makeParameters(dataFile);//TODO: RENAME
-    return parameterMap;
-  }
 
-  private ArrayList<String> getCells(Element root) {
-    ArrayList<String> returned = new ArrayList<>();
+  private List<String> makeCellRowList(Element root) {
+    List<String> returned = new ArrayList<>();
     NodeList cellRows = root.getElementsByTagName("cellRow");
     for (int i = 0; i < cellRows.getLength(); i++) {
       Node temp = cellRows.item(i);
@@ -122,21 +120,20 @@ public class Simulation {
     return returned;
   }
 
-  private ArrayList<String> getInfo(Element root) {
-    ArrayList<String> returned = new ArrayList<>();
+  private List<String> makeInfoList(Element root) {
+    List<String> returned = new ArrayList<>();
     for (String field : Simulation.INFORMATION_FIELDS) {
       returned.add(getTextValue(root, field));
     }
     return returned;
   }
 
-  private String getTextValue(Element e, String tagName) {
+  private String getTextValue(Element e, String tagName){
     NodeList nodeList = e.getElementsByTagName(tagName);
     if (nodeList != null && nodeList.getLength() > 0) {
       return nodeList.item(0).getTextContent();
     } else {
-      // FIXME: empty string or exception? In some cases it may be an error to not find any text
-      return "";
+      return null;
     }
   }
 

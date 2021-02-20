@@ -83,9 +83,15 @@ public class Control {
   private void createStageFromData(String dataFile) {
     mySC.resetGameTitleText();
     mySC.clearGrid();
+    Simulation simulation = null;
 
-    Simulation simulation = new Simulation(dataFile);
-
+      try {
+        simulation = new Simulation(dataFile);
+      } catch (Exception e) {
+        e.printStackTrace();
+        //display error message
+        //e.getMessage convert it, display it
+      }
     String title = simulation.getTitle();
     String type = simulation.getType();
     List<String> cells = simulation.getCellRows();
