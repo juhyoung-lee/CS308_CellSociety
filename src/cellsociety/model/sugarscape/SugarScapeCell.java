@@ -14,12 +14,12 @@ import java.util.Random;
  */
 public class SugarScapeCell extends Cell {
 
-  private final String patchMaximumSugarKey = "patchMaximumSugar";
+  private final String patchMaxSugarKey = "patchMaxSugar";
   private final String patchSugarGrowbackRateKey = "patchSugarGrowbackRate";
   private final String patchSugarGrowbackIntervalKey = "getPatchSugarGrowbackInterval";
-  private int patchMaximumSugar;
-  private int patchSugarGrowbackRate;
-  private int patchSugarGrowbackInterval;
+  private final int patchMaxSugar;
+  private final int patchSugarGrowbackRate;
+  private final int patchSugarGrowbackInterval;
   private int patchSugar;
   private int patchIntervalCount;
 
@@ -45,10 +45,10 @@ public class SugarScapeCell extends Cell {
    */
   public SugarScapeCell(Map<String, Integer> config) {
     super(config);
-    patchMaximumSugar = config.get(patchMaximumSugarKey);
+    patchMaxSugar = config.get(patchMaxSugarKey);
     patchSugarGrowbackRate = config.get(patchSugarGrowbackRateKey);
     patchSugarGrowbackInterval = config.get(patchSugarGrowbackIntervalKey);
-    patchSugar = patchMaximumSugar;
+    patchSugar = patchMaxSugar;
     patchIntervalCount = 0;
 
     neighborNumMax = config.get(neighborNumMaxKey);
@@ -87,7 +87,7 @@ public class SugarScapeCell extends Cell {
   public Map<String, Integer> prepareNextState(int[] neighborStates) {
     patchIntervalCount++;
     if (patchIntervalCount == patchSugarGrowbackInterval) {
-      patchSugar += patchSugarGrowbackRate;
+      patchSugar = Math.min(patchMaxSugar, patchSugar + patchSugarGrowbackRate);
       patchIntervalCount = 0;
     }
 
