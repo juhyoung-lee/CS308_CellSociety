@@ -15,9 +15,9 @@ public class BylsLoopGrid extends Grid {
    * @param parameters      game settings from XML
    * @throws Exception invalid cell state
    */
-  public BylsLoopGrid(List<String> cellArrangement,
+  public BylsLoopGrid(List<String> cellArrangement, String shape,
       Map<String, Integer> parameters) throws Exception {
-    super(cellArrangement, parameters);
+    super(cellArrangement, shape, parameters);
   }
 
   /**
