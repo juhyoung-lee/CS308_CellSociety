@@ -17,6 +17,8 @@ public abstract class Grid {
   private Map<String, Integer>[] issues;
   private final int height;
   private final int width;
+  private final String shape;
+  private final int neighborhoodSize;
 
   /**
    * Constructor fills fields using XML data.
@@ -27,9 +29,11 @@ public abstract class Grid {
    * @param parameters game settings from XML
    * @throws Exception invalid cell state
    */
-  public Grid(List<String> cellArrangement, Map<String, Integer> parameters) throws Exception {
+  public Grid(List<String> cellArrangement, String shape, Map<String, Integer> parameters) throws Exception {
+    this.shape = shape;
     this.height = parameters.get("height");
     this.width = parameters.get("width");
+    this.neighborhoodSize = parameters.get("neighborhoodSize");
     setupGrid(cellArrangement, parameters);
     setupNeighbors();
     issues = new HashMap[this.grid.size()];
@@ -129,7 +133,7 @@ public abstract class Grid {
    * Used by constructor. Populates neighbor field.
    * Assumptions: setupGrid() has already been called.
    */
-  private void setupNeighbors() {
+  private void setupNeighbors() throws Exception {
     this.neighbors = new HashMap<>();
     for (int i = 0; i < grid.size(); i++) {
       this.neighbors.put(this.grid.get(i), pullNeighborIndexes(i));
@@ -152,7 +156,7 @@ public abstract class Grid {
    * @param index center index
    * @return neighboring indexes
    */
-  private int[] pullNeighborIndexes(int index) {
+  private int[] pullNeighborIndexes(int index) throws Exception {
     int[] variance = neighborVariances(index);
     ArrayList<Integer> possibleIndexes = new ArrayList<>();
     for (int i : variance) {
@@ -164,15 +168,25 @@ public abstract class Grid {
 
   /**
    * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
-   * neighboring indexes.
+   * neighboring indexes. Will need to implement different versions for different neighborhood
+   * sizes. Throws exception if neighborhood size is not a valid size.
    * Assumptions: counts surrounding 8 Moore cells as neighbors. Grid is a square tesselation.
    *
    * @param index center index
    * @return values for computing neighboring indexes
    */
-  protected int[] neighborVariances(int index) {
-    int width = getDimensions()[0];
-    return new int[]{-1 - width, -1 * width, 1 - width, -1, 1, -1 + width, width, 1 + width};
+  protected int[] neighborVariances(int index) throws Exception {
+    IndexVariance varianceCalculator = new IndexVariance(index, this.width, this.height, this.neighborhoodSize);
+    int[] variance = switch (this.shape) {
+      case "square" -> varianceCalculator.square();
+      case "triangle" -> varianceCalculator.triangle();
+      case "hexagon" -> varianceCalculator.hexagon();
+      default -> throw new Exception("Invalid shape: " + this.shape);
+    };
+    if (variance.length != this.neighborhoodSize) {
+      throw new Exception("Grid neighborhood size (" + variance.length + ") and XML parameter (" + this.neighborhoodSize + ") inconsistent");
+    }
+    return variance;
   }
 
   /**
