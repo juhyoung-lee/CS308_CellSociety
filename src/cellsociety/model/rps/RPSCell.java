@@ -56,7 +56,7 @@ public class RPSCell extends Cell {
       setNextState(getState());
     }
 
-    setMoveStateValue("state", NO_MOVEMENT);
+    setMoveStateValue(STATE_KEY, NO_MOVEMENT);
     return getMoveStateCopy();
   }
 

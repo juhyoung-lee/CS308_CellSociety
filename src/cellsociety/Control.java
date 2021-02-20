@@ -13,7 +13,11 @@ import cellsociety.model.wator.WaTorGrid;
 
 import java.io.File;
 
+import cellsociety.view.RectangleGrid;
 import cellsociety.view.ScreenControl;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javafx.animation.KeyFrame;
@@ -46,6 +50,7 @@ public class Control {
   private double delay;
   private Timeline animation;
   private Stage myStage;
+  private String myDataFile;
 
   /**
    * Purpose: Initialize the scene and animation timeline.
@@ -79,9 +84,9 @@ public class Control {
   public void uploadFile() {
     FileChooser fileChooser = new FileChooser();
     File selectedFile = fileChooser.showOpenDialog(myStage);
-    String dataFile = selectedFile.getPath();
+    myDataFile = selectedFile.getPath();
     try {
-      createStageFromData(dataFile);
+      createStageFromData(myDataFile);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -125,7 +130,7 @@ public class Control {
       default -> null;
     };
 
-    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
+    mySC.createRectGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
 
     resetAnimation();
   }
@@ -161,7 +166,16 @@ public class Control {
    * Example of use: TODO
    */
   public void start() {
-    animation.play();
+    try {
+      checkFilled(myDataFile);
+      animation.play();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private boolean checkFilled(String myDataFile) {
+    return !myDataFile.equals(null);
   }
 
   /**

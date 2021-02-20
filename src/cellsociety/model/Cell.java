@@ -14,6 +14,7 @@ import java.util.Map;
 public abstract class Cell {
 
   public static final int NO_MOVEMENT = -1;
+  public static final String STATE_KEY = "state";
   private Map<String, Integer> moveState = new HashMap<>();
   private int myState;
   private int nextState;
@@ -29,7 +30,7 @@ public abstract class Cell {
    * Returns: Cell object.
    */
   public Cell(Map<String, Integer> config) {
-    myState = config.get("state");
+    myState = config.get(STATE_KEY);
   }
 
   /**

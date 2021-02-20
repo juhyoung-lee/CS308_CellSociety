@@ -48,13 +48,13 @@ public class ForagingAntsCell extends Cell {
   public Map<String, Integer> prepareNextState(int[] neighborStates) {
     if (getState() == HOME) {
       setNextState(HOME);
-      setMoveStateValue("state", ANT);
+      setMoveStateValue(STATE_KEY, ANT);
       setMoveStateValue("hasFood", hasFood);
     } else if (getState() == ANT) {
       antPrepareNextState(neighborStates);
     } else {
       setNextState(getState());
-      setMoveStateValue("state", NO_MOVEMENT);
+      setMoveStateValue(STATE_KEY, NO_MOVEMENT);
     }
 
     updateMoveStateParam();
@@ -70,13 +70,13 @@ public class ForagingAntsCell extends Cell {
         hasFood = 1;
       }
       homePheromone++;
-      setMoveStateValue("state", ANT);
+      setMoveStateValue(STATE_KEY, ANT);
     } else {
       if (containsHome) { // basically reached home, and can disappear
         hasFood = 0;
-        setMoveStateValue("state", NO_MOVEMENT);
+        setMoveStateValue(STATE_KEY, NO_MOVEMENT);
       } else {
-        setMoveStateValue("state", ANT);
+        setMoveStateValue(STATE_KEY, ANT);
       }
       foodPheromone += 2;
     }
@@ -108,7 +108,7 @@ public class ForagingAntsCell extends Cell {
    */
   @Override
   public boolean receiveUpdate(Map<String, Integer> newInfo) {
-    int incomingState = newInfo.get("state");
+    int incomingState = newInfo.get(STATE_KEY);
 
     if (incomingState == ANT && getState() == EMPTY) {
       setNextState(ANT);

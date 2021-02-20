@@ -49,7 +49,7 @@ public class PercolationCell extends Cell {
       }
     }
 
-    setMoveStateValue("state", NO_MOVEMENT);
+    setMoveStateValue(STATE_KEY, NO_MOVEMENT);
     return getMoveStateCopy();
   }
 }
