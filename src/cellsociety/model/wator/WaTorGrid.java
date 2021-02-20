@@ -15,7 +15,7 @@ public class WaTorGrid extends Grid {
    * @param parameters      game settings from XML
    */
   public WaTorGrid(List<String> cellArrangement,
-      Map<String, Integer> parameters) {
+      Map<String, Integer> parameters) throws Exception {
     super(cellArrangement, parameters);
   }
 

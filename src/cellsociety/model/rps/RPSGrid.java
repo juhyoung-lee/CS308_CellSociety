@@ -1,19 +1,20 @@
-package cellsociety.model.fire;
+package cellsociety.model.rps;
 
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
 import java.util.List;
 import java.util.Map;
 
-public class FireGrid extends Grid {
+public class RPSGrid extends Grid {
 
   /**
-   * Constructor.
+   * Constructor fills fields using XML data. Assumptions: parameters contains all the information
+   * required to create appropriate cell. cellArrangement represents a valid square tesselation grid.
    *
    * @param cellArrangement cell grid from XML
    * @param parameters      game settings from XML
    */
-  public FireGrid(List<String> cellArrangement,
+  public RPSGrid(List<String> cellArrangement,
       Map<String, Integer> parameters) throws Exception {
     super(cellArrangement, parameters);
   }
@@ -27,13 +28,6 @@ public class FireGrid extends Grid {
    */
   @Override
   protected Cell chooseCell(Map<String, Integer> parameters) {
-    return new FireCell(parameters);
-  }
-
-  @Override
-  protected int[] neighborVariances(int index) {
-    int width = getDimensions()[0];
-    // percolation only looks at cells above and next
-    return new int[]{-1 * width, -1, 1, width};
+    return new RPSCell(parameters);
   }
 }

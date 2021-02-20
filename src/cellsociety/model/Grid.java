@@ -25,8 +25,9 @@ public abstract class Grid {
    *
    * @param cellArrangement cell grid from XML
    * @param parameters game settings from XML
+   * @throws Exception invalid cell state
    */
-  public Grid(List<String> cellArrangement, Map<String, Integer> parameters) {
+  public Grid(List<String> cellArrangement, Map<String, Integer> parameters) throws Exception {
     this.height = parameters.get("height");
     this.width = parameters.get("width");
     setupGrid(cellArrangement, parameters);
@@ -105,15 +106,21 @@ public abstract class Grid {
    *
    * @param cellArrangement cell grid from XML
    * @param parameters game parameters from XML
+   * @throws Exception invalid cell state
    */
-  private void setupGrid(List<String> cellArrangement, Map<String, Integer> parameters) {
+  private void setupGrid(List<String> cellArrangement, Map<String, Integer> parameters)
+      throws Exception {
     this.grid = new ArrayList<>();
     for (String s : cellArrangement) {
       String[] row = s.split("");
       for (String state : row) {
         parameters.put("state", Integer.parseInt(state));
         Cell cell = chooseCell(parameters);
-        this.grid.add(cell);
+        if (cell.isValidState()) {
+          this.grid.add(cell);
+        } else {
+          throw new Exception("Invalid Cell State");
+        }
       }
     }
   }
@@ -140,7 +147,7 @@ public abstract class Grid {
 
   /**
    * Used by setupNeighbors(). Finds neighboring indexes in arraylist representation of grid.
-   * Assumptions: Grid is a square tesselation. Looking for 8 neighbors.
+   * Assumptions: Grid is a square tesselation. Looking for 8 Moore neighbors.
    *
    * @param index center index
    * @return neighboring indexes
@@ -158,7 +165,7 @@ public abstract class Grid {
   /**
    * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
    * neighboring indexes.
-   * Assumptions: counts surrounding eight cells as neighbors. Grid is a square tesselation.
+   * Assumptions: counts surrounding 8 Moore cells as neighbors. Grid is a square tesselation.
    *
    * @param index center index
    * @return values for computing neighboring indexes
@@ -210,13 +217,14 @@ public abstract class Grid {
   }
 
   /**
-   * Used by prepareCellUpdates(). Compiles neighboring cell states.
+   * Used by prepareCellUpdates(). Compiles neighboring cell states. Necessary as neighbors field
+   * variable only stores cell indexes.
    * Assumptions: Cell passes state as int. Only state is required to update a cell.
    *
    * @param index center cell position
    * @return states of neighboring cells
    */
-  protected int[] pullNeighborStates(int index) {
+  private int[] pullNeighborStates(int index) {
     Cell currentCell = this.grid.get(index);
     Cell neighborCell;
     int[] neighborIndexes = this.neighbors.get(currentCell);
@@ -304,6 +312,4 @@ public abstract class Grid {
   protected List<Integer> findPotentialMoves(int index) {
     return new ArrayList<>();
   }
-
-  // TODO: extract methods. only variation so far is in which neighbors are considered.
 }
