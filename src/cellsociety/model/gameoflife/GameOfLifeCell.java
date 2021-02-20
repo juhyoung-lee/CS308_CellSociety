@@ -47,7 +47,7 @@ public class GameOfLifeCell extends Cell {
       setNextState(DEAD);
     }
 
-    setMoveStateValue("state", NO_MOVEMENT);
+    setMoveStateValue(STATE_KEY, NO_MOVEMENT);
     return getMoveStateCopy();
   }
 
