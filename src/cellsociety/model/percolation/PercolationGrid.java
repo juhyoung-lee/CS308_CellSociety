@@ -14,9 +14,9 @@ PercolationGrid extends Grid {
    * @param cellArrangement cell grid from XML
    * @param parameters      game settings from XML
    */
-  public PercolationGrid(List<String> cellArrangement,
+  public PercolationGrid(List<String> cellArrangement, String shape,
       Map<String, Integer> parameters) throws Exception {
-    super(cellArrangement, parameters);
+    super(cellArrangement, shape, parameters);
   }
 
   /**

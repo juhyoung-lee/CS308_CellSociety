@@ -13,9 +13,9 @@ public class GameOfLifeGrid extends Grid {
    * @param cellArrangement cell grid from XML
    * @param parameters      game settings from XML
    */
-  public GameOfLifeGrid(List<String> cellArrangement,
+  public GameOfLifeGrid(List<String> cellArrangement, String shape,
       Map<String, Integer> parameters) throws Exception {
-    super(cellArrangement, parameters);
+    super(cellArrangement, shape, parameters);
   }
 
   /**
