@@ -13,9 +13,9 @@ public class FireGrid extends Grid {
    * @param cellArrangement cell grid from XML
    * @param parameters      game settings from XML
    */
-  public FireGrid(List<String> cellArrangement,
+  public FireGrid(List<String> cellArrangement, String shape,
       Map<String, Integer> parameters) throws Exception {
-    super(cellArrangement, parameters);
+    super(cellArrangement, shape, parameters);
   }
 
   /**
@@ -33,7 +33,6 @@ public class FireGrid extends Grid {
   @Override
   protected int[] neighborVariances(int index) {
     int width = getDimensions()[0];
-    // percolation only looks at cells above and next
     return new int[]{-1 * width, -1, 1, width};
   }
 }
