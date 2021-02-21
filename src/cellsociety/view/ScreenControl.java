@@ -47,6 +47,7 @@ public class ScreenControl {
   private ResourceBundle myResources;
   private String myStyleSheet;
   private RectangleGrid myRectGrid;
+  private TriangleGrid myTriGrid;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -145,19 +146,10 @@ public class ScreenControl {
     titleText = myRectGrid.getTitleText();
   }
 
-  public void createTriGrid(int rows, int cols, List<Integer> cells) {
-    myRoot.getChildren().remove(myTriangle);
-    double xSize = ((double) Control.GRID_SIZE) / cols;
-    double ySize = ((double) Control.GRID_SIZE) / rows;
-    myType = myType.replaceAll("\\s", "");
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        Rectangle block = new Rectangle(Control.GRID_X + j * xSize, Control.GRID_Y + i * ySize, xSize, ySize);
-        myBlocks.add(block);
-        myRoot.getChildren().add(block);
-        block.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
-      }
-    }
+  public void createTriGrid(String title, String type, int rows, int cols, List<Integer> cells) {
+    myTriGrid = new TriangleGrid(myStyleSheet, myScene, myRoot);
+    myTriGrid.createGrid(title, type, rows, cols, cells);
+    titleText = myTriGrid.getTitleText();
   }
 
   public void createHexGrid(int rows, int cols, List<Integer> cells) {
@@ -180,11 +172,21 @@ public class ScreenControl {
    ** @param cells
    */
   public void updateGrid(List<Integer> cells) {
-    myRectGrid.updateGrid(cells);
+    if (myRectGrid != null) {
+      myRectGrid.updateGrid(cells);
+    }
+    if (myTriGrid != null) {
+      myTriGrid.updateGrid(cells);
+    }
   }
 
   public void clearGrid() {
-    myRectGrid.clearGrid();
+    if (myRectGrid != null) {
+      myRectGrid.clearGrid();
+    }
+    if (myTriGrid != null) {
+      myTriGrid.clearGrid();
+    }
   }
 
   private void resetButtons() {
