@@ -9,6 +9,7 @@ import cellsociety.model.gameoflife.GameOfLifeGrid;
 import cellsociety.model.percolation.PercolationGrid;
 import cellsociety.model.rps.RPSGrid;
 import cellsociety.model.segregation.SegregationGrid;
+import cellsociety.model.sugarscape.SugarScapeGrid;
 import cellsociety.model.wator.WaTorGrid;
 
 import java.io.File;
@@ -123,6 +124,7 @@ public class Control {
       case "Rock Paper Scissors" -> new RPSGrid(cells, shape, params);
       case "Foraging Ants" -> new ForagingAntsGrid(cells, shape, params);
       case "Byls Loop" -> new BylsLoopGrid(cells, shape, params);
+      case "SugarScape" -> new SugarScapeGrid(cells, shape, params);
       default -> null;
     };
 
