@@ -128,8 +128,8 @@ public class Control {
       default -> null;
     };
 
-    //mySC.createRectGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
-    mySC.createHexGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
+    mySC.createRectGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
+//    mySC.createHexGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
 
     resetAnimation();
   }
