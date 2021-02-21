@@ -39,9 +39,47 @@ PercolationGrid extends Grid {
    * @return values for computing neighboring indexes
    */
   @Override
-  protected int[] neighborVariances(int index) {
-    int width = getDimensions()[0];
+  protected int[] decideNeighborhood(int index) throws Exception {
     // percolation only looks at cells above and next
+    return switch (getShape()) {
+      case "square" -> square();
+      case "triangle" -> triangle(index);
+      case "hexagon" -> hexagon(index);
+      default -> throw new Exception("Invalid shape: " + getShape());
+    };
+  }
+
+  private int[] square() {
+    if (getNeighborhoodSize() != 4) {
+      return new int[]{};
+    }
+    int width = getDimensions()[0];
     return new int[]{-1 * width, -1, 1};
+  }
+
+  private int[] triangle(int index) {
+    int w = getDimensions()[0];
+    boolean trianglePointy = isTriangleTopPointy(index);
+
+    if (trianglePointy && getNeighborhoodSize() == 3) {
+      return new int[]{-1, 1};
+    } else if (getNeighborhoodSize() == 3) {
+      return new int[]{-1 * w, -1, 1};
+    } else {
+      return new int[]{};
+    }
+  }
+
+  private int[] hexagon(int index) {
+    int w = getDimensions()[0];
+    if (getNeighborhoodSize() != 6) {
+      return new int[]{};
+    }
+    boolean evenRow = (index / w) % 2 == 0;
+    if (evenRow) {
+      return new int[]{-1 - w, -1 * w, -1, 1};
+    } else {
+      return new int[]{-1 * w, 1 - w, -1, 1};
+    }
   }
 }

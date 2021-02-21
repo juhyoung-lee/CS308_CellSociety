@@ -50,6 +50,8 @@ public class ScreenControl {
   private HexagonGrid myHexGrid;
   private TriangleGrid myTriGrid;
   private PieChart myGraph;
+  private String myType;
+  private ObservableList<PieChart.Data> myData;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -135,6 +137,8 @@ public class ScreenControl {
     myWindowTitle(size, secondaryLayout);
 
     myGraph = new PieChart();
+    myGraph.setAnimated(false);
+    myData = FXCollections.observableArrayList();
     secondaryLayout.getChildren().add(myGraph);
 
     Stage newWindow = new Stage();
@@ -171,47 +175,54 @@ public class ScreenControl {
    * * @param cols
    * * @param cells
    */
-  public void createRectGrid(String title, String type, int rows, int cols, List<Integer> cells) {
-    myRectGrid = new RectangleGrid(myStyleSheet, myScene, myRoot);
-    myRectGrid.createGrid(title, type, rows, cols, cells);
-    titleText = myRectGrid.getTitleText();
+  public void createGrid(String title, String type, int rows, int cols, List<Integer> cells, String shape) {
+    myType = type;
+    myType = myType.replaceAll("\\s", "");
+    if(shape.equals("square")) {
+      createRecGrid(title, type, rows, cols, cells);
+    } else if (shape.equals("triangle")) {
+      createTriGrid(title, type, rows, cols, cells);
+    } else {
+      createHexGrid(title, type, rows, cols, cells);
+    }
     if (myGraph != null) {
-      updateGraph(cells);
+      updateGraph(cells, type);
     }
   }
 
 
+  private void createRecGrid(String title, String type, int rows, int cols, List<Integer> cells) {
+    myRectGrid = new RectangleGrid(myStyleSheet, myScene, myRoot);
+    myRectGrid.createGrid(title, type, rows, cols, cells);
+    titleText = myRectGrid.getTitleText();
+  }
 
-  public void createTriGrid(String title, String type, int rows, int cols, List<Integer> cells) {
+  private void createTriGrid(String title, String type, int rows, int cols, List<Integer> cells) {
     myTriGrid = new TriangleGrid(myStyleSheet, myScene, myRoot);
     myTriGrid.createGrid(title, type, rows, cols, cells);
     titleText = myTriGrid.getTitleText();
   }
 
-  /**
-   * Purpose: Creates grid of hexagons.
-   * Assumptions: TODO
-   * Parameters: String title, String type, int rows, int cols, List cells.
-   * Exceptions: TODO
-   * Returns: None.
-   */
-  public void createHexGrid(String title, String type, int rows, int cols, List<Integer> cells) {
+  private void createHexGrid(String title, String type, int rows, int cols, List<Integer> cells) {
     myHexGrid = new HexagonGrid(myStyleSheet, myScene, myRoot);
     myHexGrid.createGrid(title, type, rows, cols, cells);
     titleText = myHexGrid.getTitleText();
   }
 
-  private void updateGraph(List<Integer> cells) {
+  private void updateGraph(List<Integer> cells, String type) {
+    clearGraph();
     List<Integer> sortedlist = new ArrayList<>(cells);
     Collections.sort(sortedlist);
     int max = sortedlist.get(cells.size() - 1);
-    System.out.println(max);
-    ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
     for (int i = 0; i <= max; i++) {
       int num = Collections.frequency(cells, i);
-      data.add(new PieChart.Data(String.valueOf(i), num));
+      myData.add(new PieChart.Data(myResources.getString(myType + i), num));
     }
-    myGraph.setData(data);
+    myGraph.setData(myData);
+  }
+
+  private void clearGraph() {
+    myData.clear();
   }
   /**
    * Updates the grid based on new cell information passed in.
@@ -220,21 +231,23 @@ public class ScreenControl {
   public void updateGrid(List<Integer> cells) {
     if (myRectGrid != null) {
       myRectGrid.updateGrid(cells);
-    }
-    if (myTriGrid != null) {
+    } else if (myTriGrid != null) {
       myTriGrid.updateGrid(cells);
+    } else if (myHexGrid != null) {
+      myHexGrid.updateGrid(cells);
     }
     if (myGraph != null) {
-      updateGraph(cells);
+      updateGraph(cells, myType);
     }
   }
 
   public void clearGrid() {
     if (myRectGrid != null) {
       myRectGrid.clearGrid();
-    }
-    if (myTriGrid != null) {
+    } else if (myTriGrid != null) {
       myTriGrid.clearGrid();
+    } else if (myHexGrid != null) {
+      myHexGrid.clearGrid();
     }
   }
 

@@ -10,6 +10,7 @@ import cellsociety.model.gameoflife.GameOfLifeGrid;
 import cellsociety.model.percolation.PercolationGrid;
 import cellsociety.model.rps.RPSGrid;
 import cellsociety.model.segregation.SegregationGrid;
+import cellsociety.model.sugarscape.SugarScapeGrid;
 import cellsociety.model.wator.WaTorGrid;
 
 import java.io.File;
@@ -92,7 +93,7 @@ public class Control {
 
   private void createStageFromData(String dataFile) throws Exception {
     mySC.resetGameTitleText();
-    //mySC.clearGrid(); TODO: breaks on first upload because grid objects haven't been declared yet
+    mySC.clearGrid();
     Simulation simulation = new Simulation(dataFile);
 
     String title = simulation.getTitle();
@@ -124,14 +125,15 @@ public class Control {
       case "Rock Paper Scissors" -> new RPSGrid(cells, shape, params);
       case "Foraging Ants" -> new ForagingAntsGrid(cells, shape, params);
       case "Byls Loop" -> new BylsLoopGrid(cells, shape, params);
+      case "SugarScape" -> new SugarScapeGrid(cells, shape, params);
       default -> null;
     };
     if (myGrid == null) {
       throw new XMLException("BadType");
     }
 
-    mySC.createRectGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
-    //mySC.createHexGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
+
+    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), shape);
 
     resetAnimation();
   }
