@@ -1,10 +1,12 @@
 package cellsociety.model;
 
+/**
+ * Helps find neighboring indexes of a cell on a grid.
+ */
 public class IndexVariance {
 
   private final int index;
   private final int width;
-  private final int height;
   private final int neighborhoodSize;
 
   /**
@@ -14,13 +16,11 @@ public class IndexVariance {
    *
    * @param index center cell position
    * @param width number of columns
-   * @param height number of rows
    * @param neighborhoodSize number of neighbors to look for
    */
-  public IndexVariance(int index, int width, int height, int neighborhoodSize) {
+  public IndexVariance(int index, int width, int neighborhoodSize) {
     this.index = index;
     this.width = width;
-    this.height = height;
     this.neighborhoodSize = neighborhoodSize;
   }
 
@@ -42,37 +42,43 @@ public class IndexVariance {
 
   /**
    * Calculates the values to add to center cell's index to get neighboring indexes for a grid of
-   * triangles. Distinguishes between pointy top triangles and pointy bottom triangles using index
-   * values. If assumptions hold true, in even rows the even indexes (first in row is 0) are pointy
-   * top triangles. In odd rows, the odd indexes are pointy top triangles. Therefore, adding row
-   * number and index within the row will give whether the triangle is pointy top or pointy bottom.
-   * Returns empty array if neighborhood size is not an option.
+   * triangles.Returns empty array if neighborhood size is not an option.
    * Assumptions: Row 0 Index 0 is a triangle pointing up. Each row has the same number of
    * triangles.
    *
    * @return int[] of calculations to get neighboring indexes
    */
   public int[] triangle() {
-    int rowNumber = this.index / this.height;
-    int indexInRow = this.index % this.height;
-    boolean pointyTop = (rowNumber + indexInRow) % 2 == 0;
-
     int w = this.width;
-    int[] variance;
-    if (pointyTop) {
-      variance = switch (this.neighborhoodSize) {
+    if (isTriangleTopPointy(this.index, this.width)) {
+      return switch (this.neighborhoodSize) {
         case 3 -> new int[]{-1, 1, w};
         case 12 -> new int[]{-1 - w, -1 * w, 1 - w, -2, -1, 1, 2, -2 + w, -1 + w, w, 1 + w, 2 + w};
         default -> new int[]{};
       };
     } else {
-      variance = switch (this.neighborhoodSize) {
+      return switch (this.neighborhoodSize) {
         case 3 -> new int[]{-1 * w, -1, 1};
         case 12 -> new int[]{-2 - w, -1 - w, -1 * w, 1 - w, 2 - w, -2, -1, 1, 2, -1 + w, w, 1 + w};
         default -> new int[]{};
       };
     }
-    return variance;
+  }
+
+  /**
+   * Distinguishes between pointy top triangles and pointy bottom triangles using index
+   * values. If assumptions hold true, in even rows the even indexes (first in row is 0) are pointy
+   * top triangles. In odd rows, the odd indexes are pointy top triangles. Therefore, adding row
+   * number and index within the row will give whether the triangle is pointy top or pointy bottom.
+   *
+   * @param index triangle cell index
+   * @param width number of cells in a row in the grid
+   * @return whether a triangle is pointy side up or down
+   */
+  public static boolean isTriangleTopPointy(int index, int width) {
+    int rowNumber = index / width;
+    int indexInRow = index % width;
+    return (rowNumber + indexInRow) % 2 == 0;
   }
 
   /**
@@ -90,6 +96,11 @@ public class IndexVariance {
       return new int[]{};
     }
     int w = this.width;
-    return new int[]{-1 * w, 1 - w, -1, 1, w, 1 + w};
+    boolean evenRow = (this.index / this.width) % 2 == 0;
+    if (evenRow) {
+      return new int[]{-1 - w, -1 * w, -1, 1, -1 + w, w};
+    } else {
+      return new int[]{-1 * w, 1 - w, -1, 1, w, 1 + w};
+    }
   }
 }

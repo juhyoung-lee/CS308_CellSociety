@@ -31,7 +31,7 @@ public class FireGrid extends Grid {
   }
 
   @Override
-  protected int[] neighborVariances(int index) {
+  protected int[] decideNeighborhood(int index) {
     int width = getDimensions()[0];
     return new int[]{-1 * width, -1, 1, width};
   }

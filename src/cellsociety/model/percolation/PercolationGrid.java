@@ -2,6 +2,7 @@ package cellsociety.model.percolation;
 
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
+import cellsociety.model.IndexVariance;
 import java.util.List;
 import java.util.Map;
 
@@ -39,9 +40,48 @@ PercolationGrid extends Grid {
    * @return values for computing neighboring indexes
    */
   @Override
-  protected int[] neighborVariances(int index) {
-    int width = getDimensions()[0];
+  protected int[] decideNeighborhood(int index) throws Exception {
     // percolation only looks at cells above and next
+    int neighborhoodSize = getNeighborhoodSize();
+
+    return switch (getShape()) {
+      case "square" -> square();
+      case "triangle" -> triangle(index);
+      case "hexagon" -> hexagon(index);
+      default -> throw new Exception("Invalid shape: " + getShape());
+    };
+  }
+
+  private int[] square() {
+    int width = getDimensions()[0];
     return new int[]{-1 * width, -1, 1};
+  }
+
+  private int[] triangle(int index) {
+    int w = getDimensions()[0];
+    int height = getDimensions()[1];
+    boolean trianglePointy = IndexVariance.isTriangleTopPointy(index, height);
+
+    if (trianglePointy && getNeighborhoodSize() == 3) {
+      return new int[]{-1, 1};
+    } else if (getNeighborhoodSize() == 3) {
+      return new int[]{-1 * w, -1, 1};
+    } else {
+      return new int[]{};
+    }
+  }
+
+  private int[] hexagon(int index) {
+    if (getNeighborhoodSize() != 6) {
+      return new int[]{};
+    }
+
+    int w = getDimensions()[0];
+    boolean evenRow = (index / w) % 2 == 0;
+    if (evenRow) {
+      return new int[]{-1 - w, -1 * w, -1, 1, -1 + w, w};
+    } else {
+      return new int[]{-1 * w, 1 - w, -1, 1, w, 1 + w};
+    }
   }
 }
