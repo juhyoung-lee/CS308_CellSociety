@@ -35,8 +35,7 @@ public class HexagonGrid extends GridBuilder {
     double width = ((double) Control.GRID_SIZE) / (cols + 0.5);
     double width_offset = width / 2.0;
 
-    double effective_height = ((double) Control.GRID_SIZE) / rows;
-    double height = effective_height * (4 / 3.0);
+    double effective_height = ((double) Control.GRID_SIZE) / (rows + 0.25);
     double slant_height = effective_height / 3.0;
     double vertical_height = slant_height * 2.0;
 
