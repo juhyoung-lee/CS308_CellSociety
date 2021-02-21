@@ -1,0 +1,52 @@
+<root>
+  <information>
+    <type>SugarScape</type>
+    <title>first try</title>
+    <author>Juhyoung</author>
+    <description>lets see if this works?</description>
+  </information>
+  <parameters>
+    <width>30</width>
+    <height>30</height>
+    <neighborNumMax>8</neighborNumMax>
+    <agentVisionMax>4</agentVisionMax>
+    <agentSugarMetabolismMax>2</agentSugarMetabolismMax>
+    <agentInitialSugar>5</agentInitialSugar>
+
+    <patchMaxSugar>8</patchMaxSugar>
+    <patchSugarGrowBackRate>1</patchSugarGrowBackRate>
+    <getPatchSugarGrowBackInterval>1</getPatchSugarGrowBackInterval>
+  </parameters>
+  <cells>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000010000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000010000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000010000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+  </cells>
+</root>
