@@ -108,8 +108,11 @@ public class Control {
    * TODO
    */
   public void updateParams(Map<String, Integer> newParams) {
-    params = newParams;
+    for (String key : newParams.keySet()) {
+      params.put(key, newParams.get(key));
+    }
     mySC.setParams(params);
+    mySC.clearGrid();
     createStageExceptionHandler();
   }
 

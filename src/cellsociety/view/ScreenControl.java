@@ -141,7 +141,7 @@ public class ScreenControl {
     String graphStyle = "cellsociety/view/resources/graph.css";
     secondScene.getStylesheets().add(graphStyle);
 
-    myWindowTitle(size, secondaryLayout);
+    myWindowTitle(size, secondaryLayout, "Graph of states");
 
     myGraph = new PieChart();
     secondaryLayout.getChildren().add(myGraph);
@@ -159,19 +159,21 @@ public class ScreenControl {
     String editStyle = "cellsociety/view/resources/default.css";
     thirdScene.getStylesheets().add(editStyle);
 
-    myWindowTitle(Control.X_SIZE, tertiaryLayout);
+    myWindowTitle(Control.X_SIZE, tertiaryLayout, "Edit Parameters");
 
     List<TextField> allTextFields = new ArrayList<>();
     int i = 0;
     for (String key : paramsMap.keySet()) {
-      allTextFields.add(textFieldCreation(key,20,
-          i * (Control.X_SIZE / paramsMap.size()), tertiaryLayout));
-      i++;
+      if (key.equals("width") || key.equals("neighborhoodSize") || key.equals("state") || key.equals("height")) {
+        allTextFields.add(textFieldCreation(key, 0,
+            25 + i * (Control.X_SIZE / paramsMap.size()), tertiaryLayout));
+        i++;
+      }
     }
 
     Button button = new Button("Make Changes");
-    button.setLayoutX(200);
-    button.setLayoutY(Control.X_SIZE / 2);
+    button.setLayoutX(Control.X_SIZE / 2);
+    button.setLayoutY(200);
     tertiaryLayout.getChildren().add(button);
     button.getStyleClass().add("button");
     button.setOnAction(event -> sim.updateParams(getData(allTextFields)));
@@ -194,8 +196,8 @@ public class ScreenControl {
     return newParams;
   }
 
-  private void myWindowTitle(int size, Pane secondaryLayout) {
-    Text title = new Text(0, 30, "Graph of states");
+  private void myWindowTitle(int size, Pane secondaryLayout, String text) {
+    Text title = new Text(0, 30, text);
     title.setFont(new Font(25));
     title.setX(size / 2 - (title.getLayoutBounds().getWidth() / 2));
     title.setY(20);
@@ -207,7 +209,7 @@ public class ScreenControl {
     TextField textField = new TextField();
     textField.setPromptText(prompt);
     textField.setLayoutX(x);
-    textField.setLayoutX(y);
+    textField.setLayoutY(y);
     pane.getChildren().add(textField);
     //styleclass?
     return textField;
