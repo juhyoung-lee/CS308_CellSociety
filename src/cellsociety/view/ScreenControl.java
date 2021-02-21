@@ -47,6 +47,7 @@ public class ScreenControl {
   private ResourceBundle myResources;
   private String myStyleSheet;
   private RectangleGrid myRectGrid;
+  private HexagonGrid myHexGrid;
   private TriangleGrid myTriGrid;
   private PieChart myGraph;
 
@@ -187,7 +188,17 @@ public class ScreenControl {
     titleText = myTriGrid.getTitleText();
   }
 
-  public void createHexGrid(int rows, int cols, List<Integer> cells) {
+  /**
+   * Purpose: Creates grid of hexagons.
+   * Assumptions: TODO
+   * Parameters: String title, String type, int rows, int cols, List cells.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  public void createHexGrid(String title, String type, int rows, int cols, List<Integer> cells) {
+    myHexGrid = new HexagonGrid(myStyleSheet, myScene, myRoot);
+    myHexGrid.createGrid(title, type, rows, cols, cells);
+    titleText = myHexGrid.getTitleText();
   }
 
   private void updateGraph(List<Integer> cells) {
