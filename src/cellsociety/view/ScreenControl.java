@@ -4,17 +4,21 @@ import cellsociety.Control;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -40,6 +44,7 @@ public class ScreenControl {
   private Button stepButton;
   private Button uploadButton;
   private Button graphButton;
+  private Button editButton;
   private int sX;
   private int sY;
   private Scene myScene;
@@ -50,6 +55,8 @@ public class ScreenControl {
   private HexagonGrid myHexGrid;
   private TriangleGrid myTriGrid;
   private PieChart myGraph;
+
+  private Map<String, Integer> paramsMap;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -123,6 +130,8 @@ public class ScreenControl {
     uploadButton.setOnAction(event -> sim.uploadFile());
     graphButton = buttonCreation(myResources.getString("GraphButton"), sX - 220, 0);
     graphButton.setOnAction(event -> makeNewWindow());
+    editButton = buttonCreation("Edit", sX - 300, 0);
+    editButton.setOnAction(event -> makeNewEditWindow());
   }
 
   private void makeNewWindow() {
@@ -143,6 +152,48 @@ public class ScreenControl {
     newWindow.show();
   }
 
+  /** called after setParams() */
+  private void makeNewEditWindow() {
+    Pane tertiaryLayout = new Pane();
+    Scene thirdScene = new Scene(tertiaryLayout, Control.X_SIZE, Control.X_SIZE);
+    String editStyle = "cellsociety/view/resources/default.css";
+    thirdScene.getStylesheets().add(editStyle);
+
+    myWindowTitle(Control.X_SIZE, tertiaryLayout);
+
+    List<TextField> allTextFields = new ArrayList<>();
+    int i = 0;
+    for (String key : paramsMap.keySet()) {
+      allTextFields.add(textFieldCreation(key,20,
+          i * (Control.X_SIZE / paramsMap.size()), tertiaryLayout));
+      i++;
+    }
+
+    Button button = new Button("Make Changes");
+    button.setLayoutX(200);
+    button.setLayoutY(Control.X_SIZE / 2);
+    tertiaryLayout.getChildren().add(button);
+    button.getStyleClass().add("button");
+    button.setOnAction(event -> sim.updateParams(getData(allTextFields)));
+
+    Stage newEditWindow = new Stage();
+    newEditWindow.setTitle("Edit Parameters");
+    newEditWindow.setScene(thirdScene);
+    newEditWindow.show();
+  }
+
+  private Map<String, Integer> getData(List<TextField> allTextFields) {
+    Map<String, Integer> newParams = new HashMap<>();
+
+    for (TextField textField : allTextFields) {
+      if (!textField.getText().equals("")) {
+        newParams.put(textField.getPromptText(), Integer.parseInt(textField.getText()));
+      }
+    }
+
+    return newParams;
+  }
+
   private void myWindowTitle(int size, Pane secondaryLayout) {
     Text title = new Text(0, 30, "Graph of states");
     title.setFont(new Font(25));
@@ -150,6 +201,17 @@ public class ScreenControl {
     title.setY(20);
     title.getStyleClass().add("title");
     secondaryLayout.getChildren().add(title);
+  }
+
+  private TextField textFieldCreation(String prompt, double x, double y, Pane pane) {
+    TextField textField = new TextField();
+    textField.setPromptText(prompt);
+    textField.setLayoutX(x);
+    textField.setLayoutX(y);
+    pane.getChildren().add(textField);
+    //styleclass?
+    return textField;
+
   }
 
   private Button buttonCreation(String text, double x, double y) {
@@ -255,5 +317,9 @@ public class ScreenControl {
    */
   public Scene getScene() {
     return myScene;
+  }
+
+  public void setParams(Map<String, Integer> params) {
+    paramsMap = params;
   }
 }

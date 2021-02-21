@@ -13,11 +13,8 @@ import cellsociety.model.wator.WaTorGrid;
 
 import java.io.File;
 
-import cellsociety.view.RectangleGrid;
 import cellsociety.view.ScreenControl;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javafx.animation.KeyFrame;
@@ -51,12 +48,19 @@ public class Control {
   private Stage myStage;
   private String myDataFile;
 
+  Simulation simulation;
+  private String title;
+  private String type;
+  private List<String> cells;
+  Map<String, Integer> params;
+
   /**
    * Purpose: Initialize the scene and animation timeline. Assumptions: TODO Dependencies: TODO
    * Example of use: TODO
    */
   public void initialize(Stage stage) {
     myStage = stage;
+    myStage.setResizable(false);
 
     frameCount = 1;
     delay = 1.0 / frameCount;
@@ -81,7 +85,7 @@ public class Control {
     File selectedFile = fileChooser.showOpenDialog(myStage);
     myDataFile = selectedFile.getPath();
     try {
-      createStageFromData(myDataFile);
+      acceptXMLData(myDataFile);
     } catch (Exception e) {
       System.out.println(e.getMessage());
       //display error message
@@ -89,16 +93,27 @@ public class Control {
     }
   }
 
-  private void createStageFromData(String dataFile) throws Exception {
-    mySC.resetGameTitleText();
-    //mySC.clearGrid(); TODO: breaks on first upload because grid objects haven't been declared yet
-    Simulation simulation = new Simulation(dataFile);
+  private void createStageExceptionHandler() {
+    try {
+      createStage();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      //display error message
+      //e.getMessage convert it, display it
+    }
+  }
 
-    String title = simulation.getTitle();
-    String type = simulation.getType();
-    List<String> cells = simulation.getCellRows();
-    Map<String, Integer> params = simulation.getParameters();
+  /**
+   * updates parameteres from edit params
+   * TODO
+   */
+  public void updateParams(Map<String, Integer> newParams) {
+    params = newParams;
+    mySC.setParams(params);
+    createStageExceptionHandler();
+  }
 
+  private void createStage() throws Exception {
     // TODO: refactor into XML reader
     String shape = "square";
     int nSize = switch (type) {
@@ -126,10 +141,24 @@ public class Control {
       default -> null;
     };
 
-    //mySC.createRectGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
-    mySC.createHexGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
+    mySC.createRectGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
+    //mySC.createHexGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
 
     resetAnimation();
+  }
+
+  private void acceptXMLData(String dataFile) throws Exception {
+    mySC.resetGameTitleText();
+    //mySC.clearGrid(); TODO: breaks on first upload because grid objects haven't been declared yet
+    simulation = new Simulation(dataFile);
+
+    title = simulation.getTitle();
+    type = simulation.getType();
+    cells = simulation.getCellRows();
+    params = simulation.getParameters();
+
+    mySC.setParams(params);
+    createStageExceptionHandler();
   }
 
   private void resetAnimation() {
