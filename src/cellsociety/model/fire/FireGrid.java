@@ -30,9 +30,15 @@ public class FireGrid extends Grid {
     return new FireCell(parameters);
   }
 
+  /**
+   * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
+   * neighboring indexes. Assumptions: Grid is a square tesselation.
+   *
+   * @param index center index
+   * @return values for computing neighboring indexes
+   */
   @Override
-  protected int[] neighborVariances(int index) {
-    int width = getDimensions()[0];
-    return new int[]{-1 * width, -1, 1, width};
+  protected int[] decideNeighborhood(int index) throws Exception {
+    return decideSmallNeighborhood(index);
   }
 }
