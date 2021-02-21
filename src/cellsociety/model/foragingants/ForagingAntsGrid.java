@@ -18,11 +18,11 @@ public class ForagingAntsGrid extends Grid {
    * grid.
    *
    * @param cellArrangement cell grid from XML
-   * @param parameters      game settings from XML
+   * @param cellParameters      game settings from XML
    */
-  public ForagingAntsGrid(List<String> cellArrangement, String shape,
-      Map<String, Integer> parameters) throws Exception {
-    super(cellArrangement, shape, parameters);
+  public ForagingAntsGrid(List<String> cellArrangement, String[] gridParameters,
+      Map<String, Integer> cellParameters) throws Exception {
+    super(cellArrangement, gridParameters, cellParameters);
   }
 
   /**

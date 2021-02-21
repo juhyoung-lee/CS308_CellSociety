@@ -12,11 +12,11 @@ public class RPSGrid extends Grid {
    * required to create appropriate cell. cellArrangement represents a valid square tesselation grid.
    *
    * @param cellArrangement cell grid from XML
-   * @param parameters      game settings from XML
+   * @param gridParameters  game settings from XML
    */
-  public RPSGrid(List<String> cellArrangement, String shape,
-      Map<String, Integer> parameters) throws Exception {
-    super(cellArrangement, shape, parameters);
+  public RPSGrid(List<String> cellArrangement, String[] gridParameters,
+      Map<String, Integer> cellParameters) throws Exception {
+    super(cellArrangement, gridParameters, cellParameters);
   }
 
   /**
