@@ -36,7 +36,7 @@ public class RectangleGrid extends GridBuilder {
     super.createPolyGrid(rows, cols, cells);
     double xSize = ((double) Control.GRID_SIZE) / cols;
     double ySize = ((double) Control.GRID_SIZE) / rows;
-    myType = myType.replaceAll("\\s", "");
+    myType = myType.replaceAll("\\s", ""); //TODO: refactor into GridBuilder
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         double x = Control.GRID_X + j * xSize;

@@ -1,4 +1,4 @@
-package cellsociety.view.resources;
+package cellsociety.view;
 
 import cellsociety.Control;
 import cellsociety.view.GridBuilder;

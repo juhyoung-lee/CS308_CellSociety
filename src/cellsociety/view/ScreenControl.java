@@ -9,12 +9,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
@@ -47,6 +44,7 @@ public class ScreenControl {
   private ResourceBundle myResources;
   private String myStyleSheet;
   private RectangleGrid myRectGrid;
+  private HexagonGrid myHexGrid;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -160,19 +158,10 @@ public class ScreenControl {
     }
   }
 
-  public void createHexGrid(int rows, int cols, List<Integer> cells) {
-    myRoot.getChildren().remove(myHexagon);
-    double xSize = ((double) Control.GRID_SIZE) / cols;
-    double ySize = ((double) Control.GRID_SIZE) / rows;
-    myType = myType.replaceAll("\\s", "");
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        Rectangle block = new Rectangle(Control.GRID_X + j * xSize, Control.GRID_Y + i * ySize, xSize, ySize);
-        myBlocks.add(block);
-        myRoot.getChildren().add(block);
-        block.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
-      }
-    }
+  public void createHexGrid(String title, String type, int rows, int cols, List<Integer> cells) {
+    myHexGrid = new HexagonGrid(myStyleSheet, myScene, myRoot);
+    myHexGrid.createGrid(title, type, rows, cols, cells);
+    titleText = myHexGrid.getTitleText();
   }
 
   /**
