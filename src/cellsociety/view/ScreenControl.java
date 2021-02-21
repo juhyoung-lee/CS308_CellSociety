@@ -194,7 +194,6 @@ public class ScreenControl {
     List<Integer> sortedlist = new ArrayList<>(cells);
     Collections.sort(sortedlist);
     int max = sortedlist.get(cells.size() - 1);
-    System.out.println(max);
     ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
     for (int i = 0; i <= max; i++) {
       int num = Collections.frequency(cells, i);
