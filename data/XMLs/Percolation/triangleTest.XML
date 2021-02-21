@@ -1,0 +1,24 @@
+<root>
+    <information>
+        <type>Percolation</type>
+        <title>Triangle Test</title>
+        <author>Kathleen</author>
+        <description>Testing Triangle Stuff</description>
+    </information>
+    <parameters>
+        <width>15</width>
+        <height>10</height>
+    </parameters>
+    <cells>
+        <cellRow>222222222222222</cellRow>
+        <cellRow>010000001010010</cellRow>
+        <cellRow>010000000110110</cellRow>
+        <cellRow>011000000110110</cellRow>
+        <cellRow>001110000010000</cellRow>
+        <cellRow>000010000011010</cellRow>
+        <cellRow>000010000001110</cellRow>
+        <cellRow>000000001000010</cellRow>
+        <cellRow>000000000000010</cellRow>
+        <cellRow>000000000000010</cellRow>
+    </cells>
+</root>

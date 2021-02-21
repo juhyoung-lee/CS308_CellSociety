@@ -139,6 +139,7 @@ public class BylsLoopCell extends Cell {
     extendSignalTable.put("1235", DISCONNECT_SIGNAL);
     extendSignalTable.put("1432", DATA_PATH);
     extendSignalTable.put("1452", DISCONNECT_SIGNAL);
+    extendSignalTable.put("1523", DATA_PATH);
   }
 
   private void fillLeftSignalTable() {
