@@ -2,6 +2,7 @@ package cellsociety.model.foragingants;
 
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
+import cellsociety.model.IndexVariance;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,10 +46,20 @@ public class ForagingAntsGrid extends Grid {
    * @return values for computing neighboring indexes
    */
   @Override
-  protected int[] decideNeighborhood(int index) {
+  protected int[] decideNeighborhood(int index) throws Exception {
     int width = getDimensions()[0];
-    return new int[]{-1 * width, -1, 1, width};
+    int neighborhoodSize = getNeighborhoodSize();
+    IndexVariance varianceCalculator = new IndexVariance(index, width, neighborhoodSize);
+
+    return switch (getShape()) {
+      case "square" -> varianceCalculator.squareCardinal();
+      case "triangle" -> varianceCalculator.triangleImmediate();
+      case "hexagon" -> varianceCalculator.hexagon();
+      default -> throw new Exception("Invalid shape: " + getShape());
+    };
   }
+
+
 
   /**
    * Returns array list of indexes that should be checked to receive a moving cell.
@@ -78,8 +89,8 @@ public class ForagingAntsGrid extends Grid {
    * Returns appropriately random arrays in the case that neighboring cells all lack pheromones.
    * When searching for food, moves randomly away from home. When ant has food, moves randomly.
    *
-   * @param index ant index
-   * @param hasFood whether or not ant has food
+   * @param index     ant index
+   * @param hasFood   whether or not ant has food
    * @param neighbors index of neighboring cells
    * @return arraylist of neighbors appropriately shuffled
    */
@@ -103,7 +114,7 @@ public class ForagingAntsGrid extends Grid {
    * count. Sorts by food or home pheromones depending on if ant has food. Removes unnecessary
    * pheromone column. If it has food, the ant only needs home pheromone and vice versa.
    *
-   * @param hasFood whether the ant has food or not
+   * @param hasFood   whether the ant has food or not
    * @param neighbors int[] of neighbor indexes
    * @return [[neighbor index, pheromone],...] sorted by relevant pheromone
    */
@@ -126,8 +137,7 @@ public class ForagingAntsGrid extends Grid {
   }
 
   /**
-   * Fisher-Yates shuffle array function. By Dan Bray at
-   * https://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
+   * Fisher-Yates shuffle array function. By Dan Bray at https://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
    * Modified to return array list.
    *
    * @param array int array

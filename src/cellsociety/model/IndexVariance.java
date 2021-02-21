@@ -41,6 +41,20 @@ public class IndexVariance {
   }
 
   /**
+   * Same as square() but only cardinal direction neighbors. Returns empty array if neighborhoodSize
+   * is not 4.
+   *
+   * @return cardinal neighbors
+   */
+  public int[] squareCardinal() {
+    if (this.neighborhoodSize != 4) {
+      return new int[]{};
+    }
+    int w = this.width;
+    return new int[]{-1 * w, -1, 1, w};
+  }
+
+  /**
    * Calculates the values to add to center cell's index to get neighboring indexes for a grid of
    * triangles.Returns empty array if neighborhood size is not an option.
    * Assumptions: Row 0 Index 0 is a triangle pointing up. Each row has the same number of
@@ -62,6 +76,24 @@ public class IndexVariance {
         case 12 -> new int[]{-2 - w, -1 - w, -1 * w, 1 - w, 2 - w, -2, -1, 1, 2, -1 + w, w, 1 + w};
         default -> new int[]{};
       };
+    }
+  }
+
+  /**
+   * Like triangle() but only immediate 3 neighbors.
+   *
+   * @return int[] of calculations to get neighboring indexes
+   */
+  public int[] triangleImmediate() {
+    int w = this.width;
+    boolean trianglePointy = IndexVariance.isTriangleTopPointy(this.index, w);
+
+    if (trianglePointy && neighborhoodSize == 3) {
+      return new int[]{-1, 1, w};
+    } else if (neighborhoodSize == 3) {
+      return new int[]{-1 * w, -1, 1};
+    } else {
+      return new int[]{};
     }
   }
 
