@@ -80,6 +80,7 @@ public class ScreenControl {
     styleButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
+        sim.pause();
         myScene.getStylesheets().remove(myStyleSheet);
         myStyleSheet = "cellsociety/view/resources/" + styleButton.getValue() + ".css";
         myScene.getStylesheets().add(myStyleSheet);
@@ -100,6 +101,7 @@ public class ScreenControl {
     resourceButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
+        sim.pause();
         myResources = ResourceBundle.getBundle("cellsociety.view.resources." + resourceButton.getValue());
         resetButtons();
       }

@@ -126,7 +126,7 @@ public class Control {
       default -> null;
     };
 
-    mySC.createTriGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
+    mySC.createRectGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
 
     resetAnimation();
   }

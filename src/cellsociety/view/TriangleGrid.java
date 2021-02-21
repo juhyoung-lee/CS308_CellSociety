@@ -38,41 +38,51 @@ public class TriangleGrid extends GridBuilder {
     for (int i = 0; i < rows; i++) {
       if (i % 2 == 0) {
         for (int j = 0; j < cols; j++) {
-          Polygon triangle = new Polygon();
-          double x = Control.GRID_X + j * xSize;
-          double y = Control.GRID_Y + i * ySize;
-          if (j % 2 == 0) {
-            triangle.getPoints().addAll(x, y,
-                    x + xSize * 2, y,
-                    x + xSize, y + ySize);
-          } else {
-            triangle.getPoints().addAll(x, y + ySize,
-                    x + xSize, y,
-                    x + xSize * 2, y + ySize);
-          }
+          Polygon triangle = evenRows(i, j, xSize, ySize);
           myCells.add(triangle);
           myRoot.getChildren().add(triangle);
           triangle.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
         }
       } else {
         for (int j = 0; j < cols; j++) {
-          Polygon triangle = new Polygon();
-          double x = Control.GRID_X + j * xSize;
-          double y = Control.GRID_Y + i * ySize;
-          if (j % 2 != 0) {
-            triangle.getPoints().addAll(x, y,
-                    x + xSize * 2, y,
-                    x + xSize, y + ySize);
-          } else {
-            triangle.getPoints().addAll(x, y + ySize,
-                    x + xSize, y,
-                    x + xSize * 2, y + ySize);
-          }
+          Polygon triangle = oddRows(i, j, xSize, ySize);
           myCells.add(triangle);
           myRoot.getChildren().add(triangle);
           triangle.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
         }
       }
     }
+  }
+
+  private Polygon oddRows(int i, int j, double xSize, double ySize) {
+    Polygon triangle = new Polygon();
+    double x = Control.GRID_X + j * xSize;
+    double y = Control.GRID_Y + i * ySize;
+    if (j % 2 != 0) {
+      triangle.getPoints().addAll(x, y,
+              x + xSize * 2, y,
+              x + xSize, y + ySize);
+    } else {
+      triangle.getPoints().addAll(x, y + ySize,
+              x + xSize, y,
+              x + xSize * 2, y + ySize);
+    }
+    return triangle;
+  }
+
+  private Polygon evenRows(int i, int j, double xSize, double ySize) {
+    Polygon triangle = new Polygon();
+    double x = Control.GRID_X + j * xSize;
+    double y = Control.GRID_Y + i * ySize;
+    if (j % 2 == 0) {
+      triangle.getPoints().addAll(x, y,
+              x + xSize * 2, y,
+              x + xSize, y + ySize);
+    } else {
+      triangle.getPoints().addAll(x, y + ySize,
+              x + xSize, y,
+              x + xSize * 2, y + ySize);
+    }
+    return triangle;
   }
 }
