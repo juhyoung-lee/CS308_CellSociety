@@ -2,7 +2,6 @@ package cellsociety.model.bylsloop;
 
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
-import cellsociety.model.IndexVariance;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +59,7 @@ public class BylsLoopGrid extends Grid {
 
   private int[] triangle(int index) {
     int w = getDimensions()[0];
-    boolean trianglePointy = IndexVariance.isTriangleTopPointy(index, w);
+    boolean trianglePointy = isTriangleTopPointy(index);
 
     if (trianglePointy && getNeighborhoodSize() == 3) {
       return new int[]{-1, 1, w};

@@ -2,7 +2,6 @@ package cellsociety.model.foragingants;
 
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
-import cellsociety.model.IndexVariance;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -47,16 +46,7 @@ public class ForagingAntsGrid extends Grid {
    */
   @Override
   protected int[] decideNeighborhood(int index) throws Exception {
-    int width = getDimensions()[0];
-    int neighborhoodSize = getNeighborhoodSize();
-    IndexVariance varianceCalculator = new IndexVariance(index, width, neighborhoodSize);
-
-    return switch (getShape()) {
-      case "square" -> varianceCalculator.squareCardinal();
-      case "triangle" -> varianceCalculator.triangleImmediate();
-      case "hexagon" -> varianceCalculator.hexagon();
-      default -> throw new Exception("Invalid shape: " + getShape());
-    };
+    return decideSmallNeighborhood(index);
   }
 
 

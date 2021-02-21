@@ -131,7 +131,7 @@ public abstract class Grid {
    *
    * @param cellArrangement cell grid from XML
    * @param parameters game parameters from XML
-   * @throws Exception invalid cell state
+   * @throws Exception invalid cell state, shape, or inconsistent neighborhood size
    */
   private void setupGrid(List<String> cellArrangement, Map<String, Integer> parameters)
       throws Exception {
@@ -153,6 +153,8 @@ public abstract class Grid {
   /**
    * Used by constructor. Populates neighbor field.
    * Assumptions: setupGrid() has already been called.
+   *
+   * @throws Exception invalid shape or inconsistent neighborhood size
    */
   private void setupNeighbors() throws Exception {
     this.neighbors = new HashMap<>();
@@ -177,6 +179,7 @@ public abstract class Grid {
    *
    * @param index center index
    * @return neighboring indexes
+   * @throws Exception neighborhood size is inconsistent or shape is invalid
    */
   private int[] pullNeighborIndexes(int index) throws Exception {
     int[] variance = decideNeighborhood(index);
@@ -198,19 +201,150 @@ public abstract class Grid {
    * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
    * neighboring indexes. Will need to implement different versions for different neighborhood
    * sizes. Throws exception if shape is not a valid shape.
-   * Assumptions: counts surrounding 8 Moore cells as neighbors. Grid is a square tesselation.
+   * Assumptions: Index is within grid.
    *
    * @param index center index
    * @return values for computing neighboring indexes
+   * @throws Exception when shape is invalid
    */
   protected int[] decideNeighborhood(int index) throws Exception {
-    IndexVariance varianceCalculator = new IndexVariance(index, this.width, this.neighborhoodSize);
     return switch (this.shape) {
-      case "square" -> varianceCalculator.square();
-      case "triangle" -> varianceCalculator.triangle();
-      case "hexagon" -> varianceCalculator.hexagon();
+      case "square" -> square();
+      case "triangle" -> triangle(index);
+      case "hexagon" -> hexagon(index);
       default -> throw new Exception("Invalid shape: " + this.shape);
     };
+  }
+
+  /**
+   * Predefined version of decideNeighborhood() where the only valid neighbor options are the ones
+   * immediately touching. Overwrite decideNeighbor() and call this method from within that to use.
+   *
+   * @param index center cell index
+   * @return values for computing immediate neighboring indexes
+   * @throws Exception when shape is invalid
+   */
+  protected int[] decideSmallNeighborhood(int index) throws Exception {
+    return switch (this.shape) {
+      case "square" -> squareSmall();
+      case "triangle" -> triangleSmall(index);
+      case "hexagon" -> hexagon(index);
+      default -> throw new Exception("Invalid shape: " + this.shape);
+    };
+  }
+
+  /**
+   * Calculates the values to add to center cell's index to get neighboring indexes for a grid of
+   * squares. Returns empty array if neighborhood size is not an option.
+   * Assumptions: Each row has the same number of squares.
+   *
+   * @return int[] of calculations to get neighboring indexes
+   */
+  private int[] square() {
+    int w = this.width;
+    return switch (this.neighborhoodSize) {
+      case 4 -> new int[]{-1 * w, -1, 1, w};
+      case 8 -> new int[]{-1 - w, -1 * w, 1 - w, -1, 1, -1 + w, w, 1 + w};
+      default -> new int[]{};
+    };
+  }
+
+  /**
+   * Same as square() but only cardinal direction neighbors. Returns empty array if neighborhoodSize
+   * is not 4.
+   *
+   * @return cardinal neighbors
+   */
+  private int[] squareSmall() {
+    if (this.neighborhoodSize != 4) {
+      return new int[]{};
+    }
+    int w = this.width;
+    return new int[]{-1 * w, -1, 1, w};
+  }
+
+  /**
+   * Calculates the values to add to center cell's index to get neighboring indexes for a grid of
+   * triangles. Returns empty array if neighborhood size is not an option.
+   * Assumptions: Row 0 Index 0 is a triangle pointing up. Each row has the same number of
+   * triangles.
+   *
+   * @param index center triangle index
+   * @return int[] of calculations to get neighboring indexes
+   */
+  private int[] triangle(int index) {
+    int w = this.width;
+    if (isTriangleTopPointy(index)) {
+      return switch (this.neighborhoodSize) {
+        case 3 -> new int[]{-1, 1, w};
+        case 12 -> new int[]{-1 - w, -1 * w, 1 - w, -2, -1, 1, 2, -2 + w, -1 + w, w, 1 + w, 2 + w};
+        default -> new int[]{};
+      };
+    } else {
+      return switch (this.neighborhoodSize) {
+        case 3 -> new int[]{-1 * w, -1, 1};
+        case 12 -> new int[]{-2 - w, -1 - w, -1 * w, 1 - w, 2 - w, -2, -1, 1, 2, -1 + w, w, 1 + w};
+        default -> new int[]{};
+      };
+    }
+  }
+
+  /**
+   * Like triangle() but only immediate 3 neighbors.
+   *
+   * @param index center triangle index
+   * @return int[] of calculations to get neighboring indexes
+   */
+  private int[] triangleSmall(int index) {
+    int w = this.width;
+    boolean trianglePointy = isTriangleTopPointy(index);
+
+    if (trianglePointy && neighborhoodSize == 3) {
+      return new int[]{-1, 1, w};
+    } else if (neighborhoodSize == 3) {
+      return new int[]{-1 * w, -1, 1};
+    } else {
+      return new int[]{};
+    }
+  }
+
+  /**
+   * Distinguishes between pointy top triangles and pointy bottom triangles using index
+   * values. If assumptions hold true, in even rows the even indexes (first in row is 0) are pointy
+   * top triangles. In odd rows, the odd indexes are pointy top triangles. Therefore, adding row
+   * number and index within the row will give whether the triangle is pointy top or pointy bottom.
+   *
+   * @param index triangle cell index
+   * @return if a triangle is pointy side up
+   */
+  protected boolean isTriangleTopPointy(int index) {
+    int rowNumber = index / this.width;
+    int indexInRow = index % this.width;
+    return (rowNumber + indexInRow) % 2 == 0;
+  }
+
+  /**
+   * Calculates the values to add to center cell's index to get neighboring indexes for a grid of
+   * hexagon. Returns empty array if neighborhood size is not an option.
+   * Assumptions: Hexagon grid orients hexagons with corners up and down. Second row starts at the
+   * bottom right of the first hexagon of the first row. Third row starts at the bottom left of the
+   * first hexagon of the second row. Rows repeat in that manner. Each row has the same number of
+   * hexagons.
+   *
+   * @param index center hexagon index
+   * @return int[] of calculations to get neighboring indexes
+   */
+  private int[] hexagon(int index) {
+    if (this.neighborhoodSize != 6) {
+      return new int[]{};
+    }
+    int w = this.width;
+    boolean evenRow = (index / this.width) % 2 == 0;
+    if (evenRow) {
+      return new int[]{-1 - w, -1 * w, -1, 1, -1 + w, w};
+    } else {
+      return new int[]{-1 * w, 1 - w, -1, 1, w, 1 + w};
+    }
   }
 
   /**

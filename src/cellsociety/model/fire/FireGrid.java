@@ -2,7 +2,6 @@ package cellsociety.model.fire;
 
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
-import cellsociety.model.IndexVariance;
 import java.util.List;
 import java.util.Map;
 
@@ -40,15 +39,6 @@ public class FireGrid extends Grid {
    */
   @Override
   protected int[] decideNeighborhood(int index) throws Exception {
-    int width = getDimensions()[0];
-    int neighborhoodSize = getNeighborhoodSize();
-    IndexVariance varianceCalculator = new IndexVariance(index, width, neighborhoodSize);
-
-    return switch (getShape()) {
-      case "square" -> varianceCalculator.squareCardinal();
-      case "triangle" -> varianceCalculator.triangleImmediate();
-      case "hexagon" -> varianceCalculator.hexagon();
-      default -> throw new Exception("Invalid shape: " + getShape());
-    };
+    return decideSmallNeighborhood(index);
   }
 }
