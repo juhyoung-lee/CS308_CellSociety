@@ -28,53 +28,111 @@ public class Simulation {
   private Map<String, Integer> myParameters;
   private List<String> myCellRows;
 
-  public Simulation(String fileString) {
+  public Simulation(String fileString) throws XMLException {
     File dataFile = new File(fileString);
 
     DOCUMENT_BUILDER = getDocumentBuilder();
     Element root = getRootElement(dataFile);
 
-    ArrayList<String> infoValues = getInfo(root);
+    myParameters = makeParameterMap(dataFile);
+    myCellRows = makeCellRowList(root);
+    List<String> infoValues = makeInfoList(root);
     myType = infoValues.get(0);
     myTitle = infoValues.get(1);
     myAuthor = infoValues.get(2);
     myDescription = infoValues.get(3);
-    myParameters = makeParameterMap(dataFile);
-    myCellRows = getCells(root);
+
+    checkCellWidth();
+    checkCellHeight();
   }
 
-  //TODO: fix pointer stuff
-  public List<String> getCellRows() {
-    return myCellRows;
+  private void checkCellHeight() throws XMLException {
+    if (myParameters.get("height") == null) {
+      throw new XMLException("MissingHeight");//turn into resource field
+    }
+    if (myCellRows.size() != getHeight()) {
+      throw new XMLException("InvalidHeight");//turn into resource file
+    }
   }
 
-  public int getWidth() {
-    return myParameters.get("width");
+  private void checkCellWidth() throws XMLException {
+    if (myParameters.get("width") == null) {
+      throw new XMLException("MissingWidth");//turn into resource file
+    }
+    int count = 0;
+    for (String cellRow : myCellRows) {
+      count++;
+      if (cellRow.length() != getWidth()) {
+        throw new XMLException("InvalidWidth");
+      }
+    }
   }
 
-  public int getHeight() {
-    return myParameters.get("height");
+  private Map<String, Integer> makeParameterMap(File dataFile) throws XMLException {
+    try {
+      Map<String, Integer> returned = new HashMap<>();
+      NodeList nList = DOCUMENT_BUILDER.parse(dataFile).getElementsByTagName("parameters");
+      Node node = nList.item(0);
+      NodeList list = node.getChildNodes();
+      for (int i = 0; i < list.getLength(); i++) {
+        Node n = list.item(i);
+        if (n.getNodeType() == Node.ELEMENT_NODE) {
+          returned.put(n.getNodeName(), Integer.parseInt(n.getTextContent()));
+        }
+      }
+      return returned;
+    } catch (Exception e) {
+      throw new XMLException(null, null);
+      //TODO work on exception
+      //parse datafile exception
+    }
   }
-  //TODO: fix pointer stuff
-  public String getTitle() {
-    return myTitle;
-  }
-  //TODO: fix pointer stuff
-  public String getType() {
-    return myType;
-  }
-  //TODO: does this pointer stuff work
-  public Map<String, Integer> getParameters() {
-    Map<String, Integer> returned = new HashMap<>();
-    returned.putAll(myParameters);
+
+
+  private List<String> makeCellRowList(Element root) throws XMLException{
+    List<String> returned = new ArrayList<>();
+    NodeList cellRows = root.getElementsByTagName("cellRow");
+    int length = cellRows.getLength();
+    if (length==0) {
+      throw new XMLException("MissingCellRows");
+    } else {
+      for (int i = 0; i < length; i++) {
+        Node temp = cellRows.item(i);
+        returned.add(temp.getTextContent());
+      }
+    }
     return returned;
+  }
+
+  private List<String> makeInfoList(Element root) throws XMLException{
+    List<String> returned = new ArrayList<>();
+    String temp;
+    for (String field : Simulation.INFORMATION_FIELDS) {
+      temp = getTextValue(root, field);
+      if(temp == null) {
+        throw new XMLException("Missing"+field);
+      } else {
+        returned.add(temp);
+      }
+    }
+    return returned;
+  }
+
+  private String getTextValue(Element e, String tagName) {
+    NodeList nodeList = e.getElementsByTagName(tagName);
+    if (nodeList != null && nodeList.getLength() > 0) {
+      return nodeList.item(0).getTextContent();
+    } else {
+      return null;
+    }
   }
 
   private DocumentBuilder getDocumentBuilder() throws XMLException {
     try {
       return DocumentBuilderFactory.newInstance().newDocumentBuilder();
     } catch (ParserConfigurationException e) {
-      //TODO: fix excpetions
+      //TODO: fix exceptions
+      //Document builder exception 1
       throw new XMLException(e);
     }
   }
@@ -86,58 +144,37 @@ public class Simulation {
       return xmlDocument.getDocumentElement();
     } catch (SAXException | IOException e) {
       //TODO: fix exceptions
+      //Document Exception 2
       throw new XMLException(e);
     }
   }
-
-  private Map<String, Integer> makeParameters(File dataFile) {
-    HashMap<String, Integer> returned = new HashMap<>();
-    try {
-      NodeList nList = DOCUMENT_BUILDER.parse(dataFile).getElementsByTagName("parameters");
-      Node node = nList.item(0);
-      NodeList list = node.getChildNodes();
-      for (int i = 0; i < list.getLength(); i++) {
-        Node n = list.item(i);
-        if (n.getNodeType() == Node.ELEMENT_NODE) {
-          returned.put(n.getNodeName(), Integer.parseInt(n.getTextContent()));
-        }
-      }
-    } catch (Exception e) {
-    }//TODO work on exception
+  
+  public List<String> getCellRows() {
+    List<String> returned = new ArrayList();
+    returned.addAll(myCellRows);
     return returned;
   }
 
-  private Map<String, Integer> makeParameterMap(File dataFile) {
-    Map<String, Integer> parameterMap = makeParameters(dataFile);//TODO: RENAME
-    return parameterMap;
-  }
-
-  private ArrayList<String> getCells(Element root) {
-    ArrayList<String> returned = new ArrayList<>();
-    NodeList cellRows = root.getElementsByTagName("cellRow");
-    for (int i = 0; i < cellRows.getLength(); i++) {
-      Node temp = cellRows.item(i);
-      returned.add(temp.getTextContent());
-    }
+  public Map<String, Integer> getParameters() {
+    Map<String, Integer> returned = new HashMap<>();
+    returned.putAll(myParameters);
     return returned;
   }
 
-  private ArrayList<String> getInfo(Element root) {
-    ArrayList<String> returned = new ArrayList<>();
-    for (String field : Simulation.INFORMATION_FIELDS) {
-      returned.add(getTextValue(root, field));
-    }
-    return returned;
+  public int getWidth() {
+    return myParameters.get("width");
   }
 
-  private String getTextValue(Element e, String tagName) {
-    NodeList nodeList = e.getElementsByTagName(tagName);
-    if (nodeList != null && nodeList.getLength() > 0) {
-      return nodeList.item(0).getTextContent();
-    } else {
-      // FIXME: empty string or exception? In some cases it may be an error to not find any text
-      return "";
-    }
+  public int getHeight() {
+    return myParameters.get("height");
+  }
+
+  public String getTitle() {
+    return myTitle;
+  }
+
+  public String getType() {
+    return myType;
   }
 
   public String toString() {
