@@ -49,6 +49,7 @@ public class SugarScapeCell extends Cell {
    */
   public SugarScapeCell(Map<String, Integer> config) {
     super(config);
+    setMaxStateValue(AGENT);
     neighborNumMax = config.get(neighborNumMaxKey);
     agentVisionMax = config.get(agentVisionMaxKey);
     agentVision = randGen.nextInt(agentVisionMax - 1) + 1;
