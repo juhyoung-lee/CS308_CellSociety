@@ -24,15 +24,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * Purpose: Creates simulation and runs step function.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Purpose: Creates simulation and runs step function. Assumptions: TODO Dependencies: TODO Example
+ * of use: TODO
  *
  * @author Kathleen Chen
  */
 
 public class Control {
+
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
   public static final int Y_SIZE = 600;
@@ -48,9 +47,7 @@ public class Control {
   private Stage myStage;
 
   /**
-   * Purpose: Initialize the scene and animation timeline.
-   * Assumptions: TODO
-   * Dependencies: TODO
+   * Purpose: Initialize the scene and animation timeline. Assumptions: TODO Dependencies: TODO
    * Example of use: TODO
    */
   public void initialize(Stage stage) {
@@ -71,10 +68,8 @@ public class Control {
   }
 
   /**
-   * Purpose: Upload a XML file from the computer when the upload button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Upload a XML file from the computer when the upload button is pressed. Assumptions:
+   * TODO Dependencies: TODO Example of use: TODO
    */
   public void uploadFile() {
     FileChooser fileChooser = new FileChooser();
@@ -83,22 +78,17 @@ public class Control {
     try {
       createStageFromData(dataFile);
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
+      //display error message
+      //e.getMessage convert it, display it
     }
   }
 
   private void createStageFromData(String dataFile) throws Exception {
     mySC.resetGameTitleText();
     mySC.clearGrid();
-    Simulation simulation = null;
+    Simulation simulation = new Simulation(dataFile);
 
-      try {
-        simulation = new Simulation(dataFile);
-      } catch (Exception e) {
-        e.printStackTrace();
-        //display error message
-        //e.getMessage convert it, display it
-      }
     String title = simulation.getTitle();
     String type = simulation.getType();
     List<String> cells = simulation.getCellRows();
@@ -136,30 +126,24 @@ public class Control {
   }
 
   /**
-   * Purpose: Pause the animation when the pause button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Pause the animation when the pause button is pressed. Assumptions: TODO Dependencies:
+   * TODO Example of use: TODO
    */
   public void pause() {
     animation.stop();
   }
 
   /**
-   * Purpose: Start the animation when the play button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Start the animation when the play button is pressed. Assumptions: TODO Dependencies:
+   * TODO Example of use: TODO
    */
   public void start() {
     animation.play();
   }
 
   /**
-   * Purpose: Step through the animation step by step when the step button is called.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Step through the animation step by step when the step button is called. Assumptions:
+   * TODO Dependencies: TODO Example of use: TODO
    */
   public void next() {
     animation.stop();
@@ -168,10 +152,8 @@ public class Control {
   }
 
   /**
-   * Purpose: Speed up the animation speed when the speed up button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Speed up the animation speed when the speed up button is pressed. Assumptions: TODO
+   * Dependencies: TODO Example of use: TODO
    */
   public void fast() {
     animation.stop();
@@ -184,10 +166,8 @@ public class Control {
   }
 
   /**
-   * Purpose: Slow the speed of the animation when the slow button is called.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Slow the speed of the animation when the slow button is called. Assumptions: TODO
+   * Dependencies: TODO Example of use: TODO
    */
   public void slow() {
     animation.stop();
