@@ -6,7 +6,7 @@ import java.io.Serial;
  *
  * @author Robert C. Duvall
  */
-public class XMLException extends RuntimeException {
+public class XMLException extends Exception {
   // for serialization
   @Serial
   private static final long serialVersionUID = 1L;
