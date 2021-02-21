@@ -34,27 +34,6 @@ public abstract class Grid extends GridHelper {
   }
 
   /**
-   * Used by prepareCellUpdates(). Compiles neighboring cell states. Necessary as neighbors field
-   * variable only stores cell indexes.
-   * Assumptions: Cell passes state as int. Only state is required to update a cell.
-   *
-   * @param index center cell position
-   * @return states of neighboring cells
-   */
-  private int[] pullNeighborStates(int index) {
-    Cell currentCell = getGrid().get(index);
-    Cell neighborCell;
-    int[] neighborIndexes = getNeighbors(currentCell);
-    int[] neighborStates = new int[neighborIndexes.length];
-
-    for (int i = 0; i < neighborIndexes.length; i++) {
-      neighborCell = getGrid().get(neighborIndexes[i]);
-      neighborStates[i] = neighborCell.getState();
-    }
-    return neighborStates;
-  }
-
-  /**
    * Clears issues in preparation of a new cycle.
    * Assumptions: Issues has already been instantiated.
    */
@@ -74,6 +53,26 @@ public abstract class Grid extends GridHelper {
         issues[i] = movement;
       }
     }
+  }
+  /**
+   * Used by prepareCellUpdates(). Compiles neighboring cell states. Necessary as neighbors field
+   * variable only stores cell indexes.
+   * Assumptions: Cell passes state as int. Only state is required to update a cell.
+   *
+   * @param index center cell position
+   * @return states of neighboring cells
+   */
+  private int[] pullNeighborStates(int index) {
+    Cell currentCell = getGrid().get(index);
+    Cell neighborCell;
+    int[] neighborIndexes = getNeighbors(currentCell);
+    int[] neighborStates = new int[neighborIndexes.length];
+
+    for (int i = 0; i < neighborIndexes.length; i++) {
+      neighborCell = getGrid().get(neighborIndexes[i]);
+      neighborStates[i] = neighborCell.getState();
+    }
+    return neighborStates;
   }
 
   /**

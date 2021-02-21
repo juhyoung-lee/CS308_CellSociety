@@ -154,9 +154,8 @@ public abstract class GridHelper {
   private int[] pullNeighborIndexes(int index) throws Exception {
     int[] variance = decideNeighborhood(index);
 
-    if (variance.length != this.neighborhoodSize) {
-      throw new Exception("Grid neighborhood size (" + variance.length + ") and XML parameter ("
-          + this.neighborhoodSize + ") inconsistent");
+    if (variance.length == 0) {
+      throw new Exception("XML parameter (" + this.neighborhoodSize + ") not valid");
     }
 
     ArrayList<Integer> possibleIndexes = new ArrayList<>();
