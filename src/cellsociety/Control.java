@@ -91,7 +91,7 @@ public class Control {
 
   private void createStageFromData(String dataFile) throws Exception {
     mySC.resetGameTitleText();
-    //mySC.clearGrid(); TODO: breaks on first upload because grid objects haven't been declared yet
+    mySC.clearGrid();
     Simulation simulation = new Simulation(dataFile);
 
     String title = simulation.getTitle();
@@ -126,8 +126,7 @@ public class Control {
       default -> null;
     };
 
-    //mySC.createRectGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
-    mySC.createHexGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
+    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), shape);
 
     resetAnimation();
   }
