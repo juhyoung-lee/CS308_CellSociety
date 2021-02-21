@@ -71,7 +71,7 @@ public class BylsLoopCell extends Cell {
       setNextState(disconnectSignalTable.getOrDefault(minRotationKey, WALL));
     }
 
-    setMoveStateValue("state", NO_MOVEMENT);
+    setMoveStateValue(STATE_KEY, NO_MOVEMENT);
     return getMoveStateCopy();
   }
 

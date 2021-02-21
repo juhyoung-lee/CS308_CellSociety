@@ -27,6 +27,9 @@ public class WaTorCell extends Cell {
   private int breedFishTime;
   private int breedSharkEnergy;
 
+  private final String breedTimeKey = "breedTime";
+  private final String breedEnergyKey = "breedEnergy";
+
   /**
    * Purpose: Constructor for WaTorCell class.
    * Assumptions: config will include keys "breedFish", "breedShark", "energyGain", and "energyLoss"
@@ -116,8 +119,8 @@ public class WaTorCell extends Cell {
       return false;
     }
 
-    breedFishTime = newInfo.get("breedTime");
-    breedSharkEnergy = newInfo.get("breedEnergy");
+    breedFishTime = newInfo.get(breedTimeKey);
+    breedSharkEnergy = newInfo.get(breedEnergyKey);
 
     if (getNextState() == FISH && incomingState == SHARK
         || getNextState() == SHARK && incomingState == FISH) {
@@ -140,7 +143,7 @@ public class WaTorCell extends Cell {
    * Updates moveState Map.
    */
   private void updateMoveStateParam() {
-    setMoveStateValue("breedTime", breedFishTime);
-    setMoveStateValue("breedEnergy", breedSharkEnergy);
+    setMoveStateValue(breedTimeKey, breedFishTime);
+    setMoveStateValue(breedEnergyKey, breedSharkEnergy);
   }
 }
