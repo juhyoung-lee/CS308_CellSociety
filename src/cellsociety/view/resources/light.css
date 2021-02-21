@@ -89,6 +89,30 @@
     -fx-fill: #ff0000;
 }
 
+.BylsLoop-0 {
+    -fx-fill: #f2f2f2;
+}
+
+.BylsLoop-1 {
+    -fx-fill: #ffff66;
+}
+
+.BylsLoop-2 {
+    -fx-fill: #000000;
+}
+
+.BylsLoop-3 {
+    -fx-fill: #ff0000;
+}
+
+.BylsLoop-4 {
+    -fx-fill: #33cc33;
+}
+
+.BylsLoop-5 {
+    -fx-fill: #0000ff;
+}
+
 .title {
     -fx-fill: aliceblue;
 }

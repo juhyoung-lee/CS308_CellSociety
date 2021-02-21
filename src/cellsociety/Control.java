@@ -13,7 +13,11 @@ import cellsociety.model.wator.WaTorGrid;
 
 import java.io.File;
 
+import cellsociety.view.RectangleGrid;
 import cellsociety.view.ScreenControl;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javafx.animation.KeyFrame;
@@ -24,15 +28,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * Purpose: Creates simulation and runs step function.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Purpose: Creates simulation and runs step function. Assumptions: TODO Dependencies: TODO Example
+ * of use: TODO
  *
  * @author Kathleen Chen
  */
 
 public class Control {
+
   public static final String TITLE = "Cell Society";
   public static final int X_SIZE = 500;
   public static final int Y_SIZE = 600;
@@ -46,11 +49,10 @@ public class Control {
   private double delay;
   private Timeline animation;
   private Stage myStage;
+  private String myDataFile;
 
   /**
-   * Purpose: Initialize the scene and animation timeline.
-   * Assumptions: TODO
-   * Dependencies: TODO
+   * Purpose: Initialize the scene and animation timeline. Assumptions: TODO Dependencies: TODO
    * Example of use: TODO
    */
   public void initialize(Stage stage) {
@@ -71,26 +73,25 @@ public class Control {
   }
 
   /**
-   * Purpose: Upload a XML file from the computer when the upload button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Upload a XML file from the computer when the upload button is pressed. Assumptions:
+   * TODO Dependencies: TODO Example of use: TODO
    */
   public void uploadFile() {
     FileChooser fileChooser = new FileChooser();
     File selectedFile = fileChooser.showOpenDialog(myStage);
-    String dataFile = selectedFile.getPath();
+    myDataFile = selectedFile.getPath();
     try {
-      createStageFromData(dataFile);
+      createStageFromData(myDataFile);
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
+      //display error message
+      //e.getMessage convert it, display it
     }
   }
 
   private void createStageFromData(String dataFile) throws Exception {
     mySC.resetGameTitleText();
     mySC.clearGrid();
-
     Simulation simulation = new Simulation(dataFile);
 
     String title = simulation.getTitle();
@@ -98,19 +99,34 @@ public class Control {
     List<String> cells = simulation.getCellRows();
     Map<String, Integer> params = simulation.getParameters();
 
+    // TODO: refactor into XML reader
+    String shape = "square";
+    int nSize = switch (type) {
+      case "Game of Life" -> 8;
+      case "Percolation" -> 4;
+      case "Fire" -> 4;
+      case "Segregation" -> 8;
+      case "WaTor" -> 8;
+      case "Rock Paper Scissors" -> 8;
+      case "Foraging Ants" -> 4;
+      case "Byls Loop" -> 8;
+      default -> 8;
+    };
+    params.put("neighborhoodSize", nSize);
+
     myGrid = switch (type) {
-      case "Game of Life" -> new GameOfLifeGrid(cells, params);
-      case "Percolation" -> new PercolationGrid(cells, params);
-      case "Fire" -> new FireGrid(cells, params);
-      case "Segregation" -> new SegregationGrid(cells, params);
-      case "WaTor" -> new WaTorGrid(cells, params);
-      case "Rock Paper Scissors" -> new RPSGrid(cells, params);
-      case "Foraging Ants" -> new ForagingAntsGrid(cells, params);
-      case "Byls Loop" -> new BylsLoopGrid(cells, params);
+      case "Game of Life" -> new GameOfLifeGrid(cells, shape, params);
+      case "Percolation" -> new PercolationGrid(cells, shape, params);
+      case "Fire" -> new FireGrid(cells, shape, params);
+      case "Segregation" -> new SegregationGrid(cells, shape, params);
+      case "WaTor" -> new WaTorGrid(cells, shape, params);
+      case "Rock Paper Scissors" -> new RPSGrid(cells, shape, params);
+      case "Foraging Ants" -> new ForagingAntsGrid(cells, shape, params);
+      case "Byls Loop" -> new BylsLoopGrid(cells, shape, params);
       default -> null;
     };
 
-    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
+    mySC.createRectGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid());
 
     resetAnimation();
   }
@@ -130,30 +146,33 @@ public class Control {
   }
 
   /**
-   * Purpose: Pause the animation when the pause button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Pause the animation when the pause button is pressed. Assumptions: TODO Dependencies:
+   * TODO Example of use: TODO
    */
   public void pause() {
     animation.stop();
   }
 
   /**
-   * Purpose: Start the animation when the play button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Start the animation when the play button is pressed. Assumptions: TODO Dependencies:
+   * TODO Example of use: TODO
    */
   public void start() {
-    animation.play();
+    try {
+      checkFilled(myDataFile);
+      animation.play();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private boolean checkFilled(String myDataFile) {
+    return !myDataFile.equals(null);
   }
 
   /**
-   * Purpose: Step through the animation step by step when the step button is called.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Step through the animation step by step when the step button is called. Assumptions:
+   * TODO Dependencies: TODO Example of use: TODO
    */
   public void next() {
     animation.stop();
@@ -162,10 +181,8 @@ public class Control {
   }
 
   /**
-   * Purpose: Speed up the animation speed when the speed up button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Speed up the animation speed when the speed up button is pressed. Assumptions: TODO
+   * Dependencies: TODO Example of use: TODO
    */
   public void fast() {
     animation.stop();
@@ -178,10 +195,8 @@ public class Control {
   }
 
   /**
-   * Purpose: Slow the speed of the animation when the slow button is called.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Slow the speed of the animation when the slow button is called. Assumptions: TODO
+   * Dependencies: TODO Example of use: TODO
    */
   public void slow() {
     animation.stop();

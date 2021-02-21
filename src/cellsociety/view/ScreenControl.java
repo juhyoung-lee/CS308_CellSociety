@@ -9,7 +9,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -28,6 +31,8 @@ public class ScreenControl {
   private Pane myRoot;
   private Text titleText;
   private List<Rectangle> myBlocks;
+  private List<Polygon> myTriangle;
+  private List<Polygon> myHexagon;
   private Button slowButton;
   private Button fastButton;
   private Button startButton;
@@ -38,10 +43,10 @@ public class ScreenControl {
   private int sY;
   private Scene myScene;
   private Control sim;
-  private String myTitle;
   private String myType;
   private ResourceBundle myResources;
   private String myStyleSheet;
+  private RectangleGrid myRectGrid;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -124,29 +129,39 @@ public class ScreenControl {
     return button;
   }
 
-  private void setGameTitleText() {
-    titleText = new Text(0, 30, myType + ": " + myTitle);
-    titleText.setFont(new Font(20));
-    titleText.getStyleClass().add("title");
-    titleText.setX(sX / 2 - (titleText.getLayoutBounds().getWidth() / 2));
-    myRoot.getChildren().add(titleText);
-  }
-
   public void resetGameTitleText() {
     myRoot.getChildren().remove(titleText);
   }
 
   /**
-   * Creates display of Grid for viewer to see.
+   * Creates display of Rectangle Grid for viewer to see.
    ** @param rows
    ** @param cols
    ** @param cells
    */
-  public void createGrid(String title, String type, int rows, int cols, List<Integer> cells) {
-    myTitle = title;
-    myType = type;
-    setGameTitleText();
-    myRoot.getChildren().remove(myBlocks);
+  public void createRectGrid(String title, String type, int rows, int cols, List<Integer> cells) {
+    myRectGrid = new RectangleGrid(myStyleSheet, myScene, myRoot);
+    myRectGrid.createGrid(title, type, rows, cols, cells);
+    titleText = myRectGrid.getTitleText();
+  }
+
+  public void createTriGrid(int rows, int cols, List<Integer> cells) {
+    myRoot.getChildren().remove(myTriangle);
+    double xSize = ((double) Control.GRID_SIZE) / cols;
+    double ySize = ((double) Control.GRID_SIZE) / rows;
+    myType = myType.replaceAll("\\s", "");
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        Rectangle block = new Rectangle(Control.GRID_X + j * xSize, Control.GRID_Y + i * ySize, xSize, ySize);
+        myBlocks.add(block);
+        myRoot.getChildren().add(block);
+        block.getStyleClass().add(myType + "-" + cells.get(j + i * cols));
+      }
+    }
+  }
+
+  public void createHexGrid(int rows, int cols, List<Integer> cells) {
+    myRoot.getChildren().remove(myHexagon);
     double xSize = ((double) Control.GRID_SIZE) / cols;
     double ySize = ((double) Control.GRID_SIZE) / rows;
     myType = myType.replaceAll("\\s", "");
@@ -165,21 +180,11 @@ public class ScreenControl {
    ** @param cells
    */
   public void updateGrid(List<Integer> cells) {
-    for (int i = 0; i < cells.size(); i++) {
-      Rectangle block = myBlocks.get(i);
-      block.getStyleClass().clear();
-      block.getStyleClass().add(myType + "-" + cells.get(i));
-    }
+    myRectGrid.updateGrid(cells);
   }
 
   public void clearGrid() {
-    for (Rectangle block : myBlocks) {
-      block.getStyleClass().clear();
-      myRoot.getChildren().remove(block);
-    }
-    myRoot.getChildren().remove(myBlocks);
-    myBlocks.removeAll(myBlocks);
-    resetButtons();
+    myRectGrid.clearGrid();
   }
 
   private void resetButtons() {
@@ -198,5 +203,9 @@ public class ScreenControl {
    */
   public Scene getScene() {
     return myScene;
+  }
+
+  public Pane getRoot() {
+    return myRoot;
   }
 }

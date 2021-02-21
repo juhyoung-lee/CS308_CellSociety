@@ -1,0 +1,24 @@
+<root>
+  <information>
+    <type>Game of Life</type>
+    <title>Bad</title>
+    <author>wiki</author>
+    <description>XML to test the exceptions</description>
+  </information>
+  <parameters>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>0010000000</cellRow>
+    <cellRow>1010000000</cellRow>
+    <cellRow>0110000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+  </cells>
+</root>
