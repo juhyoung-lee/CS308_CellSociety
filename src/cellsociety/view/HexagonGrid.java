@@ -30,7 +30,7 @@ public class HexagonGrid extends GridBuilder {
   }
 
   /**
-   * Purpose: Populates view with hexagon Polygons..
+   * Purpose: Populates view with hexagon Polygons.
    * Assumptions: TODO
    * Parameters: int rows, int cols, List cells.
    * Exceptions: TODO

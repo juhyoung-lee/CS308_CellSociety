@@ -4,9 +4,7 @@ import cellsociety.Control;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
-import javafx.scene.text.Text;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
