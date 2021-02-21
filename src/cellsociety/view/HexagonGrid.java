@@ -29,6 +29,13 @@ public class HexagonGrid extends GridBuilder {
     scene.getStylesheets().add(styleSheet);
   }
 
+  /**
+   * Purpose: Populates view with hexagon Polygons..
+   * Assumptions: TODO
+   * Parameters: int rows, int cols, List cells.
+   * Exceptions: TODO
+   * Returns: None.
+   */
   @Override
   protected void createPolyGrid(int rows, int cols, List<Integer> cells) {
     super.createPolyGrid(rows, cols, cells);
@@ -41,9 +48,8 @@ public class HexagonGrid extends GridBuilder {
 
     myType = myType.replaceAll("\\s", "");
 
-    double row_offset;
     for (int i = 0; i < rows; i++) {
-      row_offset = (i % 2) * width_offset;
+      double row_offset = (i % 2) * width_offset;
       for (int j = 0; j < cols; j++) {
         double x = Control.GRID_X + row_offset + j * width;
         double y = Control.GRID_Y + slant_height + i * effective_height;
