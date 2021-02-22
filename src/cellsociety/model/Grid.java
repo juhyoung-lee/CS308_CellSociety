@@ -67,8 +67,11 @@ public abstract class Grid extends GridHelper {
   // assumes grid is not wrapping
   // assumes 0 is default, inactive state
   private void checkGridExpansion() {
+    int baseState = this.grid.get(0).getBaseState();
     for (int i : edgeIndexes()) {
-      int baseState = this.grid.get(i).getBaseState();
+//      if (i < 0 || i > this.width * this.height - 1) {
+//        continue;
+//      }
       if (this.grid.get(i).getState() != baseState) {
         expandGrid();
         break;
@@ -76,17 +79,22 @@ public abstract class Grid extends GridHelper {
     }
   }
 
+  // breaks when grid is too small??
   private List<Integer> edgeIndexes() {
     List<Integer> edgeIndexes = new ArrayList<>();
     int width = getDimensions()[0];
     int height = getDimensions()[1];
     for (int i = 0; i < width; i++) {
       edgeIndexes.add(i);
+      edgeIndexes.add(i + width);
       edgeIndexes.add(width * height - width + i);
+      edgeIndexes.add(width * height - width + i - width);
     }
-    for (int i = 1; i < height - 1; i++) {
+    for (int i = 2; i < height - 2; i++) {
       edgeIndexes.add(i * width);
+      edgeIndexes.add(i * width + 1);
       edgeIndexes.add((i + 1) * width - 1);
+      edgeIndexes.add((i + 1) * width - 2);
     }
     return edgeIndexes;
   }
@@ -116,6 +124,7 @@ public abstract class Grid extends GridHelper {
       for (int i = 0; i < oldSize; i++) {
         newGrid.add(baseCell());
       }
+
       this.grid = newGrid;
 
       for (int i = 0; i < this.grid.size(); i++) {
