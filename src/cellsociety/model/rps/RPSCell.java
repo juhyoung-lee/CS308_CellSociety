@@ -20,8 +20,8 @@ public class RPSCell extends Cell {
   private final String loseThresholdKey = "loseThreshold";
   private final String bufferBoundKey = "bufferBound";
   private final Random randBuff = new Random();
-  private final int loseThreshold;
-  private final int bufferBound;
+  private int loseThreshold = 3;
+  private int bufferBound = 1;
 
   /**
    * Purpose: Constructor for RPSCell class.
@@ -30,11 +30,33 @@ public class RPSCell extends Cell {
    * Exceptions: TODO
    * Returns: RPSCell object.
    */
-  public RPSCell(Map<String, Integer> config) {
+  public RPSCell(Map<String, Integer> config) throws Exception {
     super(config);
     setMaxStateValue(SCISSORS);
-    loseThreshold = config.get(loseThresholdKey);
-    bufferBound = config.get(bufferBoundKey);
+    checkParameters(config);
+  }
+
+  private void checkParameters(Map<String, Integer> config) throws Exception {
+    try {
+      loseThreshold = config.get(loseThresholdKey);
+      bufferBound = config.get(bufferBoundKey);
+    } catch (Exception e) {
+      throw new Exception("Cell parameter invalid.");
+    }
+  }
+
+  /**
+   * Purpose: Returns default state for Cell upon grid size expansion.
+   * Assumptions: None.
+   * Parameters: None.
+   * HashMap object.
+   * Exceptions: TODO
+   * Returns: int type.
+   */
+  @Override
+  public int getBaseState() {
+    Random randState = new Random();
+    return randState.nextInt(SCISSORS + 1);
   }
 
   /**
@@ -70,6 +92,6 @@ public class RPSCell extends Cell {
       }
     }
 
-    return opponentCount + buffer > loseThreshold;
+    return opponentCount + buffer >= loseThreshold;
   }
 }
