@@ -42,49 +42,16 @@ public class BylsLoopGrid extends Grid {
   @Override
   protected int[] decideNeighborhood(int index) throws Exception {
     return switch (getShape()) {
-      case "square" -> square();
-      case "triangle" -> triangle(index);
-      case "hexagon" -> hexagon(index);
-      default -> throw new Exception("Invalid shape: " + getShape());
+      case SQUARE -> square();
+      default -> throw new Exception(INVALID_SHAPE);
     };
   }
 
   private int[] square() {
     int width = getDimensions()[0];
-    if (getNeighborhoodSize() == 4) {
-      // return new int[]{-1, -1 * width, 1, width}; //clockwise
+    if (getNeighborhoodSize() == SQUARE_SIDES_MIN) {
       return new int[]{-1, width, 1, -1 * width};
     }
     return new int[]{};
-  }
-
-  private int[] triangle(int index) {
-    int w = getDimensions()[0];
-    boolean trianglePointy = isTriangleTopPointy(index);
-
-    if (trianglePointy && getNeighborhoodSize() == 3) {
-      // return new int[]{-1, 1, w}; //clockwise
-      return new int[]{-1, w, 1};
-    } else if (getNeighborhoodSize() == 3) {
-      // return new int[]{-1, -1 * w, 1}; //clockwise
-      return new int[]{-1, 1, -1 * w};
-    } else {
-      return new int[]{};
-    }
-  }
-
-  public int[] hexagon(int index) {
-    if (getNeighborhoodSize() != 6) {
-      return new int[]{};
-    }
-    int w = getDimensions()[0];
-    boolean evenRow = (index / w) % 2 == 0;
-    if (evenRow) {
-      // return new int[]{-1, -1 - w, -1 * w, 1, w, -1 + w}; //clockwise
-      return new int[]{-1, -1 + w, w, 1, -1 * w, -1 - w};
-    } else {
-      // return new int[]{-1, -1 * w, 1 - w, 1, 1 + w, w}; //clockwise
-      return new int[]{-1, w, 1 + w, 1, 1 - w, -1 * w};
-    }
   }
 }

@@ -91,22 +91,23 @@ public class Control {
     try {
       acceptXMLData(myDataFile);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
-      uploadFile();
+      mySC.displayErrorMessage(e.getMessage());
       //display error message
       //e.getMessage convert it, display it
     }
+    mySC.clearError();
   }
 
   private void createStageExceptionHandler() {
     try {
       createStage();
     } catch (Exception e) {
-      System.out.println(e.getMessage());
-      uploadFile();
+      mySC.displayErrorMessage(e.getMessage());
+
       //display error message
       //e.getMessage convert it, display it
     }
+    mySC.clearError();
   }
 
 
@@ -127,8 +128,8 @@ public class Control {
   }
 
   private void createStage() throws Exception {
-    // TODO: refactor into XML reader
     String[] gridParam = simulation.getGridParameterArray();
+
     int nSize = switch (type) {
       case "Game of Life" -> 8;
       case "Percolation" -> 4;
@@ -137,7 +138,7 @@ public class Control {
       case "WaTor" -> 8;
       case "Rock Paper Scissors" -> 8;
       case "Foraging Ants" -> 4;
-      case "Byls Loop" -> 8;
+      case "Byls Loop" -> 4;
       default -> 8;
     };
     params.put("neighborhoodSize", nSize);
@@ -189,7 +190,7 @@ public class Control {
 
   private void step() {
     myGrid.updateCells();
-    mySC.updateGrid(myGrid.viewGrid());
+    mySC.updateGrid(myGrid.viewGrid(), myGrid.getDimensions()[0], myGrid.getDimensions()[1]);
   }
 
   /**
@@ -220,7 +221,7 @@ public class Control {
   public void next() {
     animation.stop();
     myGrid.updateCells();
-    mySC.updateGrid(myGrid.viewGrid());
+    mySC.updateGrid(myGrid.viewGrid(), myGrid.getDimensions()[0], myGrid.getDimensions()[1]);
   }
 
   /**
@@ -258,5 +259,9 @@ public class Control {
       animation.setRate(1.0 / (frameCount * -1));
     }
     animation.play();
+  }
+
+  public void configuration() {
+    List<Integer> cells = myGrid.viewGrid();
   }
 }

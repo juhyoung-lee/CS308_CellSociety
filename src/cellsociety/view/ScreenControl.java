@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 
 import javafx.collections.ObservableList;
@@ -53,6 +54,7 @@ public class ScreenControl {
   private ButtonBuilder myButtons;
   private HBox myResourceStyle;
   private AnchorPane myGridBox;
+  private ErrorMessage myError;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -280,13 +282,13 @@ public class ScreenControl {
    * Updates the grid based on new cell information passed in.
    * * @param cells
    */
-  public void updateGrid(List<Integer> cells) {
+  public void updateGrid(List<Integer> cells, int row, int col) {
     if (myRectGrid != null) {
-      myRectGrid.updateGrid(cells);
+      myRectGrid.updateGrid(cells, row, col);
     } else if (myTriGrid != null) {
-      myTriGrid.updateGrid(cells);
+      myTriGrid.updateGrid(cells, row, col);
     } else if (myHexGrid != null) {
-      myHexGrid.updateGrid(cells);
+      myHexGrid.updateGrid(cells, row, col);
     }
     if (myGraph != null) {
       updateGraph(cells);
@@ -321,5 +323,17 @@ public class ScreenControl {
    */
   public void setParams(Map<String, Integer> params) {
     paramsMap = params;
+  }
+
+  public void displayErrorMessage(String message) {
+    myError = new ErrorMessage(message);
+    myRoot.setBottom(myError.getBox());
+    sim.uploadFile();
+  }
+
+  public void clearError() {
+    if (myError != null) {
+      myRoot.getChildren().remove(myError.getBox());
+    }
   }
 }
