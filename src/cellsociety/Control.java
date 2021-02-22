@@ -157,7 +157,7 @@ public class Control {
 
     mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
 
-    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), shape);
+//    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
     resetAnimation();
   }
 
