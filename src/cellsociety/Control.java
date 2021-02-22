@@ -92,8 +92,6 @@ public class Control {
       acceptXMLData(myDataFile);
     } catch (Exception e) {
       mySC.displayErrorMessage(e.getMessage());
-      //display error message
-      //e.getMessage convert it, display it
     }
     mySC.clearError();
   }
@@ -103,9 +101,6 @@ public class Control {
       createStage();
     } catch (Exception e) {
       mySC.displayErrorMessage(e.getMessage());
-
-      //display error message
-      //e.getMessage convert it, display it
     }
     mySC.clearError();
   }
@@ -128,7 +123,6 @@ public class Control {
   }
 
   private void createStage() throws Exception {
-    // TODO: refactor into XML reader
     String[] gridParam = simulation.getGridParameterArray();
     int nSize = switch (type) {
       case "Game of Life" -> 8;
@@ -161,8 +155,6 @@ public class Control {
 
 
     mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
-
-//    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
     resetAnimation();
   }
 
