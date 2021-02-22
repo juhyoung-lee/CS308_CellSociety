@@ -27,13 +27,17 @@ public abstract class GridHelper {
    */
   public GridHelper(List<String> cellArrangement, String[] params, Map<String, Integer> parameters)
       throws Exception {
-    this.shape = params[0];
-    this.gridType = params[1];
-    this.height = parameters.get("height");
-    this.width = parameters.get("width");
-    this.neighborhoodSize = parameters.get("neighborhoodSize");
-    setupGrid(cellArrangement, parameters);
-    setupNeighbors();
+    try {
+      this.shape = params[0];
+      this.gridType = params[1];
+      this.height = parameters.get("height");
+      this.width = parameters.get("width");
+      this.neighborhoodSize = parameters.get("neighborhoodSize");
+      setupGrid(cellArrangement, parameters);
+      setupNeighbors();
+    } catch (Exception e) {
+      throw new Exception("Invalid grid parameters");
+    }
   }
 
   /**

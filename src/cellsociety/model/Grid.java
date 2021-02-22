@@ -57,9 +57,6 @@ public abstract class Grid extends GridHelper {
   private void checkGridExpansion() {
     int baseState = getGrid().get(0).getBaseState();
     for (int i : edgeIndexes()) {
-//      if (i < 0 || i > this.width * this.height - 1) {
-//        continue;
-//      }
       if (getGrid().get(i).getState() != baseState) {
         expandGrid();
         break;
@@ -96,7 +93,7 @@ public abstract class Grid extends GridHelper {
       for (int i = 0; i < width * 3 * height; i++) {
         newGrid.add(baseCell());
       }
-      for (int i = 0; i < width * height; i ++) {
+      for (int i = 0; i < width * height; i++) {
         if (i % width == 0) {
           for (int j = 0; j < width; j++) {
             newGrid.add(baseCell());
