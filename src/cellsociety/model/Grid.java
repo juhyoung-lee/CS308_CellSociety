@@ -14,9 +14,9 @@ public abstract class Grid extends GridHelper {
 
   private Map<String, Integer>[] issues;
 
-  public Grid(List<String> cellArrangement, String shape, Map<String, Integer> parameters)
+  public Grid(List<String> cellArrangement, String[] gridParameters, Map<String, Integer> cellParameters)
       throws Exception {
-    super(cellArrangement, shape, parameters);
+    super(cellArrangement, gridParameters, cellParameters);
     issues = new HashMap[getGrid().size()];
   }
 
@@ -26,7 +26,8 @@ public abstract class Grid extends GridHelper {
    * properly "move" or pass information to another cell, moveCell() will need to be overwritten.
    * Assumptions: No movement of cells.
    */
-  public void updateCells() {
+  public void updateCells() { //TODO: RIGHT HERE
+//    checkGridExpansion(); // grid will have to be updated and kept here
     clearIssues();
     prepareCellUpdates();
     handleIssues();
