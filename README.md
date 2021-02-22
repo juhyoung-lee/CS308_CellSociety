@@ -21,7 +21,7 @@ Hours Spent: 160 hours (40hrs * 4)
 - Kathleen: GUI and view (Main, Control, TriangleGrid, ScreenControl, RectangleGrid, GridBuilder, ButtonBuilder, all files in resources)
 - Jessica: Model (Control, ScreenControl, HexagonGrid, Cell, WaTorCell, SugarScapeCell, SegregationCell, RPSCell, PercolationCell, GameOfLifeCell, ForagingAntsCell, FireCell, BylsLoopCell) 
 - Juhyoung: Model (GridHelper, Grid, Cell, WaTorGrid, SugarScapeGrid, SegregationGrid, RPSGrid, PercolationGrid, GameOfLifeGrid, ForagingAntsGrid, FireGrid, BylsLoopGrid)
-- Kenneth: Configuration (XMLException, Simulation, CreateFile, test XML files)
+- Kenneth: Configuration (XMLException, Simulation, CreateFile, test XML files, Control)
 
 ### Resources Used
 - https://fab.cba.mit.edu/classes/865.18/replication/Byl.pdf
