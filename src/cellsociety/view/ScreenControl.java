@@ -282,13 +282,13 @@ public class ScreenControl {
    * Updates the grid based on new cell information passed in.
    * * @param cells
    */
-  public void updateGrid(List<Integer> cells) {
+  public void updateGrid(List<Integer> cells, int row, int col) {
     if (myRectGrid != null) {
-      myRectGrid.updateGrid(cells);
+      myRectGrid.updateGrid(cells, row, col);
     } else if (myTriGrid != null) {
-      myTriGrid.updateGrid(cells);
+      myTriGrid.updateGrid(cells, row, col);
     } else if (myHexGrid != null) {
-      myHexGrid.updateGrid(cells);
+      myHexGrid.updateGrid(cells, row, col);
     }
     if (myGraph != null) {
       updateGraph(cells);

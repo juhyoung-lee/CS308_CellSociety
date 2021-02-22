@@ -36,7 +36,7 @@ public class SegregationCell extends Cell {
     try {
       myThreshold = (double) config.get(thresholdKey) / 100;
     } catch (Exception e) {
-      throw new Exception("Cell parameter invalid.");
+      throw new Exception(PARAMETER_EXCEPTION_MESSAGE);
     }
   }
 
