@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.configuration.Simulation;
+import cellsociety.configuration.XMLException;
 import cellsociety.model.Grid;
 import cellsociety.model.bylsloop.BylsLoopGrid;
 import cellsociety.model.fire.FireGrid;
@@ -79,7 +80,7 @@ public class Control {
    */
   public void uploadFile() {
     FileChooser fileChooser = new FileChooser();
-    File selectedFile = fileChooser.showOpenDialog(myStage);
+    File selectedFile =fileChooser.showOpenDialog(myStage);
     myDataFile = selectedFile.getPath();
     try {
       createStageFromData(myDataFile);
@@ -127,8 +128,12 @@ public class Control {
       case "SugarScape" -> new SugarScapeGrid(cells, gridParam, params);
       default -> null;
     };
+    if (myGrid == null) {
+      throw new XMLException("BadType");
+    }
 
-    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), shape);
+
+    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
 
     resetAnimation();
   }
