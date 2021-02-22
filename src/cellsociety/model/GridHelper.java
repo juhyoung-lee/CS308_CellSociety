@@ -130,7 +130,7 @@ public abstract class GridHelper {
    * @param parameters cell state and game parameters from XML
    * @return appropriate cell object
    */
-  protected abstract Cell chooseCell(Map<String, Integer> parameters);
+  protected abstract Cell chooseCell(Map<String, Integer> parameters) throws Exception;
 
   /**
    * Used by constructor. Populates neighbor field.
