@@ -12,11 +12,11 @@ public class SegregationGrid extends Grid {
    * Constructor.
    *
    * @param cellArrangement cell grid from XML
-   * @param parameters      game settings from XML
+   * @param cellParameters      game settings from XML
    */
-  public SegregationGrid(List<String> cellArrangement, String shape,
-      Map<String, Integer> parameters) throws Exception {
-    super(cellArrangement, shape, parameters);
+  public SegregationGrid(List<String> cellArrangement, String[] gridParameters,
+      Map<String, Integer> cellParameters) throws Exception {
+    super(cellArrangement, gridParameters, cellParameters);
   }
 
   /**
