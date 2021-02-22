@@ -1,21 +1,14 @@
 <root>
   <information>
-    <type>SugarScape</type>
-    <title>Preset 2 (Max Bounds): Migration</title>
+    <type>Byls Loop</type>
+    <title>Starting Loop</title>
     <author>Jessica</author>
-    <description>Basic configuration file for SugarScape. Follows upper bounds of Preset 2.</description>
+    <description>One starting loop</description>
   </information>
   <parameters>
     <width>30</width>
     <height>30</height>
-    <neighborhoodSize>8</neighborhoodSize>
-    <neighborNumMax>8</neighborNumMax>
-    <agentVisionMax>10</agentVisionMax>
-    <agentSugarMetabolismMax>1</agentSugarMetabolismMax>
-    <agentInitialSugar>5</agentInitialSugar>
-    <patchMaxSugar>8</patchMaxSugar>
-    <patchSugarGrowBackRate>2</patchSugarGrowBackRate>
-    <getPatchSugarGrowBackInterval>1</getPatchSugarGrowBackInterval>
+    <neighborhoodSize>4</neighborhoodSize>
   </parameters>
   <cells>
     <cellRow>000000000000000000000000000000</cellRow>
@@ -31,6 +24,10 @@
     <cellRow>000000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000022000000000000000</cellRow>
+    <cellRow>000000000000231200000000000000</cellRow>
+    <cellRow>000000000000234200000000000000</cellRow>
+    <cellRow>000000000000025000000000000000</cellRow>
     <cellRow>000000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000000</cellRow>
@@ -38,15 +35,11 @@
     <cellRow>000000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000000</cellRow>
     <cellRow>000000000000000000000000000000</cellRow>
-    <cellRow>110011001000110000000000000000</cellRow>
-    <cellRow>010010111000110000000000000000</cellRow>
-    <cellRow>010111001101110000000000000000</cellRow>
-    <cellRow>010001000011100110000000000000</cellRow>
-    <cellRow>000010001000010000000000000000</cellRow>
-    <cellRow>110110110110110000000000000000</cellRow>
-    <cellRow>001010010110011100000000000000</cellRow>
-    <cellRow>110001000010101000000000000000</cellRow>
-    <cellRow>010101000010100010000000000000</cellRow>
-    <cellRow>100010011001010000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
   </cells>
 </root>
