@@ -17,7 +17,7 @@ public class SegregationCell extends Cell {
   public static final int AGENT_A = 1;
   public static final int AGENT_B = 2;
   private final String thresholdKey = "threshold";
-  private final double myThreshold;
+  private double myThreshold = 0.5;
 
   /**
    * Purpose: Constructor for SegregationCell class.
@@ -26,10 +26,18 @@ public class SegregationCell extends Cell {
    * Exceptions: TODO
    * Returns: SegregationCell object.
    */
-  public SegregationCell(Map<String, Integer> config) {
+  public SegregationCell(Map<String, Integer> config) throws Exception {
     super(config);
     setMaxStateValue(AGENT_B);
-    myThreshold = (double) config.get(thresholdKey) / 100;
+    checkParameters(config);
+  }
+
+  private void checkParameters(Map<String, Integer> config) throws Exception {
+    try {
+      myThreshold = (double) config.get(thresholdKey) / 100;
+    } catch (Exception e) {
+      throw new Exception("Cell parameter invalid.");
+    }
   }
 
   /**
