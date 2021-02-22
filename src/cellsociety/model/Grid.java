@@ -108,14 +108,13 @@ public abstract class Grid extends GridHelper {
   }
 
   private void expandGrid() {
-    int oldSize = this.width * this.height;
     List<Cell> newGrid = new ArrayList<>();
 
     try {
-      for (int i = 0; i < oldSize; i++) {
+      for (int i = 0; i < this.width * 3 * this.height; i++) {
         newGrid.add(baseCell());
       }
-      for (int i = 0; i < oldSize; i ++) {
+      for (int i = 0; i < this.width * this.height; i ++) {
         if (i % this.width == 0) {
           for (int j = 0; j < this.width; j++) {
             newGrid.add(baseCell());
@@ -128,12 +127,12 @@ public abstract class Grid extends GridHelper {
           }
         }
       }
-      for (int i = 0; i < oldSize; i++) {
+      for (int i = 0; i < this.width * 3 * this.height; i++) {
         newGrid.add(baseCell());
       }
 
-      this.width *= 2;
-      this.height *= 2;
+      this.width *= 3;
+      this.height *= 3;
       this.grid = newGrid;
 
       for (int i = 0; i < this.grid.size(); i++) {

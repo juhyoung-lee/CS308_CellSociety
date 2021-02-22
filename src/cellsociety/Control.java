@@ -186,7 +186,7 @@ public class Control {
 
   private void step() {
     myGrid.updateCells();
-    mySC.updateGrid(myGrid.viewGrid());
+    mySC.updateGrid(myGrid.viewGrid(), myGrid.getDimensions()[0], myGrid.getDimensions()[1]);
   }
 
   /**
@@ -221,7 +221,7 @@ public class Control {
   public void next() {
     animation.stop();
     myGrid.updateCells();
-    mySC.updateGrid(myGrid.viewGrid());
+    mySC.updateGrid(myGrid.viewGrid(), myGrid.getDimensions()[0], myGrid.getDimensions()[1]);
   }
 
   /**

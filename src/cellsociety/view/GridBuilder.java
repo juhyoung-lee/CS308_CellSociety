@@ -67,7 +67,10 @@ public abstract class GridBuilder {
    * Parameters: List<Integer> cells
    * Example of use: updateGrid(cells)
    */
-  public void updateGrid(List<Integer> cells) {
+  public void updateGrid(List<Integer> cells, int row, int col) {
+    if (cells.size() != myCells.size()) {
+      createGrid(myTitle, myType, row, col, cells);
+    }
     for (int i = 0; i < cells.size(); i++) {
       Polygon cell = myCells.get(i);
       cell.getStyleClass().clear();
