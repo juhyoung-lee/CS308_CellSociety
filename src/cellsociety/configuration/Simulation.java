@@ -194,6 +194,12 @@ public class Simulation {
     return returned;
   }
 
+  public Map<String, String> getInfoMap() {
+    Map<String, String> returned = new HashMap<>();
+    returned.putAll(myInformation);
+    return returned;
+  }
+
   public String[] getGridParameterArray() {
     String[] returned = new String[2];
     returned[0] = myInformation.get(SHAPE);
@@ -216,6 +222,8 @@ public class Simulation {
   public String getType() {
     return myInformation.get("type");
   }
+
+
 
 //  public String toString() {
 //    return "Type: " + myType + ", Title: " + myTitle + ", Author: " + myAuthor + ", Descr: "
