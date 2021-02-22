@@ -11,14 +11,8 @@ import cellsociety.model.rps.RPSGrid;
 import cellsociety.model.segregation.SegregationGrid;
 import cellsociety.model.sugarscape.SugarScapeGrid;
 import cellsociety.model.wator.WaTorGrid;
-
 import java.io.File;
-
-import cellsociety.view.RectangleGrid;
 import cellsociety.view.ScreenControl;
-
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javafx.animation.KeyFrame;
@@ -148,33 +142,29 @@ public class Control {
   }
 
   /**
-   * Purpose: Pause the animation when the pause button is pressed. Assumptions: TODO Dependencies:
-   * TODO Example of use: TODO
+   * Purpose: Pause the animation when the pause button is pressed.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void pause() {
     animation.stop();
   }
 
   /**
-   * Purpose: Start the animation when the play button is pressed. Assumptions: TODO Dependencies:
-   * TODO Example of use: TODO
+   * Purpose: Start the animation when the play button is pressed. Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void start() {
-    try {
-      checkFilled(myDataFile);
       animation.play();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  private boolean checkFilled(String myDataFile) {
-    return !myDataFile.equals(null);
   }
 
   /**
-   * Purpose: Step through the animation step by step when the step button is called. Assumptions:
-   * TODO Dependencies: TODO Example of use: TODO
+   * Purpose: Step through the animation step by step when the step button is called.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void next() {
     animation.stop();
@@ -183,8 +173,10 @@ public class Control {
   }
 
   /**
-   * Purpose: Speed up the animation speed when the speed up button is pressed. Assumptions: TODO
-   * Dependencies: TODO Example of use: TODO
+   * Purpose: Speed up the animation speed when the speed up button is pressed.
+   * ssumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void fast() {
     animation.stop();
@@ -197,8 +189,10 @@ public class Control {
   }
 
   /**
-   * Purpose: Slow the speed of the animation when the slow button is called. Assumptions: TODO
-   * Dependencies: TODO Example of use: TODO
+   * Purpose: Slow the speed of the animation when the slow button is called.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void slow() {
     animation.stop();

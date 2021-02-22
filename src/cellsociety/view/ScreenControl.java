@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 
 
 public class ScreenControl {
+
   private Pane myRoot;
   private Text titleText;
   private Button slowButton;
@@ -39,9 +40,8 @@ public class ScreenControl {
   private Button pauseButton;
   private Button stepButton;
   private Button uploadButton;
+  private Button compareButton;
   private Button graphButton;
-  private int sX;
-  private int sY;
   private Scene myScene;
   private Control sim;
   private ResourceBundle myResources;
@@ -58,13 +58,11 @@ public class ScreenControl {
    */
   public ScreenControl(Control simulationControl) {
     myRoot = new Pane();
-    sX = Control.X_SIZE;
-    sY = Control.Y_SIZE;
     createResourceButton();
     createStyleButton();
     myResources = ResourceBundle.getBundle("cellsociety.view.resources.English");
     myStyleSheet = "cellsociety/view/resources/default.css";
-    myScene = new Scene(myRoot, sX, sY);
+    myScene = new Scene(myRoot, Control.X_SIZE, Control.Y_SIZE);
     myScene.getStylesheets().add(myStyleSheet);
     createButtons();
     sim = simulationControl;
@@ -111,6 +109,8 @@ public class ScreenControl {
   }
 
   private void createButtons() {
+    int sX = Control.X_SIZE;
+    int sY = Control.Y_SIZE;
     startButton = buttonCreation(myResources.getString("PlayButton"), sX / 12, sY / 12 + 460);
     startButton.setOnAction(event -> sim.start());
     pauseButton = buttonCreation(myResources.getString("PauseButton"), sX / 2 - 32, sY / 12 + 460);
@@ -125,16 +125,33 @@ public class ScreenControl {
     uploadButton.setOnAction(event -> sim.uploadFile());
     graphButton = buttonCreation(myResources.getString("GraphButton"), sX - 220, 0);
     graphButton.setOnAction(event -> makeNewWindow());
+    compareButton = buttonCreation(myResources.getString("CompareButton"), sX - 120, 40);
+    compareButton.setOnAction(event -> compare());
+  }
+
+  private Button buttonCreation(String text, double x, double y) {
+    Button button = new Button(text);
+    button.setLayoutX(x);
+    button.setLayoutY(y);
+    myRoot.getChildren().add(button);
+    button.getStyleClass().add("button");
+    return button;
+  }
+
+  private void compare() {
+    Pane comparePane = new Pane();
+    Scene compareScene = new Scene(comparePane, Control.X_SIZE, Control.Y_SIZE);
+    compareScene.getStylesheets().add(myStyleSheet);
+
   }
 
   private void makeNewWindow() {
-    int size = Control.X_SIZE;
     Pane secondaryLayout = new Pane();
-    Scene secondScene = new Scene(secondaryLayout, size, size);
+    Scene secondScene = new Scene(secondaryLayout, Control.X_SIZE, Control.X_SIZE);
     String graphStyle = "cellsociety/view/resources/graph.css";
     secondScene.getStylesheets().add(graphStyle);
 
-    myWindowTitle(size, secondaryLayout);
+    myWindowTitle(Control.X_SIZE, secondaryLayout, new Text(0, 0,"Graph of states"));
 
     myGraph = new PieChart();
     myGraph.setAnimated(false);
@@ -147,22 +164,12 @@ public class ScreenControl {
     newWindow.show();
   }
 
-  private void myWindowTitle(int size, Pane secondaryLayout) {
-    Text title = new Text(0, 30, "Graph of states");
+  private void myWindowTitle(int size, Pane pane, Text title) {
     title.setFont(new Font(25));
     title.setX(size / 2 - (title.getLayoutBounds().getWidth() / 2));
     title.setY(20);
     title.getStyleClass().add("title");
-    secondaryLayout.getChildren().add(title);
-  }
-
-  private Button buttonCreation(String text, double x, double y) {
-    Button button = new Button(text);
-    button.setLayoutX(x);
-    button.setLayoutY(y);
-    myRoot.getChildren().add(button);
-    button.getStyleClass().add("button");
-    return button;
+    pane.getChildren().add(title);
   }
 
   public void resetGameTitleText() {
@@ -186,7 +193,7 @@ public class ScreenControl {
       createHexGrid(title, type, rows, cols, cells);
     }
     if (myGraph != null) {
-      updateGraph(cells, type);
+      updateGraph(cells);
     }
   }
 
@@ -209,7 +216,7 @@ public class ScreenControl {
     titleText = myHexGrid.getTitleText();
   }
 
-  private void updateGraph(List<Integer> cells, String type) {
+  private void updateGraph(List<Integer> cells) {
     clearGraph();
     List<Integer> sortedlist = new ArrayList<>(cells);
     Collections.sort(sortedlist);
@@ -237,7 +244,7 @@ public class ScreenControl {
       myHexGrid.updateGrid(cells);
     }
     if (myGraph != null) {
-      updateGraph(cells, myType);
+      updateGraph(cells);
     }
   }
 
@@ -259,6 +266,7 @@ public class ScreenControl {
     myRoot.getChildren().remove(stepButton);
     myRoot.getChildren().remove(uploadButton);
     myRoot.getChildren().remove(graphButton);
+    myRoot.getChildren().remove(compareButton);
     createButtons();
   }
 
