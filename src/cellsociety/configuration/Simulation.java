@@ -36,32 +36,31 @@ public class Simulation {
     DOCUMENT_BUILDER = getDocumentBuilder();
     Element root = getRootElement(dataFile);
     myParameters = makeParameterMap(dataFile);
-    makeCellsFromParameterMap();
+    //makeCellsFromParameterMap();
     myCellRows = makeCellRowList(root);
     checkCellDimensions();
     myInformation = makeInfoMap(dataFile);
     checkInformation();
-
-
   }
 
-  private void makeCellsFromParameterMap() {
-    for(String s : myParameters.keySet()){
-      
-    }
-  }
+  //TODO so that multiple ways to get cells from XML
+//  private void makeCellsFromParameterMap() {
+//    for(String s : myParameters.keySet()){
+//
+//    }
+//  }
 
   private void checkInformation() throws XMLException {
     for (String s : REQUIRED_INFORMATION) {
       if (myInformation.get(s) == null) {
-        throw new XMLException("Missing" + s);
+        throw new XMLException("Missing Field: " + s);
       }
     }
     boolean isValidShape = false;
     String tempShape = myInformation.get(SHAPE);
     for(String s: SHAPE_OPTIONS) {
       if (tempShape != null && tempShape.equals(s)) {
-        isValidShape=true;
+        isValidShape = true;
         break;
       }
     }
@@ -84,17 +83,17 @@ public class Simulation {
 
   private void checkCellDimensions() throws XMLException {
     if (myParameters.get(HEIGHT) == null) {
-      throw new XMLException("MissingHeight");//turn into resource field
+      throw new XMLException("Missing Field: Height");//turn into resource field
     }
     if (myCellRows.size() != getHeight()) {
-      throw new XMLException("InvalidHeight");//turn into resource file
+      throw new XMLException("Invalid Number of Cell Rows");//turn into resource file
     }
     if (myParameters.get(WIDTH) == null) {
-      throw new XMLException("MissingWidth");//turn into resource file
+      throw new XMLException("Missing Field: Width");//turn into resource file
     }
     for (String cellRow : myCellRows) {
       if (cellRow.length() != getWidth()) {
-        throw new XMLException("InvalidWidth");
+        throw new XMLException("Invalid Number of Cells in Row");
       }
     }
   }
@@ -112,9 +111,10 @@ public class Simulation {
           returned.put(n.getNodeName(), Integer.parseInt(n.getTextContent()));
         }
       }
+      returned.putIfAbsent("neighborhoodSize", 4);
       return returned;
     } catch (Exception e) {
-      throw new XMLException("BadParameters");
+      throw new XMLException("Missing Parameters Section or Non-int Values");
     }
   }
 
@@ -124,7 +124,7 @@ public class Simulation {
     NodeList cellRows = root.getElementsByTagName("cellRow");
     int length = cellRows.getLength();
     if (length == 0) {
-      throw new XMLException("MissingCellRows");
+      throw new XMLException("No Cell Rows");
     } else {
       for (int i = 0; i < length; i++) {
         Node temp = cellRows.item(i);
@@ -148,7 +148,7 @@ public class Simulation {
       }
       return returned;
     } catch (Exception e) {
-      throw new XMLException("BadInformation");
+      throw new XMLException("Missing Information Section or Non-String Values");
     }
   }
 
@@ -178,7 +178,7 @@ public class Simulation {
       return xmlDocument.getDocumentElement();
     } catch (Exception e) {
       //TODO: fix exceptions
-      throw new XMLException("BadXML");
+      throw new XMLException("Not XML File or Empty XML");
     }
   }
 
