@@ -51,7 +51,7 @@ public class WaTorCell extends Cell {
       energyGain = config.get(energyGainKey);
       energyLoss = config.get(energyLossKey);
     } catch (Exception e) {
-      throw new Exception("Cell parameter invalid.");
+      throw new Exception(PARAMETER_EXCEPTION_MESSAGE);
     }
   }
 
@@ -69,7 +69,7 @@ public class WaTorCell extends Cell {
    * Parameters: int[] neighborStates.
    * Exceptions: TODO
    * Returns: Map object. Describes what needs to be moved, if any.
-   * https://beltoforion.de/en/wator/
+   * Rules taken from https://beltoforion.de/en/wator/
    */
   public Map<String, Integer> prepareNextState(int[] neighborStates) {
     if (getState() == FISH) {
