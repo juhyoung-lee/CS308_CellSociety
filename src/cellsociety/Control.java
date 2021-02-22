@@ -15,11 +15,8 @@ import cellsociety.model.wator.WaTorGrid;
 
 import java.io.File;
 
-import cellsociety.view.RectangleGrid;
 import cellsociety.view.ScreenControl;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javafx.animation.KeyFrame;
@@ -33,7 +30,7 @@ import javafx.util.Duration;
  * Purpose: Creates simulation and runs step function. Assumptions: TODO Dependencies: TODO Example
  * of use: TODO
  *
- * @author Kathleen Chen
+ * @author Kathleen Chen, Jessica Yang
  */
 
 public class Control {
@@ -53,12 +50,19 @@ public class Control {
   private Stage myStage;
   private String myDataFile;
 
+  Simulation simulation;
+  private String title;
+  private String type;
+  private List<String> cells;
+  Map<String, Integer> params;
+
   /**
    * Purpose: Initialize the scene and animation timeline. Assumptions: TODO Dependencies: TODO
    * Example of use: TODO
    */
   public void initialize(Stage stage) {
     myStage = stage;
+    myStage.setResizable(false);
 
     frameCount = 1;
     delay = 1.0 / frameCount;
@@ -83,7 +87,7 @@ public class Control {
     File selectedFile =fileChooser.showOpenDialog(myStage);
     myDataFile = selectedFile.getPath();
     try {
-      createStageFromData(myDataFile);
+      acceptXMLData(myDataFile);
     } catch (Exception e) {
       System.out.println(e.getMessage());
       //display error message
@@ -91,16 +95,34 @@ public class Control {
     }
   }
 
-  private void createStageFromData(String dataFile) throws Exception {
-    mySC.resetGameTitleText();
+  private void createStageExceptionHandler() {
+    try {
+      createStage();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      //display error message
+      //e.getMessage convert it, display it
+    }
+  }
+
+
+  /**
+   * Purpose: Updates parameters from edit parameters function.
+   * Assumptions: TODO
+   * Parameters: Map newParams.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  public void updateParams(Map<String, Integer> newParams) {
+    for (String key : newParams.keySet()) {
+      params.put(key, newParams.get(key));
+    }
+    mySC.setParams(params);
     mySC.clearGrid();
-    Simulation simulation = new Simulation(dataFile);
+    createStageExceptionHandler();
+  }
 
-    String title = simulation.getTitle();
-    String type = simulation.getType();
-    List<String> cells = simulation.getCellRows();
-    Map<String, Integer> params = simulation.getParameters();
-
+  private void createStage() throws Exception {
     // TODO: refactor into XML reader
     String shape = "square";//simulation.getShape();
     int nSize = switch (type) {
@@ -133,9 +155,23 @@ public class Control {
     }
 
 
-    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), shape);
 
+    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), shape);
     resetAnimation();
+  }
+
+  private void acceptXMLData(String dataFile) throws Exception {
+    mySC.resetGameTitleText();
+    mySC.clearGrid();
+    simulation = new Simulation(dataFile);
+
+    title = simulation.getTitle();
+    type = simulation.getType();
+    cells = simulation.getCellRows();
+    params = simulation.getParameters();
+
+    mySC.setParams(params);
+    createStageExceptionHandler();
   }
 
   private void resetAnimation() {
