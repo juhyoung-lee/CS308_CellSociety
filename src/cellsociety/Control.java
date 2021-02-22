@@ -130,19 +130,6 @@ public class Control {
   private void createStage() throws Exception {
     String[] gridParam = simulation.getGridParameterArray();
 
-    int nSize = switch (type) {
-      case "Game of Life" -> 8;
-      case "Percolation" -> 4;
-      case "Fire" -> 4;
-      case "Segregation" -> 8;
-      case "WaTor" -> 8;
-      case "Rock Paper Scissors" -> 8;
-      case "Foraging Ants" -> 4;
-      case "Byls Loop" -> 4;
-      default -> 8;
-    };
-    params.put("neighborhoodSize", nSize);
-
     myGrid = switch (type) {
       case "Game of Life" -> new GameOfLifeGrid(cells, gridParam, params);
       case "Percolation" -> new PercolationGrid(cells, gridParam, params);

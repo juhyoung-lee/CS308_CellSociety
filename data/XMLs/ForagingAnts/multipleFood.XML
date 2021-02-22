@@ -4,22 +4,24 @@
     <title>first try</title>
     <author>Jessica</author>
     <description>lets see if this works?</description>
+    <shape>triangle</shape>
+    <gridType>infinite</gridType>
   </information>
   <parameters>
     <width>10</width>
     <height>10</height>
-    <neighborhoodSize>4</neighborhoodSize>
+    <neighborhoodSize>3</neighborhoodSize>
   </parameters>
   <cells>
     <cellRow>1000000000</cellRow>
+    <cellRow>0000000020</cellRow>
     <cellRow>0000000000</cellRow>
+    <cellRow>0000002000</cellRow>
+    <cellRow>0000020000</cellRow>
     <cellRow>0000000000</cellRow>
+    <cellRow>0002000000</cellRow>
     <cellRow>0000000000</cellRow>
+    <cellRow>0200000000</cellRow>
     <cellRow>0000000000</cellRow>
-    <cellRow>0000000000</cellRow>
-    <cellRow>0000000000</cellRow>
-    <cellRow>0000000000</cellRow>
-    <cellRow>0000000000</cellRow>
-    <cellRow>0000000002</cellRow>
   </cells>
 </root>

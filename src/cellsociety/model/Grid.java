@@ -114,6 +114,7 @@ public abstract class Grid extends GridHelper {
       width *= 3;
       height *= 3;
       expand(width, height, newGrid);
+      this.issues = new Map[width * height];
       for (int i = 0; i < getGrid().size(); i++) {
         getAllNeighbors().put(getGrid().get(i), pullNeighborIndexes(i));
       }
