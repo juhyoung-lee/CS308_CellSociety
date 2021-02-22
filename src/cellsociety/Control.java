@@ -29,7 +29,7 @@ import javafx.util.Duration;
  * Purpose: Creates simulation and runs step function. Assumptions: TODO Dependencies: TODO Example
  * of use: TODO
  *
- * @author Kathleen Chen
+ * @author Kathleen Chen, Jessica Yang
  */
 
 public class Control {
@@ -106,8 +106,11 @@ public class Control {
 
 
   /**
-   * updates parameteres from edit params
-   * TODO
+   * Purpose: Updates parameters from edit parameters function.
+   * Assumptions: TODO
+   * Parameters: Map newParams.
+   * Exceptions: TODO
+   * Returns: None.
    */
   public void updateParams(Map<String, Integer> newParams) {
     for (String key : newParams.keySet()) {
@@ -154,7 +157,7 @@ public class Control {
 
   private void acceptXMLData(String dataFile) throws Exception {
     mySC.resetGameTitleText();
-    //mySC.clearGrid(); TODO: breaks on first upload because grid objects haven't been declared yet
+    mySC.clearGrid();
     simulation = new Simulation(dataFile);
 
     title = simulation.getTitle();
