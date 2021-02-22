@@ -95,8 +95,6 @@ public class Control {
       acceptXMLData(myDataFile);
     } catch (Exception e) {
       mySC.displayErrorMessage(e.getMessage());
-      //display error message
-      //e.getMessage convert it, display it
     }
     mySC.clearError();
   }
@@ -106,9 +104,6 @@ public class Control {
       createStage();
     } catch (Exception e) {
       mySC.displayErrorMessage(e.getMessage());
-
-      //display error message
-      //e.getMessage convert it, display it
     }
     mySC.clearError();
   }
@@ -146,10 +141,8 @@ public class Control {
       throw new XMLException("BadType");
     }
 
-    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(),
-        gridParam[0]);
 
-//    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
+    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
     resetAnimation();
   }
 
