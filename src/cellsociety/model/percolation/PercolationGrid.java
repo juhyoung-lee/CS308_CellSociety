@@ -53,12 +53,12 @@ PercolationGrid extends Grid {
     if (getNeighborhoodSize() != 4) {
       return new int[]{};
     }
-    int width = getDimensions()[0];
+    int width = getInitialDimensions()[0];
     return new int[]{-1 * width, -1, 1};
   }
 
   private int[] triangle(int index) {
-    int w = getDimensions()[0];
+    int w = getInitialDimensions()[0];
     boolean trianglePointy = isTriangleTopPointy(index);
 
     if (trianglePointy && getNeighborhoodSize() == 3) {
@@ -71,7 +71,7 @@ PercolationGrid extends Grid {
   }
 
   private int[] hexagon(int index) {
-    int w = getDimensions()[0];
+    int w = getInitialDimensions()[0];
     if (getNeighborhoodSize() != 6) {
       return new int[]{};
     }

@@ -23,8 +23,8 @@ public abstract class Grid extends GridHelper {
       Map<String, Integer> cellParameters)
       throws Exception {
     super(cellArrangement, gridParameters, cellParameters);
-    this.issues = new HashMap[this.grid.size()];
     this.grid = getInitialGrid();
+    this.issues = new HashMap[this.grid.size()];
     this.width = getInitialDimensions()[0];
     this.height = getInitialDimensions()[1];
     this.cellParameter = cellParameters;
@@ -54,7 +54,7 @@ public abstract class Grid extends GridHelper {
    * properly "move" or pass information to another cell, moveCell() will need to be overwritten.
    * Assumptions: No movement of cells.
    */
-  public void updateCells() throws Exception {
+  public void updateCells() {
     if (getGridType().equals("infinite")) {
       checkGridExpansion();
     }
@@ -66,7 +66,7 @@ public abstract class Grid extends GridHelper {
 
   // assumes grid is not wrapping
   // assumes 0 is default, inactive state
-  private void checkGridExpansion() throws Exception {
+  private void checkGridExpansion() {
     for (int i : edgeIndexes()) {
       int baseState = this.grid.get(i).getBaseState();
       if (this.grid.get(i).getState() != baseState) {
@@ -101,24 +101,28 @@ public abstract class Grid extends GridHelper {
     return this.neighbors.get(cell).clone();
   }
 
-  private void expandGrid() throws Exception {
+  private void expandGrid() {
     int oldSize = this.width * this.height;
     this.width *= 2;
     this.height *= 2;
     int newSize = this.width * this.height;
     List<Cell> newGrid = new ArrayList<>();
 
-    for (int i = 0; i < oldSize; i++) {
-      newGrid.add(baseCell());
-    }
-    newGrid.addAll(this.grid);
-    for (int i = 0; i < oldSize; i++) {
-      newGrid.add(baseCell());
-    }
-    this.grid = newGrid;
+    try {
+      for (int i = 0; i < oldSize; i++) {
+        newGrid.add(baseCell());
+      }
+      newGrid.addAll(this.grid);
+      for (int i = 0; i < oldSize; i++) {
+        newGrid.add(baseCell());
+      }
+      this.grid = newGrid;
 
-    for (int i = 0; i < this.grid.size(); i++) {
-      this.neighbors.put(this.grid.get(i), pullNeighborIndexes(i));
+      for (int i = 0; i < this.grid.size(); i++) {
+        this.neighbors.put(this.grid.get(i), pullNeighborIndexes(i));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

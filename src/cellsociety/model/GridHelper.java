@@ -184,7 +184,7 @@ public abstract class GridHelper {
     int[] variance = decideNeighborhood(index);
 
     if (variance.length == 0) {
-      throw new Exception("XML parameter (" + this.neighborhoodSize + ") not valid");
+      throw new Exception("XML parameter (neighborhood size: " + this.neighborhoodSize + ") not valid");
     }
 
     ArrayList<Integer> possibleIndexes = new ArrayList<>();
