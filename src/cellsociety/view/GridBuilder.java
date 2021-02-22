@@ -50,6 +50,7 @@ public abstract class GridBuilder {
   }
 
   public void createGrid(String title, String type, int rows, int cols, List<Integer> cells) {
+    clearGrid();
     myTitle = title;
     myType = type;
     setGameTitleText();
