@@ -1,11 +1,8 @@
 package cellsociety.view;
 
 import cellsociety.Control;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.util.ResourceBundle;
@@ -33,6 +30,7 @@ public class ButtonBuilder {
   private Button addButton;
   private Button graphButton;
   private Button editButton;
+  private Button configurationButton;
 
 
   public ButtonBuilder(Control control, ResourceBundle rBundle, ScreenControl sc) {
@@ -64,6 +62,8 @@ public class ButtonBuilder {
     editButton.setOnAction(event -> mySC.makeNewEditWindow());
     addButton = buttonCreation(myResources.getString("AddButton"));
     addButton.setOnAction(event -> new Control());
+    configurationButton = buttonCreation(myResources.getString("ConfigurationButton"));
+    configurationButton.setOnAction(event -> myControl.configuration());
   }
 
   private Button buttonCreation(String text) {
