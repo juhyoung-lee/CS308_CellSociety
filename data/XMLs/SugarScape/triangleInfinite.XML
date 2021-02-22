@@ -1,0 +1,35 @@
+<root>
+  <information>
+    <type>SugarScape</type>
+    <title>Basic</title>
+    <author>Jessica</author>
+    <description>Basic configuration file for SugarScape.</description>
+    <shape>triangle</shape>
+    <gridType>infinite</gridType>
+  </information>
+  <parameters>
+    <width>10</width>
+    <height>10</height>
+    <neighborhoodSize>3</neighborhoodSize>
+    <neighborNumMax>8</neighborNumMax>
+    <agentVisionMax>4</agentVisionMax>
+    <agentSugarMetabolismMax>2</agentSugarMetabolismMax>
+    <agentInitialSugar>5</agentInitialSugar>
+
+    <patchMaxSugar>8</patchMaxSugar>
+    <patchSugarGrowBackRate>1</patchSugarGrowBackRate>
+    <getPatchSugarGrowBackInterval>1</getPatchSugarGrowBackInterval>
+  </parameters>
+  <cells>
+    <cellRow>0111110000</cellRow>
+    <cellRow>0111110000</cellRow>
+    <cellRow>1001010010</cellRow>
+    <cellRow>0100100000</cellRow>
+    <cellRow>1100110010</cellRow>
+    <cellRow>0100101110</cellRow>
+    <cellRow>0101110011</cellRow>
+    <cellRow>0100010000</cellRow>
+    <cellRow>0000100010</cellRow>
+    <cellRow>1101101101</cellRow>
+  </cells>
+</root>
