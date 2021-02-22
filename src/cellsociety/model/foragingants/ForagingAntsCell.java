@@ -82,6 +82,7 @@ public class ForagingAntsCell extends Cell {
       foodPheromone += 2;
     }
 
+    setMoveStateValue(HAS_FOOD,hasFood);
     setNextState(EMPTY);
   }
 
