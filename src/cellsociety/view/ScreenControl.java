@@ -4,7 +4,9 @@ import cellsociety.Control;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 
@@ -15,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -26,7 +29,7 @@ import javafx.stage.Stage;
  * Dependencies: Depends on the grid array passed in to create a grid
  * Example of use: mySC = new ScreenControl() mySC.createGrid(row, col, Grid.viewGrid()) mySC.clearGrid()
  *
- * @author Kathleen Chen
+ * @author Kathleen Chen, Jessica Yang
  */
 
 
@@ -34,6 +37,8 @@ public class ScreenControl {
 
   private Pane myRoot;
   private Text titleText;
+  private int sX;
+  private int sY;
   private Button slowButton;
   private Button fastButton;
   private Button startButton;
@@ -42,6 +47,7 @@ public class ScreenControl {
   private Button uploadButton;
   private Button compareButton;
   private Button graphButton;
+  private Button editButton;
   private Scene myScene;
   private Control sim;
   private ResourceBundle myResources;
@@ -52,6 +58,8 @@ public class ScreenControl {
   private PieChart myGraph;
   private String myType;
   private ObservableList<PieChart.Data> myData;
+
+  private Map<String, Integer> paramsMap;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -66,6 +74,8 @@ public class ScreenControl {
     myScene.getStylesheets().add(myStyleSheet);
     createButtons();
     sim = simulationControl;
+    sX = Control.X_SIZE;
+    sY = Control.Y_SIZE;
   }
 
   private void createStyleButton() {
@@ -109,33 +119,22 @@ public class ScreenControl {
   }
 
   private void createButtons() {
-    int sX = Control.X_SIZE;
-    int sY = Control.Y_SIZE;
-    startButton = buttonCreation(myResources.getString("PlayButton"), sX / 12, sY / 12 + 460);
+    startButton = buttonCreation(myResources.getString("PlayButton"), sX / 12, sY / 12 + 460, myRoot);
     startButton.setOnAction(event -> sim.start());
-    pauseButton = buttonCreation(myResources.getString("PauseButton"), sX / 2 - 32, sY / 12 + 460);
+    pauseButton = buttonCreation(myResources.getString("PauseButton"), sX / 2 - 32, sY / 12 + 460, myRoot);
     pauseButton.setOnAction(event -> sim.pause());
-    stepButton = buttonCreation(myResources.getString("StepButton"), sX * 4 / 5, sY / 12 + 460);
+    stepButton = buttonCreation(myResources.getString("StepButton"), sX * 4 / 5, sY / 12 + 460, myRoot);
     stepButton.setOnAction(event -> sim.next());
-    fastButton = buttonCreation(myResources.getString("SpeedUpButton"), sX * 3 / 5, sY / 12 + 500);
+    fastButton = buttonCreation(myResources.getString("SpeedUpButton"), sX * 3 / 5, sY / 12 + 500, myRoot);
     fastButton.setOnAction(event -> sim.fast());
-    slowButton = buttonCreation(myResources.getString("SlowDownButton"), sX * 2 / 9, sY / 12 + 500);
+    slowButton = buttonCreation(myResources.getString("SlowDownButton"), sX * 2 / 9, sY / 12 + 500, myRoot);
     slowButton.setOnAction(event -> sim.slow());
-    uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 120, 0);
+    uploadButton = buttonCreation(myResources.getString("UploadButton"), sX - 120, 0, myRoot);
     uploadButton.setOnAction(event -> sim.uploadFile());
-    graphButton = buttonCreation(myResources.getString("GraphButton"), sX - 220, 0);
+    graphButton = buttonCreation(myResources.getString("GraphButton"), sX - 220, 0, myRoot);
     graphButton.setOnAction(event -> makeNewWindow());
-    compareButton = buttonCreation(myResources.getString("CompareButton"), sX - 120, 40);
+    compareButton = buttonCreation(myResources.getString("CompareButton"), sX - 120, 40, myRoot);
     compareButton.setOnAction(event -> compare());
-  }
-
-  private Button buttonCreation(String text, double x, double y) {
-    Button button = new Button(text);
-    button.setLayoutX(x);
-    button.setLayoutY(y);
-    myRoot.getChildren().add(button);
-    button.getStyleClass().add("button");
-    return button;
   }
 
   private void compare() {
@@ -146,12 +145,21 @@ public class ScreenControl {
   }
 
   private void makeNewWindow() {
+    graphButton = buttonCreation(myResources.getString("GraphButton"), sX - 220, 0, myRoot);
+    graphButton.setOnAction(event -> makeNewGraphWindow());
+    editButton = buttonCreation("Edit", sX - 300, 0, myRoot); //TODO: use resource bundle
+    editButton.setOnAction(event -> makeNewEditWindow());
+  }
+
+  private void makeNewGraphWindow() {
+    int size = Control.X_SIZE;
+
     Pane secondaryLayout = new Pane();
     Scene secondScene = new Scene(secondaryLayout, Control.X_SIZE, Control.X_SIZE);
     String graphStyle = "cellsociety/view/resources/graph.css";
     secondScene.getStylesheets().add(graphStyle);
 
-    myWindowTitle(Control.X_SIZE, secondaryLayout, new Text(0, 0,"Graph of states"));
+    myWindowTitle(Control.X_SIZE, secondaryLayout, "Graph of states");
 
     myGraph = new PieChart();
     myGraph.setAnimated(false);
@@ -164,12 +172,81 @@ public class ScreenControl {
     newWindow.show();
   }
 
-  private void myWindowTitle(int size, Pane pane, Text title) {
+  /** called after setParams() */
+  private void makeNewEditWindow() {
+    Pane tertiaryLayout = new Pane();
+    Scene thirdScene = new Scene(tertiaryLayout, Control.X_SIZE, Control.X_SIZE);
+    String editStyle = "cellsociety/view/resources/default.css";  //TODO: use correct css?
+    thirdScene.getStylesheets().add(editStyle);
+
+    myWindowTitle(Control.X_SIZE, tertiaryLayout, "Edit Parameters");
+
+    List<TextField> allTextFields = setAllTextFields(tertiaryLayout);
+
+    Button changeButton = buttonCreation("Make Changes", Control.X_SIZE / 2, 200, tertiaryLayout); //TODO: use resource bundle?
+    changeButton.setOnAction(event -> sim.updateParams(getData(allTextFields)));
+
+    Stage newEditWindow = new Stage();
+    newEditWindow.setTitle("Edit Parameters");
+    newEditWindow.setScene(thirdScene);
+    newEditWindow.show();
+  }
+
+  private List<TextField> setAllTextFields(Pane pane) {
+    List<TextField> textFields = new ArrayList<>();
+
+    int i = 0;
+    for (String key : paramsMap.keySet()) {
+      if (key.equals("width") || key.equals("neighborhoodSize") || key.equals("state")
+          || key.equals("height")) {
+        textFields.add(textFieldCreation(key, 0,
+            25 + i * (Control.X_SIZE / paramsMap.size()), pane));
+        i++;
+      }
+    }
+
+    return textFields;
+  }
+
+  private Map<String, Integer> getData(List<TextField> allTextFields) {
+    Map<String, Integer> newParams = new HashMap<>();
+
+    for (TextField textField : allTextFields) {
+      if (!textField.getText().equals("")) {
+        newParams.put(textField.getPromptText(), Integer.parseInt(textField.getText()));
+      }
+    }
+
+    return newParams;
+  }
+
+  private void myWindowTitle(int size, Pane secondaryLayout, String text) {
+    Text title = new Text(0, 30, text);
     title.setFont(new Font(25));
     title.setX(size / 2 - (title.getLayoutBounds().getWidth() / 2));
     title.setY(20);
     title.getStyleClass().add("title");
-    pane.getChildren().add(title);
+    secondaryLayout.getChildren().add(title);
+  }
+
+  private TextField textFieldCreation(String prompt, double x, double y, Pane pane) {
+    TextField textField = new TextField();
+    textField.setPromptText(prompt);
+    textField.setLayoutX(x);
+    textField.setLayoutY(y);
+    pane.getChildren().add(textField);
+    //TODO: styleclass?
+    return textField;
+
+  }
+
+  private Button buttonCreation(String text, double x, double y, Pane pane) {
+    Button button = new Button(text);
+    button.setLayoutX(x);
+    button.setLayoutY(y);
+    pane.getChildren().add(button);
+    button.getStyleClass().add("button");
+    return button;
   }
 
   public void resetGameTitleText() {
@@ -277,4 +354,16 @@ public class ScreenControl {
   public Scene getScene() {
     return myScene;
   }
+
+  /**
+   * Purpose: Takes in parameters being used by Control.
+   * Assumptions: TODO
+   * Parameters: Map params.
+   * Exceptions: TODO
+   * Returns: None.
+   */
+  public void setParams(Map<String, Integer> params) {
+    paramsMap = params;
+  }
 }
+

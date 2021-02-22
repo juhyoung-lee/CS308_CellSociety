@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GridHelper {
+
   private Map<Cell, int[]> neighbors;
   private List<Cell> grid;
   private final int height;
   private final int width;
   private final String shape;
+  private final String gridType;
   private final int neighborhoodSize;
 
   /**
@@ -21,11 +23,12 @@ public abstract class GridHelper {
    *
    * @param cellArrangement cell grid from XML
    * @param parameters game settings from XML
-   * @throws Exception invalid cell state
+   * @throws Exception invalid grid parameters or cell state
    */
-  public GridHelper(List<String> cellArrangement, String shape, Map<String, Integer> parameters)
+  public GridHelper(List<String> cellArrangement, String[] params, Map<String, Integer> parameters)
       throws Exception {
-    this.shape = shape;
+    this.shape = params[0];
+    this.gridType = params[1];
     this.height = parameters.get("height");
     this.width = parameters.get("width");
     this.neighborhoodSize = parameters.get("neighborhoodSize");
@@ -127,7 +130,7 @@ public abstract class GridHelper {
    * @param parameters cell state and game parameters from XML
    * @return appropriate cell object
    */
-  protected abstract Cell chooseCell(Map<String, Integer> parameters);
+  protected abstract Cell chooseCell(Map<String, Integer> parameters) throws Exception;
 
   /**
    * Used by constructor. Populates neighbor field.
@@ -140,6 +143,42 @@ public abstract class GridHelper {
     for (int i = 0; i < grid.size(); i++) {
       this.neighbors.put(this.grid.get(i), pullNeighborIndexes(i));
     }
+    if (gridType.equals("wrapping")) {
+      wrapNeighbors();
+    }
+  }
+
+  private void wrapNeighbors() {
+    for (int i = 0; i < this.grid.size(); i++) {
+      Cell cell = this.grid.get(i);
+      int[] neighbors = this.neighbors.get(cell);
+      List<Integer> wrappedNeighbors = edgeCellNeighbors(i);
+      for (int j : neighbors) {
+        wrappedNeighbors.add(j);
+      }
+      this.neighbors.put(cell, convertListToIntArray(wrappedNeighbors));
+    }
+  }
+
+  private List<Integer> edgeCellNeighbors (int index) {
+    List<Integer> wrappedNeighbors = new ArrayList<>();
+    boolean top = index < this.width;
+    boolean bottom = index / this.width == this.height - 1;
+    boolean left = (index - 1) / this.width != index / this.width;
+    boolean right = (index + 1) / this.width != index / this.width;
+    if (top) {
+      wrappedNeighbors.add(this.width * this.height - this.width + index);
+    }
+    if (bottom) {
+      wrappedNeighbors.add(index % this.width);
+    }
+    if (left) {
+      wrappedNeighbors.add(index + this.width - 1);
+    }
+    if (right) {
+      wrappedNeighbors.add(index - this.width + 1);
+    }
+    return wrappedNeighbors;
   }
 
   /**
@@ -163,7 +202,7 @@ public abstract class GridHelper {
       possibleIndexes.add(i + index);
     }
     List<Integer> validIndexes = removeInvalidIndexes(index, possibleIndexes);
-    return convertToIntArrayList(validIndexes);
+    return convertListToIntArray(validIndexes);
   }
 
   /**
@@ -327,7 +366,7 @@ public abstract class GridHelper {
    * @param validIndexes Integer ArrayList
    * @return int[]
    */
-  private int[] convertToIntArrayList(List<Integer> validIndexes) {
+  private int[] convertListToIntArray(List<Integer> validIndexes) {
     int[] neighbors = new int[validIndexes.size()];
     for (int i = 0; i < neighbors.length; i++) {
       neighbors[i] = validIndexes.get(i);
@@ -360,4 +399,5 @@ public abstract class GridHelper {
     }
     return validIndexes;
   }
+
 }
