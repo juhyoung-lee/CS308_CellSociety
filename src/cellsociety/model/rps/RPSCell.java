@@ -38,6 +38,20 @@ public class RPSCell extends Cell {
   }
 
   /**
+   * Purpose: Returns default state for Cell upon grid size expansion.
+   * Assumptions: None.
+   * Parameters: None.
+   * HashMap object.
+   * Exceptions: TODO
+   * Returns: int type.
+   */
+  @Override
+  public int getBaseState() {
+    Random randState = new Random();
+    return randState.nextInt(SCISSORS + 1);
+  }
+
+  /**
    * Purpose: Determine new state to update to. nextState should be set to the winner's state.
    * Assumptions: TODO
    * Parameters: int[] neighborStates.
