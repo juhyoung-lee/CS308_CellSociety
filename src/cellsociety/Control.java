@@ -260,4 +260,8 @@ public class Control {
     }
     animation.play();
   }
+
+  public void configuration() {
+    List<Integer> cells = myGrid.viewGrid();
+  }
 }
