@@ -95,8 +95,6 @@ public class Control {
       acceptXMLData(myDataFile);
     } catch (Exception e) {
       mySC.displayErrorMessage(e.getMessage());
-      //display error message
-      //e.getMessage convert it, display it
     }
     mySC.clearError();
   }
@@ -106,9 +104,6 @@ public class Control {
       createStage();
     } catch (Exception e) {
       mySC.displayErrorMessage(e.getMessage());
-
-      //display error message
-      //e.getMessage convert it, display it
     }
     mySC.clearError();
   }
@@ -146,10 +141,8 @@ public class Control {
       throw new XMLException("BadType");
     }
 
-    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(),
-        gridParam[0]);
 
-//    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
+    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
     resetAnimation();
   }
 
@@ -250,8 +243,8 @@ public class Control {
     List<String> cellRows = createCellRows(params, cells);
 
     try {
-      FileWriter myWriter = new FileWriter("data/CreatedFiles/created" +
-              (System.currentTimeMillis() / 10000%100000) + ".XML");
+      FileWriter myWriter = new FileWriter("data/CreatedFiles/created"
+              + (System.currentTimeMillis() / 10000%100000) + ".XML");
       myWriter.write("<root>\n");
       myWriter.write("  <information>\n");
       for (String s : info.keySet()) {

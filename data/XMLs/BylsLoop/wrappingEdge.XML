@@ -1,0 +1,46 @@
+<root>
+  <information>
+    <type>Byls Loop</type>
+    <title>Wrapping Edge</title>
+    <author>Jessica</author>
+    <description>Using a wrapping edge.</description>
+    <gridType>wrapping</gridType>
+  </information>
+  <parameters>
+    <width>30</width>
+    <height>30</height>
+    <neighborhoodSize>4</neighborhoodSize>
+  </parameters>
+  <cells>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000022000000000000000</cellRow>
+    <cellRow>000000000000231200000000000000</cellRow>
+    <cellRow>000000000000234200000000000000</cellRow>
+    <cellRow>000000000000025000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+  </cells>
+</root>
