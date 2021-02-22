@@ -1,9 +1,11 @@
-package cellsociety.view.resources;
+package cellsociety.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import java.util.ResourceBundle;
 
 public class ErrorMessage {
   private HBox myBox;

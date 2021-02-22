@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import cellsociety.view.resources.ErrorMessage;
 import javafx.collections.FXCollections;
 
 import javafx.collections.ObservableList;
