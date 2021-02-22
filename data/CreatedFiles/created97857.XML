@@ -1,0 +1,37 @@
+<root>
+  <information>
+    <shape>square</shape>
+    <gridType>bounded</gridType>
+    <author>juhyoung</author>
+    <description>Randomly generated</description>
+    <type>Rock Paper Scissors</type>
+    <title>Random</title>
+  </information>
+  <parameters>
+    <width>17</width>
+    <neighborhoodSize>8</neighborhoodSize>
+    <loseThreshold>3</loseThreshold>
+    <bufferBound>2</bufferBound>
+    <state>1</state>
+    <height>17</height>
+  </parameters>
+  <cells>
+    <cellRow>11111111222200000</cellRow>
+    <cellRow>11111111222200000</cellRow>
+    <cellRow>22211112222200000</cellRow>
+    <cellRow>22221112222020000</cellRow>
+    <cellRow>22221122200000000</cellRow>
+    <cellRow>22222222000000002</cellRow>
+    <cellRow>22222222000000002</cellRow>
+    <cellRow>22221222000000000</cellRow>
+    <cellRow>22221122201100000</cellRow>
+    <cellRow>22221122221100000</cellRow>
+    <cellRow>22222111221100000</cellRow>
+    <cellRow>22222211110000002</cellRow>
+    <cellRow>22222211100000002</cellRow>
+    <cellRow>22222111100000002</cellRow>
+    <cellRow>21222111100000022</cellRow>
+    <cellRow>22222111100000222</cellRow>
+    <cellRow>22111111000002222</cellRow>
+  </cells>
+</root>
