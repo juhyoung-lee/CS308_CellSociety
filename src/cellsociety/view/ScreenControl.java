@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import cellsociety.view.resources.ErrorMessage;
 import javafx.collections.FXCollections;
 
 import javafx.collections.ObservableList;
@@ -53,6 +55,7 @@ public class ScreenControl {
   private ButtonBuilder myButtons;
   private HBox myResourceStyle;
   private AnchorPane myGridBox;
+  private ErrorMessage myError;
 
   /**
    * Initialize the scene and add buttons and text.
@@ -321,5 +324,17 @@ public class ScreenControl {
    */
   public void setParams(Map<String, Integer> params) {
     paramsMap = params;
+  }
+
+  public void displayErrorMessage(String message) {
+    myError = new ErrorMessage(message);
+    myRoot.setBottom(myError.getBox());
+    sim.uploadFile();
+  }
+
+  public void clearError() {
+    if (myError != null) {
+      myRoot.getChildren().remove(myError.getBox());
+    }
   }
 }

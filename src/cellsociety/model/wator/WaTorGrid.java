@@ -27,7 +27,7 @@ public class WaTorGrid extends Grid {
    * @return appropriate cell object
    */
   @Override
-  protected Cell chooseCell(Map<String, Integer> parameters) {
+  protected Cell chooseCell(Map<String, Integer> parameters) throws Exception {
     return new WaTorCell(parameters);
   }
 
