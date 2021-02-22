@@ -1,13 +1,15 @@
 <root>
   <information>
     <type>Game of Life</type>
-    <title>Pulsar</title>
+    <title>Infinite Box</title>
     <author>wiki</author>
     <description>The Pulsar</description>
+    <gridType>infinite</gridType>
   </information>
   <parameters>
     <width>27</width>
     <height>22</height>
+    <neighborhoodSize>8</neighborhoodSize>
   </parameters>
   <cells>
     <cellRow>000000000000000000000000000</cellRow>
