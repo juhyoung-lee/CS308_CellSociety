@@ -1,25 +1,29 @@
 package cellsociety.configuration;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public class Simulation {
 
   public static final List<String> REQUIRED_INFORMATION = List.of(
       "type", "title", "author", "description");
-  public static final List<String> PARAMETER_INFORMATION = List.of("shape", "gridType");
+  public static final String SHAPE = "shape";
+  public static final String GRID_TYPE = "gridType";
+  public static final String HEIGHT = "height";
+  public static final String WIDTH = "width";
+  public static final List<String> SHAPE_OPTIONS = List.of("square", "hexagon", "triangle");
+  public static final List<String> GRID_OPTIONS = List.of("bounded", "infinite", "wrapping");
+  public static final String DEFAULT_SHAPE = SHAPE_OPTIONS.get(0);
+  public static final String DEFAULT_GRID = GRID_OPTIONS.get(0);
   private final DocumentBuilder DOCUMENT_BUILDER;
 
   private Map<String, String> myInformation;
@@ -45,8 +49,28 @@ public class Simulation {
         throw new XMLException("Missing" + s);
       }
     }
-    myInformation.putIfAbsent("shape", "square");
-    myInformation.putIfAbsent("gridType", "bounded");
+    boolean isValidShape = false;
+    String tempShape = myInformation.get(SHAPE);
+    for(String s: SHAPE_OPTIONS) {
+      if (tempShape != null && tempShape.equals(s)) {
+        isValidShape=true;
+        break;
+      }
+    }
+    if(!isValidShape) {
+      myInformation.put(SHAPE, DEFAULT_SHAPE);
+    }
+    boolean isValidGrid = false;
+    String tempGrid = myInformation.get(GRID_TYPE);
+    for(String s: GRID_OPTIONS) {
+      if (tempGrid != null && tempGrid.equals(s)) {
+        isValidGrid=true;
+        break;
+      }
+    }
+    if(!isValidGrid) {
+      myInformation.putIfAbsent(GRID_TYPE, DEFAULT_GRID);
+    }
   }
 
   //TODO: constructor to make XML file?
@@ -55,13 +79,13 @@ public class Simulation {
 //  }
 
   private void checkCellDimensions() throws XMLException {
-    if (myParameters.get("height") == null) {
+    if (myParameters.get(HEIGHT) == null) {
       throw new XMLException("MissingHeight");//turn into resource field
     }
     if (myCellRows.size() != getHeight()) {
       throw new XMLException("InvalidHeight");//turn into resource file
     }
-    if (myParameters.get("width") == null) {
+    if (myParameters.get(WIDTH) == null) {
       throw new XMLException("MissingWidth");//turn into resource file
     }
     for (String cellRow : myCellRows) {
@@ -107,7 +131,6 @@ public class Simulation {
   }
 
   private Map<String, String> makeInfoMap(File dataFile) throws XMLException {
-
     try {
       Map<String, String> returned = new HashMap<>();
       NodeList nList = DOCUMENT_BUILDER.parse(dataFile).getElementsByTagName("information");
@@ -167,20 +190,19 @@ public class Simulation {
     return returned;
   }
 
-  public String getShape() {
-    String shape = myInformation.get("shape");
-    if (shape == null) {
-      shape = "square";
-    }
-    return shape;
+  public String[] getGridParameterArray() {
+    String[] returned = new String[2];
+    returned[0] = myInformation.get(SHAPE);
+    returned[1] = myInformation.get(GRID_TYPE);
+    return returned;
   }
 
   public int getWidth() {
-    return myParameters.get("width");
+    return myParameters.get(WIDTH);
   }
 
   public int getHeight() {
-    return myParameters.get("height");
+    return myParameters.get(HEIGHT);
   }
 
   public String getTitle() {

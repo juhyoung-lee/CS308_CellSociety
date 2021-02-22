@@ -4,6 +4,7 @@
     <title>Random</title>
     <author>Kenny</author>
     <description>Created by mashing keys</description>
+    <shape>square</shape>
   </information>
   <parameters>
     <width>10</width>
