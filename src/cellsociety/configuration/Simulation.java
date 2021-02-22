@@ -36,11 +36,19 @@ public class Simulation {
     DOCUMENT_BUILDER = getDocumentBuilder();
     Element root = getRootElement(dataFile);
     myParameters = makeParameterMap(dataFile);
+    makeCellsFromParameterMap();
     myCellRows = makeCellRowList(root);
-    myInformation = makeInfoMap(dataFile);
-
-    checkInformation();
     checkCellDimensions();
+    myInformation = makeInfoMap(dataFile);
+    checkInformation();
+
+
+  }
+
+  private void makeCellsFromParameterMap() {
+    for(String s : myParameters.keySet()){
+      
+    }
   }
 
   private void checkInformation() throws XMLException {
@@ -73,10 +81,6 @@ public class Simulation {
     }
   }
 
-  //TODO: constructor to make XML file?
-//  public Simulation() throws XMLException{
-//
-//  }
 
   private void checkCellDimensions() throws XMLException {
     if (myParameters.get(HEIGHT) == null) {
@@ -190,6 +194,12 @@ public class Simulation {
     return returned;
   }
 
+  public Map<String, String> getInfoMap() {
+    Map<String, String> returned = new HashMap<>();
+    returned.putAll(myInformation);
+    return returned;
+  }
+
   public String[] getGridParameterArray() {
     String[] returned = new String[2];
     returned[0] = myInformation.get(SHAPE);
@@ -212,6 +222,8 @@ public class Simulation {
   public String getType() {
     return myInformation.get("type");
   }
+
+
 
 //  public String toString() {
 //    return "Type: " + myType + ", Title: " + myTitle + ", Author: " + myAuthor + ", Descr: "
