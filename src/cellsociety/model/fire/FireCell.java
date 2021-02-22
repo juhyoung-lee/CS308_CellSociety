@@ -38,7 +38,7 @@ public class FireCell extends Cell {
     try {
       catchThreshold = (double) config.get(probKey) / 100;
     } catch (Exception e) {
-      throw new Exception("Cell parameter invalid.");
+      throw new Exception(PARAMETER_EXCEPTION_MESSAGE);
     }
   }
 

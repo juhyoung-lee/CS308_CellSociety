@@ -9,12 +9,13 @@ import java.util.Map;
  * Dependencies: TODO
  * Example of use: TODO
  *
- * @author Juhyoung Lee, Jessica Yang
+ * @author Jessica Yang, Juhyoung Lee
  */
 public abstract class Cell {
 
   public static final int NO_MOVEMENT = -1;
   public static final String STATE_KEY = "state";
+  public static final String PARAMETER_EXCEPTION_MESSAGE = "Cell parameter invalid.";
   private Map<String, Integer> moveState = new HashMap<>();
   private int myState;
   private int nextState;
