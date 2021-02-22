@@ -10,9 +10,9 @@ import javafx.util.Pair;
 
 public class SugarScapeGrid extends Grid {
 
-  public SugarScapeGrid(List<String> cellArrangement, String shape,
-      Map<String, Integer> parameters) throws Exception {
-    super(cellArrangement, shape, parameters);
+  public SugarScapeGrid(List<String> cellArrangement, String[] gridParameters,
+      Map<String, Integer> cellParameters) throws Exception {
+    super(cellArrangement, gridParameters, cellParameters);
   }
 
   /**

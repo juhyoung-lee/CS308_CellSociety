@@ -124,7 +124,7 @@ public class Control {
 
   private void createStage() throws Exception {
     // TODO: refactor into XML reader
-    String shape = "square";//simulation.getShape();
+    String[] gridParam = new String[]{"square",  "bounded"};
     int nSize = switch (type) {
       case "Game of Life" -> 8;
       case "Percolation" -> 4;
@@ -139,15 +139,15 @@ public class Control {
     params.put("neighborhoodSize", nSize);
 
     myGrid = switch (type) {
-      case "Game of Life" -> new GameOfLifeGrid(cells, shape, params);
-      case "Percolation" -> new PercolationGrid(cells, shape, params);
-      case "Fire" -> new FireGrid(cells, shape, params);
-      case "Segregation" -> new SegregationGrid(cells, shape, params);
-      case "WaTor" -> new WaTorGrid(cells, shape, params);
-      case "Rock Paper Scissors" -> new RPSGrid(cells, shape, params);
-      case "Foraging Ants" -> new ForagingAntsGrid(cells, shape, params);
-      case "Byls Loop" -> new BylsLoopGrid(cells, shape, params);
-      case "SugarScape" -> new SugarScapeGrid(cells, shape, params);
+      case "Game of Life" -> new GameOfLifeGrid(cells, gridParam, params);
+      case "Percolation" -> new PercolationGrid(cells, gridParam, params);
+      case "Fire" -> new FireGrid(cells, gridParam, params);
+      case "Segregation" -> new SegregationGrid(cells, gridParam, params);
+      case "WaTor" -> new WaTorGrid(cells, gridParam, params);
+      case "Rock Paper Scissors" -> new RPSGrid(cells, gridParam, params);
+      case "Foraging Ants" -> new ForagingAntsGrid(cells, gridParam, params);
+      case "Byls Loop" -> new BylsLoopGrid(cells, gridParam, params);
+      case "SugarScape" -> new SugarScapeGrid(cells, gridParam, params);
       default -> null;
     };
     if (myGrid == null) {
@@ -155,6 +155,7 @@ public class Control {
     }
 
 
+    mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), gridParam[0]);
 
     mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), shape);
     resetAnimation();
