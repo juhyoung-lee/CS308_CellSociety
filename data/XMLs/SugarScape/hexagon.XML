@@ -4,11 +4,12 @@
     <title>Preset 2 (Max Bounds): Migration</title>
     <author>Jessica</author>
     <description>Basic configuration file for SugarScape. Follows upper bounds of Preset 2.</description>
+    <shape>hexagon</shape>
   </information>
   <parameters>
     <width>30</width>
     <height>30</height>
-    <neighborhoodSize>8</neighborhoodSize>
+    <neighborhoodSize>6</neighborhoodSize>
     <neighborNumMax>8</neighborNumMax>
     <agentVisionMax>5</agentVisionMax>
     <agentSugarMetabolismMax>1</agentSugarMetabolismMax>
