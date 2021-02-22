@@ -1,0 +1,33 @@
+<root>
+    <information>
+        <type>Foraging Ants</type>
+        <title>Hexagon with Multiple Food Sources</title>
+        <author>Kathleen</author>
+        <description>hexagon grid with many food sources</description>
+        <shape>hexagon</shape>
+        <gridType>bounded</gridType>
+    </information>
+    <parameters>
+        <width>16</width>
+        <height>16</height>
+        <neighborhoodSize>6</neighborhoodSize>
+    </parameters>
+    <cells>
+        <cellRow>1000000000000000</cellRow>
+        <cellRow>0000000000000000</cellRow>
+        <cellRow>0000000000000000</cellRow>
+        <cellRow>0000000000002000</cellRow>
+        <cellRow>0000000000000000</cellRow>
+        <cellRow>0000000000200000</cellRow>
+        <cellRow>0000020002000000</cellRow>
+        <cellRow>0020000000000000</cellRow>
+        <cellRow>0000020000000000</cellRow>
+        <cellRow>0000000000000200</cellRow>
+        <cellRow>0000000000000000</cellRow>
+        <cellRow>0000000000200000</cellRow>
+        <cellRow>0000020000200000</cellRow>
+        <cellRow>0020000000002000</cellRow>
+        <cellRow>0000020000000000</cellRow>
+        <cellRow>0200000000000200</cellRow>
+    </cells>
+</root>
