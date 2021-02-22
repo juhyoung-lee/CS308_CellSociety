@@ -4,10 +4,12 @@
         <title>Triangle Test</title>
         <author>Kathleen</author>
         <description>Testing Triangle Stuff</description>
+        <shape>triangle</shape>
     </information>
     <parameters>
         <width>15</width>
         <height>10</height>
+        <neighborhoodSize>3</neighborhoodSize>
     </parameters>
     <cells>
         <cellRow>222222222222222</cellRow>
