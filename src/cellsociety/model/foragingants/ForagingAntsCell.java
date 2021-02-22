@@ -18,6 +18,7 @@ public class ForagingAntsCell extends Cell {
   public static final int HOME = 1;
   public static final int FOOD = 2;
   public static final int ANT = 3;
+  public static final String HAS_FOOD = "hasFood";
   private int foodPheromone;
   private int homePheromone;
   private int hasFood;
@@ -49,7 +50,7 @@ public class ForagingAntsCell extends Cell {
     if (getState() == HOME) {
       setNextState(HOME);
       setMoveStateValue(STATE_KEY, ANT);
-      setMoveStateValue("hasFood", hasFood);
+      setMoveStateValue(HAS_FOOD, hasFood);
     } else if (getState() == ANT) {
       antPrepareNextState(neighborStates);
     } else {
@@ -112,7 +113,7 @@ public class ForagingAntsCell extends Cell {
 
     if (incomingState == ANT && getState() == EMPTY) {
       setNextState(ANT);
-      setMoveStateValue("hasFood", newInfo.get("hasFood"));
+      setMoveStateValue(HAS_FOOD, newInfo.get(HAS_FOOD));
       return true;
     }
 

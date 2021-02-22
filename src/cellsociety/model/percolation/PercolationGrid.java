@@ -2,6 +2,7 @@ package cellsociety.model.percolation;
 
 import cellsociety.model.Cell;
 import cellsociety.model.Grid;
+import cellsociety.model.GridHelper;
 import java.util.List;
 import java.util.Map;
 
@@ -42,15 +43,15 @@ PercolationGrid extends Grid {
   protected int[] decideNeighborhood(int index) throws Exception {
     // percolation only looks at cells above and next
     return switch (getShape()) {
-      case "square" -> square();
-      case "triangle" -> triangle(index);
-      case "hexagon" -> hexagon(index);
-      default -> throw new Exception("Invalid shape: " + getShape());
+      case GridHelper.SQUARE -> square();
+      case GridHelper.TRIANGLE -> triangle(index);
+      case GridHelper.HEXAGON -> hexagon(index);
+      default -> throw new Exception(INVALID_SHAPE);
     };
   }
 
   private int[] square() {
-    if (getNeighborhoodSize() != 4) {
+    if (getNeighborhoodSize() != SQUARE_SIDES_MIN) {
       return new int[]{};
     }
     int width = getDimensions()[0];
@@ -61,9 +62,9 @@ PercolationGrid extends Grid {
     int w = getDimensions()[0];
     boolean trianglePointy = isTriangleTopPointy(index);
 
-    if (trianglePointy && getNeighborhoodSize() == 3) {
+    if (trianglePointy && getNeighborhoodSize() == TRIANGLE_SIDES_MIN) {
       return new int[]{-1, 1};
-    } else if (getNeighborhoodSize() == 3) {
+    } else if (getNeighborhoodSize() == TRIANGLE_SIDES_MIN) {
       return new int[]{-1 * w, -1, 1};
     } else {
       return new int[]{};
@@ -72,7 +73,7 @@ PercolationGrid extends Grid {
 
   private int[] hexagon(int index) {
     int w = getDimensions()[0];
-    if (getNeighborhoodSize() != 6) {
+    if (getNeighborhoodSize() != HEXAGON_SIDES) {
       return new int[]{};
     }
     boolean evenRow = (index / w) % 2 == 0;
