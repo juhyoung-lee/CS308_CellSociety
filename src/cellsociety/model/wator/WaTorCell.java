@@ -20,10 +20,10 @@ public class WaTorCell extends Cell {
   private final String sharkBreedThresholdKey = "sharkBreedThreshold";
   private final String energyGainKey = "energyGain";
   private final String energyLossKey = "energyLoss";
-  private final int fishBreedThreshold;
-  private final int sharkBreedThreshold;
-  private final int energyGain;
-  private final int energyLoss;
+  private int fishBreedThreshold = 5;
+  private int sharkBreedThreshold = 4;
+  private int energyGain = 2;
+  private int energyLoss = 1;
   private int breedFishTime;
   private int breedSharkEnergy;
 
@@ -37,14 +37,22 @@ public class WaTorCell extends Cell {
    * Exceptions: TODO
    * Returns: WaTorCell object.
    */
-  public WaTorCell(Map<String, Integer> config) {
+  public WaTorCell(Map<String, Integer> config) throws Exception {
     super(config);
     setMaxStateValue(SHARK);
-    fishBreedThreshold = config.get(fishBreedThresholdKey);
-    sharkBreedThreshold = config.get(sharkBreedThresholdKey);
-    energyGain = config.get(energyGainKey);
-    energyLoss = config.get(energyLossKey);
+    checkParameters(config);
     resetState();
+  }
+
+  private void checkParameters(Map<String, Integer> config) throws Exception {
+    try {
+      fishBreedThreshold = config.get(fishBreedThresholdKey);
+      sharkBreedThreshold = config.get(sharkBreedThresholdKey);
+      energyGain = config.get(energyGainKey);
+      energyLoss = config.get(energyLossKey);
+    } catch (Exception e) {
+      throw new Exception("Cell parameter invalid.");
+    }
   }
 
   /**
