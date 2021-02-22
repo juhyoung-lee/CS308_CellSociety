@@ -68,7 +68,7 @@ public class SugarScapeCell extends Cell {
       patchSugarGrowBackRate = config.get(patchSugarGrowBackRateKey);
       patchSugarGrowBackInterval = config.get(patchSugarGrowBackIntervalKey);
     } catch (Exception e) {
-      throw new Exception("Cell parameter invalid.");
+      throw new Exception(PARAMETER_EXCEPTION_MESSAGE);
     }
   }
 
