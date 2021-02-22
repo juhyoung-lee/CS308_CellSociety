@@ -19,7 +19,7 @@ public class FireCell extends Cell {
   public static final int EMPTY = 2;
   private final String probKey = "prob";
   private final Random randFire = new Random();
-  private final double catchThreshold;
+  private double catchThreshold = 0.5;
 
   /**
    * Purpose: Constructor for FireCell class.
@@ -28,10 +28,18 @@ public class FireCell extends Cell {
    * Exceptions: TODO
    * Returns: FireCell object.
    */
-  public FireCell(Map<String, Integer> config) {
+  public FireCell(Map<String, Integer> config) throws Exception {
     super(config);
     setMaxStateValue(EMPTY);
-    catchThreshold = (double) config.get(probKey) / 100;
+    checkParameters(config);
+  }
+
+  private void checkParameters(Map<String, Integer> config) throws Exception {
+    try {
+      catchThreshold = (double) config.get(probKey) / 100;
+    } catch (Exception e) {
+      throw new Exception("Cell parameter invalid.");
+    }
   }
 
   /**
