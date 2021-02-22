@@ -1,0 +1,27 @@
+<root>
+    <information>
+        <type>Foraging Ants</type>
+        <title>Hexagon with Single Food Source</title>
+        <author>Kathleen</author>
+        <description>hexagon grid with only one food source</description>
+        <shape>hexagon</shape>
+        <gridType>bounded</gridType>
+    </information>
+    <parameters>
+        <width>10</width>
+        <height>10</height>
+        <neighborhoodSize>6</neighborhoodSize>
+    </parameters>
+    <cells>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0010000000</cellRow>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0000020000</cellRow>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0000000000</cellRow>
+    </cells>
+</root>

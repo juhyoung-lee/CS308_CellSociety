@@ -1,0 +1,47 @@
+<root>
+    <information>
+        <type>Foraging Ants</type>
+        <title>Triangle Bounded</title>
+        <author>Kathleen</author>
+        <description>Triangle grid that is bounded</description>
+        <shape>triangle</shape>
+        <gridType>bounded</gridType>
+    </information>
+    <parameters>
+        <width>30</width>
+        <height>30</height>
+        <neighborhoodSize>3</neighborhoodSize>
+    </parameters>
+    <cells>
+        <cellRow>100000000000000000000000000000</cellRow>
+        <cellRow>000000000000000000000000000000</cellRow>
+        <cellRow>000000000000000000000000000000</cellRow>
+        <cellRow>000000000000200000000000000000</cellRow>
+        <cellRow>000000000000000000000000020000</cellRow>
+        <cellRow>000000000020000000002000200000</cellRow>
+        <cellRow>000002000200000002000000000000</cellRow>
+        <cellRow>002000000000000002000000000000</cellRow>
+        <cellRow>000002000000000002000000000000</cellRow>
+        <cellRow>000000000000200000000000000200</cellRow>
+        <cellRow>000000000000000000000000000000</cellRow>
+        <cellRow>000000000200000000000000200000</cellRow>
+        <cellRow>000000000200000000000000200000</cellRow>
+        <cellRow>002000000002000000000000200000</cellRow>
+        <cellRow>000020000000000000000000200000</cellRow>
+        <cellRow>200000000000000000000000000000</cellRow>
+        <cellRow>000000000000000000000000000000</cellRow>
+        <cellRow>000000000000000000000000000000</cellRow>
+        <cellRow>000000000000200000000000000000</cellRow>
+        <cellRow>000000000000000000000000020000</cellRow>
+        <cellRow>000000000020000000002000200000</cellRow>
+        <cellRow>000002000200000002000002000000</cellRow>
+        <cellRow>002000000000000002000000000000</cellRow>
+        <cellRow>000002000000000002000000000000</cellRow>
+        <cellRow>000000000000200000000000000200</cellRow>
+        <cellRow>000000000000000000000000000000</cellRow>
+        <cellRow>000000000200000000000000200000</cellRow>
+        <cellRow>000000000200000000000000200000</cellRow>
+        <cellRow>002000000002000000000000200000</cellRow>
+        <cellRow>000020000000000000000000200000</cellRow>
+    </cells>
+</root>
