@@ -8,6 +8,7 @@
   <parameters>
     <width>6</width>
     <height>6</height>
+    <neighborhoodSize>8</neighborhoodSize>
   </parameters>
   <cells>
     <cellRow>000000</cellRow>

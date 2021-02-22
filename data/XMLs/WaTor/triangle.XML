@@ -1,9 +1,10 @@
 <root>
   <information>
     <type>WaTor</type>
-    <title>First Attempt</title>
-    <author>Kenny</author>
-    <description>lets see if this works?</description>
+    <title>Triangular</title>
+    <author>Jessica</author>
+    <description>Triangular cells</description>
+    <shape>triangle</shape>
   </information>
   <parameters>
     <fishBreedThreshold>3</fishBreedThreshold>
@@ -12,7 +13,7 @@
     <energyLoss>1</energyLoss>
     <width>10</width>
     <height>10</height>
-    <neighborhoodSize>4</neighborhoodSize>
+    <neighborhoodSize>12</neighborhoodSize>
   </parameters>
   <cells>
     <cellRow>0000000000</cellRow>
