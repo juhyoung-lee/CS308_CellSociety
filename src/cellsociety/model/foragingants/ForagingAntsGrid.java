@@ -117,10 +117,10 @@ public class ForagingAntsGrid extends Grid {
       neighborStates[i][2] = neighbor.getPheromone()[1];
     }
     if (hasFood) {
-      Arrays.sort(neighborStates, Comparator.comparingInt(row -> row[2]));
+      Arrays.sort(neighborStates, Comparator.comparingInt(row -> -1 * row[2]));
       neighborStates = removeColumn(neighborStates, 1);
     } else {
-      Arrays.sort(neighborStates, Comparator.comparingInt(row -> row[1]));
+      Arrays.sort(neighborStates, Comparator.comparingInt(row -> -1 * row[1]));
       neighborStates = removeColumn(neighborStates, 2);
     }
     return neighborStates;
