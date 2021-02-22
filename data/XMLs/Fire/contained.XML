@@ -9,6 +9,7 @@
     <prob>0</prob>
     <width>10</width>
     <height>10</height>
+    <neighborhoodSize>4</neighborhoodSize>
   </parameters>
   <cells>
     <cellRow>2222222222</cellRow>
