@@ -256,8 +256,8 @@ public class Control {
     List<String> cellRows = createCellRows(params, cells);
 
     try {
-      FileWriter myWriter = new FileWriter("data/CreatedFiles/created" +
-              (System.currentTimeMillis() / 10000%100000) + ".XML");
+      FileWriter myWriter = new FileWriter("data/CreatedFiles/created"
+              + (System.currentTimeMillis() / 10000%100000) + ".XML");
       myWriter.write("<root>\n");
       myWriter.write("  <information>\n");
       for (String s : info.keySet()) {
