@@ -36,11 +36,19 @@ public class Simulation {
     DOCUMENT_BUILDER = getDocumentBuilder();
     Element root = getRootElement(dataFile);
     myParameters = makeParameterMap(dataFile);
+    makeCellsFromParameterMap();
     myCellRows = makeCellRowList(root);
-    myInformation = makeInfoMap(dataFile);
-
-    checkInformation();
     checkCellDimensions();
+    myInformation = makeInfoMap(dataFile);
+    checkInformation();
+
+
+  }
+
+  private void makeCellsFromParameterMap() {
+    for(String s : myParameters.keySet()){
+      
+    }
   }
 
   private void checkInformation() throws XMLException {
@@ -73,10 +81,6 @@ public class Simulation {
     }
   }
 
-  //TODO: constructor to make XML file?
-//  public Simulation() throws XMLException{
-//
-//  }
 
   private void checkCellDimensions() throws XMLException {
     if (myParameters.get(HEIGHT) == null) {
