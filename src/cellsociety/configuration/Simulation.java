@@ -22,7 +22,7 @@ public class Simulation {
   public static final String WIDTH = "width";
   public static final List<String> SHAPE_OPTIONS = List.of("square", "hexagon", "triangle");
   public static final List<String> GRID_OPTIONS = List.of("bounded", "infinite", "wrapping");
-  public static final String DEFAULT_SHAPE = SHAPE_OPTIONS.get(1);
+  public static final String DEFAULT_SHAPE = SHAPE_OPTIONS.get(0);
   public static final String DEFAULT_GRID = GRID_OPTIONS.get(0);
   private final DocumentBuilder DOCUMENT_BUILDER;
 

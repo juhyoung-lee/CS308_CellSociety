@@ -93,6 +93,7 @@ public class Control {
       acceptXMLData(myDataFile);
     } catch (Exception e) {
       System.out.println(e.getMessage());
+      uploadFile();
       //display error message
       //e.getMessage convert it, display it
     }
@@ -103,6 +104,7 @@ public class Control {
       createStage();
     } catch (Exception e) {
       System.out.println(e.getMessage());
+      uploadFile();
       //display error message
       //e.getMessage convert it, display it
     }

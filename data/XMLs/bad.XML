@@ -3,16 +3,16 @@
     <type>Game of Life</type>
     <title>Bad</title>
     <author>wiki</author>
-    <description>XML to test the exceptions</description>
-    <shape>hexagon</shape>
+    <description>bad XMLfile</description>
   </information>
   <parameters>
     <width>10</width>
     <height>10</height>
+    <nSize>4</nSize>
   </parameters>
   <cells>
     <cellRow>0010000000</cellRow>
-    <cellRow>1010000000</cellRow>
+    <cellRow>1010020000</cellRow>
     <cellRow>0110000000</cellRow>
     <cellRow>0000000000</cellRow>
     <cellRow>0000000000</cellRow>
