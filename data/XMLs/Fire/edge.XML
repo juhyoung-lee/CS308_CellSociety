@@ -1,0 +1,25 @@
+<root>
+  <information>
+    <type>Fire</type>
+    <title>Edges</title>
+    <author>Juhyoung</author>
+    <description>Fire does not reach past blank spaces.  </description>
+  </information>
+  <parameters>
+    <prob>50</prob>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1222222221</cellRow>
+    <cellRow>1200101121</cellRow>
+    <cellRow>1200001021</cellRow>
+    <cellRow>1201000021</cellRow>
+    <cellRow>1200100021</cellRow>
+    <cellRow>1201001021</cellRow>
+    <cellRow>1200110021</cellRow>
+    <cellRow>1222222221</cellRow>
+    <cellRow>1111111111</cellRow>
+  </cells>
+</root>
