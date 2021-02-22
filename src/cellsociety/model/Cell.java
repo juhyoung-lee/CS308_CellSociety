@@ -20,8 +20,6 @@ public abstract class Cell {
   private int nextState;
   private int maxStateValue;
 
-  // TODO: make isValid method
-
   /**
    * Purpose: Constructor for Cell class.
    * Assumptions: TODO
