@@ -82,19 +82,17 @@ public abstract class Grid extends GridHelper {
   // breaks when grid is too small??
   private List<Integer> edgeIndexes() {
     List<Integer> edgeIndexes = new ArrayList<>();
-    int width = getDimensions()[0];
-    int height = getDimensions()[1];
-    for (int i = 0; i < width; i++) {
+    for (int i = 0; i < this.width; i++) {
       edgeIndexes.add(i);
-      edgeIndexes.add(i + width);
-      edgeIndexes.add(width * height - width + i);
-      edgeIndexes.add(width * height - width + i - width);
+      edgeIndexes.add(i + this.width);
+      edgeIndexes.add(this.width * this.height - this.width + i);
+      edgeIndexes.add(this.width * this.height - this.width + i - this.width);
     }
-    for (int i = 2; i < height - 2; i++) {
-      edgeIndexes.add(i * width);
-      edgeIndexes.add(i * width + 1);
-      edgeIndexes.add((i + 1) * width - 1);
-      edgeIndexes.add((i + 1) * width - 2);
+    for (int i = 2; i < this.height - 2; i++) {
+      edgeIndexes.add(i * this.width);
+      edgeIndexes.add(i * this.width + 1);
+      edgeIndexes.add((i + 1) * this.width - 1);
+      edgeIndexes.add((i + 1) * this.width - 2);
     }
     return edgeIndexes;
   }
@@ -111,20 +109,31 @@ public abstract class Grid extends GridHelper {
 
   private void expandGrid() {
     int oldSize = this.width * this.height;
-    this.width *= 2;
-    this.height *= 2;
-    int newSize = this.width * this.height;
     List<Cell> newGrid = new ArrayList<>();
 
     try {
       for (int i = 0; i < oldSize; i++) {
         newGrid.add(baseCell());
       }
-      newGrid.addAll(this.grid);
+      for (int i = 0; i < oldSize; i ++) {
+        if (i % this.width == 0) {
+          for (int j = 0; j < this.width; j++) {
+            newGrid.add(baseCell());
+          }
+        }
+        newGrid.add(this.grid.get(i));
+        if (i % this.width == this.width - 1) {
+          for (int j = 0; j < this.width; j++) {
+            newGrid.add(baseCell());
+          }
+        }
+      }
       for (int i = 0; i < oldSize; i++) {
         newGrid.add(baseCell());
       }
 
+      this.width *= 2;
+      this.height *= 2;
       this.grid = newGrid;
 
       for (int i = 0; i < this.grid.size(); i++) {
