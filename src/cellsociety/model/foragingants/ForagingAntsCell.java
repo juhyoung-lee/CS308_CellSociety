@@ -128,9 +128,4 @@ public class ForagingAntsCell extends Cell {
   public int[] getPheromone() {
     return new int[]{foodPheromone, homePheromone};
   }
-
-  /* sample grid code for movement
-
-  if movestate.hasFood == 0 -> go towards food
-   */
 }
