@@ -1,0 +1,37 @@
+<root>
+    <information>
+        <type>Foraging Ants</type>
+        <title>Square with Multiple Food Sources (Wrapping)</title>
+        <author>Kathleen</author>
+        <description>hexagon grid with many food sources</description>
+        <shape>square</shape>
+        <gridType>wrapping</gridType>
+    </information>
+    <parameters>
+        <width>20</width>
+        <height>20</height>
+        <neighborhoodSize>4</neighborhoodSize>
+    </parameters>
+    <cells>
+        <cellRow>00000000000000000200</cellRow>
+        <cellRow>00010000000000000000</cellRow>
+        <cellRow>00000000000000000000</cellRow>
+        <cellRow>00000000000020000000</cellRow>
+        <cellRow>00000000000000000000</cellRow>
+        <cellRow>00000000002000000000</cellRow>
+        <cellRow>00000200020000000000</cellRow>
+        <cellRow>00200000000000000000</cellRow>
+        <cellRow>00000200000000000000</cellRow>
+        <cellRow>00000000000002000000</cellRow>
+        <cellRow>00000000000000002000</cellRow>
+        <cellRow>00000000002000000000</cellRow>
+        <cellRow>00000200002000000000</cellRow>
+        <cellRow>00200000000020000000</cellRow>
+        <cellRow>00000200000000000000</cellRow>
+        <cellRow>02000000000002000000</cellRow>
+        <cellRow>00000000000000000000</cellRow>
+        <cellRow>00200000000020000000</cellRow>
+        <cellRow>00000200000000000000</cellRow>
+        <cellRow>00000000000000000000</cellRow>
+    </cells>
+</root>

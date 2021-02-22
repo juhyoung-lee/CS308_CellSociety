@@ -10,7 +10,7 @@
 }
 
 .GameofLife-1 {
-    -fx-fill: mediumseagreen;
+    -fx-fill: #66ff99;
 }
 
 .Percolation-0 {
@@ -22,7 +22,7 @@
 }
 
 .Percolation-2 {
-    -fx-fill: darkturquoise;
+    -fx-fill: #80ccff;
 }
 
 .Segregation-0 {
@@ -30,35 +30,35 @@
 }
 
 .Segregation-1 {
-    -fx-fill: deeppink;
+    -fx-fill: #ffb3e6;
 }
 
 .Segregation-2 {
-    -fx-fill: dodgerblue;
+    -fx-fill: #80dfff;
 }
 
 .Fire-0 {
-    -fx-fill: limegreen;
+    -fx-fill: #66ff66;
 }
 
 .Fire-1 {
-    -fx-fill: firebrick;
+    -fx-fill: #ff4d4d;
 }
 
 .Fire-2 {
-    -fx-fill: aliceblue;
+    -fx-fill: #f2f2f2;
 }
 
 .WaTor-0 {
-    -fx-fill: blue;
+    -fx-fill: #99ffff;
 }
 
 .WaTor-1 {
-    -fx-fill: darkorange;
+    -fx-fill: #ffc299;
 }
 
 .WaTor-2 {
-    -fx-fill: silver;
+    -fx-fill: #cccccc;
 }
 
 .RockPaperScissors-0 {
@@ -70,7 +70,7 @@
 }
 
 .RockPaperScissors-2 {
-    -fx-fill: #ff0066;
+    -fx-fill: #ccb3ff;
 }
 
 .ForagingAnts-0 {
@@ -78,15 +78,15 @@
 }
 
 .ForagingAnts-1 {
-    -fx-fill: #33cc33;
+    -fx-fill: #b3ffb3;
 }
 
 .ForagingAnts-2 {
-    -fx-fill: #ffff66;
+    -fx-fill: #ffcc99;
 }
 
 .ForagingAnts-3 {
-    -fx-fill: #ff0000;
+    -fx-fill: #ff8080;
 }
 
 .BylsLoop-0 {
@@ -94,23 +94,23 @@
 }
 
 .BylsLoop-1 {
-    -fx-fill: #ffff66;
+    -fx-fill: #ffff4d;
 }
 
 .BylsLoop-2 {
-    -fx-fill: #000000;
+    -fx-fill: #4d4d4d;
 }
 
 .BylsLoop-3 {
-    -fx-fill: #ff0000;
+    -fx-fill: #ff99c2;
 }
 
 .BylsLoop-4 {
-    -fx-fill: #33cc33;
+    -fx-fill: #99ff99;
 }
 
 .BylsLoop-5 {
-    -fx-fill: #0000ff;
+    -fx-fill: #99c2ff;
 }
 
 .title {
