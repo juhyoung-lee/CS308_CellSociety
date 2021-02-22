@@ -21,18 +21,19 @@ public class SugarScapeCell extends Cell {
   private final String agentSugarMetabolismMaxKey = "agentSugarMetabolismMax";
   private final String agentInitialSugarKey = "agentInitialSugar";
   private final Random randGen = new Random();
-  private final int neighborNumMax;
-  private final int agentVisionMax;
-  private final int agentSugarMetabolism;
+  private int neighborNumMax = 8;
+  private int agentVisionMax = 8;
+  private int agentSugarMetabolismMax = 3;
+  private int agentSugarMetabolism;
   private int agentVision;
   private int agentSugar;
 
   private final String patchMaxSugarKey = "patchMaxSugar";
   private final String patchSugarGrowBackRateKey = "patchSugarGrowBackRate";
   private final String patchSugarGrowBackIntervalKey = "getPatchSugarGrowBackInterval";
-  private final int patchMaxSugar;
-  private final int patchSugarGrowBackRate;
-  private final int patchSugarGrowBackInterval;
+  private int patchMaxSugar = 5;
+  private int patchSugarGrowBackRate = 1;
+  private int patchSugarGrowBackInterval = 1;
   private int patchSugar;
   private int patchIntervalCount;
 
@@ -47,21 +48,28 @@ public class SugarScapeCell extends Cell {
    * Exceptions: TODO
    * Returns: SugarScapeCell object.
    */
-  public SugarScapeCell(Map<String, Integer> config) {
+  public SugarScapeCell(Map<String, Integer> config) throws Exception {
     super(config);
     setMaxStateValue(AGENT);
-    neighborNumMax = config.get(neighborNumMaxKey);
-    agentVisionMax = config.get(agentVisionMaxKey);
-    agentVision = randGen.nextInt(agentVisionMax - 1) + 1;
-
-    agentSugarMetabolism = randGen.nextInt(config.get(agentSugarMetabolismMaxKey)) + 1;
-    agentSugar = config.get(agentInitialSugarKey) + 5;
-
-    patchMaxSugar = config.get(patchMaxSugarKey);
-    patchSugarGrowBackRate = config.get(patchSugarGrowBackRateKey);
-    patchSugarGrowBackInterval = config.get(patchSugarGrowBackIntervalKey);
+    checkParameters(config);
+    agentVision = randGen.nextInt(agentVisionMax) + 1;
+    agentSugarMetabolism = randGen.nextInt(agentSugarMetabolismMax) + 1;
     patchSugar = patchMaxSugar;
     patchIntervalCount = 0;
+  }
+
+  private void checkParameters(Map<String, Integer> config) throws Exception {
+    try {
+      neighborNumMax = config.get(neighborNumMaxKey);
+      agentVisionMax = config.get(agentVisionMaxKey);
+      agentSugar = config.get(agentInitialSugarKey) + 5;
+      agentSugarMetabolismMax = config.get(agentSugarMetabolismMaxKey);
+      patchMaxSugar = config.get(patchMaxSugarKey);
+      patchSugarGrowBackRate = config.get(patchSugarGrowBackRateKey);
+      patchSugarGrowBackInterval = config.get(patchSugarGrowBackIntervalKey);
+    } catch (Exception e) {
+      throw new Exception("Cell parameter invalid.");
+    }
   }
 
   /**
