@@ -84,7 +84,10 @@ public class Control {
    */
   public void uploadFile() {
     FileChooser fileChooser = new FileChooser();
-    File selectedFile =fileChooser.showOpenDialog(myStage);
+    File selectedFile = null;
+    while (selectedFile == null) {
+      selectedFile=fileChooser.showOpenDialog(myStage);
+    }
     myDataFile = selectedFile.getPath();
     try {
       acceptXMLData(myDataFile);
@@ -124,7 +127,7 @@ public class Control {
 
   private void createStage() throws Exception {
     // TODO: refactor into XML reader
-    String[] gridParam = new String[]{"square",  "bounded"};
+    String[] gridParam = simulation.getGridParameterArray();
     int nSize = switch (type) {
       case "Game of Life" -> 8;
       case "Percolation" -> 4;
