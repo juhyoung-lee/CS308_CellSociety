@@ -1,5 +1,6 @@
 package cellsociety.model;
 
+import cellsociety.configuration.Simulation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,6 +8,20 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GridHelper {
+
+  public static final String NEIGHBORHOOD_SIZE = "neighborhoodSize";
+  public static final String SQUARE = "square";
+  public static final int SQUARE_SIDES_MIN = 4;
+  public static final int SQUARE_SIDES_MAX = 8;
+  public static final String TRIANGLE = "triangle";
+  public static final int TRIANGLE_SIDES_MIN = 3;
+  public static final int TRIANGLE_SIDES_MAX = 12;
+  public static final String HEXAGON = "hexagon";
+  public static final int HEXAGON_SIDES = 6;
+  public static final String INVALID_GRID_PARAMETERS = "Invalid Grid Parameters";
+  public static final String INVALID_CELL_STATE = "Invalid Cell State";
+  public static final String INVALID_NEIGHBORHOOD_SIZE = "Invalid Neighborhood Size";
+  public static final String INVALID_SHAPE = "Invalid Shape";
 
   private Map<Cell, int[]> neighbors;
   private List<Cell> grid;
@@ -30,13 +45,13 @@ public abstract class GridHelper {
     try {
       this.shape = params[0];
       this.gridType = params[1];
-      this.height = parameters.get("height");
-      this.width = parameters.get("width");
-      this.neighborhoodSize = parameters.get("neighborhoodSize");
+      this.height = parameters.get(Simulation.HEIGHT);
+      this.width = parameters.get(Simulation.WIDTH);
+      this.neighborhoodSize = parameters.get(NEIGHBORHOOD_SIZE);
       setupGrid(cellArrangement, parameters);
       setupNeighbors();
     } catch (Exception e) {
-      throw new Exception("Invalid grid parameters");
+      throw new Exception(INVALID_GRID_PARAMETERS);
     }
   }
 
@@ -115,12 +130,12 @@ public abstract class GridHelper {
     for (String s : cellArrangement) {
       String[] row = s.split("");
       for (String state : row) {
-        parameters.put("state", Integer.parseInt(state));
+        parameters.put(Cell.STATE_KEY, Integer.parseInt(state));
         Cell cell = chooseCell(parameters);
         if (cell.isValidState()) {
           this.grid.add(cell);
         } else {
-          throw new Exception("Invalid Cell State");
+          throw new Exception(INVALID_CELL_STATE);
         }
       }
     }
@@ -146,7 +161,7 @@ public abstract class GridHelper {
     for (int i = 0; i < grid.size(); i++) {
       this.neighbors.put(this.grid.get(i), pullNeighborIndexes(i));
     }
-    if (gridType.equals("wrapping")) {
+    if (gridType.equals(Simulation.GRID_OPTIONS.get(2))) {
       wrapNeighbors();
     }
   }
@@ -197,7 +212,7 @@ public abstract class GridHelper {
     int[] variance = decideNeighborhood(index);
 
     if (variance.length == 0) {
-      throw new Exception("XML parameter (neighborhood size: " + this.neighborhoodSize + ") not valid");
+      throw new Exception(INVALID_NEIGHBORHOOD_SIZE);
     }
 
     ArrayList<Integer> possibleIndexes = new ArrayList<>();
@@ -220,10 +235,10 @@ public abstract class GridHelper {
    */
   protected int[] decideNeighborhood(int index) throws Exception {
     return switch (this.shape) {
-      case "square" -> square();
-      case "triangle" -> triangle(index);
-      case "hexagon" -> hexagon(index);
-      default -> throw new Exception("Invalid shape: " + this.shape);
+      case SQUARE -> square();
+      case TRIANGLE -> triangle(index);
+      case HEXAGON -> hexagon(index);
+      default -> throw new Exception(INVALID_SHAPE);
     };
   }
 
@@ -237,10 +252,10 @@ public abstract class GridHelper {
    */
   protected int[] decideSmallNeighborhood(int index) throws Exception {
     return switch (this.shape) {
-      case "square" -> squareSmall();
-      case "triangle" -> triangleSmall(index);
-      case "hexagon" -> hexagon(index);
-      default -> throw new Exception("Invalid shape: " + this.shape);
+      case SQUARE -> squareSmall();
+      case TRIANGLE -> triangleSmall(index);
+      case HEXAGON -> hexagon(index);
+      default -> throw new Exception(INVALID_SHAPE);
     };
   }
 
@@ -255,8 +270,8 @@ public abstract class GridHelper {
   private int[] square() {
     int w = this.width;
     return switch (this.neighborhoodSize) {
-      case 4 -> new int[]{-1 * w, -1, 1, w};
-      case 8 -> new int[]{-1 - w, -1 * w, 1 - w, -1, 1, -1 + w, w, 1 + w};
+      case SQUARE_SIDES_MIN -> new int[]{-1 * w, -1, 1, w};
+      case SQUARE_SIDES_MAX -> new int[]{-1 - w, -1 * w, 1 - w, -1, 1, -1 + w, w, 1 + w};
       default -> new int[]{};
     };
   }
@@ -268,7 +283,7 @@ public abstract class GridHelper {
    * @return cardinal neighbors
    */
   private int[] squareSmall() {
-    if (this.neighborhoodSize != 4) {
+    if (this.neighborhoodSize != SQUARE_SIDES_MIN) {
       return new int[]{};
     }
     int w = this.width;
@@ -289,14 +304,14 @@ public abstract class GridHelper {
     int w = this.width;
     if (isTriangleTopPointy(index)) {
       return switch (this.neighborhoodSize) {
-        case 3 -> new int[]{-1, 1, w};
-        case 12 -> new int[]{-1 - w, -1 * w, 1 - w, -2, -1, 1, 2, -2 + w, -1 + w, w, 1 + w, 2 + w};
+        case TRIANGLE_SIDES_MIN -> new int[]{-1, 1, w};
+        case TRIANGLE_SIDES_MAX -> new int[]{-1 - w, -1 * w, 1 - w, -2, -1, 1, 2, -2 + w, -1 + w, w, 1 + w, 2 + w};
         default -> new int[]{};
       };
     } else {
       return switch (this.neighborhoodSize) {
-        case 3 -> new int[]{-1 * w, -1, 1};
-        case 12 -> new int[]{-2 - w, -1 - w, -1 * w, 1 - w, 2 - w, -2, -1, 1, 2, -1 + w, w, 1 + w};
+        case TRIANGLE_SIDES_MIN -> new int[]{-1 * w, -1, 1};
+        case TRIANGLE_SIDES_MAX -> new int[]{-2 - w, -1 - w, -1 * w, 1 - w, 2 - w, -2, -1, 1, 2, -1 + w, w, 1 + w};
         default -> new int[]{};
       };
     }
@@ -312,9 +327,9 @@ public abstract class GridHelper {
     int w = this.width;
     boolean trianglePointy = isTriangleTopPointy(index);
 
-    if (trianglePointy && neighborhoodSize == 3) {
+    if (trianglePointy && neighborhoodSize == TRIANGLE_SIDES_MIN) {
       return new int[]{-1, 1, w};
-    } else if (neighborhoodSize == 3) {
+    } else if (neighborhoodSize == TRIANGLE_SIDES_MIN) {
       return new int[]{-1 * w, -1, 1};
     } else {
       return new int[]{};
@@ -350,7 +365,7 @@ public abstract class GridHelper {
    * @return int[] of calculations to get neighboring indexes
    */
   private int[] hexagon(int index) {
-    if (this.neighborhoodSize != 6) {
+    if (this.neighborhoodSize != HEXAGON_SIDES) {
       return new int[]{};
     }
     int w = this.width;

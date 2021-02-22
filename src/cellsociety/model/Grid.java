@@ -1,5 +1,6 @@
 package cellsociety.model;
 
+import cellsociety.configuration.Simulation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,7 +44,7 @@ public abstract class Grid extends GridHelper {
    * Assumptions: No movement of cells.
    */
   public void updateCells() {
-    if (getGridType().equals("infinite")) {
+    if (getGridType().equals(Simulation.GRID_OPTIONS.get(1))) {
       checkGridExpansion();
     }
     clearIssues();
@@ -122,13 +123,13 @@ public abstract class Grid extends GridHelper {
   }
 
   private Cell baseCell() throws Exception {
-    cellParameter.put("state", 0);
+    cellParameter.put(Cell.STATE_KEY, 0);
     Cell cell = chooseCell(cellParameter);
     int baseState = cell.getBaseState();
     if (baseState == 0) {
       return cell;
     } else {
-      cellParameter.put("state", baseState);
+      cellParameter.put(Cell.STATE_KEY, baseState);
       return chooseCell(cellParameter);
     }
   }
@@ -149,7 +150,7 @@ public abstract class Grid extends GridHelper {
     for (int i = 0; i < getGrid().size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
       Map<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
-      if (movement.get("state") != -1) {
+      if (movement.get(Cell.STATE_KEY) != Cell.NO_MOVEMENT) {
         issues[i] = movement;
       }
     }
