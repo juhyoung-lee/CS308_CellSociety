@@ -1,17 +1,17 @@
 <root>
   <information>
     <type>Rock Paper Scissors</type>
-    <title>Rock and Scissors</title>
-    <author>kenny</author>
-    <description>just rock and scissors</description>
-    <shape>triangle</shape>
+    <title>Wrapping First</title>
+    <author>Kenny</author>
+    <description>Wrapping Version of First</description>
+    <gridType>wrapping</gridType>
   </information>
   <parameters>
     <loseThreshold>3</loseThreshold>
     <bufferBound>2</bufferBound>
     <width>17</width>
     <height>17</height>
-    <neighborhoodSize>3</neighborhoodSize>
+    <neighborhoodSize>4</neighborhoodSize>
   </parameters>
   <cells>
     <cellRow>02211000122102120</cellRow>
