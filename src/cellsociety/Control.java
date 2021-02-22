@@ -16,6 +16,9 @@ import java.io.File;
 
 import cellsociety.view.ScreenControl;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javafx.animation.KeyFrame;
@@ -85,7 +88,7 @@ public class Control {
     FileChooser fileChooser = new FileChooser();
     File selectedFile = null;
     while (selectedFile == null) {
-      selectedFile=fileChooser.showOpenDialog(myStage);
+      selectedFile = fileChooser.showOpenDialog(myStage);
     }
     myDataFile = selectedFile.getPath();
     try {
@@ -107,11 +110,8 @@ public class Control {
 
 
   /**
-   * Purpose: Updates parameters from edit parameters function.
-   * Assumptions: TODO
-   * Parameters: Map newParams.
-   * Exceptions: TODO
-   * Returns: None.
+   * Purpose: Updates parameters from edit parameters function. Assumptions: TODO Parameters: Map
+   * newParams. Exceptions: TODO Returns: None.
    */
   public void updateParams(Map<String, Integer> newParams) {
     for (String key : newParams.keySet()) {
@@ -187,29 +187,24 @@ public class Control {
   }
 
   /**
-   * Purpose: Pause the animation when the pause button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Pause the animation when the pause button is pressed. Assumptions: TODO Dependencies:
+   * TODO Example of use: TODO
    */
   public void pause() {
     animation.stop();
   }
 
   /**
-   * Purpose: Start the animation when the play button is pressed. Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Start the animation when the play button is pressed. Assumptions: TODO Dependencies:
+   * TODO Example of use: TODO
    */
   public void start() {
-      animation.play();
+    animation.play();
   }
 
   /**
-   * Purpose: Step through the animation step by step when the step button is called.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Step through the animation step by step when the step button is called. Assumptions:
+   * TODO Dependencies: TODO Example of use: TODO
    */
   public void next() {
     animation.stop();
@@ -218,10 +213,8 @@ public class Control {
   }
 
   /**
-   * Purpose: Speed up the animation speed when the speed up button is pressed.
-   * ssumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Speed up the animation speed when the speed up button is pressed. ssumptions: TODO
+   * Dependencies: TODO Example of use: TODO
    */
   public void fast() {
     animation.stop();
@@ -234,10 +227,8 @@ public class Control {
   }
 
   /**
-   * Purpose: Slow the speed of the animation when the slow button is called.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Slow the speed of the animation when the slow button is called. Assumptions: TODO
+   * Dependencies: TODO Example of use: TODO
    */
   public void slow() {
     animation.stop();
@@ -256,5 +247,57 @@ public class Control {
 
   public void configuration() {
     List<Integer> cells = myGrid.viewGrid();
+    createFile(simulation.getInfoMap(),params, cells);
+  }
+
+  private void createFile(
+      Map<String, String> info, Map<String, Integer> params, List<Integer> cells) {
+
+    List<String> cellRows = createCellRows(params, cells);
+
+    try {
+      FileWriter myWriter = new FileWriter("data/CreatedFiles/created" +
+              (System.currentTimeMillis() / 10000%100000) + ".XML");
+      myWriter.write("<root>\n");
+      myWriter.write("  <information>\n");
+      for (String s : info.keySet()) {
+        myWriter.write("    <" + s + ">");
+        myWriter.write(info.get(s));
+        myWriter.write("</" + s + ">\n");
+      }
+      myWriter.write("  </information>\n");
+      myWriter.write("  <parameters>\n");
+      for (String s : params.keySet()) {
+        myWriter.write("    <" + s + ">");
+        myWriter.write(params.get(s).toString());
+        myWriter.write("</" + s + ">\n");
+      }
+      myWriter.write("  </parameters>\n");
+      myWriter.write("  <cells>\n");
+      for (String s : cellRows) {
+        myWriter.write("    <cellRow>" + s + "</cellRow>\n");
+      }
+      myWriter.write("  </cells>\n");
+      myWriter.write("</root>");
+      myWriter.close();
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private List<String> createCellRows(Map<String, Integer> params, List<Integer> cells) {
+    List<String> returned = new ArrayList<>();
+    String temp = "";
+    int width = params.get("width");
+    int height = params.get("height");
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        temp = temp + cells.get(i * height + j);
+      }
+      returned.add(temp);
+      temp = "";
+    }
+    return returned;
   }
 }
