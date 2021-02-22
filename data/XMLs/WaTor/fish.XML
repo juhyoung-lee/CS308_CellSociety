@@ -1,7 +1,7 @@
 <root>
   <information>
     <type>WaTor</type>
-    <title>random</title>
+    <title>Fish</title>
     <author>Kenny</author>
     <description>mashing buttons</description>
   </information>
@@ -12,6 +12,7 @@
     <energyLoss>1</energyLoss>
     <width>10</width>
     <height>10</height>
+    <neighborhoodSize>4</neighborhoodSize>
   </parameters>
   <cells>
     <cellRow>1111111111</cellRow>

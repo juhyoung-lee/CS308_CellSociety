@@ -12,6 +12,7 @@
         <energyLoss>1</energyLoss>
         <width>100</width>
         <height>100</height>
+        <neighborhoodSize>4</neighborhoodSize>
     </parameters>
     <cells>
         <cellRow>0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</cellRow>
