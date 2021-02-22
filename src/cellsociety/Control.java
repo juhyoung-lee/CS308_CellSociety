@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.configuration.Simulation;
+import cellsociety.configuration.XMLException;
 import cellsociety.model.Grid;
 import cellsociety.model.bylsloop.BylsLoopGrid;
 import cellsociety.model.fire.FireGrid;
@@ -73,7 +74,7 @@ public class Control {
    */
   public void uploadFile() {
     FileChooser fileChooser = new FileChooser();
-    File selectedFile = fileChooser.showOpenDialog(myStage);
+    File selectedFile =fileChooser.showOpenDialog(myStage);
     myDataFile = selectedFile.getPath();
     try {
       createStageFromData(myDataFile);
@@ -95,7 +96,7 @@ public class Control {
     Map<String, Integer> params = simulation.getParameters();
 
     // TODO: refactor into XML reader
-    String shape = "square";
+    String shape = "square";//simulation.getShape();
     int nSize = switch (type) {
       case "Game of Life" -> 8;
       case "Percolation" -> 4;
@@ -121,6 +122,10 @@ public class Control {
       case "SugarScape" -> new SugarScapeGrid(cells, shape, params);
       default -> null;
     };
+    if (myGrid == null) {
+      throw new XMLException("BadType");
+    }
+
 
     mySC.createGrid(title, type, simulation.getHeight(), simulation.getWidth(), myGrid.viewGrid(), shape);
 

@@ -17,14 +17,12 @@ import org.xml.sax.SAXException;
 
 public class Simulation {
 
-  public static final List<String> INFORMATION_FIELDS = List.of(
+  public static final List<String> REQUIRED_INFORMATION = List.of(
       "type", "title", "author", "description");
+  public static final List<String> PARAMETER_INFORMATION = List.of("shape", "gridType");
   private final DocumentBuilder DOCUMENT_BUILDER;
 
-  private String myType;
-  private String myTitle;
-  private String myAuthor;
-  private String myDescription;
+  private Map<String, String> myInformation;
   private Map<String, Integer> myParameters;
   private List<String> myCellRows;
 
@@ -33,40 +31,46 @@ public class Simulation {
 
     DOCUMENT_BUILDER = getDocumentBuilder();
     Element root = getRootElement(dataFile);
-
     myParameters = makeParameterMap(dataFile);
     myCellRows = makeCellRowList(root);
-    List<String> infoValues = makeInfoList(root);
-    myType = infoValues.get(0);
-    myTitle = infoValues.get(1);
-    myAuthor = infoValues.get(2);
-    myDescription = infoValues.get(3);
+    myInformation = makeInfoMap(dataFile);
 
-    checkCellWidth();
-    checkCellHeight();
+    checkInformation();
+    checkCellDimensions();
   }
 
-  private void checkCellHeight() throws XMLException {
+  private void checkInformation() throws XMLException {
+    for (String s : REQUIRED_INFORMATION) {
+      if (myInformation.get(s) == null) {
+        throw new XMLException("Missing" + s);
+      }
+    }
+    myInformation.putIfAbsent("shape", "square");
+    myInformation.putIfAbsent("gridType", "bounded");
+  }
+
+  //TODO: constructor to make XML file?
+//  public Simulation() throws XMLException{
+//
+//  }
+
+  private void checkCellDimensions() throws XMLException {
     if (myParameters.get("height") == null) {
       throw new XMLException("MissingHeight");//turn into resource field
     }
     if (myCellRows.size() != getHeight()) {
       throw new XMLException("InvalidHeight");//turn into resource file
     }
-  }
-
-  private void checkCellWidth() throws XMLException {
     if (myParameters.get("width") == null) {
       throw new XMLException("MissingWidth");//turn into resource file
     }
-    int count = 0;
     for (String cellRow : myCellRows) {
-      count++;
       if (cellRow.length() != getWidth()) {
         throw new XMLException("InvalidWidth");
       }
     }
   }
+
 
   private Map<String, Integer> makeParameterMap(File dataFile) throws XMLException {
     try {
@@ -82,18 +86,16 @@ public class Simulation {
       }
       return returned;
     } catch (Exception e) {
-      throw new XMLException(null, null);
-      //TODO work on exception
-      //parse datafile exception
+      throw new XMLException("BadParameters");
     }
   }
 
 
-  private List<String> makeCellRowList(Element root) throws XMLException{
+  private List<String> makeCellRowList(Element root) throws XMLException {
     List<String> returned = new ArrayList<>();
     NodeList cellRows = root.getElementsByTagName("cellRow");
     int length = cellRows.getLength();
-    if (length==0) {
+    if (length == 0) {
       throw new XMLException("MissingCellRows");
     } else {
       for (int i = 0; i < length; i++) {
@@ -104,18 +106,23 @@ public class Simulation {
     return returned;
   }
 
-  private List<String> makeInfoList(Element root) throws XMLException{
-    List<String> returned = new ArrayList<>();
-    String temp;
-    for (String field : Simulation.INFORMATION_FIELDS) {
-      temp = getTextValue(root, field);
-      if(temp == null) {
-        throw new XMLException("Missing"+field);
-      } else {
-        returned.add(temp);
+  private Map<String, String> makeInfoMap(File dataFile) throws XMLException {
+
+    try {
+      Map<String, String> returned = new HashMap<>();
+      NodeList nList = DOCUMENT_BUILDER.parse(dataFile).getElementsByTagName("information");
+      Node node = nList.item(0);
+      NodeList list = node.getChildNodes();
+      for (int i = 0; i < list.getLength(); i++) {
+        Node n = list.item(i);
+        if (n.getNodeType() == Node.ELEMENT_NODE) {
+          returned.put(n.getNodeName(), n.getTextContent());
+        }
       }
+      return returned;
+    } catch (Exception e) {
+      throw new XMLException("BadInformation");
     }
-    return returned;
   }
 
   private String getTextValue(Element e, String tagName) {
@@ -130,10 +137,10 @@ public class Simulation {
   private DocumentBuilder getDocumentBuilder() throws XMLException {
     try {
       return DocumentBuilderFactory.newInstance().newDocumentBuilder();
-    } catch (ParserConfigurationException e) {
+    } catch (Exception e) {
       //TODO: fix exceptions
-      //Document builder exception 1
-      throw new XMLException(e);
+      //not sure what this one does
+      throw new XMLException("DocumentBuilderException");
     }
   }
 
@@ -142,13 +149,12 @@ public class Simulation {
       DOCUMENT_BUILDER.reset();
       Document xmlDocument = DOCUMENT_BUILDER.parse(xmlFile);
       return xmlDocument.getDocumentElement();
-    } catch (SAXException | IOException e) {
+    } catch (Exception e) {
       //TODO: fix exceptions
-      //Document Exception 2
-      throw new XMLException(e);
+      throw new XMLException("BadXML");
     }
   }
-  
+
   public List<String> getCellRows() {
     List<String> returned = new ArrayList();
     returned.addAll(myCellRows);
@@ -161,6 +167,14 @@ public class Simulation {
     return returned;
   }
 
+  public String getShape() {
+    String shape = myInformation.get("shape");
+    if (shape == null) {
+      shape = "square";
+    }
+    return shape;
+  }
+
   public int getWidth() {
     return myParameters.get("width");
   }
@@ -170,17 +184,17 @@ public class Simulation {
   }
 
   public String getTitle() {
-    return myTitle;
+    return myInformation.get("title");
   }
 
   public String getType() {
-    return myType;
+    return myInformation.get("type");
   }
 
-  public String toString() {
-    return "Type: " + myType + ", Title: " + myTitle + ", Author: " + myAuthor + ", Descr: "
-        + myDescription + "\n" +
-        "Parameters: " + myParameters + "\n" +
-        "Cell Rows: " + myCellRows;
-  }
+//  public String toString() {
+//    return "Type: " + myType + ", Title: " + myTitle + ", Author: " + myAuthor + ", Descr: "
+//        + myDescription + "\n" +
+//        "Parameters: " + myParameters + "\n" +
+//        "Cell Rows: " + myCellRows;
+//  }
 }
