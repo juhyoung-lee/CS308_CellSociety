@@ -1,9 +1,9 @@
 <root>
   <information>
     <type>SugarScape</type>
-    <title>first try</title>
-    <author>Juhyoung</author>
-    <description>lets see if this works?</description>
+    <title>Basic</title>
+    <author>Jessica</author>
+    <description>Basic configuration file for SugarScape.</description>
   </information>
   <parameters>
     <width>30</width>
