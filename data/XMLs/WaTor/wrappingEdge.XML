@@ -1,9 +1,10 @@
 <root>
   <information>
     <type>WaTor</type>
-    <title>First Attempt</title>
-    <author>Kenny</author>
-    <description>lets see if this works?</description>
+    <title>Wrapping Edge</title>
+    <author>Jessica</author>
+    <description>Wrapping Edge</description>
+    <gridType>wrapping</gridType>
   </information>
   <parameters>
     <fishBreedThreshold>3</fishBreedThreshold>
