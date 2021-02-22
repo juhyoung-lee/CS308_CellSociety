@@ -61,7 +61,7 @@ public class ForagingAntsGrid extends Grid {
   protected List<Integer> findPotentialMoves(int index) {
     Cell center = getGrid().get(index);
     int[] neighbors = getNeighbors(center);
-    boolean hasFood = getIssues(index).get("hasFood") == 1;
+    boolean hasFood = getIssues(index).get(ForagingAntsCell.HAS_FOOD) == 1;
     int[][] sortedNeighbors = sortNeighborsByPheromone(hasFood, neighbors);
 
     if (sortedNeighbors[0][1] == 0) {
