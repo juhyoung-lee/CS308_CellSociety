@@ -1,5 +1,6 @@
 # Cell Society Design Final
 ### Names
+other shaped tesselations, initial configuration based on random allotment and/or probability distribution, option to outline the grid, style shape within grid shape, style setting independent of xml, change parameters for w/o restarting within the gui, change a state at any grid location
 
 ## Team Roles and Responsibilities
 

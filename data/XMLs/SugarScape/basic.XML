@@ -8,6 +8,7 @@
   <parameters>
     <width>30</width>
     <height>30</height>
+    <neighborhoodSize>4</neighborhoodSize>
     <neighborNumMax>8</neighborNumMax>
     <agentVisionMax>4</agentVisionMax>
     <agentSugarMetabolismMax>2</agentSugarMetabolismMax>
