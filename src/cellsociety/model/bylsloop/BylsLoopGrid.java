@@ -50,7 +50,7 @@ public class BylsLoopGrid extends Grid {
   }
 
   private int[] square() {
-    int width = getInitialDimensions()[0];
+    int width = getDimensions()[0];
     if (getNeighborhoodSize() == 4) {
       // return new int[]{-1, -1 * width, 1, width}; //clockwise
       return new int[]{-1, width, 1, -1 * width};
@@ -59,7 +59,7 @@ public class BylsLoopGrid extends Grid {
   }
 
   private int[] triangle(int index) {
-    int w = getInitialDimensions()[0];
+    int w = getDimensions()[0];
     boolean trianglePointy = isTriangleTopPointy(index);
 
     if (trianglePointy && getNeighborhoodSize() == 3) {
@@ -77,7 +77,7 @@ public class BylsLoopGrid extends Grid {
     if (getNeighborhoodSize() != 6) {
       return new int[]{};
     }
-    int w = getInitialDimensions()[0];
+    int w = getDimensions()[0];
     boolean evenRow = (index / w) % 2 == 0;
     if (evenRow) {
       // return new int[]{-1, -1 - w, -1 * w, 1, w, -1 + w}; //clockwise

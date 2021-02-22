@@ -8,10 +8,10 @@ import java.util.Map;
 
 public abstract class GridHelper {
 
-  private Map<Cell, int[]> initialNeighbors;
-  private List<Cell> initialGrid;
-  private final int initialHeight;
-  private final int initialWidth;
+  private Map<Cell, int[]> neighbors;
+  private List<Cell> grid;
+  private int height;
+  private int width;
   private final String shape;
   private final String gridType;
   private final int neighborhoodSize;
@@ -29,8 +29,8 @@ public abstract class GridHelper {
       throws Exception {
     this.shape = params[0];
     this.gridType = params[1];
-    this.initialHeight = parameters.get("height");
-    this.initialWidth = parameters.get("width");
+    this.height = parameters.get("height");
+    this.width = parameters.get("width");
     this.neighborhoodSize = parameters.get("neighborhoodSize");
     setupGrid(cellArrangement, parameters);
     setupNeighbors();
@@ -41,8 +41,8 @@ public abstract class GridHelper {
    *
    * @return [width, height]
    */
-  protected int[] getInitialDimensions() {
-    return new int[]{this.initialWidth, this.initialHeight};
+  public int[] getDimensions() {
+    return new int[]{this.width, this.height};
   }
 
   /**
@@ -50,17 +50,20 @@ public abstract class GridHelper {
    *
    * @return map with cell and neighbors
    */
-  protected Map<Cell, int[]> getInitialNeighbors() {
-    return this.initialNeighbors;
+  protected int[] getNeighbors(Cell cell) {
+    return this.neighbors.get(cell);
   }
 
+  protected Map<Cell, int[]> getAllNeighbors() {
+    return this.neighbors;
+  }
   /**
    * Returns an immutable version of grid.
    *
    * @return grid
    */
-  protected List<Cell> getInitialGrid() {
-    return Collections.unmodifiableList(this.initialGrid);
+  protected List<Cell> getGrid() {
+    return Collections.unmodifiableList(this.grid);
   }
 
   /**
@@ -87,6 +90,12 @@ public abstract class GridHelper {
     return this.gridType;
   }
 
+  protected void expand(int width, int height, List<Cell> grid) {
+    this.width = width;
+    this.height = height;
+    this.grid = grid;
+  }
+
   /**
    * Used by constructor. Creates cell objects and populates grid field.
    * Assumptions: cellArrangement forms a square tesselation grid. Strings contain only integer
@@ -98,14 +107,14 @@ public abstract class GridHelper {
    */
   private void setupGrid(List<String> cellArrangement, Map<String, Integer> parameters)
       throws Exception {
-    this.initialGrid = new ArrayList<>();
+    this.grid = new ArrayList<>();
     for (String s : cellArrangement) {
       String[] row = s.split("");
       for (String state : row) {
         parameters.put("state", Integer.parseInt(state));
         Cell cell = chooseCell(parameters);
         if (cell.isValidState()) {
-          this.initialGrid.add(cell);
+          this.grid.add(cell);
         } else {
           throw new Exception("Invalid Cell State");
         }
@@ -129,9 +138,9 @@ public abstract class GridHelper {
    * @throws Exception invalid shape or inconsistent neighborhood size
    */
   private void setupNeighbors() throws Exception {
-    this.initialNeighbors = new HashMap<>();
-    for (int i = 0; i < initialGrid.size(); i++) {
-      this.initialNeighbors.put(this.initialGrid.get(i), pullNeighborIndexes(i));
+    this.neighbors = new HashMap<>();
+    for (int i = 0; i < grid.size(); i++) {
+      this.neighbors.put(this.grid.get(i), pullNeighborIndexes(i));
     }
     if (gridType.equals("wrapping")) {
       wrapNeighbors();
@@ -139,34 +148,34 @@ public abstract class GridHelper {
   }
 
   private void wrapNeighbors() {
-    for (int i = 0; i < this.initialGrid.size(); i++) {
-      Cell cell = this.initialGrid.get(i);
-      int[] neighbors = this.initialNeighbors.get(cell);
+    for (int i = 0; i < this.grid.size(); i++) {
+      Cell cell = this.grid.get(i);
+      int[] neighbors = this.neighbors.get(cell);
       List<Integer> wrappedNeighbors = edgeCellNeighbors(i);
       for (int j : neighbors) {
         wrappedNeighbors.add(j);
       }
-      this.initialNeighbors.put(cell, convertListToIntArray(wrappedNeighbors));
+      this.neighbors.put(cell, convertListToIntArray(wrappedNeighbors));
     }
   }
 
   private List<Integer> edgeCellNeighbors(int index) {
     List<Integer> wrappedNeighbors = new ArrayList<>();
-    boolean top = index < this.initialWidth;
-    boolean bottom = index / this.initialWidth == this.initialHeight - 1;
-    boolean left = (index - 1) / this.initialWidth != index / this.initialWidth;
-    boolean right = (index + 1) / this.initialWidth != index / this.initialWidth;
+    boolean top = index < this.width;
+    boolean bottom = index / this.width == this.height - 1;
+    boolean left = (index - 1) / this.width != index / this.width;
+    boolean right = (index + 1) / this.width != index / this.width;
     if (top) {
-      wrappedNeighbors.add(this.initialWidth * this.initialHeight - this.initialWidth + index);
+      wrappedNeighbors.add(this.width * this.height - this.width + index);
     }
     if (bottom) {
-      wrappedNeighbors.add(index % this.initialWidth);
+      wrappedNeighbors.add(index % this.width);
     }
     if (left) {
-      wrappedNeighbors.add(index + this.initialWidth - 1);
+      wrappedNeighbors.add(index + this.width - 1);
     }
     if (right) {
-      wrappedNeighbors.add(index - this.initialWidth + 1);
+      wrappedNeighbors.add(index - this.width + 1);
     }
     return wrappedNeighbors;
   }
@@ -240,7 +249,7 @@ public abstract class GridHelper {
    * @return int[] of calculations to get neighboring indexes
    */
   private int[] square() {
-    int w = this.initialWidth;
+    int w = this.width;
     return switch (this.neighborhoodSize) {
       case 4 -> new int[]{-1 * w, -1, 1, w};
       case 8 -> new int[]{-1 - w, -1 * w, 1 - w, -1, 1, -1 + w, w, 1 + w};
@@ -258,7 +267,7 @@ public abstract class GridHelper {
     if (this.neighborhoodSize != 4) {
       return new int[]{};
     }
-    int w = this.initialWidth;
+    int w = this.width;
     return new int[]{-1 * w, -1, 1, w};
   }
 
@@ -273,7 +282,7 @@ public abstract class GridHelper {
    * @return int[] of calculations to get neighboring indexes
    */
   private int[] triangle(int index) {
-    int w = this.initialWidth;
+    int w = this.width;
     if (isTriangleTopPointy(index)) {
       return switch (this.neighborhoodSize) {
         case 3 -> new int[]{-1, 1, w};
@@ -296,7 +305,7 @@ public abstract class GridHelper {
    * @return int[] of calculations to get neighboring indexes
    */
   private int[] triangleSmall(int index) {
-    int w = this.initialWidth;
+    int w = this.width;
     boolean trianglePointy = isTriangleTopPointy(index);
 
     if (trianglePointy && neighborhoodSize == 3) {
@@ -319,8 +328,8 @@ public abstract class GridHelper {
    * @return if a triangle is pointy side up
    */
   protected boolean isTriangleTopPointy(int index) {
-    int rowNumber = index / this.initialWidth;
-    int indexInRow = index % this.initialWidth;
+    int rowNumber = index / this.width;
+    int indexInRow = index % this.width;
     return (rowNumber + indexInRow) % 2 == 0;
   }
 
@@ -340,8 +349,8 @@ public abstract class GridHelper {
     if (this.neighborhoodSize != 6) {
       return new int[]{};
     }
-    int w = this.initialWidth;
-    boolean evenRow = (index / this.initialWidth) % 2 == 0;
+    int w = this.width;
+    boolean evenRow = (index / this.width) % 2 == 0;
     if (evenRow) {
       return new int[]{-1 - w, -1 * w, -1, 1, -1 + w, w};
     } else {
@@ -378,11 +387,11 @@ public abstract class GridHelper {
       List<Integer> possibleIndexes) {
     List<Integer> validIndexes = new ArrayList<>(possibleIndexes);
     for (int i : possibleIndexes) {
-      if (i < 0 || i >= this.initialWidth * this.initialHeight) {
+      if (i < 0 || i >= this.width * this.height) {
         validIndexes.remove((Integer) i);
       }
       if (i + 1 == centerIndex || i - 1 == centerIndex) {
-        if (i / this.initialWidth != centerIndex / this.initialWidth) {
+        if (i / this.width != centerIndex / this.width) {
           validIndexes.remove((Integer) i);
         }
       }

@@ -13,22 +13,14 @@ import java.util.Map;
 public abstract class Grid extends GridHelper {
 
   private Map<String, Integer>[] issues;
-  private List<Cell> grid;
-  private int width;
-  private int height;
   private Map<String, Integer> cellParameter;
-  private Map<Cell, int[]> neighbors;
 
   public Grid(List<String> cellArrangement, String[] gridParameters,
       Map<String, Integer> cellParameters)
       throws Exception {
     super(cellArrangement, gridParameters, cellParameters);
-    this.grid = getInitialGrid();
-    this.issues = new HashMap[this.grid.size()];
-    this.width = getInitialDimensions()[0];
-    this.height = getInitialDimensions()[1];
+    this.issues = new HashMap[getGrid().size()];
     this.cellParameter = cellParameters;
-    this.neighbors = getInitialNeighbors();
   }
 
   /**
@@ -38,14 +30,10 @@ public abstract class Grid extends GridHelper {
    */
   public List<Integer> viewGrid() {
     List<Integer> cellStates = new ArrayList<>();
-    for (Cell cell : this.grid) {
+    for (Cell cell : getGrid()) {
       cellStates.add(cell.getState());
     }
     return cellStates;
-  }
-
-  public int[] getDimensions() {
-    return new int[]{this.width, this.height};
   }
 
   /**
@@ -67,12 +55,12 @@ public abstract class Grid extends GridHelper {
   // assumes grid is not wrapping
   // assumes 0 is default, inactive state
   private void checkGridExpansion() {
-    int baseState = this.grid.get(0).getBaseState();
+    int baseState = getGrid().get(0).getBaseState();
     for (int i : edgeIndexes()) {
 //      if (i < 0 || i > this.width * this.height - 1) {
 //        continue;
 //      }
-      if (this.grid.get(i).getState() != baseState) {
+      if (getGrid().get(i).getState() != baseState) {
         expandGrid();
         break;
       }
@@ -81,62 +69,55 @@ public abstract class Grid extends GridHelper {
 
   // breaks when grid is too small??
   private List<Integer> edgeIndexes() {
+    int width = getDimensions()[0];
+    int height = getDimensions()[1];
     List<Integer> edgeIndexes = new ArrayList<>();
-    for (int i = 0; i < this.width; i++) {
+    for (int i = 0; i < width; i++) {
       edgeIndexes.add(i);
-      edgeIndexes.add(i + this.width);
-      edgeIndexes.add(this.width * this.height - this.width + i);
-      edgeIndexes.add(this.width * this.height - this.width + i - this.width);
+      edgeIndexes.add(i + width);
+      edgeIndexes.add(width * height - width + i);
+      edgeIndexes.add(width * height - width + i - width);
     }
-    for (int i = 2; i < this.height - 2; i++) {
-      edgeIndexes.add(i * this.width);
-      edgeIndexes.add(i * this.width + 1);
-      edgeIndexes.add((i + 1) * this.width - 1);
-      edgeIndexes.add((i + 1) * this.width - 2);
+    for (int i = 2; i < height - 2; i++) {
+      edgeIndexes.add(i * width);
+      edgeIndexes.add(i * width + 1);
+      edgeIndexes.add((i + 1) * width - 1);
+      edgeIndexes.add((i + 1) * width - 2);
     }
     return edgeIndexes;
   }
 
-  /**
-   * Returns a copy array of neighbor indexes.
-   *
-   * @param cell center cell
-   * @return int[] of neighbor indexes
-   */
-  protected int[] getNeighbors(Cell cell) {
-    return this.neighbors.get(cell).clone();
-  }
-
   private void expandGrid() {
     List<Cell> newGrid = new ArrayList<>();
+    int width = getDimensions()[0];
+    int height = getDimensions()[1];
 
     try {
-      for (int i = 0; i < this.width * 3 * this.height; i++) {
+      for (int i = 0; i < width * 3 * height; i++) {
         newGrid.add(baseCell());
       }
-      for (int i = 0; i < this.width * this.height; i ++) {
-        if (i % this.width == 0) {
-          for (int j = 0; j < this.width; j++) {
+      for (int i = 0; i < width * height; i ++) {
+        if (i % width == 0) {
+          for (int j = 0; j < width; j++) {
             newGrid.add(baseCell());
           }
         }
-        newGrid.add(this.grid.get(i));
-        if (i % this.width == this.width - 1) {
-          for (int j = 0; j < this.width; j++) {
+        newGrid.add(getGrid().get(i));
+        if (i % width == width - 1) {
+          for (int j = 0; j < width; j++) {
             newGrid.add(baseCell());
           }
         }
       }
-      for (int i = 0; i < this.width * 3 * this.height; i++) {
+      for (int i = 0; i < width * 3 * height; i++) {
         newGrid.add(baseCell());
       }
 
-      this.width *= 3;
-      this.height *= 3;
-      this.grid = newGrid;
-
-      for (int i = 0; i < this.grid.size(); i++) {
-        this.neighbors.put(this.grid.get(i), pullNeighborIndexes(i));
+      width *= 3;
+      height *= 3;
+      expand(width, height, newGrid);
+      for (int i = 0; i < getGrid().size(); i++) {
+        getAllNeighbors().put(getGrid().get(i), pullNeighborIndexes(i));
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -168,9 +149,9 @@ public abstract class Grid extends GridHelper {
    * Assumptions: Cells will return a HashMap with -1 for "state" if no movement occurs
    */
   private void prepareCellUpdates() {
-    for (int i = 0; i < this.grid.size(); i++) {
+    for (int i = 0; i < getGrid().size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
-      Map<String, Integer> movement = this.grid.get(i).prepareNextState(neighborStates);
+      Map<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
       if (movement.get("state") != -1) {
         issues[i] = movement;
       }
@@ -186,13 +167,13 @@ public abstract class Grid extends GridHelper {
    * @return states of neighboring cells
    */
   private int[] pullNeighborStates(int index) {
-    Cell currentCell = this.grid.get(index);
+    Cell currentCell = getGrid().get(index);
     Cell neighborCell;
     int[] neighborIndexes = getNeighbors(currentCell);
     int[] neighborStates = new int[neighborIndexes.length];
 
     for (int i = 0; i < neighborIndexes.length; i++) {
-      neighborCell = this.grid.get(neighborIndexes[i]);
+      neighborCell = getGrid().get(neighborIndexes[i]);
       neighborStates[i] = neighborCell.getState();
     }
     return neighborStates;
@@ -224,11 +205,11 @@ public abstract class Grid extends GridHelper {
     Collections.shuffle(places);
     Map<String, Integer> state = getIssues(index);
     for (Integer neighborIndex : places) {
-      if (this.grid.get(neighborIndex).receiveUpdate(state)) {
+      if (getGrid().get(neighborIndex).receiveUpdate(state)) {
         return;
       }
     }
-    this.grid.get(index).receiveUpdate(state);
+    getGrid().get(index).receiveUpdate(state);
   }
 
   /**
@@ -247,7 +228,7 @@ public abstract class Grid extends GridHelper {
    * Assumptions: Every cell has their proper preparedState and all issues have been handled.
    */
   private void pushCellUpdates() {
-    for (Cell cell : this.grid) {
+    for (Cell cell : getGrid()) {
       cell.updateState();
     }
   }
@@ -261,15 +242,4 @@ public abstract class Grid extends GridHelper {
   protected Map<String, Integer> getIssues(int index) {
     return this.issues[index];
   }
-
-
-  /**
-   * Returns an immutable version of grid.
-   *
-   * @return grid
-   */
-  protected List<Cell> getGrid() {
-    return Collections.unmodifiableList(this.grid);
-  }
-
 }
