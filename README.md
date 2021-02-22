@@ -85,8 +85,6 @@ Features implemented:
     - Change GUI appearance while the program is running between three different options
     - Change language used for the text displayed
     
-other shaped tesselations, initial configuration based on random allotment and/or probability distribution, option to outline the grid, style shape within grid shape, style setting independent of xml, change parameters for w/o restarting within the gui, change a state at any grid location
-
 ### Notes/Assumptions
 
 Assumptions or Simplifications:
@@ -95,6 +93,7 @@ Assumptions or Simplifications:
     - Byl's Loop will only work with a specific set of initial configurations, and with square tesselations with 4 neighbors
     - Implemented SugarScape models are presets 1 and 2
     - SugarScape cell colors don't change based on the patchSugar value
+    - SugarScape agent vision limited to max number of neighbors
 - View Assumptions/Notes
     - Grid would pass in an Integer List of cells to the ScreenControl class
     - The add simulation button would simply create a new Control() which would create a new screen
@@ -116,9 +115,10 @@ Known Bugs:
 - Graph only appears on next step of simulation (if simulation has started before clicking view graph, the graph will be displayed on the next step/update)
 - Foraging ant simulation: occasionally an ant escapes and does not make its way back home
 - When screen size expands, the title of the graph overlaps itself because it does not delete itself before redrawing
+- For foraging ants (hexagon grid), if the home starts in the corner, the ants will appear on both corners
+- If you do an infinite grid, you should close your window and then pull up the infinite file (doesn't run infinite grid properly if it is a later simulation)
 
 Extra credit: N/A
-
 
 ### Impressions
 - Interesting working in a group on a coding project. 

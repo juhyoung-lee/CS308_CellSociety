@@ -1,0 +1,26 @@
+<root>
+    <information>
+        <type>Foraging Ants</type>
+        <author>Kathleen</author>
+        <description>title error!</description>
+        <shape>triangle</shape>
+        <gridType>infinite</gridType>
+    </information>
+    <parameters>
+        <width>10</width>
+        <height>10</height>
+        <neighborhoodSize>3</neighborhoodSize>
+    </parameters>
+    <cells>
+        <cellRow>1000000000</cellRow>
+        <cellRow>0000000020</cellRow>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0000002000</cellRow>
+        <cellRow>0000020000</cellRow>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0002000000</cellRow>
+        <cellRow>0000000000</cellRow>
+        <cellRow>0200000000</cellRow>
+        <cellRow>0000000000</cellRow>
+    </cells>
+</root>

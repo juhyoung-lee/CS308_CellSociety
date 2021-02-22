@@ -4,11 +4,12 @@
     <title>first try</title>
     <author>Juhyoung</author>
     <description>lets see if this works?</description>
+    <shape>triangle</shape>
   </information>
   <parameters>
     <width>10</width>
     <height>10</height>
-    <neighborhoodSize>4</neighborhoodSize>
+    <neighborhoodSize>3</neighborhoodSize>
   </parameters>
   <cells>
     <cellRow>1000000000</cellRow>
