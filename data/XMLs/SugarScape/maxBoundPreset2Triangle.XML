@@ -1,14 +1,15 @@
 <root>
   <information>
     <type>SugarScape</type>
-    <title>Preset 2 (Max Bounds): Migration</title>
-    <author>Jessica</author>
+    <title>Preset 2 (Max Bounds): Migration with Infinite</title>
+    <author>Juhyoung</author>
     <description>Basic configuration file for SugarScape. Follows upper bounds of Preset 2.</description>
+    <shape>triangle</shape>
   </information>
   <parameters>
     <width>30</width>
     <height>30</height>
-    <neighborhoodSize>8</neighborhoodSize>
+    <neighborhoodSize>3</neighborhoodSize>
     <neighborNumMax>8</neighborNumMax>
     <agentVisionMax>5</agentVisionMax>
     <agentSugarMetabolismMax>1</agentSugarMetabolismMax>
