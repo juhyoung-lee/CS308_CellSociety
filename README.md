@@ -7,7 +7,7 @@ Names:
 - Kathleen Chen
 - Jessica Yang 
 - Juhyoung Lee
-- Kenneth Moore
+- Kenneth Moore III
 
 ### Timeline
 
@@ -37,6 +37,8 @@ Hours Spent: 160 hours (40hrs * 4)
 - https://stackoverflow.com/questions/1519736/random-shuffling-of-an-array  
 - Oracle Java documentation
 - Google Translate
+- https://www.w3schools.com/java/java_files_create.asp
+- https://www.tutorialspoint.com/java/lang/system_currenttimemillis.htm
 
 ### Running the Program
 
