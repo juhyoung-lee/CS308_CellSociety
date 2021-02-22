@@ -91,22 +91,23 @@ public class Control {
     try {
       acceptXMLData(myDataFile);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
-      uploadFile();
+      mySC.displayErrorMessage(e.getMessage());
       //display error message
       //e.getMessage convert it, display it
     }
+    mySC.clearError();
   }
 
   private void createStageExceptionHandler() {
     try {
       createStage();
     } catch (Exception e) {
-      System.out.println(e.getMessage());
-      uploadFile();
+      mySC.displayErrorMessage(e.getMessage());
+
       //display error message
       //e.getMessage convert it, display it
     }
+    mySC.clearError();
   }
 
 
