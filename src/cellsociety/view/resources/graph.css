@@ -9,11 +9,6 @@
     -fx-fill: #000000;
 }
 
-.chart-pie-label-line {
-    -fx-stroke: #8b4513;
-    -fx-fill: #8b4513;
-}
-
 .chart-legend {
     -fx-background-color: #d9d9d9;
     -fx-stroke: #daa520;

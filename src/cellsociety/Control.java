@@ -59,8 +59,8 @@ public class Control {
    * Purpose: Initialize the scene and animation timeline. Assumptions: TODO Dependencies: TODO
    * Example of use: TODO
    */
-  public void initialize(Stage stage) {
-    myStage = stage;
+  public Control() {
+    myStage = new Stage();
     myStage.setResizable(false);
 
     frameCount = 1;
@@ -72,9 +72,9 @@ public class Control {
 
     mySC = new ScreenControl(this);
     Scene scene = mySC.getScene();
-    stage.setScene(scene);
-    stage.setTitle(TITLE);
-    stage.show();
+    myStage.setScene(scene);
+    myStage.setTitle(TITLE);
+    myStage.show();
   }
 
   /**
@@ -161,7 +161,6 @@ public class Control {
   }
 
   private void acceptXMLData(String dataFile) throws Exception {
-    mySC.resetGameTitleText();
     mySC.clearGrid();
     simulation = new Simulation(dataFile);
 

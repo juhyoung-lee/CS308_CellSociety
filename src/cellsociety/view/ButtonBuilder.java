@@ -30,7 +30,7 @@ public class ButtonBuilder {
   private Button pauseButton;
   private Button stepButton;
   private Button uploadButton;
-  private Button compareButton;
+  private Button addButton;
   private Button graphButton;
   private Button editButton;
 
@@ -62,6 +62,8 @@ public class ButtonBuilder {
     graphButton.setOnAction(event -> mySC.makeNewGraphWindow());
     editButton = buttonCreation(myResources.getString("EditButton"));
     editButton.setOnAction(event -> mySC.makeNewEditWindow());
+    addButton = buttonCreation(myResources.getString("AddButton"));
+    addButton.setOnAction(event -> new Control());
   }
 
   private Button buttonCreation(String text) {

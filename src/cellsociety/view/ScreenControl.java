@@ -216,13 +216,12 @@ public class ScreenControl {
     textField.setLayoutX(x);
     textField.setLayoutY(y);
     pane.getChildren().add(textField);
-    //TODO: styleclass?
     return textField;
   }
 
 
-  public void resetGameTitleText() {
-    myRoot.getChildren().remove(titleText);
+  private void resetGameTitleText() {
+    myGridBox.getChildren().remove(titleText);
   }
 
   /**
@@ -302,6 +301,7 @@ public class ScreenControl {
     } else if (myHexGrid != null) {
       myHexGrid.clearGrid();
     }
+    resetGameTitleText();
   }
 
   /**
