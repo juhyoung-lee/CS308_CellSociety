@@ -41,7 +41,7 @@ public class RPSCell extends Cell {
       loseThreshold = config.get(loseThresholdKey);
       bufferBound = config.get(bufferBoundKey);
     } catch (Exception e) {
-      throw new Exception("Cell parameter invalid.");
+      throw new Exception(PARAMETER_EXCEPTION_MESSAGE);
     }
   }
 
