@@ -1,5 +1,6 @@
 package cellsociety.model;
 
+import cellsociety.configuration.Simulation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,11 +14,27 @@ import java.util.Map;
 public abstract class Grid extends GridHelper {
 
   private Map<String, Integer>[] issues;
+  private Map<String, Integer> cellParameter;
 
-  public Grid(List<String> cellArrangement, String[] gridParameters, Map<String, Integer> cellParameters)
+  public Grid(List<String> cellArrangement, String[] gridParameters,
+      Map<String, Integer> cellParameters)
       throws Exception {
     super(cellArrangement, gridParameters, cellParameters);
-    issues = new HashMap[getGrid().size()];
+    this.issues = new HashMap[getGrid().size()];
+    this.cellParameter = cellParameters;
+  }
+
+  /**
+   * Returns geometric representation of cells and their states for printing/viewing.
+   *
+   * @return integer array list of cell states
+   */
+  public List<Integer> viewGrid() {
+    List<Integer> cellStates = new ArrayList<>();
+    for (Cell cell : getGrid()) {
+      cellStates.add(cell.getState());
+    }
+    return cellStates;
   }
 
   /**
@@ -26,12 +43,95 @@ public abstract class Grid extends GridHelper {
    * properly "move" or pass information to another cell, moveCell() will need to be overwritten.
    * Assumptions: No movement of cells.
    */
-  public void updateCells() { //TODO: RIGHT HERE
-//    checkGridExpansion(); // grid will have to be updated and kept here
+  public void updateCells() {
+    if (getGridType().equals(Simulation.GRID_OPTIONS.get(1))) {
+      checkGridExpansion();
+    }
     clearIssues();
     prepareCellUpdates();
     handleIssues();
     pushCellUpdates();
+  }
+
+  // assumes grid is not wrapping
+  // assumes 0 is default, inactive state
+  private void checkGridExpansion() {
+    int baseState = getGrid().get(0).getBaseState();
+    for (int i : edgeIndexes()) {
+      if (getGrid().get(i).getState() != baseState) {
+        expandGrid();
+        break;
+      }
+    }
+  }
+
+  // breaks when grid is too small??
+  private List<Integer> edgeIndexes() {
+    int width = getDimensions()[0];
+    int height = getDimensions()[1];
+    List<Integer> edgeIndexes = new ArrayList<>();
+    for (int i = 0; i < width; i++) {
+      edgeIndexes.add(i);
+      edgeIndexes.add(i + width);
+      edgeIndexes.add(width * height - width + i);
+      edgeIndexes.add(width * height - width + i - width);
+    }
+    for (int i = 2; i < height - 2; i++) {
+      edgeIndexes.add(i * width);
+      edgeIndexes.add(i * width + 1);
+      edgeIndexes.add((i + 1) * width - 1);
+      edgeIndexes.add((i + 1) * width - 2);
+    }
+    return edgeIndexes;
+  }
+
+  private void expandGrid() {
+    List<Cell> newGrid = new ArrayList<>();
+    int width = getDimensions()[0];
+    int height = getDimensions()[1];
+
+    try {
+      for (int i = 0; i < width * 3 * height; i++) {
+        newGrid.add(baseCell());
+      }
+      for (int i = 0; i < width * height; i++) {
+        if (i % width == 0) {
+          for (int j = 0; j < width; j++) {
+            newGrid.add(baseCell());
+          }
+        }
+        newGrid.add(getGrid().get(i));
+        if (i % width == width - 1) {
+          for (int j = 0; j < width; j++) {
+            newGrid.add(baseCell());
+          }
+        }
+      }
+      for (int i = 0; i < width * 3 * height; i++) {
+        newGrid.add(baseCell());
+      }
+
+      width *= 3;
+      height *= 3;
+      expand(width, height, newGrid);
+      for (int i = 0; i < getGrid().size(); i++) {
+        getAllNeighbors().put(getGrid().get(i), pullNeighborIndexes(i));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private Cell baseCell() throws Exception {
+    cellParameter.put(Cell.STATE_KEY, 0);
+    Cell cell = chooseCell(cellParameter);
+    int baseState = cell.getBaseState();
+    if (baseState == 0) {
+      return cell;
+    } else {
+      cellParameter.put(Cell.STATE_KEY, baseState);
+      return chooseCell(cellParameter);
+    }
   }
 
   /**
@@ -50,11 +150,12 @@ public abstract class Grid extends GridHelper {
     for (int i = 0; i < getGrid().size(); i++) {
       int[] neighborStates = pullNeighborStates(i);
       Map<String, Integer> movement = getGrid().get(i).prepareNextState(neighborStates);
-      if (movement.get("state") != -1) {
+      if (movement.get(Cell.STATE_KEY) != Cell.NO_MOVEMENT) {
         issues[i] = movement;
       }
     }
   }
+
   /**
    * Used by prepareCellUpdates(). Compiles neighboring cell states. Necessary as neighbors field
    * variable only stores cell indexes.
@@ -89,16 +190,6 @@ public abstract class Grid extends GridHelper {
   }
 
   /**
-   * Runs updateState() on all cells and finalizes the cycle.
-   * Assumptions: Every cell has their proper preparedState and all issues have been handled.
-   */
-  private void pushCellUpdates() {
-    for (Cell cell : getGrid()) {
-      cell.updateState();
-    }
-  }
-
-  /**
    * Handles cell movement or information passing by calling receiveUpdate() on whichever
    * neighboring cell will be passed the information. If no cell can receive an update, the cell
    * will not move. Requires overriding of findPotentialMoves() to properly function.
@@ -120,14 +211,24 @@ public abstract class Grid extends GridHelper {
   }
 
   /**
-   * Must be overwritten to function. Returns array list of indexes that should be checked to
-   * receive a moving cell.
+   * Used by moveCell(). Must be overwritten to function. Returns array list of indexes that should
+   * be checked to receive a moving cell.
    *
    * @param index of cell trying to move
    * @return indexes to be checked for receiving update
    */
   protected List<Integer> findPotentialMoves(int index) {
     return new ArrayList<>();
+  }
+
+  /**
+   * Runs updateState() on all cells and finalizes the cycle.
+   * Assumptions: Every cell has their proper preparedState and all issues have been handled.
+   */
+  private void pushCellUpdates() {
+    for (Cell cell : getGrid()) {
+      cell.updateState();
+    }
   }
 
   /**
@@ -139,5 +240,4 @@ public abstract class Grid extends GridHelper {
   protected Map<String, Integer> getIssues(int index) {
     return this.issues[index];
   }
-
 }
