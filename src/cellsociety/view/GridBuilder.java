@@ -89,4 +89,8 @@ public abstract class GridBuilder {
     }
     myCells.removeAll(myCells);
   }
+
+  public int getSize() {
+    return myCells.size();
+  }
 }
