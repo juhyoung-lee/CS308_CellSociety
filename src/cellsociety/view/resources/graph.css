@@ -1,30 +1,15 @@
 .root {
     -fx-font-size: 10pt;
     -fx-font-family: "Futura";
-    -fx-base: #a6a6a6;
-    -fx-background: #0086b3;
+    -fx-base: #ffffff;
+    -fx-background: #d9d9d9;
 }
 
 .title {
     -fx-fill: #000000;
 }
 
-.default-color0.chart-pie { -fx-pie-color: #ffd700; }
-.default-color1.chart-pie { -fx-pie-color: #ffa500; }
-.default-color2.chart-pie { -fx-pie-color: #860061; }
-.default-color3.chart-pie { -fx-pie-color: #adff2f; }
-.default-color4.chart-pie { -fx-pie-color: #ff5700; }
-
-.chart-pie-label-line {
-    -fx-stroke: #8b4513;
-    -fx-fill: #8b4513;
-}
-
-.chart-pie-label {
-    -fx-fill: #8b4513;
-    -fx-font-size: 1em;
-}
 .chart-legend {
-    -fx-background-color:  black;
+    -fx-background-color: #d9d9d9;
     -fx-stroke: #daa520;
 }

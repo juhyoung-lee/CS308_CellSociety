@@ -73,13 +73,24 @@ public abstract class Cell {
   /**
    * Purpose: Accepts HashMap information with new state information. Will default to return false.
    * Assumptions: Grid should call this method only on Cells with movement simulations.
-   * Parameters:
-   * HashMap object.
+   * Parameters: HashMap object.
    * Exceptions: TODO
    * Returns: boolean type.
    */
   public boolean receiveUpdate(Map<String, Integer> newInfo) {
     return false;
+  }
+
+  /**
+   * Purpose: Returns default state for Cell upon grid size expansion.
+   * Assumptions: None.
+   * Parameters: None.
+   * HashMap object.
+   * Exceptions: TODO
+   * Returns: int type.
+   */
+  public int getBaseState() {
+    return 0;
   }
 
   /**
