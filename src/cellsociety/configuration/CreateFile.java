@@ -21,14 +21,14 @@ public class CreateFile {
       for (String s :info.keySet()){
         myWriter.write("    <"+s+">");
         myWriter.write(info.get(s));
-        myWriter.write("  </"+s+">\n");
+        myWriter.write("</"+s+">\n");
       }
       myWriter.write("  </information>\n");
       myWriter.write("  <parameters>\n");
       for (String s :params.keySet()){
         myWriter.write("    <"+s+">");
-        myWriter.write(params.get(s));
-        myWriter.write("  </"+s+">\n");
+        myWriter.write(params.get(s).toString());
+        myWriter.write("</"+s+">\n");
       }
       myWriter.write("  </parameters>\n");
       myWriter.write("  <cells>\n");
@@ -51,7 +51,7 @@ public class CreateFile {
     int height= params.get("height");
     for(int i = 0; i<height;i++){
       for (int j = 0; j < width; j++) {
-        temp = temp+ cells.get(i*height+width);
+        temp = temp+ cells.get(i*height+j);
       }
       returned.add(temp);
       temp="";

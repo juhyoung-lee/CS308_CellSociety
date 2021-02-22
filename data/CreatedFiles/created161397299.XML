@@ -1,0 +1,14 @@
+<root>
+  <information>
+    <author>Kenny  </author>
+    <type>Game of Life  </type>
+  </information>
+  <parameters>
+    <width>  </width>
+    <height>  </height>
+  </parameters>
+  <cells>
+    <cellRow>01</cellRow>
+    <cellRow>10</cellRow>
+  </cells>
+</root>
