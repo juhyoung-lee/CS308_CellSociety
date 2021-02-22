@@ -41,8 +41,6 @@ public class Simulation {
     checkCellDimensions();
     myInformation = makeInfoMap(dataFile);
     checkInformation();
-
-
   }
 
   private void makeCellsFromParameterMap() {

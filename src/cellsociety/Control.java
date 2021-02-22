@@ -261,36 +261,48 @@ public class Control {
       Map<String, String> info, Map<String, Integer> params, List<Integer> cells) {
 
     List<String> cellRows = createCellRows(params, cells);
-
     try {
-      FileWriter myWriter = new FileWriter("data/CreatedFiles/created" +
-              (System.currentTimeMillis() / 10000%100000) + ".XML");
+      FileWriter myWriter = new FileWriter("data/CreatedFiles/created"
+          + (System.currentTimeMillis() / 10000%100000) + ".XML");
       myWriter.write("<root>\n");
-      myWriter.write("  <information>\n");
-      for (String s : info.keySet()) {
-        myWriter.write("    <" + s + ">");
-        myWriter.write(info.get(s));
-        myWriter.write("</" + s + ">\n");
-      }
-      myWriter.write("  </information>\n");
-      myWriter.write("  <parameters>\n");
-      for (String s : params.keySet()) {
-        myWriter.write("    <" + s + ">");
-        myWriter.write(params.get(s).toString());
-        myWriter.write("</" + s + ">\n");
-      }
-      myWriter.write("  </parameters>\n");
-      myWriter.write("  <cells>\n");
-      for (String s : cellRows) {
-        myWriter.write("    <cellRow>" + s + "</cellRow>\n");
-      }
-      myWriter.write("  </cells>\n");
+      makeInformationSection(info, myWriter);
+      makeParameterSection(params, myWriter);
+      makeCellSection(cellRows, myWriter);
       myWriter.write("</root>");
       myWriter.close();
-
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private void makeCellSection(List<String> cellRows, FileWriter myWriter) throws IOException {
+    myWriter.write("  <cells>\n");
+    for (String s : cellRows) {
+      myWriter.write("    <cellRow>" + s + "</cellRow>\n");
+    }
+    myWriter.write("  </cells>\n");
+  }
+
+  private void makeParameterSection(Map<String, Integer> params, FileWriter myWriter)
+      throws IOException {
+    myWriter.write("  <parameters>\n");
+    for (String s : params.keySet()) {
+      myWriter.write("    <" + s + ">");
+      myWriter.write(params.get(s).toString());
+      myWriter.write("</" + s + ">\n");
+    }
+    myWriter.write("  </parameters>\n");
+  }
+
+  private void makeInformationSection(Map<String, String> info, FileWriter myWriter)
+      throws IOException {
+    myWriter.write("  <information>\n");
+    for (String s : info.keySet()) {
+      myWriter.write("    <" + s + ">");
+      myWriter.write(info.get(s));
+      myWriter.write("</" + s + ">\n");
+    }
+    myWriter.write("  </information>\n");
   }
 
   private List<String> createCellRows(Map<String, Integer> params, List<Integer> cells) {
