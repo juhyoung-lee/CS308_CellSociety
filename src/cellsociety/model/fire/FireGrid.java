@@ -5,13 +5,25 @@ import cellsociety.model.Grid;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Allows for the simulation of Fire.
+ * Assumptions: game will follow the rules laid out in FireCell.
+ * Dependencies: java.util.*, GridHelper, Grid, Cell, FireCell
+ * Examples:
+ * '''
+ * Grid grid = new FireGrid(cellA, gridP, cellP);
+ * grid.updateCells();
+ * '''
+ */
 public class FireGrid extends Grid {
 
   /**
-   * Constructor.
+   * Initializes grid and cells.
    *
    * @param cellArrangement cell grid from XML
-   * @param cellParameters      game settings from XML
+   * @param cellParameters game settings from XML
+   * @param gridParameters grid settings from XML
+   * @throws Exception when parameters are invalid
    */
   public FireGrid(List<String> cellArrangement, String[] gridParameters,
       Map<String, Integer> cellParameters) throws Exception {
@@ -19,11 +31,10 @@ public class FireGrid extends Grid {
   }
 
   /**
-   * Used by setupGrid(). Create cell object matching Grid type. Assumptions: Parameters contains
-   * XML information and cell state
+   * Returns FireCell object
    *
    * @param parameters cell state and game parameters from XML
-   * @return appropriate cell object
+   * @return FireCell object
    */
   @Override
   protected Cell chooseCell(Map<String, Integer> parameters) throws Exception {
@@ -31,11 +42,11 @@ public class FireGrid extends Grid {
   }
 
   /**
-   * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
-   * neighboring indexes. Assumptions: Grid is a square tesselation.
+   * Forces small neighborhood size as fire can only spread cardinally.
    *
    * @param index center index
    * @return values for computing neighboring indexes
+   * @throws Exception when neighborhood size does not match input from XML
    */
   @Override
   protected int[] decideNeighborhood(int index) throws Exception {
