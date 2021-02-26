@@ -1,17 +1,16 @@
 package cellsociety.view;
 
 import cellsociety.Control;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
-
-import java.util.List;
 
 /**
  * Purpose: Creates the Triangle grid for the view. Extends GridBuilder.
  * Assumptions: the parameters passed in are valid (there are no checks for incorrect parameters)
  * Dependencies: inherits from GridBuilder class
- * Example of use: TriangleGrid tri = new TriangleGrid(styleSheet, scene, root) tri.createPolyGrid(rows, cols, cells)
+ * Example of use: TriangleGrid tri = new TriangleGrid(styleSheet, scene, root)
  *
  * @author Kathleen Chen
  */
@@ -19,10 +18,9 @@ import java.util.List;
 public class TriangleGrid extends GridBuilder {
   /**
    * Purpose: Constructor of TriangleGrid.
-   * Assumptions: NA
+   * Assumptions: None
    * Parameters: String styleSheet, Scene scene, Pane root
-   * Dependencies: root, scene, and styleSheet are passed in from ScreenControl
-   * Example of use: new TriangleGrid(styleSheet, scene, root)
+   * Exceptions: None
    */
   public TriangleGrid(String styleSheet, Scene scene, Pane root) {
     super(styleSheet, scene, root);
@@ -30,12 +28,11 @@ public class TriangleGrid extends GridBuilder {
   }
 
   /**
-   * Purpose: Overrides the createPolyGrid() method in the Grid Builder class.
-   *          Create a triangle grid with JavaFX's Polygon feature.
+   * Purpose: Create a triangle grid with JavaFX's Polygon feature.
+   *          Overrides the createPolyGrid() method in the GridBuilder class (superclass).
    * Assumptions: TriangleGrid has been initialized
-   * Parameters: int rows, int cols, List cells
-   * Dependencies: Integer list from Grid class
-   * Example of use: tri.createPolyGrid(rows, cols, cells)
+   * Parameters: int rows, int cols, List cell
+   * Exceptions: None
    */
   @Override
   protected void createPolyGrid(int rows, int cols, List<Integer> cells) {
