@@ -7,7 +7,7 @@ Names:
 - Kathleen Chen
 - Jessica Yang 
 - Juhyoung Lee
-- Kenneth Moore
+- Kenneth Moore III
 
 ### Timeline
 
@@ -37,6 +37,8 @@ Hours Spent: 160 hours (40hrs * 4)
 - https://stackoverflow.com/questions/1519736/random-shuffling-of-an-array  
 - Oracle Java documentation
 - Google Translate
+- https://www.w3schools.com/java/java_files_create.asp
+- https://www.tutorialspoint.com/java/lang/system_currenttimemillis.htm
 
 ### Running the Program
 
@@ -83,8 +85,6 @@ Features implemented:
     - Change GUI appearance while the program is running between three different options
     - Change language used for the text displayed
     
-other shaped tesselations, initial configuration based on random allotment and/or probability distribution, option to outline the grid, style shape within grid shape, style setting independent of xml, change parameters for w/o restarting within the gui, change a state at any grid location
-
 ### Notes/Assumptions
 
 Assumptions or Simplifications:
@@ -119,7 +119,6 @@ Known Bugs:
 - If you do an infinite grid, you should close your window and then pull up the infinite file (doesn't run infinite grid properly if it is a later simulation)
 
 Extra credit: N/A
-
 
 ### Impressions
 - Interesting working in a group on a coding project. 

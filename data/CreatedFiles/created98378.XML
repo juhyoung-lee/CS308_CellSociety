@@ -1,0 +1,28 @@
+<root>
+  <information>
+    <shape>square</shape>
+    <gridType>bounded</gridType>
+    <author>wiki</author>
+    <description>Loaf should not change at all</description>
+    <type>Game of Life</type>
+    <title>Glider</title>
+  </information>
+  <parameters>
+    <width>10</width>
+    <neighborhoodSize>8</neighborhoodSize>
+    <state>0</state>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0101000000</cellRow>
+    <cellRow>0011000000</cellRow>
+    <cellRow>0010000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+  </cells>
+</root>
