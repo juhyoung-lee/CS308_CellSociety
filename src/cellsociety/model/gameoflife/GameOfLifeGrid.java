@@ -5,13 +5,25 @@ import cellsociety.model.Grid;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Allows for the simulation of GameOfLife.
+ * Assumptions: game will follow the rules laid out in GameOfLifeCell.
+ * Dependencies: java.util.*, GridHelper, Grid, Cell, GameOfLifeCell
+ * Examples:
+ * '''
+ * Grid grid = new GameOfLifeGrid(cellA, gridP, cellP);
+ * grid.updateCells();
+ * '''
+ */
 public class GameOfLifeGrid extends Grid {
 
   /**
-   * Constructor.
+   * Fills grid and instantiates cells.
    *
-   * @param cellArrangement cell grid from XML
-   * @param cellParameters      game settings from XML
+   * @param cellArrangement cell states and position from XML
+   * @param gridParameters grid settings from XML
+   * @param cellParameters cell settings from XML
+   * @throws Exception when parameters are invalid
    */
   public GameOfLifeGrid(List<String> cellArrangement, String[] gridParameters,
       Map<String, Integer> cellParameters) throws Exception {
@@ -19,11 +31,10 @@ public class GameOfLifeGrid extends Grid {
   }
 
   /**
-   * Used by setupGrid(). Create cell object matching Grid type. Assumptions: Parameters contains
-   * XML information and cell state
+   * Returns GameOfLife cell object.
    *
    * @param parameters cell state and game parameters from XML
-   * @return appropriate cell object
+   * @return GameOfLife cell object
    */
   @Override
   protected Cell chooseCell(Map<String, Integer> parameters) {

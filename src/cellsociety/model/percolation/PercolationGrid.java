@@ -6,14 +6,25 @@ import cellsociety.model.GridHelper;
 import java.util.List;
 import java.util.Map;
 
-public class
-PercolationGrid extends Grid {
+/**
+ * Allows for the simulation of Percolation.
+ * Assumptions: game will follow the rules laid out in PercolationCell.
+ * Dependencies: java.util.*, GridHelper, Grid, Cell, PercolationCell
+ * Examples:
+ * '''
+ * Grid grid = new PercolationGrid(cellA, gridP, cellP);
+ * grid.updateCells();
+ * '''
+ */
+public class PercolationGrid extends Grid {
 
   /**
-   * Constructor.
+   * Fills grid and instantiates Cell objects.
    *
    * @param cellArrangement cell grid from XML
-   * @param cellParameters      game settings from XML
+   * @param cellParameters game settings from XML
+   * @param gridParameters grid settings from XML
+   * @throws Exception when parameters are invalid
    */
   public PercolationGrid(List<String> cellArrangement, String[] gridParameters,
       Map<String, Integer> cellParameters) throws Exception {
@@ -21,11 +32,10 @@ PercolationGrid extends Grid {
   }
 
   /**
-   * Used by setupGrid(). Create cell object matching Grid type. Assumptions: Parameters contains
-   * XML information and cell state
+   * Returns Percolation cell.
    *
    * @param parameters cell state and game parameters from XML
-   * @return appropriate cell object
+   * @return Percolation cell object
    */
   @Override
   protected Cell chooseCell(Map<String, Integer> parameters) {
@@ -33,11 +43,10 @@ PercolationGrid extends Grid {
   }
 
   /**
-   * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
-   * neighboring indexes. Ex: (-1 * this.width, -1, 1, this.width)
+   * Neighborhood ignores cells on bottom as water cannot flow upwards.
    *
    * @param index center index
-   * @return values for computing neighboring indexes
+   * @return top, left, right cells
    */
   @Override
   protected int[] decideNeighborhood(int index) throws Exception {

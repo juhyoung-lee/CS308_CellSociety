@@ -7,6 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Creates grid of cells from input.
+ * Assumptions: inputs are valid and correspond to a hardcoded value.
+ * Dependencies: java.util.*
+ * Example: Grid implements GridHelper as it requires the basic grid to be instantiated and filled.
+ * All game type grids extend GridHelper by proxy of extending Grid. They all require the grid to
+ * first be instantiated and filled, which GridHelper does.
+ */
 public abstract class GridHelper {
 
   public static final String NEIGHBORHOOD_SIZE = "neighborhoodSize";
@@ -32,9 +40,9 @@ public abstract class GridHelper {
   private final int neighborhoodSize;
 
   /**
-   * Constructor fills fields using XML data.
+   * Constructor fills fields using XML data. Instantiates Cells according to the game type.
    * Assumptions: parameters contains all the information required to create appropriate cell.
-   * cellArrangement represents a valid square tesselation grid.
+   * cellArrangement represents a valid grid.
    *
    * @param cellArrangement cell grid from XML
    * @param parameters game settings from XML
@@ -56,7 +64,7 @@ public abstract class GridHelper {
   }
 
   /**
-   * Returns grid size.
+   * Returns grid size as ints.
    *
    * @return [width, height]
    */
@@ -73,9 +81,16 @@ public abstract class GridHelper {
     return this.neighbors.get(cell);
   }
 
+  /**
+   * Returns the neighbors parameter in the case of Grid expanding. Grid needs access to neighbors
+   * in order to build the new neighbor connections that come with expanded grids.
+   *
+   * @return map of neighbors
+   */
   protected Map<Cell, int[]> getAllNeighbors() {
     return this.neighbors;
   }
+
   /**
    * Returns an immutable version of grid.
    *
@@ -105,10 +120,22 @@ public abstract class GridHelper {
     return this.shape;
   }
 
+  /**
+   * Returns gridType so Grid knows whether to expand the grid or not.
+   *
+   * @return String representing grid type (bounded, wrapping, infinite)
+   */
   protected String getGridType() {
     return this.gridType;
   }
 
+  /**
+   * Expands the grid size in the case of an infinite grid.
+   *
+   * @param width new width
+   * @param height new height
+   * @param grid new grid
+   */
   protected void expand(int width, int height, List<Cell> grid) {
     this.width = width;
     this.height = height;
@@ -305,13 +332,15 @@ public abstract class GridHelper {
     if (isTriangleTopPointy(index)) {
       return switch (this.neighborhoodSize) {
         case TRIANGLE_SIDES_MIN -> new int[]{-1, 1, w};
-        case TRIANGLE_SIDES_MAX -> new int[]{-1 - w, -1 * w, 1 - w, -2, -1, 1, 2, -2 + w, -1 + w, w, 1 + w, 2 + w};
+        case TRIANGLE_SIDES_MAX -> new int[]{-1 - w, -1 * w, 1 - w, -2, -1, 1, 2, -2 + w, -1 + w,
+            w, 1 + w, 2 + w};
         default -> new int[]{};
       };
     } else {
       return switch (this.neighborhoodSize) {
         case TRIANGLE_SIDES_MIN -> new int[]{-1 * w, -1, 1};
-        case TRIANGLE_SIDES_MAX -> new int[]{-2 - w, -1 - w, -1 * w, 1 - w, 2 - w, -2, -1, 1, 2, -1 + w, w, 1 + w};
+        case TRIANGLE_SIDES_MAX -> new int[]{-2 - w, -1 - w, -1 * w, 1 - w, 2 - w, -2, -1, 1, 2,
+            -1 + w, w, 1 + w};
         default -> new int[]{};
       };
     }

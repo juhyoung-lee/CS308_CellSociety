@@ -9,13 +9,30 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Keeps track of Cells in a Grid.
+ * Updates cells in a grid by running cell's update method. Catalogs cases where cells want to pass
+ * information back and forth during an update cycle and resolves those cases. Keeps track of grid
+ * size so grid can expand when necessary.
+ * Assumptions: Cells are not null and any implementation of Grid will overwrite the necessary
+ * methods according to the game type.
+ * Dependencies: Cell, java.util.*
+ * Examples: GameOfLifeGrid extends Grid and implements the necessary abstract methods. WaTorGrid
+ * goes further to implement necessary methods and also overwrite the methods that define movement
+ * of cells.
  */
 public abstract class Grid extends GridHelper {
 
   private Map<String, Integer>[] issues;
   private Map<String, Integer> cellParameter;
 
+  /**
+   * Constructor. Holds cell states and positions. Updates cells as needed.
+   * Assumptions: grid and cell parameters are all correctly read from properly formatted XML
+   *
+   * @param cellArrangement list of states that define cell locations
+   * @param gridParameters parameters that define grid
+   * @param cellParameters parameters that define cell
+   * @throws Exception when parameters or cell arrangement are not valid
+   */
   public Grid(List<String> cellArrangement, String[] gridParameters,
       Map<String, Integer> cellParameters)
       throws Exception {
@@ -41,7 +58,7 @@ public abstract class Grid extends GridHelper {
    * Clears issues array. Runs prepareNextState() on all cells. Handles any returned issues where
    * cells wish to "move". Runs updateState() on all cells, finalizing state changes. For a cell to
    * properly "move" or pass information to another cell, moveCell() will need to be overwritten.
-   * Assumptions: No movement of cells.
+   * Assumptions: Cells are not null
    */
   public void updateCells() {
     if (getGridType().equals(Simulation.GRID_OPTIONS.get(1))) {
