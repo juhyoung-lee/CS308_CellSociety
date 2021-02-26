@@ -10,15 +10,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * Allows for the simulation of ForagingAnts.
+ * Assumptions: game will follow the rules laid out in ForagingAntsCell.
+ * Dependencies: java.util.*, GridHelper, Grid, Cell, ForagingAntsCell
+ * Examples:
+ * '''
+ * Grid grid = new ForagingAntsGrid(cellA, gridP, cellP);
+ * grid.updateCells();
+ * '''
+ */
 public class ForagingAntsGrid extends Grid {
 
   /**
-   * Constructor fills fields using XML data. Assumptions: parameters contains all the information
-   * required to create appropriate cell. cellArrangement represents a valid square tesselation
-   * grid.
+   * Fills grid and instantiates cells.
    *
-   * @param cellArrangement cell grid from XML
-   * @param cellParameters      game settings from XML
+   * @param cellArrangement cell states and positions from XML
+   * @param gridParameters grid settings from XML
+   * @param cellParameters cell settings from XML
+   * @throws Exception when parameters are invalid
    */
   public ForagingAntsGrid(List<String> cellArrangement, String[] gridParameters,
       Map<String, Integer> cellParameters) throws Exception {
@@ -26,11 +36,10 @@ public class ForagingAntsGrid extends Grid {
   }
 
   /**
-   * Used by setupGrid(). Create cell object matching Grid type. Assumptions: Parameters contains
-   * XML information and cell state
+   * Returns ForagingAntsCell object.
    *
    * @param parameters cell state and game parameters from XML
-   * @return appropriate cell object
+   * @return ForagingAntsCell object
    */
   @Override
   protected Cell chooseCell(Map<String, Integer> parameters) {
@@ -38,11 +47,11 @@ public class ForagingAntsGrid extends Grid {
   }
 
   /**
-   * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
-   * neighboring indexes. Assumptions: Grid is a square tesselation.
+   * Ants can only move cardinally so this enforces small neighborhood sizes.
    *
    * @param index center index
    * @return values for computing neighboring indexes
+   * @throws Exception when small neighborhood does not match input from XML
    */
   @Override
   protected int[] decideNeighborhood(int index) throws Exception {
@@ -52,7 +61,9 @@ public class ForagingAntsGrid extends Grid {
 
 
   /**
-   * Returns array list of indexes that should be checked to receive a moving cell.
+   * Returns array list of indexes that should be checked to receive a moving cell. Differentiates
+   * before between when ants have and don't have food. Follows pheromone trails when available, and
+   * walks randomly when not.
    *
    * @param index of cell trying to move
    * @return indexes to be checked for receiving update

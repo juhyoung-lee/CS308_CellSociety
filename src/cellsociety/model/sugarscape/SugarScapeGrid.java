@@ -8,19 +8,37 @@ import java.util.List;
 import java.util.Map;
 import javafx.util.Pair;
 
+/**
+ * Allows for the simulation of SugarScape.
+ * Assumptions: game will follow the rules laid out in SugarScapeCell.
+ * Dependencies: java.util.*, GridHelper, Grid, Cell, SugarScapeCell
+ * Examples:
+ * '''
+ * Grid grid = new SugarScapeGrid(cellA, gridP, cellP);
+ * grid.updateCells();
+ * '''
+ */
 public class SugarScapeGrid extends Grid {
 
+  /**
+   * Constructor fills grid and instantiates cells.
+   *
+   * @param cellArrangement cell grid from XML
+   * @param gridParameters grid settings from XML
+   * @param cellParameters cell settings from XML
+   * @throws Exception when parameters are invalid
+   */
   public SugarScapeGrid(List<String> cellArrangement, String[] gridParameters,
       Map<String, Integer> cellParameters) throws Exception {
     super(cellArrangement, gridParameters, cellParameters);
   }
 
   /**
-   * Used by setupGrid(). Create cell object matching Grid type. Assumptions: Parameters contains
+   * Returns SugarScapeCell object. Assumptions: Parameters contains
    * XML information and cell state
    *
-   * @param parameters cell state and game parameters from XML
-   * @return appropriate cell object
+   * @param parameters cell state and game parameters
+   * @return SugarScapeCell
    */
   @Override
   protected Cell chooseCell(Map<String, Integer> parameters) throws Exception {
@@ -28,8 +46,8 @@ public class SugarScapeGrid extends Grid {
   }
 
   /**
-   * Must be overwritten to function. Returns array list of indexes that should be checked to
-   * receive a moving cell.
+   * Orders neighboring cells by their sugar patch level as agents will move to the highest level.
+   * Assumptions: index is within the grid
    *
    * @param index of cell trying to move
    * @return indexes to be checked for receiving update
