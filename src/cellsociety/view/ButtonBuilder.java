@@ -21,18 +21,15 @@ public class ButtonBuilder {
   private ResourceBundle myResources;
   private ScreenControl mySC;
   private VBox myBox;
-  private Button slowButton;
-  private Button fastButton;
-  private Button startButton;
-  private Button pauseButton;
-  private Button stepButton;
-  private Button uploadButton;
-  private Button addButton;
-  private Button graphButton;
-  private Button editButton;
-  private Button configurationButton;
 
 
+  /**
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public ButtonBuilder(Control control, ResourceBundle rBundle, ScreenControl sc) {
     myControl = control;
     mySC = sc;
@@ -43,26 +40,33 @@ public class ButtonBuilder {
     createButtons();
   }
 
+  /**
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void createButtons() {
-    startButton = buttonCreation(myResources.getString("PlayButton"));
+    Button startButton = buttonCreation(myResources.getString("PlayButton"));
     startButton.setOnAction(event -> myControl.start());
-    pauseButton = buttonCreation(myResources.getString("PauseButton"));
+    Button pauseButton = buttonCreation(myResources.getString("PauseButton"));
     pauseButton.setOnAction(event -> myControl.pause());
-    stepButton = buttonCreation(myResources.getString("StepButton"));
+    Button stepButton = buttonCreation(myResources.getString("StepButton"));
     stepButton.setOnAction(event -> myControl.next());
-    fastButton = buttonCreation(myResources.getString("SpeedUpButton"));
+    Button fastButton = buttonCreation(myResources.getString("SpeedUpButton"));
     fastButton.setOnAction(event -> myControl.fast());
-    slowButton = buttonCreation(myResources.getString("SlowDownButton"));
+    Button slowButton = buttonCreation(myResources.getString("SlowDownButton"));
     slowButton.setOnAction(event -> myControl.slow());
-    uploadButton = buttonCreation(myResources.getString("UploadButton"));
+    Button uploadButton = buttonCreation(myResources.getString("UploadButton"));
     uploadButton.setOnAction(event -> myControl.uploadFile());
-    graphButton = buttonCreation(myResources.getString("GraphButton"));
+    Button graphButton = buttonCreation(myResources.getString("GraphButton"));
     graphButton.setOnAction(event -> mySC.makeNewGraphWindow());
-    editButton = buttonCreation(myResources.getString("EditButton"));
+    Button editButton = buttonCreation(myResources.getString("EditButton"));
     editButton.setOnAction(event -> mySC.makeNewEditWindow());
-    addButton = buttonCreation(myResources.getString("AddButton"));
+    Button addButton = buttonCreation(myResources.getString("AddButton"));
     addButton.setOnAction(event -> new Control());
-    configurationButton = buttonCreation(myResources.getString("ConfigurationButton"));
+    Button configurationButton = buttonCreation(myResources.getString("ConfigurationButton"));
     configurationButton.setOnAction(event -> myControl.configuration());
   }
 
@@ -73,10 +77,24 @@ public class ButtonBuilder {
     return button;
   }
 
+  /**
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public VBox getBox() {
     return myBox;
   }
 
+  /**
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void resetButtons(ResourceBundle rBundle) {
     myResources = rBundle;
     myBox.getChildren().removeAll(myBox.getChildren());

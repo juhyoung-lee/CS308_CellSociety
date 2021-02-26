@@ -6,9 +6,9 @@ import java.util.Random;
 
 /**
  * Purpose: Represents a cell for the SugarScape simulation. Extends the Cell class.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: None.
+ * Dependencies: Cell class, Random and Map libraries.
+ * Example of use: Cell sugarScape = new SugarScapeCell(params).
  *
  * @author Jessica Yang
  */
@@ -43,9 +43,9 @@ public class SugarScapeCell extends Cell {
 
   /**
    * Purpose: Constructor for SugarScapeCell class.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: Map config.
-   * Exceptions: TODO
+   * Exceptions: Throws exception from checkParameters.
    * Returns: SugarScapeCell object.
    */
   public SugarScapeCell(Map<String, Integer> config) throws Exception {
@@ -77,7 +77,7 @@ public class SugarScapeCell extends Cell {
    *    SugarScapeCell check.
    * Assumptions: setMaxStateValue has already been called in the constructor of the subclass.
    * Parameters: None.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: boolean type.
    */
   @Override
@@ -93,7 +93,7 @@ public class SugarScapeCell extends Cell {
    * Purpose: Determine new state to update to.
    * Assumptions: Passed max number of neighbors from Grid.
    * Parameters: int[] neighborStates.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: Map object. There should never be any movement.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/Sugarscape_Leicester.pdf
    */
@@ -129,7 +129,7 @@ public class SugarScapeCell extends Cell {
    * Purpose: Accepts Map information with new state information.
    * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
    * Parameters: Map object.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: None.
    */
   @Override
@@ -159,7 +159,7 @@ public class SugarScapeCell extends Cell {
 
   /**
    * Purpose: Gets patchSugar value for Grid to select the Cell to move to.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: None.
    * Exceptions: None.
    * Returns: int patchSugar.

@@ -5,6 +5,16 @@ import cellsociety.model.Grid;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Allows for the simulation of RPS.
+ * Assumptions: game will follow the rules laid out in RPSCell.
+ * Dependencies: java.util.*, GridHelper, Grid, Cell, RPSCell
+ * Examples:
+ * '''
+ * Grid grid = new RPSGrid(cellA, gridP, cellP);
+ * grid.updateCells();
+ * '''
+ */
 public class RPSGrid extends Grid {
 
   /**
@@ -13,6 +23,8 @@ public class RPSGrid extends Grid {
    *
    * @param cellArrangement cell grid from XML
    * @param gridParameters  game settings from XML
+   * @param cellParameters cell settings from XML
+   * @throws Exception when parameters are invalid
    */
   public RPSGrid(List<String> cellArrangement, String[] gridParameters,
       Map<String, Integer> cellParameters) throws Exception {
@@ -20,11 +32,10 @@ public class RPSGrid extends Grid {
   }
 
   /**
-   * Used by setupGrid(). Create cell object matching Grid type. Assumptions: Parameters contains
-   * XML information and cell state
+   * Returns RPS cell object.
    *
    * @param parameters cell state and game parameters from XML
-   * @return appropriate cell object
+   * @return RPS cell object
    */
   @Override
   protected Cell chooseCell(Map<String, Integer> parameters) throws Exception {

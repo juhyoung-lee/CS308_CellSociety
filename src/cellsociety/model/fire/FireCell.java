@@ -6,9 +6,9 @@ import java.util.Random;
 
 /**
  * Purpose: Represents a cell for the Fire simulation. Extends the Cell class.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: None.
+ * Dependencies: Cell class, Map and Random libraries.
+ * Example of use: Cell fire = new FireCell(params).
  *
  * @author Jessica Yang
  */
@@ -25,7 +25,7 @@ public class FireCell extends Cell {
    * Purpose: Constructor for FireCell class.
    * Assumptions: Map will contain the key "prob" with an integer value.
    * Parameters: Map config.
-   * Exceptions: TODO
+   * Exceptions: Throws exception from checkParameters.
    * Returns: FireCell object.
    */
   public FireCell(Map<String, Integer> config) throws Exception {
@@ -46,7 +46,7 @@ public class FireCell extends Cell {
    * Purpose: Determine new state to update to.
    * Assumptions: neighborStates is passed with [N, S, E, W].
    * Parameters: int[] neighborStates.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: Map object. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/shiflet-fire/
    */

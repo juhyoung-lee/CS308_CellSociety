@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 
 /**
  * Purpose: Creates screen display that user interacts with.
- * Assumptions: TODO
+ * Assumptions: Values passed in are valid
  * Dependencies: Depends on the grid array passed in to create a grid
  * Example of use: mySC = new ScreenControl() mySC.createGrid(row, col, Grid.viewGrid()) mySC.clearGrid()
  *
@@ -57,7 +57,11 @@ public class ScreenControl {
   private ErrorMessage myError;
 
   /**
-   * Initialize the scene and add buttons and text.
+   * Purpose: Constructor of ScreenControl.
+   * Assumptions: NA
+   * Parameters: Control simulationControl
+   * Dependencies: NA
+   * Example of use: sc = new ScreenControl(sim)
    */
   public ScreenControl(Control simulationControl) {
     sim = simulationControl;
@@ -119,13 +123,6 @@ public class ScreenControl {
   }
 
 
-  private void compare() {
-    Pane comparePane = new Pane();
-    Scene compareScene = new Scene(comparePane, Control.X_SIZE, Control.Y_SIZE);
-    compareScene.getStylesheets().add(myStyleSheet);
-
-  }
-
   private Button buttonCreation(String text, double x, double y, Pane pane) {
     Button button = new Button(text);
     button.setLayoutX(x);
@@ -135,6 +132,13 @@ public class ScreenControl {
     return button;
   }
 
+  /**
+   * Purpose: Construct Graph Window.
+   * Assumptions: NA
+   * Parameters: NA
+   * Dependencies: NA
+   * Example of use: sc.makeNewGraphWindow()
+   */
   public void makeNewGraphWindow() {
     int size = Control.X_SIZE;
 
@@ -156,7 +160,13 @@ public class ScreenControl {
     newWindow.show();
   }
 
-  /** called after setParams() */
+  /**
+   * Purpose: Create window for editing parameters.
+   * Assumptions: Called after setParams().
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: None.
+   */
   public void makeNewEditWindow() {
     Pane tertiaryLayout = new Pane();
     Scene thirdScene = new Scene(tertiaryLayout, Control.X_SIZE, Control.X_SIZE);
@@ -227,10 +237,11 @@ public class ScreenControl {
   }
 
   /**
-   * Creates display of Rectangle Grid for viewer to see.
-   * * @param rows
-   * * @param cols
-   * * @param cells
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void createGrid(String title, String type, int rows, int cols, List<Integer> cells, String shape) {
     myType = type;
@@ -279,8 +290,11 @@ public class ScreenControl {
   }
 
   /**
-   * Updates the grid based on new cell information passed in.
-   * * @param cells
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void updateGrid(List<Integer> cells, int row, int col) {
     if (myRectGrid != null) {
@@ -295,6 +309,13 @@ public class ScreenControl {
     }
   }
 
+  /**
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void clearGrid() {
     if (myRectGrid != null) {
       myRectGrid.clearGrid();
@@ -307,8 +328,11 @@ public class ScreenControl {
   }
 
   /**
-   * Returns the Scene.
-   * * @return Scene
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public Scene getScene() {
     return myScene;
@@ -316,21 +340,35 @@ public class ScreenControl {
 
   /**
    * Purpose: Takes in parameters being used by Control.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: Map params.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: None.
    */
   public void setParams(Map<String, Integer> params) {
     paramsMap = params;
   }
 
+  /**
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void displayErrorMessage(String message) {
     myError = new ErrorMessage(message);
     myRoot.setBottom(myError.getBox());
     sim.uploadFile();
   }
 
+  /**
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void clearError() {
     if (myError != null) {
       myRoot.getChildren().remove(myError.getBox());

@@ -5,14 +5,24 @@ import cellsociety.model.Grid;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Allows for the simulation of BylsLoop.
+ * Assumptions: game will follow the rules laid out in BylsLoopCell.
+ * Dependencies: java.util.*, GridHelper, Grid, Cell, BylsLoopCell
+ * Examples:
+ * '''
+ * Grid grid = new BylsLoopGrid(cellA, gridP, cellP);
+ * grid.updateCells();
+ * '''
+ */
 public class BylsLoopGrid extends Grid {
 
   /**
-   * Constructor fills fields using XML data. Assumptions: parameters contains all the information
-   * required to create appropriate cell. cellArrangement represents a valid square tesselation grid.
+   * Fills grid and instantiates Cells.
    *
    * @param cellArrangement cell grid from XML
-   * @param cellParameters      game settings from XML
+   * @param gridParameters grid settings from XML
+   * @param cellParameters game settings from XML
    * @throws Exception invalid cell state
    */
   public BylsLoopGrid(List<String> cellArrangement, String[] gridParameters,
@@ -21,11 +31,10 @@ public class BylsLoopGrid extends Grid {
   }
 
   /**
-   * Used by setupGrid(). Create cell object matching Grid type. Assumptions: Parameters contains
-   * XML information and cell state
+   * Creates BylsLoopCell.
    *
    * @param parameters cell state and game parameters from XML
-   * @return appropriate cell object
+   * @return BylsLoopCell object
    */
   @Override
   protected Cell chooseCell(Map<String, Integer> parameters) {
@@ -33,11 +42,11 @@ public class BylsLoopGrid extends Grid {
   }
 
   /**
-   * Used by pullNeighborIndexes(). Returns array of values to be added to center index to get
-   * neighboring indexes. Assumptions: Grid is a square tesselation.
+   * Limits neighborhood size to square as the rules are very strict.
    *
    * @param index center index
    * @return values for computing neighboring indexes
+   * @throws Exception when parameters are invalid
    */
   @Override
   protected int[] decideNeighborhood(int index) throws Exception {

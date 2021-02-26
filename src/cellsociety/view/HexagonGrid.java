@@ -46,8 +46,6 @@ public class HexagonGrid extends GridBuilder {
     double slant_height = effective_height / 3.0;
     double vertical_height = slant_height * 2.0;
 
-    myType = myType.replaceAll("\\s", "");
-
     for (int i = 0; i < rows; i++) {
       double row_offset = (i % 2) * width_offset;
       for (int j = 0; j < cols; j++) {
