@@ -155,7 +155,13 @@ public class ScreenControl {
     newWindow.show();
   }
 
-  /** called after setParams() */
+  /**
+   * Purpose: Create window for editing parameters.
+   * Assumptions: Called after setParams().
+   * Parameters: None.
+   * Exceptions: None.
+   * Returns: None.
+   */
   public void makeNewEditWindow() {
     Pane tertiaryLayout = new Pane();
     Scene thirdScene = new Scene(tertiaryLayout, Control.X_SIZE, Control.X_SIZE);
@@ -325,9 +331,9 @@ public class ScreenControl {
 
   /**
    * Purpose: Takes in parameters being used by Control.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: Map params.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: None.
    */
   public void setParams(Map<String, Integer> params) {

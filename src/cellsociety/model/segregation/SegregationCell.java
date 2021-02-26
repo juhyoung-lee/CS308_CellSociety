@@ -5,9 +5,9 @@ import java.util.Map;
 
 /**
  * Purpose: Represents a cell for the Segregation simulation. Extends the Cell class.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: None.
+ * Dependencies: Cell class and Map library.
+ * Example of use: Cell segregation = new SegregationCell(params).
  *
  * @author Jessica Yang
  */
@@ -23,7 +23,7 @@ public class SegregationCell extends Cell {
    * Purpose: Constructor for SegregationCell class.
    * Assumptions: config will include the key "threshold", with an integer value.
    * Parameters: Map config.
-   * Exceptions: TODO
+   * Exceptions: Throws exceptions from checkParameters.
    * Returns: SegregationCell object.
    */
   public SegregationCell(Map<String, Integer> config) throws Exception {
@@ -42,9 +42,9 @@ public class SegregationCell extends Cell {
 
   /**
    * Purpose: Determine new state to update to.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: int[] neighborStates.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: Map object. Describes what needs to be moved, if any.
    * Rules taken from https://www2.cs.duke.edu/courses/compsci308/current/assign/02_simulation/nifty/mccown-schelling-model-segregation/
    */
@@ -87,7 +87,7 @@ public class SegregationCell extends Cell {
    * Purpose: Accepts Map information with new state information. Will default to return false.
    * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
    * Parameters: Map object.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: boolean type.
    */
   @Override

@@ -7,8 +7,8 @@ import java.util.Map;
 /**
  * Purpose: Represents a cell for the Byl's Loop simulation. Extends the Cell class.
  * Assumptions: Requires specific starting configuration, and rectangular grid.
- * Dependencies: TODO
- * Example of use: TODO
+ * Dependencies: Cell class, HashMap and Map libraries.
+ * Example of use: Cell bylsLoop = new BylsLoopCell(params),
  *
  * @author Jessica Yang
  */
@@ -30,9 +30,9 @@ public class BylsLoopCell extends Cell {
 
   /**
    * Purpose: Constructor for BylsLoopCell class.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: Map config.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: BylsLoopCell object.
    */
   public BylsLoopCell(Map<String, Integer> config) {
@@ -50,7 +50,7 @@ public class BylsLoopCell extends Cell {
    * Purpose: Determine new state to update to.
    * Assumptions: neighborStates will be passed in clockwise order, and will contain 4 values.
    * Parameters: int[] neighborStates.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: Map object. There should never be any movement.
    * Rules taken from https://fab.cba.mit.edu/classes/865.18/replication/Byl.pdf
    */
