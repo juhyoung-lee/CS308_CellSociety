@@ -117,9 +117,9 @@ public class Control {
 
   /**
    * Purpose: Updates parameters from edit parameters function.
-   * Assumptions: TODO
-   * Parameters: Map
-   * newParams. Exceptions: TODO
+   * Assumptions: None.
+   * Parameters: Map newParams.
+   * Exceptions: None.
    * Returns: None.
    */
   public void updateParams(Map<String, Integer> newParams) {
