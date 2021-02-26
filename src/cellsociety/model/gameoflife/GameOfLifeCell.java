@@ -5,9 +5,9 @@ import java.util.Map;
 
 /**
  * Purpose: Represents a cell for the Game of Life simulation. Extends the Cell class.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: None.
+ * Dependencies: Cell class and Map library.
+ * Example of use: Cell gameOfLife = new GameOfLifeCell(params).
  *
  * @author Jessica Yang
  */
@@ -18,9 +18,9 @@ public class GameOfLifeCell extends Cell {
 
   /**
    * Purpose: Constructor for GameOfLifeCell class.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: Map config.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: GameOfLifeCell object.
    */
   public GameOfLifeCell(Map<String, Integer> config) {
@@ -30,9 +30,9 @@ public class GameOfLifeCell extends Cell {
 
   /**
    * Purpose: Determine new state to update to.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: int[] neighborStates.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: Map object. Describes what needs to be moved, if any.
    * Rules taken from https://en.wikipedia.org/wiki/Conway's_Game_of_Life
    */
