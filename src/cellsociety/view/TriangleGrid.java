@@ -8,33 +8,40 @@ import javafx.scene.shape.Polygon;
 import java.util.List;
 
 /**
- * Purpose: Creates the Rectangle grid for the view. Extends GridBuilder.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Purpose: Creates the Triangle grid for the view. Extends GridBuilder.
+ * Assumptions: the parameters passed in are valid (there are no checks for incorrect parameters)
+ * Dependencies: inherits from GridBuilder class
+ * Example of use: TriangleGrid tri = new TriangleGrid(styleSheet, scene, root) tri.createPolyGrid(rows, cols, cells)
  *
  * @author Kathleen Chen
  */
 
 public class TriangleGrid extends GridBuilder {
   /**
-   * Purpose: Constructor of RectangleGrid
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Constructor of TriangleGrid.
+   * Assumptions: NA
+   * Parameters: String styleSheet, Scene scene, Pane root
+   * Dependencies: root, scene, and styleSheet are passed in from ScreenControl
+   * Example of use: new TriangleGrid(styleSheet, scene, root)
    */
   public TriangleGrid(String styleSheet, Scene scene, Pane root) {
     super(styleSheet, scene, root);
     scene.getStylesheets().add(styleSheet);
   }
 
+  /**
+   * Purpose: Overrides the createPolyGrid() method in the Grid Builder class.
+   *          Create a triangle grid with JavaFX's Polygon feature.
+   * Assumptions: TriangleGrid has been initialized
+   * Parameters: int rows, int cols, List cells
+   * Dependencies: Integer list from Grid class
+   * Example of use: tri.createPolyGrid(rows, cols, cells)
+   */
   @Override
   protected void createPolyGrid(int rows, int cols, List<Integer> cells) {
     super.createPolyGrid(rows, cols, cells);
     double xSize = ((double) Control.GRID_SIZE) / (cols + 1);
     double ySize = ((double) Control.GRID_SIZE) / rows;
-    myType = myType.replaceAll("\\s", "");
     for (int i = 0; i < rows; i++) {
       if (i % 2 == 0) {
         for (int j = 0; j < cols; j++) {
