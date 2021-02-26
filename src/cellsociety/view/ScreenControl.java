@@ -23,9 +23,16 @@ import javafx.stage.Stage;
 
 /**
  * Purpose: Creates screen display that user interacts with.
- * Assumptions: Values passed in are valid
- * Dependencies: Depends on the grid array passed in to create a grid
- * Example of use: mySC = new ScreenControl() mySC.createGrid(row, col, Grid.viewGrid()) mySC.clearGrid()
+ * Assumptions: Values passed in are valid;
+ *              All information passed to ScreenControl from the grid and xml parsing are valid
+ *              (does not check for exceptions in front end stuff)
+ * Dependencies: cellsociety.Control, java.util.ArrayList, java.util.Collections, java.util.HashMap,
+ *               java.util.List, java.util.Map, java.util.ResourceBundle, javafx.collections.FXCollections,
+ *               javafx.collections.ObservableList, javafx.event.ActionEvent, javafx.event.EventHandler;
+ *               javafx.scene.Scene, javafx.scene.chart.PieChart, javafx.scene.control.Button,
+ *               javafx.scene.control.ComboBox, javafx.scene.control.TextField, javafx.scene.layout.*,
+ *               javafx.scene.text.Font, javafx.scene.text.Text, javafx.stage.Stage
+ * Example of use: mySC = new ScreenControl(Control control)
  *
  * @author Kathleen Chen, Jessica Yang
  */

@@ -30,9 +30,9 @@ import javafx.util.Duration;
 
 /**
  * Purpose: Creates simulation and runs step function.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: Screen size is hard coded and cannot be changed by the user
+ * Dependencies: None
+ * Example of use: Control control = new Control()
  *
  * @author Kathleen Chen, Jessica Yang, Kenneth Moore III
  */
@@ -61,10 +61,10 @@ public class Control {
   Map<String, Integer> params;
 
   /**
-   * Purpose: Initialize the scene and animation timeline.
+   * Purpose: Initialize scene, stage, and animation.
    * Assumptions: None
-   * Dependencies: None
-   * Example of use: Control sim = new Control
+   * Parameters: None
+   * Exceptions: None
    */
   public Control() {
     myStage = new Stage();
@@ -86,9 +86,9 @@ public class Control {
 
   /**
    * Purpose: Upload a XML file from the computer when the upload button is pressed.
-   * Assumptions: None
-   * Dependencies: If user uploads valid XML (will continue pulling up a file uploading window until a valid XML is submitted)
-   * Example of use: setONAction -> sim.uploadFile()
+   * Assumptions: If user uploads invalid XML,
+   *              will continue pulling up a file uploading window until a valid XML is submitted
+   * Exceptions: try catch of acceptXMLData
    */
   public void uploadFile() {
     FileChooser fileChooser = new FileChooser();
@@ -184,9 +184,9 @@ public class Control {
 
   /**
    * Purpose: Pause the animation when the pause button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Assumptions: None
+   * Parameters: None
+   * Exceptions: None
    */
   public void pause() {
     animation.stop();
@@ -194,9 +194,9 @@ public class Control {
 
   /**
    * Purpose: Start the animation when the play button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Assumptions: None
+   * Parameters: None
+   * Exceptions: None
    */
   public void start() {
     animation.play();
@@ -204,9 +204,9 @@ public class Control {
 
   /**
    * Purpose: Step through the animation step by step when the step button is called.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Assumptions: None
+   * Parameters: None
+   * Exceptions: None
    */
   public void next() {
     animation.stop();
@@ -216,9 +216,9 @@ public class Control {
 
   /**
    * Purpose: Speed up the animation speed when the speed up button is pressed.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Assumptions: None
+   * Parameters: None
+   * Exceptions: None
    */
   public void fast() {
     animation.stop();
@@ -232,9 +232,10 @@ public class Control {
 
   /**
    * Purpose: Slow the speed of the animation when the slow button is called.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Assumptions: Hard coded rates for when frameCount = 0, -1 so that there is no division by 0
+   *              and "-1" will not result in the rate being 1
+   * Parameters: None
+   * Exceptions: None
    */
   public void slow() {
     animation.stop();
@@ -253,9 +254,9 @@ public class Control {
 
   /**
    * Purpose: Slow the speed of the animation when the slow button is called.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Assumptions: grid values are valid
+   * Parameters: None
+   * Exceptions: None
    */
   public void configuration() {
     List<Integer> cells = myGrid.viewGrid();
