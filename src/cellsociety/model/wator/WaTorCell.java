@@ -5,9 +5,9 @@ import java.util.Map;
 
 /**
  * Purpose: Represents a cell for the Wa-Tor simulation. Extends the Cell class.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: None.
+ * Dependencies: Cell class and Map library.
+ * Example of use: Cell waTor = new WaTorCell(params).
  *
  * @author Jessica Yang
  */
@@ -34,7 +34,7 @@ public class WaTorCell extends Cell {
    * Purpose: Constructor for WaTorCell class.
    * Assumptions: config will include keys "breedFish", "breedShark", "energyGain", and "energyLoss"
    * Parameters: Map config.
-   * Exceptions: TODO
+   * Exceptions: Throws exceptions from checkParameters.
    * Returns: WaTorCell object.
    */
   public WaTorCell(Map<String, Integer> config) throws Exception {
@@ -65,9 +65,9 @@ public class WaTorCell extends Cell {
 
   /**
    * Purpose: Determine new state to update to.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: int[] neighborStates.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: Map object. Describes what needs to be moved, if any.
    * Rules taken from https://beltoforion.de/en/wator/
    */
@@ -116,7 +116,7 @@ public class WaTorCell extends Cell {
    * Purpose: Accepts Map information with new state information.
    * Assumptions: Grid will not pass call this method when the 'state' field is NO_MOVEMENT (-1).
    * Parameters: Map object.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: None.
    */
   @Override
