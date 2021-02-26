@@ -12,6 +12,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * Purpose: Simulation class stores all of the info for the XML and allows the model to access it.
+ * Assumptions: Assumes it is parsing a file for this project.
+ * Dependencies: Depends on the imported packages.
+ * Example of use: Simulation mySim = new Simulation(data/myXML);
+ */
 public class Simulation {
 
   public static final List<String> REQUIRED_INFORMATION = List.of(
@@ -30,26 +36,31 @@ public class Simulation {
   private Map<String, Integer> myParameters;
   private List<String> myCellRows;
 
+  /**
+   * Purpose: Constructor for Simulation.
+   *
+   * @param fileString the path of the file that the XML is going to parse from
+   * @throws XMLException when one of the methods called has problem with XML.  Handled in Control
+   */
   public Simulation(String fileString) throws XMLException {
     File dataFile = new File(fileString);
 
     DOCUMENT_BUILDER = getDocumentBuilder();
     Element root = getRootElement(dataFile);
     myParameters = makeParameterMap(dataFile);
-    //makeCellsFromParameterMap();
     myCellRows = makeCellRowList(root);
     checkCellDimensions();
     myInformation = makeInfoMap(dataFile);
     checkInformation();
   }
 
-  //TODO so that multiple ways to get cells from XML
-//  private void makeCellsFromParameterMap() {
-//    for(String s : myParameters.keySet()){
-//
-//    }
-//  }
-
+  /**
+   * Purpose: Checks to make sure the required fields are given in the information section of XML
+   * Assumptions: Assumes myInformation is already filled with everything in XML
+   *
+   * @throws XMLException if missing a field, or if it is not a shape or or grid type given is not a
+   *                      possible type
+   */
   private void checkInformation() throws XMLException {
     for (String s : REQUIRED_INFORMATION) {
       if (myInformation.get(s) == null) {
@@ -58,24 +69,24 @@ public class Simulation {
     }
     boolean isValidShape = false;
     String tempShape = myInformation.get(SHAPE);
-    for(String s: SHAPE_OPTIONS) {
+    for (String s : SHAPE_OPTIONS) {
       if (tempShape != null && tempShape.equals(s)) {
         isValidShape = true;
         break;
       }
     }
-    if(!isValidShape) {
+    if (!isValidShape) {
       myInformation.put(SHAPE, DEFAULT_SHAPE);
     }
     boolean isValidGrid = false;
     String tempGrid = myInformation.get(GRID_TYPE);
-    for(String s: GRID_OPTIONS) {
+    for (String s : GRID_OPTIONS) {
       if (tempGrid != null && tempGrid.equals(s)) {
-        isValidGrid=true;
+        isValidGrid = true;
         break;
       }
     }
-    if(!isValidGrid) {
+    if (!isValidGrid) {
       myInformation.putIfAbsent(GRID_TYPE, DEFAULT_GRID);
     }
   }
@@ -83,13 +94,13 @@ public class Simulation {
 
   private void checkCellDimensions() throws XMLException {
     if (myParameters.get(HEIGHT) == null) {
-      throw new XMLException("Missing Field: Height");//turn into resource field
+      throw new XMLException("Missing Field: Height");
     }
     if (myCellRows.size() != getHeight()) {
-      throw new XMLException("Invalid Number of Cell Rows");//turn into resource file
+      throw new XMLException("Invalid Number of Cell Rows");
     }
     if (myParameters.get(WIDTH) == null) {
-      throw new XMLException("Missing Field: Width");//turn into resource file
+      throw new XMLException("Missing Field: Width");
     }
     for (String cellRow : myCellRows) {
       if (cellRow.length() != getWidth()) {
@@ -152,21 +163,11 @@ public class Simulation {
     }
   }
 
-  private String getTextValue(Element e, String tagName) {
-    NodeList nodeList = e.getElementsByTagName(tagName);
-    if (nodeList != null && nodeList.getLength() > 0) {
-      return nodeList.item(0).getTextContent();
-    } else {
-      return null;
-    }
-  }
 
   private DocumentBuilder getDocumentBuilder() throws XMLException {
     try {
       return DocumentBuilderFactory.newInstance().newDocumentBuilder();
     } catch (Exception e) {
-      //TODO: fix exceptions
-      //not sure what this one does
       throw new XMLException("DocumentBuilderException");
     }
   }
@@ -177,29 +178,48 @@ public class Simulation {
       Document xmlDocument = DOCUMENT_BUILDER.parse(xmlFile);
       return xmlDocument.getDocumentElement();
     } catch (Exception e) {
-      //TODO: fix exceptions
       throw new XMLException("Not XML File or Empty XML");
     }
   }
 
+  /**
+   * Purpose: to return myCellRows in a safe way
+   *
+   * @return List<String>: a copy of myCellRows in a safe way
+   */
   public List<String> getCellRows() {
     List<String> returned = new ArrayList();
     returned.addAll(myCellRows);
     return returned;
   }
 
+  /**
+   * Purpose: To return the parameter map in a safe way
+   *
+   * @return Map<String, Integer>: a copy of myParameters
+   */
   public Map<String, Integer> getParameters() {
     Map<String, Integer> returned = new HashMap<>();
     returned.putAll(myParameters);
     return returned;
   }
 
+  /**
+   * Purpose: To return the Info map in a safe way
+   *
+   * @return Map<String, String>: a copy of myInformation
+   */
   public Map<String, String> getInfoMap() {
     Map<String, String> returned = new HashMap<>();
     returned.putAll(myInformation);
     return returned;
   }
 
+  /**
+   * Purpose: To return the grid parameters, in the specific form, which is what the grid needs.
+   *
+   * @return String[] of size 2 with the shape in the first spot and grid type in the second
+   */
   public String[] getGridParameterArray() {
     String[] returned = new String[2];
     returned[0] = myInformation.get(SHAPE);
@@ -207,28 +227,39 @@ public class Simulation {
     return returned;
   }
 
+  /**
+   * Purpose: get the initial width of grid
+   *
+   * @return int: the value associated with width key in myParameters
+   */
   public int getWidth() {
     return myParameters.get(WIDTH);
   }
 
+  /**
+   * Purpose: get the initial height of the grid
+   *
+   * @return int: the value associated with height key in myParameters
+   */
   public int getHeight() {
     return myParameters.get(HEIGHT);
   }
 
+  /**
+   * Purpose: get the title of the grid
+   *
+   * @return String: the value associated with title key in myParameters
+   */
   public String getTitle() {
     return myInformation.get("title");
   }
 
+  /**
+   * Purpose: get the type of  grid
+   *
+   * @return String: the value associated with type key in myParameters
+   */
   public String getType() {
     return myInformation.get("type");
   }
-
-
-
-//  public String toString() {
-//    return "Type: " + myType + ", Title: " + myTitle + ", Author: " + myAuthor + ", Descr: "
-//        + myDescription + "\n" +
-//        "Parameters: " + myParameters + "\n" +
-//        "Cell Rows: " + myCellRows;
-//  }
 }
