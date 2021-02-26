@@ -6,9 +6,9 @@ import java.util.Random;
 
 /**
  * Purpose: Represents a cell for the Rock Paper Scissors simulation. Extends the Cell class.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: None.
+ * Dependencies: Cell class, Map and Random libraries.
+ * Example of use: None.
  *
  * @author Jessica Yang
  */
@@ -25,9 +25,9 @@ public class RPSCell extends Cell {
 
   /**
    * Purpose: Constructor for RPSCell class.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: Map config.
-   * Exceptions: TODO
+   * Exceptions: Throws exceptions from checkParameters.
    * Returns: RPSCell object.
    */
   public RPSCell(Map<String, Integer> config) throws Exception {
@@ -50,7 +50,7 @@ public class RPSCell extends Cell {
    * Assumptions: None.
    * Parameters: None.
    * HashMap object.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: int type.
    */
   @Override
@@ -61,9 +61,9 @@ public class RPSCell extends Cell {
 
   /**
    * Purpose: Determine new state to update to. nextState should be set to the winner's state.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: int[] neighborStates.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: Map object. There should never be any movement.
    * Rules taken from https://softologyblog.wordpress.com/2018/03/23/rock-paper-scissors-cellular-automata/
    */

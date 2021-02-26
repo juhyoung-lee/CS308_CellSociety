@@ -29,8 +29,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * Purpose: Creates simulation and runs step function. Assumptions: TODO Dependencies: TODO Example
- * of use: TODO
+ * Purpose: Creates simulation and runs step function.
+ * Assumptions: TODO
+ * Dependencies: TODO
+ * Example of use: TODO
  *
  * @author Kathleen Chen, Jessica Yang
  */
@@ -59,8 +61,10 @@ public class Control {
   Map<String, Integer> params;
 
   /**
-   * Purpose: Initialize the scene and animation timeline. Assumptions: TODO Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Initialize the scene and animation timeline.
+   * Assumptions: None
+   * Dependencies: None
+   * Example of use: Control sim = new Control
    */
   public Control() {
     myStage = new Stage();
@@ -81,8 +85,10 @@ public class Control {
   }
 
   /**
-   * Purpose: Upload a XML file from the computer when the upload button is pressed. Assumptions:
-   * TODO Dependencies: TODO Example of use: TODO
+   * Purpose: Upload a XML file from the computer when the upload button is pressed.
+   * Assumptions: None
+   * Dependencies: If user uploads valid XML (will continue pulling up a file uploading window until a valid XML is submitted)
+   * Example of use: setONAction -> sim.uploadFile()
    */
   public void uploadFile() {
     FileChooser fileChooser = new FileChooser();
@@ -110,8 +116,11 @@ public class Control {
 
 
   /**
-   * Purpose: Updates parameters from edit parameters function. Assumptions: TODO Parameters: Map
-   * newParams. Exceptions: TODO Returns: None.
+   * Purpose: Updates parameters from edit parameters function.
+   * Assumptions: None.
+   * Parameters: Map newParams.
+   * Exceptions: None.
+   * Returns: None.
    */
   public void updateParams(Map<String, Integer> newParams) {
     for (String key : newParams.keySet()) {
@@ -174,24 +183,30 @@ public class Control {
   }
 
   /**
-   * Purpose: Pause the animation when the pause button is pressed. Assumptions: TODO Dependencies:
-   * TODO Example of use: TODO
+   * Purpose: Pause the animation when the pause button is pressed.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void pause() {
     animation.stop();
   }
 
   /**
-   * Purpose: Start the animation when the play button is pressed. Assumptions: TODO Dependencies:
-   * TODO Example of use: TODO
+   * Purpose: Start the animation when the play button is pressed.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void start() {
     animation.play();
   }
 
   /**
-   * Purpose: Step through the animation step by step when the step button is called. Assumptions:
-   * TODO Dependencies: TODO Example of use: TODO
+   * Purpose: Step through the animation step by step when the step button is called.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void next() {
     animation.stop();
@@ -200,8 +215,10 @@ public class Control {
   }
 
   /**
-   * Purpose: Speed up the animation speed when the speed up button is pressed. ssumptions: TODO
-   * Dependencies: TODO Example of use: TODO
+   * Purpose: Speed up the animation speed when the speed up button is pressed.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void fast() {
     animation.stop();
@@ -214,8 +231,10 @@ public class Control {
   }
 
   /**
-   * Purpose: Slow the speed of the animation when the slow button is called. Assumptions: TODO
-   * Dependencies: TODO Example of use: TODO
+   * Purpose: Slow the speed of the animation when the slow button is called.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
    */
   public void slow() {
     animation.stop();
@@ -232,6 +251,12 @@ public class Control {
     animation.play();
   }
 
+  /**
+   * Purpose: Slow the speed of the animation when the slow button is called.
+   * Assumptions: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public void configuration() {
     List<Integer> cells = myGrid.viewGrid();
     createFile(simulation.getInfoMap(),params, cells);
