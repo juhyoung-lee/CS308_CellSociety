@@ -34,7 +34,7 @@ import javafx.util.Duration;
  * Dependencies: TODO
  * Example of use: TODO
  *
- * @author Kathleen Chen, Jessica Yang
+ * @author Kathleen Chen, Jessica Yang, Kenneth Moore III
  */
 
 public class Control {
