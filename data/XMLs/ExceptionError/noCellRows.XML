@@ -1,0 +1,16 @@
+<root>
+  <information>
+    <type>Game of Life</type>
+    <title>No Cell Rows</title>
+    <author>Kenny</author>
+    <description>Triggers no cell rows exception message</description>
+  </information>
+  <parameters>
+    <width>17</width>
+    <height>17</height>
+    <neighborhoodSize>8</neighborhoodSize>>
+  </parameters>
+  <cells>
+
+  </cells>
+</root>

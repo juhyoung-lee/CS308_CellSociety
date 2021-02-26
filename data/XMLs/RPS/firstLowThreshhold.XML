@@ -1,13 +1,12 @@
 <root>
   <information>
     <type>Rock Paper Scissors</type>
-    <title>Wrapping First</title>
+    <title>First Low Threshold</title>
     <author>Kenny</author>
-    <description>Wrapping Version of First</description>
-    <gridType>wrapping</gridType>
+    <description>Randomly generated</description>
   </information>
   <parameters>
-    <loseThreshold>3</loseThreshold>
+    <loseThreshold>1</loseThreshold>
     <bufferBound>2</bufferBound>
     <width>17</width>
     <height>17</height>
