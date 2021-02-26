@@ -5,9 +5,9 @@ import java.util.Map;
 
 /**
  * Purpose: Represents a cell within the cell automata simulation.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: Extended by child classes that are called by a Grid child class.
+ * Dependencies: HashMap and Map libraries.
+ * Example of use: Extended by child class WaTorCell.
  *
  * @author Jessica Yang, Juhyoung Lee
  */
@@ -23,9 +23,9 @@ public abstract class Cell {
 
   /**
    * Purpose: Constructor for Cell class.
-   * Assumptions: TODO
-   * Parameters: HashMap config.
-   * Exceptions: TODO
+   * Assumptions: Map config includes a STATE_KEY key.
+   * Parameters: Map config.
+   * Exceptions: None.
    * Returns: Cell object.
    */
   public Cell(Map<String, Integer> config) {
@@ -36,7 +36,7 @@ public abstract class Cell {
    * Purpose: Checks if assigned state is valid for the Cell subclass.
    * Assumptions: setMaxStateValue has already been called in the constructor of the subclass.
    * Parameters: None.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: boolean type.
    */
   public boolean isValidState() {
@@ -51,16 +51,16 @@ public abstract class Cell {
 
   /**
    * Purpose: Determine new state to update to.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: int[] neighborStates.
-   * Exceptions: TODO
-   * Returns: HashMap object. Describes what needs to be moved, if any.
+   * Exceptions: None.
+   * Returns: Map object. Describes what needs to be moved, if any.
    */
   public abstract Map<String, Integer> prepareNextState(int[] neighborStates);
 
   /**
    * Purpose: Update current cell state, and return value for other methods to use.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: None.
    * Exceptions: None.
    * Returns: int object.
@@ -72,10 +72,10 @@ public abstract class Cell {
   }
 
   /**
-   * Purpose: Accepts HashMap information with new state information. Will default to return false.
+   * Purpose: Accepts Map information with new state information. Will default to return false.
    * Assumptions: Grid should call this method only on Cells with movement simulations.
-   * Parameters: HashMap object.
-   * Exceptions: TODO
+   * Parameters: Map object.
+   * Exceptions: None.
    * Returns: boolean type.
    */
   public boolean receiveUpdate(Map<String, Integer> newInfo) {
@@ -86,23 +86,11 @@ public abstract class Cell {
    * Purpose: Returns default state for Cell upon grid size expansion.
    * Assumptions: None.
    * Parameters: None.
-   * HashMap object.
-   * Exceptions: TODO
+   * Exceptions: None
    * Returns: int type.
    */
   public int getBaseState() {
     return 0;
-  }
-
-  /**
-   * Purpose: Sets maxStateValue of the cell.
-   * Assumptions: TODO
-   * Parameters: int type.
-   * Exceptions: None.
-   * Returns: None.
-   */
-  protected void setMaxStateValue(int maxState) {
-    maxStateValue = maxState;
   }
 
   /**
@@ -117,8 +105,19 @@ public abstract class Cell {
   }
 
   /**
+   * Purpose: Sets maxStateValue of the cell.
+   * Assumptions: None.
+   * Parameters: int type.
+   * Exceptions: None.
+   * Returns: None.
+   */
+  protected void setMaxStateValue(int maxState) {
+    maxStateValue = maxState;
+  }
+
+  /**
    * Purpose: Returns nextState of the cell.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: None.
    * Exceptions: None.
    * Returns: int state.
@@ -129,7 +128,7 @@ public abstract class Cell {
 
   /**
    * Purpose: Sets nextState of the cell.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: int type.
    * Exceptions: None.
    * Returns: None.
@@ -140,7 +139,7 @@ public abstract class Cell {
 
   /**
    * Purpose: Sets value in moveState.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: int type.
    * Exceptions: None.
    * Returns: None.
@@ -151,10 +150,10 @@ public abstract class Cell {
 
   /**
    * Purpose: Returns deep copy of moveState.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: None.
    * Exceptions: None.
-   * Returns: HashMap object.
+   * Returns: Map object.
    */
   protected Map<String, Integer> getMoveStateCopy() {
     Map<String, Integer> deepCopy = new HashMap<>();
