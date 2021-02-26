@@ -5,11 +5,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.ResourceBundle;
-
 public class ErrorMessage {
   private HBox myBox;
 
+  /**
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public ErrorMessage(String message) {
     myBox = new HBox();
     myBox.setAlignment(Pos.CENTER);
@@ -22,6 +27,13 @@ public class ErrorMessage {
     myBox.getChildren().add(dText);
   }
 
+  /**
+   * Purpose: TODO
+   * Assumptions: TODO
+   * Parameters: TODO
+   * Dependencies: TODO
+   * Example of use: TODO
+   */
   public HBox getBox() {
       return myBox;
   }
