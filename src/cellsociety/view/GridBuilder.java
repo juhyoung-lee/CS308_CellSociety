@@ -15,6 +15,8 @@ import java.util.List;
  * Assumptions: TODO
  * Dependencies: TODO
  * Example of use: TODO
+ *
+ * @author Kathleen Chen
  */
 
 public abstract class GridBuilder {
@@ -49,10 +51,17 @@ public abstract class GridBuilder {
     return titleText;
   }
 
+  /**
+   * Purpose: Instructions for creating a grid on screen.
+   * Assumptions: inputs are valid
+   * Parameters: String title, String type, int rows, int cols, List cells
+   * Dependencies: List of cells from Grid
+   */
   public void createGrid(String title, String type, int rows, int cols, List<Integer> cells) {
     clearGrid();
     myTitle = title;
     myType = type;
+    myType = myType.replaceAll("\\s", "");
     setGameTitleText();
     myRoot.getChildren().remove(myCells);
     createPolyGrid(rows, cols, cells);
@@ -65,7 +74,7 @@ public abstract class GridBuilder {
   /**
    * Purpose: Updates the grid based on new cell information passed in.
    * Assumptions: Integer list will be passed in and will have valid values.
-   * Parameters: List<Integer> cells
+   * Parameters: List cells
    * Example of use: updateGrid(cells)
    */
   public void updateGrid(List<Integer> cells, int row, int col) {
@@ -89,9 +98,5 @@ public abstract class GridBuilder {
       myRoot.getChildren().remove(cell);
     }
     myCells.removeAll(myCells);
-  }
-
-  public int getSize() {
-    return myCells.size();
   }
 }
