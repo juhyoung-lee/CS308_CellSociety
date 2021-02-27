@@ -1,0 +1,26 @@
+<root>
+  <information>
+    <type>Game of Life</type>
+    <title>Infinite Glider</title>
+    <author>wiki</author>
+    <description>Loaf should not change at all</description>
+    <gridType>infinite</gridType>
+  </information>
+  <parameters>
+    <width>10</width>
+    <height>10</height>
+    <neighborhoodSize>8</neighborhoodSize>
+  </parameters>
+  <cells>
+    <cellRow>0010000000</cellRow>
+    <cellRow>1010000000</cellRow>
+    <cellRow>0110000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0000000000</cellRow>
+  </cells>
+</root>

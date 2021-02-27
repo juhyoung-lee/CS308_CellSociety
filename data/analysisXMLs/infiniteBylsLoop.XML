@@ -1,0 +1,46 @@
+<root>
+  <information>
+    <type>Byls Loop</type>
+    <title>Starting Loop</title>
+    <author>Jessica</author>
+    <description>One starting loop</description>
+    <gridType>infinite</gridType>
+  </information>
+  <parameters>
+    <width>30</width>
+    <height>30</height>
+    <neighborhoodSize>4</neighborhoodSize>
+  </parameters>
+  <cells>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000002200000000</cellRow>
+    <cellRow>000000000000000000023120000000</cellRow>
+    <cellRow>000000000000000000023420000000</cellRow>
+    <cellRow>000000000000000000002500000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+  </cells>
+</root>
