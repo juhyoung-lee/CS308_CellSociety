@@ -1,0 +1,46 @@
+<root>
+  <information>
+    <type>Byls Loop</type>
+    <title>Infinite Edge</title>
+    <author>Jessica</author>
+    <description>Using a infinite edge.</description>
+    <gridType>infinite</gridType>
+  </information>
+  <parameters>
+    <width>30</width>
+    <height>30</height>
+    <neighborhoodSize>4</neighborhoodSize>
+  </parameters>
+  <cells>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000022000000000000000</cellRow>
+    <cellRow>000000000000231200000000000000</cellRow>
+    <cellRow>000000000000234200000000000000</cellRow>
+    <cellRow>000000000000025000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+    <cellRow>000000000000000000000000000000</cellRow>
+  </cells>
+</root>
