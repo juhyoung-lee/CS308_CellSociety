@@ -16,7 +16,7 @@ public abstract class Cell {
   public static final int NO_MOVEMENT = -1;
   public static final String STATE_KEY = "state";
   public static final String PARAMETER_EXCEPTION_MESSAGE = "Cell parameter invalid.";
-  private Map<String, Integer> moveState = new HashMap<>();
+  private final Map<String, Integer> moveState = new HashMap<>();
   private int myState;
   private int nextState;
   private int maxStateValue;
@@ -65,10 +65,9 @@ public abstract class Cell {
    * Exceptions: None.
    * Returns: int object.
    */
-  public int updateState() {
+  public void updateState() {
     myState = nextState;
     nextState = -1;
-    return myState;
   }
 
   /**
