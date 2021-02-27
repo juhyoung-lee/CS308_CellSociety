@@ -25,8 +25,9 @@
     * HelperGrid: Builds grid
     * Grid: Contains cell position and states
     * Cell: Specific implementation for each simulation, under each child class
-* Controller
-    * Simulation:
+* Controller (sort of)
+    * Simulation: turns the data in the XML into an object that can be accessed 
+    * createXMl: makes an XML file out of the current state of the simulation
 * View
     * ButtonBuilder: Creates buttons and sets their actions
     * GridBuilder: Holds basic information of building/updating visual grid (extends to different shapes)

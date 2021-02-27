@@ -1,7 +1,6 @@
 package cellsociety.view;
 
 import cellsociety.Control;
-import cellsociety.view.GridBuilder;
 import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -9,9 +8,9 @@ import javafx.scene.shape.Polygon;
 
 /**
  * Purpose: Creates the Rectangle grid for the view. Extends GridBuilder.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: None.
+ * Dependencies: Control class, JavaFX and Java util libraries.
+ * Example of use: myHexGrid = new HexagonGrid(myStyleSheet, myScene, myGridBox)
  *
  * @author Jessica Yang
  */
@@ -19,9 +18,9 @@ public class HexagonGrid extends GridBuilder {
 
   /**
    * Purpose: Constructor for HexagonGrid class.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: String styleSheet, Scene scene, Pane root.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: HexagonGrid object.
    */
   public HexagonGrid(String styleSheet, Scene scene, Pane root) {
@@ -31,9 +30,9 @@ public class HexagonGrid extends GridBuilder {
 
   /**
    * Purpose: Populates view with hexagon Polygons.
-   * Assumptions: TODO
+   * Assumptions: None.
    * Parameters: int rows, int cols, List cells.
-   * Exceptions: TODO
+   * Exceptions: None.
    * Returns: None.
    */
   @Override
