@@ -1,0 +1,35 @@
+<root>
+  <information>
+    <type>Rock Paper Scissors</type>
+    <title>Hexagon</title>
+    <author>Jessica</author>
+    <description>Uses hexagon as cell shape.</description>
+    <shape>hexagon</shape>
+  </information>
+  <parameters>
+    <loseThreshold>3</loseThreshold>
+    <bufferBound>3</bufferBound>
+    <width>17</width>
+    <height>17</height>
+    <neighborhoodSize>6</neighborhoodSize>
+  </parameters>
+  <cells>
+    <cellRow>02211000122102120</cellRow>
+    <cellRow>01122001011212212</cellRow>
+    <cellRow>01100120021021011</cellRow>
+    <cellRow>00011121110102220</cellRow>
+    <cellRow>02021201121201110</cellRow>
+    <cellRow>12000120000020021</cellRow>
+    <cellRow>11212210010002121</cellRow>
+    <cellRow>02110101202010211</cellRow>
+    <cellRow>21002201022211102</cellRow>
+    <cellRow>01101100022100100</cellRow>
+    <cellRow>00000220000210212</cellRow>
+    <cellRow>00110100212101102</cellRow>
+    <cellRow>11000101222012021</cellRow>
+    <cellRow>12002221102121111</cellRow>
+    <cellRow>02121002012021111</cellRow>
+    <cellRow>11100012001202112</cellRow>
+    <cellRow>01002220020221221</cellRow>
+  </cells>
+</root>

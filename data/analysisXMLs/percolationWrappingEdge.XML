@@ -1,0 +1,26 @@
+<root>
+  <information>
+    <type>Percolation</type>
+    <title>Wrapping</title>
+    <author>Jessica</author>
+    <description>Wrapping shows how water seeps from one edge to another.</description>
+    <gridType>wrapping</gridType>
+  </information>
+  <parameters>
+    <width>10</width>
+    <height>10</height>
+    <neighborhoodSize>4</neighborhoodSize>
+  </parameters>
+  <cells>
+    <cellRow>2222222222</cellRow>
+    <cellRow>0000000001</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1000000000</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>0000000001</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>1000000000</cellRow>
+    <cellRow>1111111111</cellRow>
+    <cellRow>0000000001</cellRow>
+  </cells>
+</root>
