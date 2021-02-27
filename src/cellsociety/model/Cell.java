@@ -8,6 +8,11 @@ import java.util.Map;
  * Assumptions: Extended by child classes that are called by a Grid child class.
  * Dependencies: HashMap and Map libraries.
  * Example of use: Extended by child class WaTorCell.
+ * Code masterpiece: abstract superclass implemented by each of the cell children classes. Makes use
+ *    of encapsulation and polymorphism, and and follows SRP, OCP, and LSP. Also carefully returns
+ *    objects such that data stored in the class itself cannot be modified. Made up of variables and
+ *    objects common between all the child classes. Uses getters/setters to communicate information
+ *    to and from child classes to avoid code duplication between child classes.
  *
  * @author Jessica Yang, Juhyoung Lee
  */

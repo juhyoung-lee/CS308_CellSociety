@@ -8,6 +8,10 @@ import java.util.Map;
  * Assumptions: None.
  * Dependencies: Cell class and Map library.
  * Example of use: Cell segregation = new SegregationCell(params).
+ * Code masterpiece: implementation of Cell superclass, and uses polymorphism to implement abstract
+ *    methods in the super class in a way specific to this class. Uses variables names instead of
+ *    magic numbers, breaks up long methods into shorter methods, and follows LSP. Demonstrates how
+ *    each of the abstract methods in Cell can be implemented.
  *
  * @author Jessica Yang
  */
