@@ -1,0 +1,37 @@
+<root>
+    <information>
+        <type>Segregation</type>
+        <title>Segregation Simulation</title>
+        <author>Kathleen</author>
+        <description>simulator for segregation for analysis in triangle grids</description>
+        <shape>triangle</shape>
+    </information>
+    <parameters>
+        <neighborhoodSize>12</neighborhoodSize>
+        <threshold>50</threshold>
+        <width>20</width>
+        <height>20</height>
+    </parameters>
+    <cells>
+        <cellRow>00000000000001001000</cellRow>
+        <cellRow>00010010000000020000</cellRow>
+        <cellRow>22222222220000020000</cellRow>
+        <cellRow>00110200002222222222</cellRow>
+        <cellRow>00000200000000000000</cellRow>
+        <cellRow>00001210000000121000</cellRow>
+        <cellRow>00111110001000000000</cellRow>
+        <cellRow>00000000000011111000</cellRow>
+        <cellRow>10000000000000000101</cellRow>
+        <cellRow>00000001010000000101</cellRow>
+        <cellRow>22222222220000020000</cellRow>
+        <cellRow>22222222220000020000</cellRow>
+        <cellRow>00001210000000121000</cellRow>
+        <cellRow>00111110001000000000</cellRow>
+        <cellRow>00001210000000121000</cellRow>
+        <cellRow>00111110001000000000</cellRow>
+        <cellRow>00000000000011111000</cellRow>
+        <cellRow>10000000000000000101</cellRow>
+        <cellRow>22222222220000020000</cellRow>
+        <cellRow>00110200002222222222</cellRow>
+    </cells>
+</root>
