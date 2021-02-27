@@ -27,11 +27,13 @@ import javafx.stage.Stage;
  *              All information passed to ScreenControl from the grid and xml parsing are valid
  *              (does not check for exceptions in front end stuff)
  * Dependencies: cellsociety.Control, java.util.ArrayList, java.util.Collections, java.util.HashMap,
- *               java.util.List, java.util.Map, java.util.ResourceBundle, javafx.collections.FXCollections,
- *               javafx.collections.ObservableList, javafx.event.ActionEvent, javafx.event.EventHandler;
- *               javafx.scene.Scene, javafx.scene.chart.PieChart, javafx.scene.control.Button,
- *               javafx.scene.control.ComboBox, javafx.scene.control.TextField, javafx.scene.layout.*,
- *               javafx.scene.text.Font, javafx.scene.text.Text, javafx.stage.Stage
+ *               java.util.List, java.util.Map, java.util.ResourceBundle,
+ *               javafx.collections.FXCollections, javafx.collections.ObservableList,
+ *               javafx.event.ActionEvent, javafx.event.EventHandler, javafx.scene.Scene,
+ *               javafx.scene.chart.PieChart, javafx.scene.control.Button,
+ *               javafx.scene.control.ComboBox, javafx.scene.control.TextField,
+ *               javafx.scene.layout.*, javafx.scene.text.Font,
+ *               javafx.scene.text.Text, javafx.stage.Stage
  * Example of use: mySC = new ScreenControl(Control control)
  *
  * @author Kathleen Chen, Jessica Yang
@@ -317,9 +319,11 @@ public class ScreenControl {
   public void clearGrid() {
     if (myRectGrid != null) {
       myRectGrid.clearGrid();
-    } else if (myTriGrid != null) {
+    }
+    if (myTriGrid != null) {
       myTriGrid.clearGrid();
-    } else if (myHexGrid != null) {
+    }
+    if (myHexGrid != null) {
       myHexGrid.clearGrid();
     }
     resetGameTitleText();
