@@ -54,12 +54,13 @@ public abstract class GridBuilder {
 
   /**
    * Purpose: Instructions for creating a grid on screen.
-   * Assumptions: Inputs are valid
+   * Assumptions: Inputs are valid; createPolyGrid will get overriden when making a specific grid
    * Parameters: String title, String type, int rows, int cols, List cells
    * Exceptions: None
    */
   public void createGrid(String title, String type, int rows, int cols, List<Integer> cells) {
     clearGrid();
+    myRoot.getChildren().remove(titleText);
     myTitle = title;
     myType = type;
     myType = myType.replaceAll("\\s", "");
