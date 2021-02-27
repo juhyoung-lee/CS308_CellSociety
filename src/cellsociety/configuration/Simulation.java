@@ -67,6 +67,11 @@ public class Simulation {
         throw new XMLException("Missing Field: " + s);
       }
     }
+    checkShape();
+    checkGrid();
+  }
+
+  private void checkShape() {
     boolean isValidShape = false;
     String tempShape = myInformation.get(SHAPE);
     for (String s : SHAPE_OPTIONS) {
@@ -78,6 +83,9 @@ public class Simulation {
     if (!isValidShape) {
       myInformation.put(SHAPE, DEFAULT_SHAPE);
     }
+  }
+
+  private void checkGrid() {
     boolean isValidGrid = false;
     String tempGrid = myInformation.get(GRID_TYPE);
     for (String s : GRID_OPTIONS) {
