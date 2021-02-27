@@ -1,0 +1,26 @@
+<root>
+  <information>
+    <type>Fire</type>
+    <title>Missing Neighborhood Size</title>
+    <author>Kenny</author>
+    <description>Works despite missing neighborhood size.  Default is 4.  </description>
+    <shape>square</shape>
+  </information>
+  <parameters>
+    <prob>50</prob>
+    <width>10</width>
+    <height>10</height>
+  </parameters>
+  <cells>
+    <cellRow>0000000000</cellRow>
+    <cellRow>0001001000</cellRow>
+    <cellRow>2222222222</cellRow>
+    <cellRow>0011020000</cellRow>
+    <cellRow>0000020000</cellRow>
+    <cellRow>0000121000</cellRow>
+    <cellRow>0011111000</cellRow>
+    <cellRow>0000000000</cellRow>
+    <cellRow>1000000000</cellRow>
+    <cellRow>0000000101</cellRow>
+  </cells>
+</root>

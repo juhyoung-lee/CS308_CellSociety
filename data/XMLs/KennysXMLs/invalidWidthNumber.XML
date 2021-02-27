@@ -1,0 +1,32 @@
+<root>
+  <information>
+    <type>Game of Life</type>
+    <title>Invalid Width Number</title>
+    <author>Kenny</author>
+    <description>Shows error that width is invalid.  Works same for height.  </description>
+  </information>
+  <parameters>
+    <width>16</width>
+    <height>17</height>
+    <neighborhoodSize>8</neighborhoodSize>>
+  </parameters>
+  <cells>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+  </cells>
+</root>

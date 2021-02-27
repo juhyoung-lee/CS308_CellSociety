@@ -1,0 +1,33 @@
+<root>
+  <information>
+    <type>Game of Life</type>
+    <title>More Cell Rows</title>
+    <author>Kenny</author>
+    <description>Shows error for too many cell rows.  Works same for width.  </description>
+  </information>
+  <parameters>
+    <width>17</width>
+    <height>17</height>
+    <neighborhoodSize>8</neighborhoodSize>>
+  </parameters>
+  <cells>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+  </cells>
+</root>

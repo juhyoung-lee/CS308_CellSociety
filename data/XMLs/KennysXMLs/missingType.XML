@@ -1,9 +1,8 @@
 <root>
   <information>
-    <type>Game of Life</type>
-    <title>Glider</title>
-    <author>wiki</author>
-    <description>Moves across screen</description>
+    <title>Missing the type</title>
+    <author>kenny</author>
+    <description>Missing type.  Shows error type in window.  Works same for all info.</description>
   </information>
   <parameters>
     <width>10</width>

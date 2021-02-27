@@ -2,8 +2,8 @@
   <information>
     <type>Game of Life</type>
     <title>Glider</title>
-    <author>wiki</author>
-    <description>Moves across screen</description>
+    <author>kenny</author>
+    <description>Works despite missing shape.  Default shape is square.  </description>
   </information>
   <parameters>
     <width>10</width>
