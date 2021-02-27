@@ -36,6 +36,7 @@ public class SegregationCell extends Cell {
     checkParameters(config);
   }
 
+  /** Checks validity of parameters passed from constructor. */
   private void checkParameters(Map<String, Integer> config) throws Exception {
     try {
       myThreshold = (double) config.get(thresholdKey) / 100;
@@ -71,6 +72,7 @@ public class SegregationCell extends Cell {
     return getMoveStateCopy();
   }
 
+  /** Calculates similarity score for cell to use in state decisions. */
   private double calculateSimilarity(int[] neighborStates) {
     int nonEmpty = 0;
     int sameState = 0;
