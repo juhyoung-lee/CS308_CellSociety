@@ -317,9 +317,11 @@ public class ScreenControl {
   public void clearGrid() {
     if (myRectGrid != null) {
       myRectGrid.clearGrid();
-    } else if (myTriGrid != null) {
+    }
+    if (myTriGrid != null) {
       myTriGrid.clearGrid();
-    } else if (myHexGrid != null) {
+    }
+    if (myHexGrid != null) {
       myHexGrid.clearGrid();
     }
     resetGameTitleText();
