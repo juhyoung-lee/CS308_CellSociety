@@ -1,0 +1,33 @@
+<root>
+  <information>
+    <type>Game of Life</type>
+    <title>Non-Int Parameter</title>
+    <author>Kenny</author>
+    <description>Shows error for parameter section.  Works similarly for Info and Cell section.
+      Same error shown if parameter section is missing or formatted badly.  </description>
+  </information>
+  <parameters>
+    <width>17</width>
+    <height>17</height>
+    <neighborhoodSize>eight</neighborhoodSize>>
+  </parameters>
+  <cells>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+  </cells>
+</root>

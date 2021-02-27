@@ -1,0 +1,34 @@
+<root>
+  <information>
+    <type>Game of Life</type>
+    <title>bad Shape</title>
+    <author>Kenny</author>
+    <description>Even if shape is given but not a valid option it defaults to square.
+    Works the same for neighborhood size.  </description>
+    <shape>circle</shape>
+  </information>
+  <parameters>
+    <width>17</width>
+    <height>17</height>
+    <neighborhoodSize>8</neighborhoodSize>>
+  </parameters>
+  <cells>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00100001010000100</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00001110001110000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+    <cellRow>00000000000000000</cellRow>
+  </cells>
+</root>
