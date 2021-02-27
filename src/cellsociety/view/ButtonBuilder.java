@@ -1,17 +1,17 @@
 package cellsociety.view;
 
 import cellsociety.Control;
+import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-import java.util.ResourceBundle;
-
 /**
  * Purpose: Creates buttons for the view.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: None
+ * Dependencies: cellsociety.Control, javafx.geometry.Pos, javafx.scene.control.Button,
+ *               javafx.scene.layout.VBox, java.utils.ResourceBundle
+ * Example of use: ButtonBuilder button = new ButtonBuilder(control, rBundle, sc)
  *
  * @author Kathleen Chen
  */
@@ -24,16 +24,15 @@ public class ButtonBuilder {
 
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Constructor of ButtonBuilder.
+   * Assumptions: rBundle is not empty
+   * Parameters: Control control, ResourceBundle rBundle, ScreenControl sc
+   * Exception: None
    */
-  public ButtonBuilder(Control control, ResourceBundle rBundle, ScreenControl sc) {
+  public ButtonBuilder(Control control, ResourceBundle resourceBundle, ScreenControl sc) {
     myControl = control;
     mySC = sc;
-    myResources = rBundle;
+    myResources = resourceBundle;
     myBox = new VBox();
     myBox.setAlignment(Pos.CENTER_LEFT);
     myBox.setSpacing(5.0);
@@ -41,11 +40,10 @@ public class ButtonBuilder {
   }
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Creates each button and sets its actions when it is pressed.
+   * Assumptions: rBundle has all of the keys for each button
+   * Parameters: None
+   * Exception: None
    */
   public void createButtons() {
     Button startButton = buttonCreation(myResources.getString("PlayButton"));
@@ -78,25 +76,26 @@ public class ButtonBuilder {
   }
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Returns the VBox that holds all the buttons
+   *          so that buttons can be displayed on a main Pane.
+   * Assumptions: None
+   * Parameters: None
+   * Exception: None
+   * Returns: VBox
    */
   public VBox getBox() {
     return myBox;
   }
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Removes all the current buttons from the VBox
+   *          and recreates buttons to match the correct .properties file.
+   * Assumptions: resourceBundle is not empty
+   * Parameters: ResourceBundle resourceBundle
+   * Exception: None
    */
-  public void resetButtons(ResourceBundle rBundle) {
-    myResources = rBundle;
+  public void resetButtons(ResourceBundle resourceBundle) {
+    myResources = resourceBundle;
     myBox.getChildren().removeAll(myBox.getChildren());
     createButtons();
   }

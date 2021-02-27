@@ -1,16 +1,13 @@
 package cellsociety.view;
 
 import cellsociety.Control;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
-
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,9 +23,16 @@ import javafx.stage.Stage;
 
 /**
  * Purpose: Creates screen display that user interacts with.
- * Assumptions: Values passed in are valid
- * Dependencies: Depends on the grid array passed in to create a grid
- * Example of use: mySC = new ScreenControl() mySC.createGrid(row, col, Grid.viewGrid()) mySC.clearGrid()
+ * Assumptions: Values passed in are valid;
+ *              All information passed to ScreenControl from the grid and xml parsing are valid
+ *              (does not check for exceptions in front end stuff)
+ * Dependencies: cellsociety.Control, java.util.ArrayList, java.util.Collections, java.util.HashMap,
+ *               java.util.List, java.util.Map, java.util.ResourceBundle, javafx.collections.FXCollections,
+ *               javafx.collections.ObservableList, javafx.event.ActionEvent, javafx.event.EventHandler;
+ *               javafx.scene.Scene, javafx.scene.chart.PieChart, javafx.scene.control.Button,
+ *               javafx.scene.control.ComboBox, javafx.scene.control.TextField, javafx.scene.layout.*,
+ *               javafx.scene.text.Font, javafx.scene.text.Text, javafx.stage.Stage
+ * Example of use: mySC = new ScreenControl(Control control)
  *
  * @author Kathleen Chen, Jessica Yang
  */
@@ -58,10 +62,9 @@ public class ScreenControl {
 
   /**
    * Purpose: Constructor of ScreenControl.
-   * Assumptions: NA
+   * Assumptions: None
    * Parameters: Control simulationControl
-   * Dependencies: NA
-   * Example of use: sc = new ScreenControl(sim)
+   * ExcptionsL None
    */
   public ScreenControl(Control simulationControl) {
     sim = simulationControl;
@@ -134,10 +137,9 @@ public class ScreenControl {
 
   /**
    * Purpose: Construct Graph Window.
-   * Assumptions: NA
-   * Parameters: NA
-   * Dependencies: NA
-   * Example of use: sc.makeNewGraphWindow()
+   * Assumptions: None
+   * Parameters: None
+   * Exceptions: None
    */
   public void makeNewGraphWindow() {
     int size = Control.X_SIZE;
@@ -237,16 +239,15 @@ public class ScreenControl {
   }
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Create grid on display screen based on the shape
+   * Assumptions: None
+   * Parameters: String title, String type, int rows, int cols, List<Integer> cells, String shape
+   * Exceptions: None
    */
   public void createGrid(String title, String type, int rows, int cols, List<Integer> cells, String shape) {
     myType = type;
     myType = myType.replaceAll("\\s", "");
-    if(shape.equals("square")) {
+    if (shape.equals("square")) {
       createRecGrid(title, type, rows, cols, cells);
     } else if (shape.equals("triangle")) {
       createTriGrid(title, type, rows, cols, cells);
@@ -257,7 +258,6 @@ public class ScreenControl {
       updateGraph(cells);
     }
   }
-
 
   private void createRecGrid(String title, String type, int rows, int cols, List<Integer> cells) {
     myRectGrid = new RectangleGrid(myStyleSheet, myScene, myGridBox);
@@ -290,11 +290,10 @@ public class ScreenControl {
   }
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Update the display of Grid based on shape.
+   * Assumptions: None
+   * Parameters: List cells, int row, int col
+   * Exceptions: None
    */
   public void updateGrid(List<Integer> cells, int row, int col) {
     if (myRectGrid != null) {
@@ -310,11 +309,10 @@ public class ScreenControl {
   }
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Clears the display of grid.
+   * Assumptions: None
+   * Parameters: None
+   * Exceptions: None
    */
   public void clearGrid() {
     if (myRectGrid != null) {
@@ -328,11 +326,11 @@ public class ScreenControl {
   }
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Return the scene.
+   * Assumptions: None
+   * Parameters: None
+   * Exceptions: None
+   * Return: Scene
    */
   public Scene getScene() {
     return myScene;
@@ -350,11 +348,10 @@ public class ScreenControl {
   }
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Display error message on scene.
+   * Assumptions: None
+   * Parameters: String message
+   * Exceptions: None
    */
   public void displayErrorMessage(String message) {
     myError = new ErrorMessage(message);
@@ -363,11 +360,10 @@ public class ScreenControl {
   }
 
   /**
-   * Purpose: TODO
-   * Assumptions: TODO
-   * Parameters: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Clear error message when resolved.
+   * Assumptions: None
+   * Parameters: None
+   * Exceptions: None
    */
   public void clearError() {
     if (myError != null) {

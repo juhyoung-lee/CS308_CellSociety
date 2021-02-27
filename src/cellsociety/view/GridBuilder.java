@@ -1,20 +1,21 @@
 package cellsociety.view;
 
 import cellsociety.Control;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Purpose: Abstract class for all grids that could appear in the view.
- * Assumptions: TODO
- * Dependencies: TODO
- * Example of use: TODO
+ * Assumptions: Size of screen is set when deciding where to place the title
+ * Dependencies: cellsociety.Control, java.util.ArrayList, java.util.List, javafx.scene.Scene,
+ *               javafx.scene.layout.Pane, javafx.scene.shape.Polygon, javafx.scene.text.Font,
+ *               javafx.scene.text.Text
+ * Example of use: Extended by HexagonGrid, RectangleGrid, and TriangleGrid
  *
  * @author Kathleen Chen
  */
@@ -27,10 +28,10 @@ public abstract class GridBuilder {
   protected Pane myRoot;
 
   /**
-   * Purpose: Creates the grid for the view.
-   * Assumptions: TODO
-   * Dependencies: TODO
-   * Example of use: TODO
+   * Purpose: Constructor of GridBuilder class.
+   * Assumptions: styleSheet exists
+   * Parameters: String styleSheet, Scene scene, Pane root
+   * Exception: None
    */
   public GridBuilder(String styleSheet, Scene scene, Pane root) {
     scene.getStylesheets().add(styleSheet);
@@ -53,12 +54,13 @@ public abstract class GridBuilder {
 
   /**
    * Purpose: Instructions for creating a grid on screen.
-   * Assumptions: inputs are valid
+   * Assumptions: Inputs are valid; createPolyGrid will get overriden when making a specific grid
    * Parameters: String title, String type, int rows, int cols, List cells
-   * Dependencies: List of cells from Grid
+   * Exceptions: None
    */
   public void createGrid(String title, String type, int rows, int cols, List<Integer> cells) {
     clearGrid();
+    myRoot.getChildren().remove(titleText);
     myTitle = title;
     myType = type;
     myType = myType.replaceAll("\\s", "");
@@ -75,7 +77,7 @@ public abstract class GridBuilder {
    * Purpose: Updates the grid based on new cell information passed in.
    * Assumptions: Integer list will be passed in and will have valid values.
    * Parameters: List cells
-   * Example of use: updateGrid(cells)
+   * Exceptions: None
    */
   public void updateGrid(List<Integer> cells, int row, int col) {
     if (cells.size() != myCells.size()) {
@@ -90,7 +92,9 @@ public abstract class GridBuilder {
 
   /**
    * Purpose: Clear grid from view.
-   * Example of use: clearGrid() in control class
+   * Assumptions: None
+   * Parameters: None
+   * Exceptions: None
    */
   public void clearGrid() {
     for (Polygon cell : myCells) {

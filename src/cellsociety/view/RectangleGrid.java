@@ -1,17 +1,16 @@
 package cellsociety.view;
 
 import cellsociety.Control;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 
-import java.util.List;
-
 /**
  * Purpose: Creates the Rectangle grid for the view. Extends GridBuilder.
- * Assumptions: the parameters passed in are valid (there are no checks for incorrect parameters)
- * Dependencies: inherits from GridBuilder class
- * Example of use: RectangleGrid rect = new RectangleGrid(styleSheet, scene, root) rect.createPolyGrid(rows, cols, cells)
+ * Assumptions: The parameters passed in are valid (there are no checks for incorrect parameters)
+ * Dependencies: Inherits from GridBuilder class.
+ * Example of use: RectangleGrid rect = new RectangleGrid(styleSheet, scene, root)
  *
  * @author Kathleen Chen
  */
@@ -19,10 +18,9 @@ import java.util.List;
 public class RectangleGrid extends GridBuilder {
   /**
    * Purpose: Constructor of RectangleGrid.
-   * Assumptions: NA
+   * Assumptions: None
    * Parameters: String styleSheet, Scene scene, Pane root
-   * Dependencies: root, scene, and styleSheet are passed in from ScreenControl
-   * Example of use: new RectangleGrid(styleSheet, scene, root)
+   * Exceptions: None
    */
   public RectangleGrid(String styleSheet, Scene scene, Pane root) {
     super(styleSheet, scene, root);
@@ -34,8 +32,7 @@ public class RectangleGrid extends GridBuilder {
    *          Overrides the createPolyGrid() method in the GridBuilder class (superclass).
    * Assumptions: RectangleGrid has been initialized
    * Parameters: int rows, int cols, List cell
-   * Dependencies: Integer list from Grid class
-   * Example of use: rect.createPolyGrid(rows, cols, cells)
+   * Exceptions: None
    */
   @Override
   protected void createPolyGrid(int rows, int cols, List<Integer> cells) {
