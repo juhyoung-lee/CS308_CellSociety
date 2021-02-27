@@ -1,1 +1,1 @@
-This file is not an XMl and therefore the program shows a bad file error.  
+This file is not an XMl and therefore the program shows a bad file error.
